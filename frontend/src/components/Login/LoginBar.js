@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import RegisterDialog from './RegisterDialog';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,7 +29,7 @@ export default function LoginBar() {
                     <Typography variant="h6" className={classes.title}>
                         Welcome
                     </Typography>
-                    <Button color="inherit" href="/register">Sign In</Button>
+                    <RegisterDialog/>
                 </Toolbar>
             </AppBar>
         </div>

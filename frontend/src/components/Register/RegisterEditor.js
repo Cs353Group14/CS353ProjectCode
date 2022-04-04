@@ -4,7 +4,7 @@ import RegisterBar from "./RegisterBar";
 
 
 
-function Register() {
+function RegisterEditor() {
 
     const[username, setUsername] = useState("");
     const[password,setPassword] = useState("");
@@ -88,4 +88,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default RegisterEditor;

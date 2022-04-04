@@ -5,8 +5,8 @@ import './Profile.css'
 function ProfileCard(props) 
 {
     return (<div>
-        <Card variant="outlined"  style={{display: "inline-block", paddingRight: "50px", paddingLeft: "50px"}}>
-            <CardMedia sx={{p: 8, m: 8}} style={{align: "center"}}>
+        <Card variant="outlined" >
+            <CardMedia  align='center'>
                 <Avatar align='center'
                     src={props.img}
                     style={{

@@ -33,6 +33,7 @@ function ReferralCard() {
           titleTypographyProps={{variant:'h5' }}
           subheader="Google Engineer"
           subheaderTypographyProps={{variant: 'h7'}}
+          action=''
         />
         <Typography style={{padding: "20px"}}>X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!</Typography>
       </Card>);

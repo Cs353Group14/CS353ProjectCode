@@ -1,9 +1,11 @@
 import React, {useState} from "react";
-import { Avatar, ListItem, List,ListItemAvatar, ListItemText } from "@material-ui/core";
+import { Avatar, ListItem, List,ListItemAvatar, ListItemText, Grid } from "@material-ui/core";
 
 function ViewCard(props)
 {
     return (
+        <Grid item xs={12} direction="column" container justify = "center" >
+
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         <ListItem>
         {props.content}
@@ -14,6 +16,7 @@ function ViewCard(props)
         <ListItem>
         {props.content}
         </ListItem>
-  </List>);
+  </List>
+  </Grid>);
 }
 export default ViewCard;

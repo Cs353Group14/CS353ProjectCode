@@ -16,6 +16,13 @@ function Login() {
         setPassword(event.target.value);
     }
 
+    function handleLoginClick() {
+        console.log("Logged In");
+        setTimeout(function() {
+            window.location.href = "http://localhost:3000/";
+        }, 1000)
+    }
+
     return(
         <div className={"login"}>
 
@@ -31,7 +38,7 @@ function Login() {
                 </form>
 
                 <div className={"login-button"}>
-                    <Button variant="contained" href="JavaScript:setTimeout(10000)"  >
+                    <Button variant="contained" onClick={handleLoginClick}  >
                     Login
                     </Button>
                 </div>

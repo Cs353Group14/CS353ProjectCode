@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function LoginBar() {
+export default function RegisterBar() {
     const classes = useStyles();
 
     return (
@@ -28,7 +28,7 @@ export default function LoginBar() {
                     <Typography variant="h6" className={classes.title}>
                         Welcome
                     </Typography>
-                    <Button color="inherit" href="/register">Sign In</Button>
+                    <Button color="inherit" href="/">Cancel</Button>
                 </Toolbar>
             </AppBar>
         </div>

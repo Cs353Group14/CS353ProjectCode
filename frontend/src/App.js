@@ -2,12 +2,18 @@ import './App.css';
 import React from "react";
 import {BrowserRouter, Route, Link, Routes} from "react-router-dom";
 import Login from "./components/Login/Login";
-import LoginBar from './components/Login/LoginBar';
+import Register from './components/Register/Register';
 
 function App() {
   return (
-    <Login/>
+    <BrowserRouter>
+    <Routes>
+      <Route path = {"/"} element = {<Login/>}/>
+      <Route path = {"/register"} element = {<Register/>}/>
+    </Routes>
+    </BrowserRouter>
   );
 }
+
 
 export default App;

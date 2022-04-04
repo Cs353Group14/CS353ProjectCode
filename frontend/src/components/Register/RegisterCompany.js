@@ -51,7 +51,7 @@ function RegisterCompany() {
         <div className={"sign-in"}>
             <RegisterBar/>
         
-            <div className={"login-root"}>
+            <div className={"register-root"}>
 
             <form className={"login-entry"} noValidate autoComplete="off">
                     <TextField label="Username" onChange={handleNewUsername}/>
@@ -77,7 +77,7 @@ function RegisterCompany() {
                     <TextField label="Web Page Link" onChange={handleNewLink}/>
                 </form>
 
-                <div className={"login-button"}>
+                <div >
                     <Button variant="contained"  onClick={handleRegisterClick} >
                         Register
                     </Button>

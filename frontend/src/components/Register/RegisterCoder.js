@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import {Button, TextField} from "@material-ui/core";
 import RegisterBar from "./RegisterBar";
+import './Register.css'
 
 
 
@@ -56,41 +57,49 @@ function RegisterCoder() {
         <div className={"sign-in"}>
             <RegisterBar/>
         
-            <div className={"login-root"}>
+            <div className={"register-root"}>
+            <div className="register-elements">
 
-            <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Username" onChange={handleNewUsername}/>
+                <div className="register-element-left">
+                <form className={"register-entry-left"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Username" onChange={handleNewUsername}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Password" type={"password"} onChange={handleNewPassword}/>
+                <form className={"register-entry-left"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Password" type={"password"} onChange={handleNewPassword}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Name" onChange={handleNewName}/>
+                <form className={"register-entry-left"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Name" onChange={handleNewName}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="E-mail"  type={"email"} onChange={handleNewMail} />
+                <form className={"register-entry-left"} noValidate autoComplete="off">
+                    <TextField fullWidth label="E-mail"  type={"email"} onChange={handleNewMail} />
+                </form>
+                </div>
+
+                <div className="register-element-right">
+                <form className={"register-entry-right"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Birth Year" type={"number"} onChange={handleNewBirthYear}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Birth Year" type={"number"} onChange={handleNewBirthYear}/>
+                <form className={"register-entry-right"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Current Position" onChange={handleNewPosition}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Current Position" onChange={handleNewPosition}/>
+                <form className={"register-entry-right"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Current Company" onChange={handleNewPlace}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Current Company" onChange={handleNewPlace}/>
+                <form className={"register-entry-right"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Current Company" onChange={handleNewPlace}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Current Company" onChange={handleNewPlace}/>
-                </form>
+                </div>
 
-                <div className={"login-button"}>
+                </div>
+
+                <div className={"register-button"}>
                     <Button variant="contained"  onClick={handleRegisterClick} >
                         Register
                     </Button>

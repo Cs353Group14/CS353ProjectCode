@@ -6,6 +6,7 @@ import RegisterCoder from './components/Register/RegisterCoder';
 import RegisterEditor from './components/Register/RegisterEditor';
 import RegisterCompany from './components/Register/RegisterCompany';
 import Profile from './components/Profile/Profile'
+import CodingCardContainer from './components/CodingChallenges/CodingCard/CodingCardContainer';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path = {"/register-coder"} element = {<RegisterCoder/>}/>
       <Route path = {"/register-editor"} element = {<RegisterEditor/>}/>
       <Route path = {"/register-company"} element = {<RegisterCompany/>}/>
+      <Route path = {"/coding-challenges"} element = {<CodingCardContainer/>}/>
       <Route path = {"/profile"} element = {<Profile/>}/>
     </Routes>
     </BrowserRouter>

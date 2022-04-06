@@ -1,8 +1,9 @@
 import React from "react";
-import {Avatar, Card, CardMedia, CardContent, Typography, Grid} from "@material-ui/core";
+import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Button} from "@material-ui/core";
 import './Profile.css'
 import ProfileCard from "./ProfileCard";
-import ViewCard from "../../View/ViewCard";
+import ViewReferral from "../../View/ViewReferral";
+import ViewBadge from "../../View/ViewBadge";
 import ReferralCard from "./ReferralCard";
 import ProfileBadge from "./ProfileBadge";
 
@@ -25,6 +26,76 @@ const theme = createTheme({
   },
 });
 
+//Dummy data for now
+
+var profileInfoBasic = {
+    name: "Name",
+    surname: "Surname",
+    position: "POSITION"
+}
+
+var profileInfo = 
+{
+    ranking: "2",
+    contestAttended:  "10",
+    solvedQuestions: "346"
+}
+
+var awards = [
+    {
+        contestName: "Contest1",
+        place: "1st"
+    },
+    {
+        contestName: "Contest2",
+        place: "1st"
+    },
+    {
+        contestName: "Contest3",
+        place: "2nd"
+    },
+    {
+        contestName: "Contest4",
+        place: "2nd"
+    }
+]
+
+var referrals = 
+[
+    {
+        img: 'img.png',
+        name: "A coder",
+        position: "Google engineer",
+        email: "x@com",
+        description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
+    },
+    {
+        img: 'img.png',
+        name: "Y editor",
+        position: "Google engineer",
+        email: "x@com",
+        description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
+
+    },
+    {
+        img: 'img.png',
+        name: "Z coder",
+        position: "Facebook engineer",
+        email: "x@com",
+        description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
+
+    },
+    {
+        img: 'img.png',
+        name: "M editor",
+        position: "Facebook engineer",
+        email: "x@com",
+        description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
+    }
+]
+
+
+//The componenet
 function Profile() {
     return (
         <div>
@@ -44,18 +115,22 @@ function Profile() {
                         </CardMedia>
                         <CardContent>
                             <Typography  align='center' gutterBottom variant="h5" component="div">
-                                Name Surname
+                                {profileInfoBasic.name} {profileInfoBasic.surname}
                             </Typography>
+                            <Typography  align='center' gutterBottom variant="h7" component="div">
+                                {profileInfoBasic.position} 
+                            </Typography>
+                            <Button align='center' variant="contained">Give referral</Button>
                         </CardContent>
                     </Card>
                 </Grid>
                 <Grid item xs={2} direction="column" container justify = "center" style={{ marginRight:"20px", marginLeft: "20px"}}>
-                    <ProfileCard img='/img.png' data='Ranking'></ProfileCard>                </Grid>
+                    <ProfileCard data2={profileInfo.ranking} data1='Ranking'></ProfileCard>                </Grid>
                 <Grid item xs={2} direction="column" container justify = "center"  style={{ marginRight:"20px", marginLeft: "20px"}}>
-                    <ProfileCard img='/img.png' data='Contest'></ProfileCard>
+                    <ProfileCard data2={profileInfo.contestAttended} data1='Contest'></ProfileCard>
                 </Grid>
                 <Grid direction="column" container justify = "center"  item xs={2} style={{ marginRight:"20px", marginLeft: "20px"}}>
-                    <ProfileCard img='/img.png' data='Questions'></ProfileCard>
+                    <ProfileCard data2={profileInfo.solvedQuestions} data1='Questions'></ProfileCard>
                 </Grid>
             </Grid>
             <Grid container spacing={1}>
@@ -63,13 +138,13 @@ function Profile() {
                 <Typography  gutterBottom variant="h4" component="div" style={{ marginLeft: "20px"}}>
                         Awards
                     </Typography>
-                    <ViewCard content={<ProfileBadge></ProfileBadge>}></ViewCard>
+                    <ViewBadge content={awards}></ViewBadge>
                 </Grid>
                 <Grid item xs={7} >
                     <Typography  gutterBottom variant="h4" component="div">
                         Referrals
                     </Typography>
-                    <ViewCard content={<ReferralCard></ReferralCard>} ></ViewCard>
+                    <ViewReferral content={referrals}  ></ViewReferral>
                 </Grid>
             </Grid>
         

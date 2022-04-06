@@ -6,19 +6,10 @@ function ProfileCard(props)
 {
     return (<div>
         <Card variant="outlined" >
-            <CardMedia  align='center'>
-                <Avatar align='center'
-                    src={props.img}
-                    style={{
-                        margin: "10px",
-                        width: "50px",
-                        height: "50px",
-                        align: "center"}} 
-                />
-           </CardMedia>
            <CardContent>
+           <Typography  align='center' gutterBottom variant="h5" component="div"> {props.data2}</Typography>
        <Typography  align='center' gutterBottom variant="h5" component="div">
-           {props.data}
+           {props.data1}
        </Typography>
    </CardContent>
      </Card>

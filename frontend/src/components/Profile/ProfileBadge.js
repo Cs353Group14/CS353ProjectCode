@@ -6,20 +6,9 @@ function ProfileBadge(props)
 {
     return (<Card  style={{minWidth:'100%'}}>
         <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" style={{
-                margin: "10px",
-                width: "100px",
-                height: "100px",
-                align: "center"
-            }} >
-                
-              :)
-            </Avatar>
-          }
-          title="Contest 1"
+          title={props.title}
           titleTypographyProps={{variant:'h5' }}
-          subheader="1st place"
+          subheader={props.place}
         />
       </Card>);
 }

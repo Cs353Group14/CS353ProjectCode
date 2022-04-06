@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     }
   });
 
-function ReferralCard() {
+function ReferralCard(props) {
     const classes = useStyles();
     return(<Card className={classes.root}>
         <CardHeader
@@ -24,18 +24,17 @@ function ReferralCard() {
                 width: "100px",
                 height: "100px",
                 align: "center"
-            }} >
-                
-              :)
+            }} src={props.img}>      
+
             </Avatar>
           }
-          title="Name Surnamse"
+          title= {props.name}
           titleTypographyProps={{variant:'h5' }}
-          subheader="Google Engineer"
+          subheader={props.position}
           subheaderTypographyProps={{variant: 'h7'}}
           action=''
         />
-        <Typography style={{padding: "20px"}}>X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!</Typography>
+        <Typography style={{padding: "20px"}}>{props.description}</Typography>
       </Card>);
 }
 

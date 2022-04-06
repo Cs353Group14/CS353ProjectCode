@@ -19,7 +19,7 @@ function Login() {
     function handleLoginClick() {
         console.log("Logged In");
         setTimeout(function() {
-            window.location.href = "http://localhost:3000/";
+            window.location.href = "http://localhost:3000/coding-challenges";
         }, 1000)
     }
 

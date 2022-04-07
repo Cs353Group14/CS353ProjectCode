@@ -1,30 +1,13 @@
-import React from "react";
-import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Button} from "@material-ui/core";
+import React, {useState} from "react";
+import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Button, Box} from "@material-ui/core";
 import './Profile.css'
 import ProfileCard from "./ProfileCard";
 import ViewReferral from "../../View/ViewReferral";
 import ViewBadge from "../../View/ViewBadge";
-import ReferralCard from "./ReferralCard";
-import ProfileBadge from "./ProfileBadge";
+import NavBar from "../NavBar/NavBar";
+import ViewReferarlDialog from "./ViewReferralDialog";
 
-import { createTheme } from '@material-ui/core/styles';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#3f50b5',
-      dark: '#002884',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000',
-    },
-  },
-});
 
 //Dummy data for now
 
@@ -97,8 +80,21 @@ var referrals =
 
 //The componenet
 function Profile() {
+
+    //Handle dialogs
+    const [openDialogName, setOpenDialog] = React.useState(null);
+
+    const openReferDialog = () => {
+        setOpenDialog(true);
+    };
+
+    const closeDialog = () => {
+        setOpenDialog(false);
+    };
+
     return (
         <div>
+            <NavBar></NavBar>
             <Grid container spacing={1}>
                 <Grid item xs={4}>
                     <Card  variant="outlined" style={{display: "inline-block", padding: "50px", margin: "10px"}} >
@@ -117,19 +113,23 @@ function Profile() {
                             <Typography  align='center' gutterBottom variant="h5" component="div">
                                 {profileInfoBasic.name} {profileInfoBasic.surname}
                             </Typography>
-                            <Typography  align='center' gutterBottom variant="h7" component="div">
+                            <Typography  align='center' gutterBottom variant="subtitle1" component="div">
                                 {profileInfoBasic.position} 
                             </Typography>
-                            <Button align='center' variant="contained">Give referral</Button>
+                            <Box sx={{m: 2}} >
+                            <Grid container justifyContent="center">
+                                <Button sx={{mt: 6}} align='center' variant="contained" color="primary" onClick={openReferDialog}>Give referral</Button>
+                            </Grid>
+                            </Box>
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={2} direction="column" container justify = "center" style={{ marginRight:"20px", marginLeft: "20px"}}>
+                <Grid item xs={2} direction="column" container justifyContent = "center" style={{ marginRight:"20px", marginLeft: "20px"}}>
                     <ProfileCard data2={profileInfo.ranking} data1='Ranking'></ProfileCard>                </Grid>
-                <Grid item xs={2} direction="column" container justify = "center"  style={{ marginRight:"20px", marginLeft: "20px"}}>
+                <Grid item xs={2} direction="column" container justifyContent = "center"  style={{ marginRight:"20px", marginLeft: "20px"}}>
                     <ProfileCard data2={profileInfo.contestAttended} data1='Contest'></ProfileCard>
                 </Grid>
-                <Grid direction="column" container justify = "center"  item xs={2} style={{ marginRight:"20px", marginLeft: "20px"}}>
+                <Grid direction="column" container justifyContent = "center"  item xs={2} style={{ marginRight:"20px", marginLeft: "20px"}}>
                     <ProfileCard data2={profileInfo.solvedQuestions} data1='Questions'></ProfileCard>
                 </Grid>
             </Grid>
@@ -144,10 +144,10 @@ function Profile() {
                     <Typography  gutterBottom variant="h4" component="div">
                         Referrals
                     </Typography>
-                    <ViewReferral content={referrals}  ></ViewReferral>
+                    <ViewReferral content={referrals} ></ViewReferral>
                 </Grid>
             </Grid>
-        
+        <ViewReferarlDialog open={openDialogName === true} handleClose={closeDialog}></ViewReferarlDialog>
      </div>
     );
 

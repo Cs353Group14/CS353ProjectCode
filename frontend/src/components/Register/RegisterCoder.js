@@ -91,10 +91,6 @@ function RegisterCoder() {
                     <TextField fullWidth label="Current Company" onChange={handleNewPlace}/>
                 </form>
 
-                <form className={"register-entry-right"} noValidate autoComplete="off">
-                    <TextField fullWidth label="Current Company" onChange={handleNewPlace}/>
-                </form>
-
                 </div>
 
                 </div>

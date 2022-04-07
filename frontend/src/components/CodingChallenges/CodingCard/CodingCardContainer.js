@@ -1,3 +1,5 @@
+import { Card, IconButton, InputBase, Paper, TextField } from "@material-ui/core";
+import SearchIcon from '@material-ui/icons/Search';
 import React, {useEffect, useState} from "react";
 import NavBar from "../../NavBar/NavBar";
 import CodingCard from "./CodingCard";
@@ -64,6 +66,11 @@ const codingQuestions = [
 
 function CodingCardContainer(props) {
 
+    const[category, setCategory] = useState("");
+
+    function handleNewCategory(event){
+
+    }
 
     let codingCards=  [];
 
@@ -81,7 +88,23 @@ function CodingCardContainer(props) {
     return(
         <div>
             <NavBar/>
-            <h1>List of Coding Questions:</h1>
+            <h3>Filter for Coding Challenges:</h3>
+
+            <Paper
+            component="form"
+            sx={{ p: '2px 4px', p: '10px', display: 'flex', alignItems: 'center', width: 200 }}
+            > 
+
+            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                <SearchIcon />
+            </IconButton>
+            
+            <InputBase fullwidth='true'
+                sx={{ ml: 1, flex: 1 }}
+                placeholder="Category"
+                inputProps={{ 'aria-label': 'search google maps'}}
+            />
+            </Paper>
                 
             <div className ="coding-card-container" >
 

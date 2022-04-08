@@ -5,7 +5,7 @@ import {Button, DialogActions, DialogContent, DialogContentText, TextField, Box}
 
 
 
-function ViewReferarlDialog({ open, handleClose }) {
+function GiveReferralDialog({ open, handleClose }) {
   const [description, setDescription] = React.useState();
 
   const handleCreate = (e) => {
@@ -21,13 +21,15 @@ function ViewReferarlDialog({ open, handleClose }) {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        fullWidth
+        maxWidth="md"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {'Give referral'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-             Please write a descriotion
+             Please write a description
           </DialogContentText>
           <form fullWidth onSubmit={handleCreate} id="myform">
             <Box
@@ -50,4 +52,4 @@ function ViewReferarlDialog({ open, handleClose }) {
       </Dialog>
   );
 }
-export default ViewReferarlDialog;
+export default GiveReferralDialog;

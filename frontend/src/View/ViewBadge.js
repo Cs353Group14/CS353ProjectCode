@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Avatar, ListItem, List,ListItemAvatar, ListItemText, Grid } from "@material-ui/core";
-import ProfileBadge from "../components/Profile/ProfileBadge";
+import ProfileBadge from "../components/Profile/Coder/ProfileBadge"
 
 function ViewBadge(props)
 {

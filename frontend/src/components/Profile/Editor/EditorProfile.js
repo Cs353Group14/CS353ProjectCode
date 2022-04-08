@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Button, Box} from "@material-ui/core";
-import './Profile.css'
-import ProfileCard from "./ProfileCard";
-import ViewReferral from "../../View/ViewReferral";
-import ViewBadge from "../../View/ViewBadge";
-import NavBar from "../NavBar/NavBar";
-import ViewReferarlDialog from "./ViewReferralDialog";
+import ProfileCard from "../Coder/ProfileCard";
+import ViewReferral from "../../../View/ViewReferral";
+import ViewBadge from "../../../View/ViewBadge";
+import NavBar from "../../NavBar/NavBar";
+
 
 
 
@@ -19,79 +18,54 @@ var profileInfoBasic = {
 
 var profileInfo = 
 {
-    ranking: "2",
-    contestAttended:  "10",
-    solvedQuestions: "346"
+    coding: "234",
+    nonCoding:  "1023",
+    contests: "34"
 }
 
-var awards = [
+var contests = [
     {
-        contestName: "Contest1",
-        place: "1st"
+        contestName: "Contest1"
+    
     },
     {
-        contestName: "Contest2",
-        place: "1st"
+        contestName: "Contest2"
     },
     {
-        contestName: "Contest3",
-        place: "2nd"
+        contestName: "Contest3"
     },
     {
-        contestName: "Contest4",
-        place: "2nd"
+        contestName: "Contest4"
     }
 ]
 
-var referrals = 
+var topQuestions = 
 [
     {
-        img: 'img.png',
-        name: "A coder",
-        position: "Google engineer",
-        email: "x@com",
-        description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
+        name: "X question",
+        difficulty: "Hard",
+        description: "Hard question! Hard question! Hard question! Hard question! Hard question! Hard question! Hard question!"
     },
     {
-        img: 'img.png',
-        name: "Y editor",
-        position: "Google engineer",
-        email: "x@com",
-        description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
-
+        name: "A question",
+        difficulty: "Hard",
+        description: "Hard question! Hard question! Hard question! Hard question! Hard question! Hard question! Hard question!"
     },
     {
-        img: 'img.png',
-        name: "Z coder",
-        position: "Facebook engineer",
-        email: "x@com",
-        description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
-
+        name: "B question",
+        difficulty: "Hard",
+        description: "Hard question! Hard question! Hard question! Hard question! Hard question! Hard question! Hard question!"
     },
     {
-        img: 'img.png',
-        name: "M editor",
-        position: "Facebook engineer",
-        email: "x@com",
-        description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
+        name: "C question",
+        difficulty: "Hard",
+        description: "Hard question! Hard question! Hard question! Hard question! Hard question! Hard question! Hard question!"
     }
 ]
 
 
 //The componenet
-function Profile() {
-
-    //Handle dialogs
-    const [openDialogName, setOpenDialog] = React.useState(null);
-
-    const openReferDialog = () => {
-        setOpenDialog(true);
-    };
-
-    const closeDialog = () => {
-        setOpenDialog(false);
-    };
-
+function EditorProfile() {
     return (
         <div>
             <NavBar></NavBar>
@@ -118,39 +92,37 @@ function Profile() {
                             </Typography>
                             <Box sx={{m: 2}} >
                             <Grid container justifyContent="center">
-                                <Button sx={{mt: 6}} align='center' variant="contained" color="primary" onClick={openReferDialog}>Give referral</Button>
+                                <Button sx={{mt: 6}} align='center' variant="contained" color="primary">Ask for referral</Button>
                             </Grid>
                             </Box>
                         </CardContent>
                     </Card>
                 </Grid>
                 <Grid item xs={2} direction="column" container justifyContent = "center" style={{ marginRight:"20px", marginLeft: "20px"}}>
-                    <ProfileCard data2={profileInfo.ranking} data1='Ranking'></ProfileCard>                </Grid>
+                    <ProfileCard data2={profileInfo.coding} data1='Coding Questions'></ProfileCard>                </Grid>
                 <Grid item xs={2} direction="column" container justifyContent = "center"  style={{ marginRight:"20px", marginLeft: "20px"}}>
-                    <ProfileCard data2={profileInfo.contestAttended} data1='Contest'></ProfileCard>
+                    <ProfileCard data2={profileInfo.noncoding} data1='Non Coding Questions'></ProfileCard>
                 </Grid>
                 <Grid direction="column" container justifyContent = "center"  item xs={2} style={{ marginRight:"20px", marginLeft: "20px"}}>
-                    <ProfileCard data2={profileInfo.solvedQuestions} data1='Questions'></ProfileCard>
+                    <ProfileCard data2={profileInfo.contests} data1='Contests'></ProfileCard>
                 </Grid>
             </Grid>
             <Grid container spacing={1}>
                 <Grid item xs={4}>
                 <Typography  gutterBottom variant="h4" component="div" style={{ marginLeft: "20px"}}>
-                        Awards
+                        Created Contests
                     </Typography>
-                    <ViewBadge content={awards}></ViewBadge>
+                    <ViewBadge content={contests}></ViewBadge>
                 </Grid>
                 <Grid item xs={7} >
                     <Typography  gutterBottom variant="h4" component="div">
-                        Referrals
+                        Top Questions
                     </Typography>
-                    <ViewReferral content={referrals} ></ViewReferral>
+                    <ViewReferral content={topQuestions} ></ViewReferral>
                 </Grid>
             </Grid>
-        <ViewReferarlDialog open={openDialogName === true} handleClose={closeDialog}></ViewReferarlDialog>
      </div>
     );
-
 }
 
-export default Profile;
+export default EditorProfile;

@@ -8,6 +8,7 @@ import RegisterCompany from './components/Register/RegisterCompany';
 import Profile from './components/Profile/Profile'
 import CodingCardContainer from './components/CodingChallenges/CodingCard/CodingCardContainer';
 import CodingChallengeView from './components/CodingChallenges/CodingChallengeView/CodingChallengeView';
+import NonCodingCardContainer from './components/NonCodingChallenges/NonCodingCard/NonCodingCardContainer';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path = {"/register-editor"} element = {<RegisterEditor/>}/>
       <Route path = {"/register-company"} element = {<RegisterCompany/>}/>
       <Route path = {"/coding-challenges"} element = {<CodingCardContainer/>}/>
+      <Route path = {"/non-coding-challenges"} element = {<NonCodingCardContainer/>}/>
       <Route path = {`/coding-challenges/${localStorage.getItem('codingId')}`} element = {<CodingChallengeView/>}/>
       <Route path = {"/profile"} element = {<Profile/>}/>
     </Routes>

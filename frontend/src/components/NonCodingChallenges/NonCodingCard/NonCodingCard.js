@@ -6,11 +6,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 
-export default function CodingCard(props) {
+export default function NonCodingCard(props) {
 
     function setActivityId() {
-        localStorage.setItem('codingId', props.id);
-        console.log(localStorage.getItem('codingId'));
+        localStorage.setItem('nonCodingId', props.id);
+        console.log(localStorage.getItem('nonCodingId'));
     }
 
     return (
@@ -21,23 +21,16 @@ export default function CodingCard(props) {
                     {props.title}
                 </Typography>
                 <Typography className={"coding-card-info"} color="textSecondary">
+                <br />
                     Difficulity: {props.difficulity} 
-                    <br /> 
-                    Point: {props.point}
                 </Typography>
                 <Typography className={"coding-card-info"}  variant="body2" component="p" color="textSecondary">
                     <br />
                     Category: {props.category}
                 </Typography>
-                <Typography className={"coding-card-info"}  variant="body2" component="p" color="textSecondary">
-                    <br />
-                    Number of Attempts: {props.attemptNo}
-                    <br />
-                    Number of Accepted Solutions: {props.acceptedNo}
-                </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick = {setActivityId} href={("/coding-challenges/" + props.id )} variant="outlined" >See Challenge</Button>
+                <Button size="small" onClick = {setActivityId} href={("/non-coding-challenges/" + props.id )} variant= "outlined">See Challenge</Button>
             </CardActions>
         </Card>
     );

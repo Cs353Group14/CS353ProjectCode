@@ -11,6 +11,7 @@ import CodingChallengeView from './components/CodingChallenges/CodingChallengeVi
 
 import CodingChallengeSolve from './components/CodingChallenges/CodingChallengeView/CodingChallangeSolve';
 import EditorProfile from './components/Profile/Editor/EditorProfile';
+import NonCodingCardContainer from './components/NonCodingChallenges/Components/NonCodingCardContainer';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
       <Route path = {"/register-editor"} element = {<RegisterEditor/>}/>
       <Route path = {"/register-company"} element = {<RegisterCompany/>}/>
       <Route path = {"/coding-challenges"} element = {<CodingCardContainer/>}/>
+      <Route path = {"/non-coding-challenges"} element = {<NonCodingCardContainer/>}/>
+
       <Route path = {`/coding-challenges/${localStorage.getItem('codingId')}`} element = {<CodingChallengeView/>}/>
       <Route path = {"/profile"} element = {<Profile/>}/>
       <Route path = {"/profileEditor"} element = {<EditorProfile/>}/>

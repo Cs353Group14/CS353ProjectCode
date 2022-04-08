@@ -84,61 +84,8 @@ var topQuestions =
         point: 25,
         attemptNo:  66,
         acceptedNo: 57
-    },
-    {
-        id: 4,
-        title: "Two Sum Equals Target",
-        category: "Dynamic-Programming",
-        difficulity: "Medium",
-        point: 30,
-        attemptNo:  54,
-        acceptedNo: 43
-    },
-    {
-        id: 5,
-        title: "Longest Palindromic Substring",
-        category: "String Dynamic-Programming",
-        difficulity: "Medium",
-        point: 35,
-        attemptNo:  118,
-        acceptedNo: 79
-    },
-    {
-        id: 6,
-        title: "Integer to Roman",
-        category: "String Hahs-Table Math",
-        difficulity: "Medium",
-        point: 30,
-        attemptNo:  89,
-        acceptedNo: 67
-    },
-    {
-        id: 7,
-        title: "Sudoku Solver",
-        category: "Array Bactracking String",
-        difficulity: "Hard",
-        point: 50,
-        attemptNo:  74,
-        acceptedNo: 39
-    },
-    {
-        id: 8,
-        title: "Search Insert Position",
-        category: "Array Binary-Search",
-        difficulity: "Easy",
-        point: 15,
-        attemptNo:  125,
-        acceptedNo: 107
-    },
-    {
-        id: 9,
-        title: "First Missing Positive",
-        category: "Array Hash-Table",
-        difficulity: "Hard",
-        point: 45,
-        attemptNo:  89,
-        acceptedNo: 59
     }
+    
 ]
 
 

@@ -1,0 +1,13 @@
+.coding-card-container {
+    display: flex;
+    flex-wrap: wrap;   
+    margin: 10px;
+    padding: 10px;
+}
+
+.coding-card{
+    width: auto;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+}

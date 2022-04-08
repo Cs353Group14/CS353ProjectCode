@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './CodingChallengeView.css';
 import CodingChallengeSolve from "./CodingChallangeSolve";
 import NavBar from "../../NavBar/NavBar";
+import CodindChallengeSubmissions from "./CodingChallengeSubmissions";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,7 +63,7 @@ function CodingChallengeView() {
         <CodingChallengeSolve/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <CodindChallengeSubmissions/>
       </TabPanel>
     </Box>
 

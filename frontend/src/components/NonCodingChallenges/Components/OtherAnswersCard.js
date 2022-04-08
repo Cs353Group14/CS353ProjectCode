@@ -5,30 +5,11 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import { ButtonBase, CardActionArea } from "@material-ui/core";
-
 import {Typography} from "@material-ui/core";
-import ViewReferralDialog from "./ViewReferralDialog";
 
-
-
-function ReferralCard(props) {
-
-    //Handle dialogs
-    const [openDialogName, setOpenDialog] = React.useState(null);
-
-
-    const closeDialog = () => {
-        setOpenDialog(false);
-    };
-
-    const openViewReferralDialog = () => {
-        setOpenDialog(true);
-    };
-    
+function OtherAnswerCard(props) {
     return(<div>
             <Card >
-            <CardActionArea
-            onClick= {openViewReferralDialog} >
             <CardHeader
             avatar={
                 <Avatar aria-label="recipe"  style={{
@@ -44,13 +25,10 @@ function ReferralCard(props) {
             titleTypographyProps={{variant:'h5' }}
             subheader={props.position}
             subheaderTypographyProps={{variant: 'subtitle1'}}
-            action=''
             />
-            <Typography style={{padding: "20px"}}>{props.description}</Typography>
-            </CardActionArea>
+            <Typography style={{padding: "20px"}}>{props.answer}</Typography>
         </Card>
-        <ViewReferralDialog open={openDialogName === true} handleClose={closeDialog} name={props.name} position={props.position} email={props.email} description={props.description}></ViewReferralDialog>
       </div>);
 }
 
-export default ReferralCard;
+export default OtherAnswerCard;

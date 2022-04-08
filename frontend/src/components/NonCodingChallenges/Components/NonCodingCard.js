@@ -31,7 +31,7 @@ export default function NonCodingCard(props) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick = {setActivityId} href={("/coding-challenges/" + props.id )}>See Challenge</Button>
+                <Button size="small" onClick = {setActivityId} href={("/non-coding-challenges/" + props.id )}>See Challenge</Button>
             </CardActions>
         </Card>
     );

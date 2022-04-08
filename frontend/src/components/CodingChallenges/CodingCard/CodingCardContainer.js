@@ -8,9 +8,18 @@ import './CodingCard.css'
 
 const codingQuestions = [
     {
+        id: 10,
+        title: "Coin Change",
+        category: "Array Dynamic-Programming Breadth-FirstSearch",
+        difficulity: "Medium",
+        point: 35,
+        attemptNo:  102,
+        acceptedNo: 63,
+    },
+    {
         id: 1,
         title: "Max sum",
-        category: "Array",
+        category: "Array Hash-Table",
         difficulity: "Easy",
         point: 20,
         attemptNo:  54,
@@ -19,7 +28,7 @@ const codingQuestions = [
     {
         id: 2,
         title: "Max product",
-        category: "Array",
+        category: "Array Hash-Table Prefix-Sum",
         difficulity: "Easy",
         point: 20,
         attemptNo:  41,
@@ -37,7 +46,7 @@ const codingQuestions = [
     {
         id: 4,
         title: "Two Sum Equals Target",
-        category: "Dynamic Programming",
+        category: "Dynamic-Programming",
         difficulity: "Medium",
         point: 30,
         attemptNo:  54,
@@ -45,21 +54,48 @@ const codingQuestions = [
     },
     {
         id: 5,
-        title: "Two Sum Equals Target",
-        category: "Dynamic Programming",
+        title: "Longest Palindromic Substring",
+        category: "String Dynamic-Programming",
         difficulity: "Medium",
-        point: 30,
-        attemptNo:  54,
-        acceptedNo: 43
+        point: 35,
+        attemptNo:  118,
+        acceptedNo: 79
     },
     {
         id: 6,
-        title: "Two Sum Equals Target",
-        category: "Dynamic Programming",
+        title: "Integer to Roman",
+        category: "String Hahs-Table Math",
         difficulity: "Medium",
         point: 30,
-        attemptNo:  54,
-        acceptedNo: 43
+        attemptNo:  89,
+        acceptedNo: 67
+    },
+    {
+        id: 7,
+        title: "Sudoku Solver",
+        category: "Array Bactracking String",
+        difficulity: "Hard",
+        point: 50,
+        attemptNo:  74,
+        acceptedNo: 39
+    },
+    {
+        id: 8,
+        title: "Search Insert Position",
+        category: "Array Binary-Search",
+        difficulity: "Easy",
+        point: 15,
+        attemptNo:  125,
+        acceptedNo: 107
+    },
+    {
+        id: 9,
+        title: "First Missing Positive",
+        category: "Array Hash-Table",
+        difficulity: "Hard",
+        point: 45,
+        attemptNo:  89,
+        acceptedNo: 59
     }
 ]
 

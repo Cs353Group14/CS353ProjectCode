@@ -8,6 +8,7 @@ import RegisterCompany from './components/Register/RegisterCompany';
 import Profile from './components/Profile/Coder/Profile'
 import CodingCardContainer from './components/CodingChallenges/CodingCard/CodingCardContainer';
 import CodingChallengeView from './components/CodingChallenges/CodingChallengeView/CodingChallengeView';
+
 import CodingChallengeSolve from './components/CodingChallenges/CodingChallengeView/CodingChallangeSolve';
 import EditorProfile from './components/Profile/Editor/EditorProfile';
 

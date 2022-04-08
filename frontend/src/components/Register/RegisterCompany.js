@@ -52,32 +52,40 @@ function RegisterCompany() {
             <RegisterBar/>
         
             <div className={"register-root"}>
+            <div className="register-elements">
 
-            <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Username" onChange={handleNewUsername}/>
+            <div className="register-element-left">
+            <form className={"register-entry-left"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Username" onChange={handleNewUsername}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Password" type={"password"} onChange={handleNewPassword}/>
+                <form className={"register-entry-left"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Password" type={"password"} onChange={handleNewPassword}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Company Name" onChange={handleNewName}/>
+                <form className={"register-entry-left"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Company Name" onChange={handleNewName}/>
+                </form>
+                </div>
+
+                <div className="register-element-right">
+
+                <form className={"register-entry-right"} noValidate autoComplete="off">
+                    <TextField fullWidth label="E-mail"  type={"email"} onChange={handleNewMail} />
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="E-mail"  type={"email"} onChange={handleNewMail} />
+                <form className={"register-entry-right"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Location" onChange={handleNewLocation}/>
                 </form>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Location" onChange={handleNewLocation}/>
+                <form className={"register-entry-right"} noValidate autoComplete="off">
+                    <TextField fullWidth label="Web Page Link" onChange={handleNewLink}/>
                 </form>
+                </div>
 
-                <form className={"login-entry"} noValidate autoComplete="off">
-                    <TextField label="Web Page Link" onChange={handleNewLink}/>
-                </form>
+                </div>
 
-                <div >
+                <div className={"register-button"} >
                     <Button variant="contained"  onClick={handleRegisterClick} >
                         Register
                     </Button>

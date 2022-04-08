@@ -6,8 +6,8 @@
 }
 
 .coding-card{
-    width: 330px;
-    height: 250px;
+    width: auto;
+    height: auto;
     margin: 10px;
     padding: 10px;
 }

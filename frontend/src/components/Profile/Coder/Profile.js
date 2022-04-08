@@ -2,10 +2,11 @@ import React, {useState} from "react";
 import {Avatar, Card, CardMedia, CardContent, Typography, Grid, Button, Box} from "@material-ui/core";
 import './Profile.css'
 import ProfileCard from "./ProfileCard";
-import ViewReferral from "../../View/ViewReferral";
-import ViewBadge from "../../View/ViewBadge";
-import NavBar from "../NavBar/NavBar";
-import ViewReferarlDialog from "./ViewReferralDialog";
+import ViewReferral from "../../../View/ViewReferral";
+import ViewBadge from "../../../View/ViewBadge";
+
+import NavBar from "../../NavBar/NavBar";
+import GiveReferralDialog from "./GiveReferralDialog";
 
 
 
@@ -120,6 +121,9 @@ function Profile() {
                             <Grid container justifyContent="center">
                                 <Button sx={{mt: 6}} align='center' variant="contained" color="primary" onClick={openReferDialog}>Give referral</Button>
                             </Grid>
+                            <Grid container justifyContent="center" style={{marginTop: "10px"}}>
+                                <Button sx={{mt: 6}} align='center' variant="contained" color="primary">Ask for referral</Button>
+                            </Grid>
                             </Box>
                         </CardContent>
                     </Card>
@@ -147,7 +151,7 @@ function Profile() {
                     <ViewReferral content={referrals} ></ViewReferral>
                 </Grid>
             </Grid>
-        <ViewReferarlDialog open={openDialogName === true} handleClose={closeDialog}></ViewReferarlDialog>
+        <GiveReferralDialog open={openDialogName === true} handleClose={closeDialog}></GiveReferralDialog>
      </div>
     );
 

@@ -21,12 +21,13 @@ export default function CodingCard(props) {
                     {props.title}
                 </Typography>
                 <Typography className={"coding-card-info"} color="textSecondary">
-                    Category: {props.category}
-                </Typography>
-                <Typography className={"coding-card-info"} color="textSecondary">
                     Difficulity: {props.difficulity} 
                     <br /> 
                     Point: {props.point}
+                </Typography>
+                <Typography className={"coding-card-info"}  variant="body2" component="p" color="textSecondary">
+                    <br />
+                    Category: {props.category}
                 </Typography>
                 <Typography className={"coding-card-info"}  variant="body2" component="p" color="textSecondary">
                     <br />

@@ -60,3 +60,7 @@
     text-decoration: none;
     display: block;
   }
+
+  .coding-challenge-info-root{
+    margin: 10px;
+  }

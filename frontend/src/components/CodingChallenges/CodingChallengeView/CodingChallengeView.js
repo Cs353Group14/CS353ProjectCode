@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import './CodingChallengeView.css';
 import CodingChallengeSolve from "./CodingChallangeSolve";
 import NavBar from "../../NavBar/NavBar";
-import CodindChallengeSubmissions from "./CodingChallengeSubmissions";
+import CodindChallengeSubmissions from "./CodingChallengeSubmissions"
+import CodingChallengeInformation from "./CodingChallengeInformation";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -57,6 +58,7 @@ function CodingChallengeView() {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Solve Challenge" {...a11yProps(0)} />
           <Tab label="Submissions" {...a11yProps(1)} />
+          <Tab label="Information" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -64,6 +66,9 @@ function CodingChallengeView() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <CodindChallengeSubmissions/>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <CodingChallengeInformation/>
       </TabPanel>
     </Box>
 

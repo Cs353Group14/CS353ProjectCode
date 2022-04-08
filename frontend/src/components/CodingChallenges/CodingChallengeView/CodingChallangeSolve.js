@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 function CodingChallengeSolve() {
 
+    const title = "Coin Change";
     const [description, setDescription] = useState("You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money. \n" +
 
     "Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1. \n "+
@@ -52,6 +53,8 @@ function CodingChallengeSolve() {
         <div className = "coding-challenge-view-left">
             
             <h2>Descripition:</h2>
+
+            <h3>{title}</h3> 
 
             <SplitParagraph/>
 

@@ -25,6 +25,7 @@ function ReferralCard(props) {
         setOpenDialog(true);
     };
 
+    alert(props.img);
     
     return(<div>
             <Card >

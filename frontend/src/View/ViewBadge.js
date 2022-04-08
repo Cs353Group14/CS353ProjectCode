@@ -4,7 +4,7 @@ import ProfileBadge from "../components/Profile/Coder/ProfileBadge"
 
 function ViewBadge(props)
 {
-    const listItems = props.content.map((d) => <ListItem key={d.contestName}> <ProfileBadge  title={d.contestName} place={d.place}> </ProfileBadge> </ListItem> );
+    const listItems = props.content.map((d) => <ListItem key={d.contestName}> <ProfileBadge  title={d.contestName} date={d.date}> </ProfileBadge> </ListItem> );
 
     return (
         <Grid item xs={12} direction="column" container justifyContent = "center" >

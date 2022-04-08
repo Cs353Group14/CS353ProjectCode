@@ -121,6 +121,9 @@ function Profile() {
                             <Grid container justifyContent="center">
                                 <Button sx={{mt: 6}} align='center' variant="contained" color="primary" onClick={openReferDialog}>Give referral</Button>
                             </Grid>
+                            <Grid container justifyContent="center" style={{marginTop: "10px"}}>
+                                <Button sx={{mt: 6}} align='center' variant="contained" color="primary">Ask for referral</Button>
+                            </Grid>
                             </Box>
                         </CardContent>
                     </Card>

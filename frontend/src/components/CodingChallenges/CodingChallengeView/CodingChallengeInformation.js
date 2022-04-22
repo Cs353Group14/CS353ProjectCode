@@ -4,7 +4,7 @@ import React from "react";
 const info = {
     id: 10,
     title: "Coin Change",
-    category: "Array Dynamic-Programming Breadth-FirstSearch",
+    category: "Array Dynamic-Programming Breadth-First-Search",
     difficulity: "Medium",
     point: 35,
     attemptNo:  102,

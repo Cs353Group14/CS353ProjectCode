@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import { Avatar, ListItem, List,ListItemAvatar, ListItemText, Grid } from "@material-ui/core";
-import ProfileBadge from "../components/Profile/Coder/ProfileBadge"
+import OtherAnswerCard from "../Components/OtherAnswersCard";
 
-function ViewBadge(props)
+function OtherAnswerList(props)
 {
-    const listItems = props.content.map((d) => <ListItem key={d.contestName}> <ProfileBadge  title={d.contestName} place={d.place} date={d.date}> </ProfileBadge> </ListItem> );
-
+    console.log(props[0]);
+    const listItems = props.content.map((d) => <ListItem key={d.name}> <OtherAnswerCard img={d.img} name={d.name} position={d.position} answer={d.answer}> </OtherAnswerCard> </ListItem> );
     return (
         <Grid item xs={12} direction="column" container justifyContent = "center" >
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -14,4 +14,4 @@ function ViewBadge(props)
         </Grid>);
 }
 
-export default ViewBadge;
+export default OtherAnswerList;

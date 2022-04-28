@@ -141,7 +141,7 @@ public class Group14Application {
 
 	}
 
-
+	// params yerine user lerin kendisini mi atmak daha mantıklı?
 
 	public static void insertUserWithType(int userId, String userType, String[] params) throws SQLException {
 
@@ -233,7 +233,8 @@ public class Group14Application {
 	}
 
 
-	public static void login( String username, String password) {
+	public static User login( String username, String password) {
+		User user = null;
 
 		try {
 			String loginQuery = "SELECT * from users WHERE username = ? and password = ?";
@@ -256,13 +257,38 @@ public class Group14Application {
 			PreparedStatement getUserDataStmt = connection.prepareStatement(dataForUserType);
 			getUserDataStmt.setInt(1,userId);
 			ResultSet rs2 = getUserDataStmt.executeQuery();
-			printResultSet(rs2);
+			rs2.next();
+
+			switch (userType){
+				case "admin":
+					user = new Admin(userId,username,mail,userType,name,information,"");
+					break;
+				case "coder":
+					int rating = rs2.getInt("rating");
+					int points = rs2.getInt("points");
+					String position = rs2.getString("position");
+					String place = rs2.getString("place");
+					int birthYear = rs2.getInt("birth_year");
+					user = new Coder(userId,username,mail,userType,name,information,"",rating,points,position,place,birthYear);
+					break;
+				case "company":
+					String location = rs2.getString("location");
+					String webPageLink = rs2.getString("web_page_link");
+					user = new Company(userId,username,mail,userType,name,information,"",location,webPageLink);
+					break;
+				case "editor":
+					String positionE = rs2.getString("position");
+					String placeE = rs2.getString("place");
+					user = new Editor(userId,username,mail,userType,name,information,"",positionE,placeE);
+					break;
+			}
 
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+		return user;
 
 	}
 
@@ -282,10 +308,14 @@ public class Group14Application {
 
 		//createUserTables();
 		//createTestUsers();
-		login("admin","admin");
-		login("akin","1234");
-		login("b","1234");
-		login("q","1234");
+		User user1  = login("admin","admin");
+		System.out.println(user1);
+		User user2  = login("akin","1234");
+		System.out.println(user2);
+		User user3  = login("b","1234");
+		System.out.println(user3);
+		User user4  = login("q","1234");
+		System.out.println(user4);
 		/*
 
 		try {

@@ -2,202 +2,15 @@ package cs353.group14;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 import java.sql.*;
-import java.util.Random;
 
 @SpringBootApplication
 public class Group14Application {
 
-	public static String transformString(String text){
-		return "'"+text+"'";
-	}
+	public static Connection connection = null;
 
-	public static void printResultSet(ResultSet rs) throws SQLException
-	{
-		ResultSetMetaData rsmd = rs.getMetaData();
-		int columnsNumber = rsmd.getColumnCount();
-		while (rs.next()) {
-			for (int i = 1; i <= columnsNumber; i++) {
-				if (i > 1) System.out.print(" | ");
-				System.out.print(rs.getString(i));
-			}
-			System.out.println("");
-		}
-	}
-
-	public static void register(Connection connection, String username, String password,String mail,String name, String userType, String[] params ){
-		username = transformString(username);
-		password = transformString(password);
-		mail = transformString(mail);
-		name = transformString(name);
-
-		try {
-			Statement statement = connection.createStatement();
-
-			String checkUserCounter = "SELECT COUNT(*) AS recordCount from users WHERE username = "+username+" or mail = "+mail;
-			ResultSet rs = statement.executeQuery( checkUserCounter );
-			rs.next();
-			int count = rs.getInt("recordCount");
-
-			if(count>0){
-				System.out.println("username or mail already used");
-			}else{
-				String insertUser = "Insert INTO users (username, password, mail, name)" +
-						" VALUES("+username+","+password+","+mail+","+name+")";
-				int i = statement.executeUpdate(insertUser);
-
-				String getUserId = "SELECT user_id from users WHERE username = "+username;
-				ResultSet rs2 = statement.executeQuery( getUserId );
-				rs2.next();
-
-				int userId = rs2.getInt("user_id");
-				System.out.println(userId);
-
-				String insertUserWithType = registerQuery(userId,userType, params);
-
-				System.out.println(insertUserWithType);
-
-				i = statement.executeUpdate(insertUserWithType);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public static String registerQuery(int userId, String userType, String[] params){
-
-		String insertUserWithType;
-
-		switch (userType){
-			case "admin":
-				insertUserWithType = "Insert INTO admin(user_id)" +
-						"VALUES("+userId+")";
-				break;
-			case "coder":
-				String coderPosition = transformString(params[0]);
-				String place = transformString(params[1]);
-				int birth_year = Integer.parseInt(params[2]);
-				insertUserWithType = "Insert INTO coder(user_id,rating,points,position,place,birth_year)" +
-						"VALUES("+userId+",0, 0,"+coderPosition+","+place+","+birth_year+")";
-				break;
-			case "editor":
-				String editorPosition = transformString(params[0]);
-				String editorPlace = transformString(params[1]);
-				insertUserWithType = "Insert INTO editor(user_id,position,place)" +
-						"VALUES("+userId+","+ editorPosition+","+editorPlace+")";
-				break;
-			case "company":
-				String location = transformString(params[0]);
-				String web_page_link = transformString(params[1]);
-				insertUserWithType = "Insert INTO company(user_id,location,web_page_link)" +
-						"VALUES("+userId+","+ location+","+ web_page_link+")";
-				break;
-			default:
-				insertUserWithType = "error???";
-
-		}
-
-		return insertUserWithType;
-
-	}
-
-	public static void createTestUsers(Connection connection){
-		String username = "admin";
-		String password = "admin";
-		String mail = "admin@admin.com";
-		String name = "admin";
-		String[] params = null;
-
-		register(connection,username,password,mail,name,"admin", params);
-
-		username = "akin";
-		password = "1234";
-		mail = "akin@gmail.com";
-		name = "akin kutlu";
-		params = new String[3];
-
-		params[0] = "position1";
-		params[1] = "place1";
-		params[2] = "1990";
-		register(connection,username,password,mail,name,"coder", params);
-
-		username = "b";
-		password = "1234";
-		mail = "b@gmail.com";
-		name = "b c";
-
-		params[0] = "location1";
-		params[1] = "web_page_link1";
-
-		register(connection,username,password,mail,name,"company", params);
-
-		username = "q";
-		password = "1234";
-		mail = "q@gmail.com";
-		name = "q m";
-
-		params[0] = "position1";
-		params[1] = "place1";
-
-		register(connection,username,password,mail,name,"editor", params);
-
-	}
-
-
-	public static void login( Connection connection, String username, String password) {
-
-		try {
-			String loginQuery = "SELECT user_id, username from users WHERE username =" + transformString(username) + "and password =" + transformString(password);
-			Statement statement = connection.createStatement();
-
-			ResultSet rs = statement.executeQuery(loginQuery);
-			printResultSet(rs);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-
-	}
-
-
-
-	public static void main(String[] args) {
-		SpringApplication.run(Group14Application.class, args);
-
-		Connection connection = null;
-
-		try {
-			connection =  DriverManager.getConnection("jdbc:postgresql://group14.ckx3kijsemgc.us-east-2.rds.amazonaws.com:5432/", "postgres", "postgrelc");
-			System.out.println("Connection successful.");
-
-
-		} catch (SQLException throwables) {
-			throwables.printStackTrace();
-		}
-
-		//bir kere çalıştırmak yeterli
-		//createUserTables(connection);
-
-		//createTestUsers(connection);
-
-		login(connection,"admin","admin");
-
-		login(connection,"akin","1234");
-		login(connection,"b","1234");
-		login(connection,"q","1234");
-
-
-
-
-
-		System.exit(0);
-
-	}
-
-	public static void createUserTables(Connection connection){
+	public static void createUserTables(){
 
 		int sqlCount = 5;
 
@@ -216,6 +29,7 @@ public class Group14Application {
 				"password VARCHAR(31) NOT NULL, " +
 				"mail VARCHAR(255) NOT NULL UNIQUE, " +
 				"name VARCHAR(31) NOT NULL, " +
+				"usertype VARCHAR(31) NOT NULL, " +
 				"profile_photo BYTEA, " +
 				"information VARCHAR(1023)) ";
 
@@ -259,7 +73,242 @@ public class Group14Application {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static void printResultSet(ResultSet rs) throws SQLException
+	{
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnsNumber = rsmd.getColumnCount();
+		while (rs.next()) {
+			for (int i = 1; i <= columnsNumber; i++) {
+				if (i > 1) System.out.print(" | ");
+				System.out.print(rs.getString(i));
+			}
+			System.out.println("");
+		}
+	}
+
+	public static boolean checkUserExist( String username, String mail) throws SQLException {
+		String checkUserCounter = "SELECT COUNT(*) AS noOfRecord from users WHERE username = ? or mail = ?";
+		PreparedStatement statement= connection.prepareStatement(checkUserCounter);
+		statement.setString(1, username);
+		statement.setString(2, mail);
+		ResultSet checkRS = statement.executeQuery();
+		checkRS.next();
+		int count = checkRS.getInt("noOfRecord");
+
+		return count>0;
 
 	}
+
+	public static void insertUserTable(String username, String password,String mail,String name,String userType) throws SQLException {
+		String insertUser = "Insert INTO users (username, password, mail, name, usertype) VALUES(?,?,?,?,?)";
+		PreparedStatement insertStmt= connection.prepareStatement(insertUser);
+		insertStmt.setString(1,username);
+		insertStmt.setString(2,password);
+		insertStmt.setString(3,mail);
+		insertStmt.setString(4,name);
+		insertStmt.setString(5,userType);
+		int i = insertStmt.executeUpdate();
+	}
+
+	public static int getUserId(String username) throws SQLException {
+		String getUserId = "SELECT user_id from users WHERE username = ?";
+		PreparedStatement getUserIdPrepared= connection.prepareStatement(getUserId);
+		getUserIdPrepared.setString(1,username);
+		ResultSet rs2 = getUserIdPrepared.executeQuery();
+		rs2.next();
+
+		return rs2.getInt("user_id");
+
+	}
+
+
+	public static void register( String username, String password,String mail,String name, String userType, String[] params ){
+
+		try {
+			if(checkUserExist( username, mail)){
+				System.out.println("username or mail already used");
+			}else{
+				insertUserTable(username, password, mail, name,userType);
+				int userId = getUserId(username);
+				insertUserWithType(userId,userType,params);
+			}
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+
+
+	public static void insertUserWithType(int userId, String userType, String[] params) throws SQLException {
+
+		PreparedStatement insertPrepared = null;
+		String insertUserWithType = null;
+		switch (userType){
+
+			case "admin":
+				insertUserWithType = "Insert INTO admin(user_id) VALUES(?)";
+				insertPrepared= connection.prepareStatement(insertUserWithType);
+				insertPrepared.setInt(1,userId);
+				break;
+
+			case "coder":
+				insertUserWithType = "Insert INTO coder(user_id,rating,points,position,place,birth_year) VALUES(?,?,?,?,?,?)";
+				insertPrepared= connection.prepareStatement(insertUserWithType);
+				insertPrepared.setInt(1,userId);
+				insertPrepared.setInt(2,0);
+				insertPrepared.setInt(3,0);
+				insertPrepared.setString(4,params[0]);
+				insertPrepared.setString(5,params[1]);
+				insertPrepared.setInt(6,Integer.parseInt(params[2]));
+				break;
+
+			case "editor":
+				insertUserWithType = "Insert INTO editor(user_id,position,place) VALUES(?,?,?)";
+				insertPrepared= connection.prepareStatement(insertUserWithType);
+				insertPrepared.setInt(1,userId);
+				insertPrepared.setString(2,params[0]);
+				insertPrepared.setString(3,params[1]);
+				break;
+			case "company":
+				insertUserWithType = "Insert INTO company(user_id,location,web_page_link) VALUES(?,?,?)";
+				insertPrepared= connection.prepareStatement(insertUserWithType);
+				insertPrepared.setInt(1,userId);
+				insertPrepared.setString(2,params[0]);
+				insertPrepared.setString(3,params[1]);
+				break;
+		}
+
+		if (insertPrepared!=null){
+			insertPrepared.executeUpdate();
+		}else{
+			System.out.println("error in insertUserWithType");
+		}
+
+	}
+
+	public static void createTestUsers()  {
+		String username = "admin";
+		String password = "admin";
+		String mail = "admin@admin.com";
+		String name = "admin";
+		String[] params = null;
+
+		register(username,password,mail,name,"admin", params);
+
+		username = "akin";
+		password = "1234";
+		mail = "akin@gmail.com";
+		name = "akin kutlu";
+		params = new String[3];
+
+		params[0] = "position1";
+		params[1] = "place1";
+		params[2] = "1990";
+		register(username,password,mail,name,"coder", params);
+
+		username = "b";
+		password = "1234";
+		mail = "b@gmail.com";
+		name = "b c";
+
+		params[0] = "location1";
+		params[1] = "web_page_link1";
+
+		register(username,password,mail,name,"company", params);
+
+		username = "q";
+		password = "1234";
+		mail = "q@gmail.com";
+		name = "q m";
+
+		params[0] = "position1";
+		params[1] = "place1";
+
+		register(username,password,mail,name,"editor", params);
+
+	}
+
+
+	public static void login( String username, String password) {
+
+		try {
+			String loginQuery = "SELECT * from users WHERE username = ? and password = ?";
+			PreparedStatement loginStmt = connection.prepareStatement(loginQuery);
+			loginStmt.setString(1,username);
+			loginStmt.setString(2,password);
+			ResultSet rs = loginStmt.executeQuery();
+
+			rs.next();
+			int userId = rs.getInt("user_id");
+			String userType = rs.getString("usertype");
+			String mail = rs.getString("mail");
+			String name = rs.getString("name");
+			String information = rs.getString("information");
+			//Byte[] foto; // şimdilik dursun
+
+			System.out.println(userType);
+
+			String dataForUserType = "SELECT * from "+userType+" WHERE user_id = ?";
+			PreparedStatement getUserDataStmt = connection.prepareStatement(dataForUserType);
+			getUserDataStmt.setInt(1,userId);
+			ResultSet rs2 = getUserDataStmt.executeQuery();
+			printResultSet(rs2);
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+	}
+
+
+
+	public static void main(String[] args) {
+		SpringApplication.run(Group14Application.class, args);
+
+		try {
+			connection =  DriverManager.getConnection("jdbc:postgresql://group14.ckx3kijsemgc.us-east-2.rds.amazonaws.com:5432/", "postgres", "postgrelc");
+			System.out.println("Connection successful.");
+
+
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+
+		//createUserTables();
+		//createTestUsers();
+		login("admin","admin");
+		login("akin","1234");
+		login("b","1234");
+		login("q","1234");
+		/*
+
+		try {
+
+			String username = "admin";
+			String password = "admin";
+			String mail = "admin@admin.com";
+			register(username, "kb", mail, "kd", "admin", null);
+			login("admin","admin");
+			login("akin","1234");
+			login("b","1234");
+			login("q","1234");
+
+
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		*/
+
+		System.exit(0);
+
+	}
+
+
 
 }

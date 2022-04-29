@@ -10,7 +10,7 @@ import java.sql.*;
 public class Group14Application {
 
 
-	// İçeriğini direkt bastırmak için kullanabilirsinize
+	// İçeriğini direkt bastırmak için kullanabilirsiniz
 	public static void printResultSet(ResultSet rs) throws SQLException
 	{
 		ResultSetMetaData rsmd = rs.getMetaData();
@@ -37,28 +37,23 @@ public class Group14Application {
 
 	}
 
-	public static void insertUserTable(User user) throws SQLException {
+	public static int insertUserTable(User user) throws SQLException {
 		String insertUser = "Insert INTO users (username, password, mail, name, usertype) VALUES(?,?,?,?,?)";
-		PreparedStatement insertStmt= ConnectionSingle.getConnection().prepareStatement(insertUser);
+		PreparedStatement insertStmt= ConnectionSingle.getConnection().prepareStatement(insertUser, Statement.RETURN_GENERATED_KEYS);
 		insertStmt.setString(1,user.getUsername());
 		insertStmt.setString(2,user.getPassword());
 		insertStmt.setString(3,user.getMail());
 		insertStmt.setString(4,user.getMail());
 		insertStmt.setInt(5,user.getUserType().ordinal());
-		int i = insertStmt.executeUpdate();
+		insertStmt.executeUpdate();
+
+
+		ResultSet keys = insertStmt.getGeneratedKeys();
+
+		keys.next();
+
+		return keys.getInt(1);
 	}
-
-	public static int getUserId(String username) throws SQLException {
-		String getUserId = "SELECT user_id from users WHERE username = ?";
-		PreparedStatement getUserIdPrepared= ConnectionSingle.getConnection().prepareStatement(getUserId);
-		getUserIdPrepared.setString(1,username);
-		ResultSet rs2 = getUserIdPrepared.executeQuery();
-		rs2.next();
-
-		return rs2.getInt("user_id");
-
-	}
-
 
 	public static void register( User user ){
 
@@ -66,8 +61,7 @@ public class Group14Application {
 			if(checkUserExist( user.getUsername(), user.getMail())){
 				System.out.println("username or mail already used");
 			}else{
-				insertUserTable(user);
-				int userId = getUserId(user.getUsername());
+				int userId = insertUserTable(user);
 				user.setUserId(userId);
 				insertUserWithType(user);
 			}

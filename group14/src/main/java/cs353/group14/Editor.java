@@ -5,8 +5,8 @@ public class Editor extends User{
     String position;
     String place;
 
-    public Editor(int userId, String username, String mail, String userType, String name, String information, String foto, String position, String place) {
-        super(userId, username, mail, userType, name, information, foto);
+    public Editor(int userId, String username, String mail, String password, UserType userType, String name, String information, String foto, String position, String place) {
+        super(userId, username, mail, password, userType, name, information, foto);
         this.position = position;
         this.place = place;
     }

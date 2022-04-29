@@ -2,8 +2,8 @@ package cs353.group14;
 
 public class Admin extends User{
 
-    public Admin(int userId, String username, String mail, String userType, String name, String information, String foto) {
-        super(userId, username, mail, userType, name, information, foto);
+    public Admin(int userId, String username, String mail, String password, UserType userType, String name, String information, String foto) {
+        super(userId, username, mail, password, userType, name, information, foto);
     }
 
     @Override

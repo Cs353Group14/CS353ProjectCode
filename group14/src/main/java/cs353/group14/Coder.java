@@ -7,8 +7,8 @@ public class Coder extends User{
     String place;
     int birthYear;
 
-    public Coder(int userId, String username, String mail, String userType, String name, String information, String foto, int rating, int points, String position, String place, int birthYear) {
-        super(userId, username, mail, userType, name, information, foto);
+    public Coder(int userId, String username, String mail, String password, UserType userType, String name, String information, String foto, int rating, int points, String position, String place, int birthYear) {
+        super(userId, username, mail, password, userType, name, information, foto);
         this.rating = rating;
         this.points = points;
         this.position = position;

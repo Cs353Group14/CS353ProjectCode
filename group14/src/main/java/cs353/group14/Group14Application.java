@@ -29,7 +29,7 @@ public class Group14Application {
 				"password VARCHAR(31) NOT NULL, " +
 				"mail VARCHAR(255) NOT NULL UNIQUE, " +
 				"name VARCHAR(31) NOT NULL, " +
-				"usertype VARCHAR(31) NOT NULL, " +
+				"usertype INTEGER NOT NULL, " +
 				"profile_photo BYTEA, " +
 				"information VARCHAR(1023)) ";
 
@@ -75,6 +75,7 @@ public class Group14Application {
 
 	}
 
+	// İçeriğini direkt bastırmak için kullanabilirsinize
 	public static void printResultSet(ResultSet rs) throws SQLException
 	{
 		ResultSetMetaData rsmd = rs.getMetaData();
@@ -101,14 +102,14 @@ public class Group14Application {
 
 	}
 
-	public static void insertUserTable(String username, String password,String mail,String name,String userType) throws SQLException {
+	public static void insertUserTable(User user) throws SQLException {
 		String insertUser = "Insert INTO users (username, password, mail, name, usertype) VALUES(?,?,?,?,?)";
 		PreparedStatement insertStmt= connection.prepareStatement(insertUser);
-		insertStmt.setString(1,username);
-		insertStmt.setString(2,password);
-		insertStmt.setString(3,mail);
-		insertStmt.setString(4,name);
-		insertStmt.setString(5,userType);
+		insertStmt.setString(1,user.username);
+		insertStmt.setString(2,user.password);
+		insertStmt.setString(3,user.mail);
+		insertStmt.setString(4,user.name);
+		insertStmt.setInt(5,user.userType.ordinal());
 		int i = insertStmt.executeUpdate();
 	}
 
@@ -124,15 +125,16 @@ public class Group14Application {
 	}
 
 
-	public static void register( String username, String password,String mail,String name, String userType, String[] params ){
+	public static void register( User user ){
 
 		try {
-			if(checkUserExist( username, mail)){
+			if(checkUserExist( user.username, user.mail)){
 				System.out.println("username or mail already used");
 			}else{
-				insertUserTable(username, password, mail, name,userType);
-				int userId = getUserId(username);
-				insertUserWithType(userId,userType,params);
+				insertUserTable(user);
+				int userId = getUserId(user.username);
+				user.setUserId(userId);
+				insertUserWithType(user);
 			}
 
 		}catch (SQLException e) {
@@ -141,44 +143,42 @@ public class Group14Application {
 
 	}
 
-	// params yerine user lerin kendisini mi atmak daha mantıklı?
-
-	public static void insertUserWithType(int userId, String userType, String[] params) throws SQLException {
+	public static void insertUserWithType(User user) throws SQLException {
 
 		PreparedStatement insertPrepared = null;
-		String insertUserWithType = null;
-		switch (userType){
+		String insertUserWithType;
+		switch (user.userType){
 
-			case "admin":
+			case Admin:
 				insertUserWithType = "Insert INTO admin(user_id) VALUES(?)";
 				insertPrepared= connection.prepareStatement(insertUserWithType);
-				insertPrepared.setInt(1,userId);
+				insertPrepared.setInt(1,user.userId);
 				break;
 
-			case "coder":
+			case Coder:
 				insertUserWithType = "Insert INTO coder(user_id,rating,points,position,place,birth_year) VALUES(?,?,?,?,?,?)";
 				insertPrepared= connection.prepareStatement(insertUserWithType);
-				insertPrepared.setInt(1,userId);
+				insertPrepared.setInt(1,user.userId);
 				insertPrepared.setInt(2,0);
 				insertPrepared.setInt(3,0);
-				insertPrepared.setString(4,params[0]);
-				insertPrepared.setString(5,params[1]);
-				insertPrepared.setInt(6,Integer.parseInt(params[2]));
+				insertPrepared.setString(4,((Coder) user).position);
+				insertPrepared.setString(5,((Coder) user).place);
+				insertPrepared.setInt(6, ((Coder) user).birthYear );
 				break;
 
-			case "editor":
+			case Editor:
 				insertUserWithType = "Insert INTO editor(user_id,position,place) VALUES(?,?,?)";
 				insertPrepared= connection.prepareStatement(insertUserWithType);
-				insertPrepared.setInt(1,userId);
-				insertPrepared.setString(2,params[0]);
-				insertPrepared.setString(3,params[1]);
+				insertPrepared.setInt(1,user.userId);
+				insertPrepared.setString(2,((Editor) user).position);
+				insertPrepared.setString(3,((Editor) user).place);
 				break;
-			case "company":
+			case Company:
 				insertUserWithType = "Insert INTO company(user_id,location,web_page_link) VALUES(?,?,?)";
 				insertPrepared= connection.prepareStatement(insertUserWithType);
-				insertPrepared.setInt(1,userId);
-				insertPrepared.setString(2,params[0]);
-				insertPrepared.setString(3,params[1]);
+				insertPrepared.setInt(1,user.userId);
+				insertPrepared.setString(2,((Company) user).location);
+				insertPrepared.setString(3,((Company) user).webPageLink);
 				break;
 		}
 
@@ -195,40 +195,39 @@ public class Group14Application {
 		String password = "admin";
 		String mail = "admin@admin.com";
 		String name = "admin";
-		String[] params = null;
+		int userId = -1;
 
-		register(username,password,mail,name,"admin", params);
+		register(new Admin(userId,username,mail,password, UserType.Admin, name, "", ""));
 
 		username = "akin";
 		password = "1234";
 		mail = "akin@gmail.com";
 		name = "akin kutlu";
-		params = new String[3];
 
-		params[0] = "position1";
-		params[1] = "place1";
-		params[2] = "1990";
-		register(username,password,mail,name,"coder", params);
+		String position = "position1";
+		String place = "place1";
+		int year = 1990;
+		register(new Coder(userId,username,mail,password,UserType.Coder,name,"","",0,0,position,place,year));
 
 		username = "b";
 		password = "1234";
 		mail = "b@gmail.com";
 		name = "b c";
 
-		params[0] = "location1";
-		params[1] = "web_page_link1";
+		String location = "location1";
+		String link = "web_page_link1";
 
-		register(username,password,mail,name,"company", params);
+		register(new Company(userId,username,mail,password,UserType.Company,name,"","",location,link));
 
 		username = "q";
 		password = "1234";
 		mail = "q@gmail.com";
 		name = "q m";
 
-		params[0] = "position1";
-		params[1] = "place1";
+		position = "position1";
+		place = "place1";
 
-		register(username,password,mail,name,"editor", params);
+		register(new Editor(userId,username,mail,password,UserType.Editor,name,"","",position,place));
 
 	}
 
@@ -245,7 +244,8 @@ public class Group14Application {
 
 			rs.next();
 			int userId = rs.getInt("user_id");
-			String userType = rs.getString("usertype");
+			int userTypeInt = rs.getInt("usertype");
+			UserType userType = UserType.values()[userTypeInt];
 			String mail = rs.getString("mail");
 			String name = rs.getString("name");
 			String information = rs.getString("information");
@@ -260,26 +260,26 @@ public class Group14Application {
 			rs2.next();
 
 			switch (userType){
-				case "admin":
-					user = new Admin(userId,username,mail,userType,name,information,"");
+				case Admin:
+					user = new Admin(userId,username,mail,password,userType,name,information,"");
 					break;
-				case "coder":
+				case Coder:
 					int rating = rs2.getInt("rating");
 					int points = rs2.getInt("points");
 					String position = rs2.getString("position");
 					String place = rs2.getString("place");
 					int birthYear = rs2.getInt("birth_year");
-					user = new Coder(userId,username,mail,userType,name,information,"",rating,points,position,place,birthYear);
+					user = new Coder(userId,username,mail,password,userType,name,information,"",rating,points,position,place,birthYear);
 					break;
-				case "company":
+				case Company:
 					String location = rs2.getString("location");
 					String webPageLink = rs2.getString("web_page_link");
-					user = new Company(userId,username,mail,userType,name,information,"",location,webPageLink);
+					user = new Company(userId,username,mail,password,userType,name,information,"",location,webPageLink);
 					break;
-				case "editor":
+				case Editor:
 					String positionE = rs2.getString("position");
 					String placeE = rs2.getString("place");
-					user = new Editor(userId,username,mail,userType,name,information,"",positionE,placeE);
+					user = new Editor(userId,username,mail,password,userType,name,information,"",positionE,placeE);
 					break;
 			}
 
@@ -306,8 +306,8 @@ public class Group14Application {
 			throwables.printStackTrace();
 		}
 
-		//createUserTables();
-		//createTestUsers();
+		createUserTables();
+		createTestUsers();
 		User user1  = login("admin","admin");
 		System.out.println(user1);
 		User user2  = login("akin","1234");

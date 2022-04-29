@@ -1,11 +1,9 @@
 package cs353.group14.controllers;
 
-import cs353.group14.Coder;
+import cs353.group14.*;
+import cs353.group14.requests.LoginRequest;
 import cs353.group14.services.UserService;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
@@ -19,8 +17,27 @@ public class UserController {
 
     @PutMapping("/register-coder")
     public void registerCoder(@RequestBody Coder coder){
+            coder.userType= UserType.Coder;
             userService.registerCoder(coder);
     }
+
+    @PutMapping("/register-editor")
+    public void registerCompany(@RequestBody Editor editor){
+        editor.userType= UserType.Editor;
+        userService.registerEditor(editor);
+    }
+
+    @PutMapping("/register-company")
+    public void registerCompany(@RequestBody Company company){
+        company.userType = UserType.Company;
+        userService.registerCompany(company);
+    }
+
+    @GetMapping("/login")
+    public User login(@RequestBody LoginRequest loginRequest){
+        return UserService.login(loginRequest.getUsername(),loginRequest.getPassword());
+    }
+
 
 
 }

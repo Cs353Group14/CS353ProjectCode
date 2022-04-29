@@ -166,73 +166,12 @@ public class Group14Application {
 
 	}
 
-
-	public static User login( String username, String password) {
-		User user = null;
-
-		try {
-			String loginQuery = "SELECT * from users WHERE username = ? and password = ?";
-			PreparedStatement loginStmt = ConnectionSingle.getConnection().prepareStatement(loginQuery);
-			loginStmt.setString(1,username);
-			loginStmt.setString(2,password);
-			ResultSet rs = loginStmt.executeQuery();
-
-			rs.next();
-			int userId = rs.getInt("user_id");
-			int userTypeInt = rs.getInt("usertype");
-			UserType userType = UserType.values()[userTypeInt];
-			String mail = rs.getString("mail");
-			String name = rs.getString("name");
-			String information = rs.getString("information");
-			//Byte[] foto; // şimdilik dursun
-
-			System.out.println(userType);
-
-			String dataForUserType = "SELECT * from "+userType+" WHERE user_id = ?";
-			PreparedStatement getUserDataStmt = ConnectionSingle.getConnection().prepareStatement(dataForUserType);
-			getUserDataStmt.setInt(1,userId);
-			ResultSet rs2 = getUserDataStmt.executeQuery();
-			rs2.next();
-
-			switch (userType){
-				case Admin:
-					user = new Admin(userId,username,mail,password,userType,name,information,"");
-					break;
-				case Coder:
-					int rating = rs2.getInt("rating");
-					int points = rs2.getInt("points");
-					String position = rs2.getString("position");
-					String place = rs2.getString("place");
-					int birthYear = rs2.getInt("birth_year");
-					user = new Coder(userId,username,mail,password,userType,name,information,"",rating,points,position,place,birthYear);
-					break;
-				case Company:
-					String location = rs2.getString("location");
-					String webPageLink = rs2.getString("web_page_link");
-					user = new Company(userId,username,mail,password,userType,name,information,"",location,webPageLink);
-					break;
-				case Editor:
-					String positionE = rs2.getString("position");
-					String placeE = rs2.getString("place");
-					user = new Editor(userId,username,mail,password,userType,name,information,"",positionE,placeE);
-					break;
-			}
-
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return user;
-
-	}
-
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(Group14Application.class, args);
 
-		createTestUsers();
+		//createTestUsers();
+
+		/*
 		User user1  = login("admin","admin");
 		System.out.println(user1);
 		User user2  = login("akin","1234");
@@ -241,6 +180,8 @@ public class Group14Application {
 		System.out.println(user3);
 		User user4  = login("q","1234");
 		System.out.println(user4);
+		*/
+
 		/*
 
 		try {

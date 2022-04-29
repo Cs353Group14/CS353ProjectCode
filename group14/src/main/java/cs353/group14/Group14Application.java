@@ -23,6 +23,8 @@ public class Group14Application {
 		dropSqls[3] = "company";
 		dropSqls[4] = "coder";
 
+		// enum yerine int koydum
+
 		createSqls[0]  = "CREATE TABLE users( " +
 				"user_id SERIAL PRIMARY KEY, " +
 				"username VARCHAR(31) NOT NULL UNIQUE, " +

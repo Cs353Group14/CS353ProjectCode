@@ -18,7 +18,8 @@ public class Company extends User{
                 ", userId=" + userId +
                 ", username='" + username + '\'' +
                 ", mail='" + mail + '\'' +
-                ", userType='" + userType + '\'' +
+                ", password='" + password + '\'' +
+                ", userType=" + userType +
                 ", name='" + name + '\'' +
                 ", information='" + information + '\'' +
                 ", foto='" + foto + '\'' +

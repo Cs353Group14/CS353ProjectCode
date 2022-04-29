@@ -1,14 +1,16 @@
 package cs353.group14;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Coder extends User{
-    public int rating;
-    public int points;
-    public String position;
-    public String place;
-    public int birthYear;
+    private int rating;
+    private int points;
+    private String position;
+    private String place;
+    private int birthYear;
 
     public Coder(int userId, String username, String mail, String password, UserType userType, String name, String information, String foto, int rating, int points, String position, String place, int birthYear) {
         super(userId, username, mail, password, userType, name, information, foto);
@@ -27,14 +29,14 @@ public class Coder extends User{
                 ", position='" + position + '\'' +
                 ", place='" + place + '\'' +
                 ", birthYear=" + birthYear +
-                ", userId=" + userId +
-                ", username='" + username + '\'' +
-                ", mail='" + mail + '\'' +
-                ", password='" + password + '\'' +
-                ", userType=" + userType +
-                ", name='" + name + '\'' +
-                ", information='" + information + '\'' +
-                ", foto='" + foto + '\'' +
+                ", userId=" + getUserId() +
+                ", username='" + getUsername() + '\'' +
+                ", mail='" + getMail() + '\'' +
+                ", password='" + getPassword() + '\'' +
+                ", userType=" + getUserType() +
+                ", name='" + getName() + '\'' +
+                ", information='" + getInformation() + '\'' +
+                ", foto='" + getFoto() + '\'' +
                 '}';
     }
 }

@@ -40,11 +40,11 @@ public class Group14Application {
 	public static void insertUserTable(User user) throws SQLException {
 		String insertUser = "Insert INTO users (username, password, mail, name, usertype) VALUES(?,?,?,?,?)";
 		PreparedStatement insertStmt= ConnectionSingle.getConnection().prepareStatement(insertUser);
-		insertStmt.setString(1,user.username);
-		insertStmt.setString(2,user.password);
-		insertStmt.setString(3,user.mail);
-		insertStmt.setString(4,user.name);
-		insertStmt.setInt(5,user.userType.ordinal());
+		insertStmt.setString(1,user.getUsername());
+		insertStmt.setString(2,user.getPassword());
+		insertStmt.setString(3,user.getMail());
+		insertStmt.setString(4,user.getMail());
+		insertStmt.setInt(5,user.getUserType().ordinal());
 		int i = insertStmt.executeUpdate();
 	}
 
@@ -63,11 +63,11 @@ public class Group14Application {
 	public static void register( User user ){
 
 		try {
-			if(checkUserExist( user.username, user.mail)){
+			if(checkUserExist( user.getUsername(), user.getMail())){
 				System.out.println("username or mail already used");
 			}else{
 				insertUserTable(user);
-				int userId = getUserId(user.username);
+				int userId = getUserId(user.getUsername());
 				user.setUserId(userId);
 				insertUserWithType(user);
 			}
@@ -82,38 +82,38 @@ public class Group14Application {
 
 		PreparedStatement insertPrepared = null;
 		String insertUserWithType;
-		switch (user.userType){
+		switch (user.getUserType()){
 
 			case Admin:
 				insertUserWithType = "Insert INTO admin(user_id) VALUES(?)";
 				insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
-				insertPrepared.setInt(1,user.userId);
+				insertPrepared.setInt(1,user.getUserId());
 				break;
 
 			case Coder:
 				insertUserWithType = "Insert INTO coder(user_id,rating,points,position,place,birth_year) VALUES(?,?,?,?,?,?)";
 				insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
-				insertPrepared.setInt(1,user.userId);
+				insertPrepared.setInt(1,user.getUserId());
 				insertPrepared.setInt(2,0);
 				insertPrepared.setInt(3,0);
-				insertPrepared.setString(4,((Coder) user).position);
-				insertPrepared.setString(5,((Coder) user).place);
-				insertPrepared.setInt(6, ((Coder) user).birthYear );
+				insertPrepared.setString(4,((Coder) user).getPosition());
+				insertPrepared.setString(5,((Coder) user).getPlace());
+				insertPrepared.setInt(6, ((Coder) user).getBirthYear() );
 				break;
 
 			case Editor:
 				insertUserWithType = "Insert INTO editor(user_id,position,place) VALUES(?,?,?)";
 				insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
-				insertPrepared.setInt(1,user.userId);
-				insertPrepared.setString(2,((Editor) user).position);
-				insertPrepared.setString(3,((Editor) user).place);
+				insertPrepared.setInt(1,user.getUserId());
+				insertPrepared.setString(2,((Editor) user).getPosition());
+				insertPrepared.setString(3,((Editor) user).getPlace());
 				break;
 			case Company:
 				insertUserWithType = "Insert INTO company(user_id,location,web_page_link) VALUES(?,?,?)";
 				insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
-				insertPrepared.setInt(1,user.userId);
-				insertPrepared.setString(2,((Company) user).location);
-				insertPrepared.setString(3,((Company) user).webPageLink);
+				insertPrepared.setInt(1,user.getUserId());
+				insertPrepared.setString(2,((Company) user).getLocation());
+				insertPrepared.setString(3,((Company) user).getWebPageLink());
 				break;
 		}
 

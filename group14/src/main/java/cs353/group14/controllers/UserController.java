@@ -17,19 +17,19 @@ public class UserController {
 
     @PutMapping("/register-coder")
     public void registerCoder(@RequestBody Coder coder){
-            coder.userType= UserType.Coder;
+            coder.setUserType( UserType.Coder);
             userService.registerCoder(coder);
     }
 
     @PutMapping("/register-editor")
     public void registerCompany(@RequestBody Editor editor){
-        editor.userType= UserType.Editor;
+        editor.setUserType( UserType.Editor);
         userService.registerEditor(editor);
     }
 
     @PutMapping("/register-company")
     public void registerCompany(@RequestBody Company company){
-        company.userType = UserType.Company;
+        company.setUserType(UserType.Company);
         userService.registerCompany(company);
     }
 

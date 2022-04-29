@@ -28,11 +28,11 @@ public class UserRepository {
     public static void insertUserTable(User user) throws SQLException {
         String insertUser = "Insert INTO users (username, password, mail, name, usertype) VALUES(?,?,?,?,?)";
         PreparedStatement insertStmt= ConnectionSingle.getConnection().prepareStatement(insertUser);
-        insertStmt.setString(1,user.username);
-        insertStmt.setString(2,user.password);
-        insertStmt.setString(3,user.mail);
-        insertStmt.setString(4,user.name);
-        insertStmt.setInt(5,user.userType.ordinal());
+        insertStmt.setString(1,user.getUsername());
+        insertStmt.setString(2,user.getPassword());
+        insertStmt.setString(3,user.getMail());
+        insertStmt.setString(4,user.getName());
+        insertStmt.setInt(5,user.getUserType().ordinal());
         int i = insertStmt.executeUpdate();
     }
 

@@ -1,18 +1,21 @@
 package cs353.group14;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
-@Accessors(fluent = true)
+@Getter
+@Setter
 public abstract class User {
-    public int userId;
-    public String username;
-    public String mail;
-    public String password;
-    public UserType userType;
-    public String name;
-    public String information;
-    public String foto; // düzeltilecek
+    private int userId;
+    private String username;
+    private String mail;
+    private String password;
+    private UserType userType;
+    private String name;
+    private String information;
+    private String foto; // düzeltilecek
 
     public User(int userId, String username, String mail, String password, UserType userType, String name, String information, String foto) {
         this.userId = userId;

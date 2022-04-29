@@ -1,11 +1,13 @@
 package cs353.group14;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Company extends User{
-    public String location;
-    public String webPageLink;
+    private String location;
+    private String webPageLink;
 
     public Company(int userId, String username, String mail, String password, UserType userType, String name, String information, String foto, String location, String webPageLink) {
         super(userId, username, mail, password, userType, name, information, foto);
@@ -18,14 +20,14 @@ public class Company extends User{
         return "Company{" +
                 "location='" + location + '\'' +
                 ", webPageLink='" + webPageLink + '\'' +
-                ", userId=" + userId +
-                ", username='" + username + '\'' +
-                ", mail='" + mail + '\'' +
-                ", password='" + password + '\'' +
-                ", userType=" + userType +
-                ", name='" + name + '\'' +
-                ", information='" + information + '\'' +
-                ", foto='" + foto + '\'' +
+                ", userId=" + getUserId() +
+                ", username='" + getUsername() + '\'' +
+                ", mail='" + getMail() + '\'' +
+                ", password='" + getPassword() + '\'' +
+                ", userType=" + getUserType() +
+                ", name='" + getName() + '\'' +
+                ", information='" + getInformation() + '\'' +
+                ", foto='" + getFoto() + '\'' +
                 '}';
     }
 }

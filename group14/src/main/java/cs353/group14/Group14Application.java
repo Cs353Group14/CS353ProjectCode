@@ -166,10 +166,73 @@ public class Group14Application {
 
 	}
 
+	public static void createCodingChallenge(int editorId, CodingChallenge codingChallenge){
+
+
+		try {
+			int codingChallengeId = insertCodingChallengeTable(codingChallenge);
+			insertCreatesTable(editorId,codingChallengeId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+		/*
+		insertUserTable(user);
+		int userId = getUserId(user.getUsername());
+		user.setUserId(userId);
+		insertUserWithType(user);
+		 */
+
+	}
+
+	public static void insertCreatesTable(int editorId, int codingChallengeId)throws SQLException  {
+		String insertCreatesChallenge = "Insert INTO creates(user_id,challenge_id) VALUES(?,?)";
+		PreparedStatement insertCreatesPrepared= ConnectionSingle.getConnection().prepareStatement(insertCreatesChallenge);
+		insertCreatesPrepared.setInt(1,editorId);
+		insertCreatesPrepared.setInt(2,codingChallengeId);
+
+		insertCreatesPrepared.executeUpdate();
+
+	}
+
+
+	public static int insertCodingChallengeTable(CodingChallenge codingChallenge)throws SQLException {
+
+		String insertCodingChallenge = "Insert INTO coding_challenge(question,points,difficulty,solved_number,attempt_number,title,solution,publicity ) " +
+				"VALUES(?,?,?,?,?,?,?,?)";
+		PreparedStatement insertCodingPrepared= ConnectionSingle.getConnection().prepareStatement(insertCodingChallenge, Statement.RETURN_GENERATED_KEYS);
+		insertCodingPrepared.setString(1,codingChallenge.getQuestion());
+		insertCodingPrepared.setInt(2,codingChallenge.getPoints());
+		insertCodingPrepared.setString(3,codingChallenge.getDifficulty());
+		insertCodingPrepared.setInt(4,0);
+		insertCodingPrepared.setInt(5,0);
+		insertCodingPrepared.setString(6,codingChallenge.getTitle());
+		insertCodingPrepared.setString(7,codingChallenge.getSolution());
+		insertCodingPrepared.setInt(8,codingChallenge.getPublicity());
+
+
+		insertCodingPrepared.executeUpdate();
+		ResultSet keys = insertCodingPrepared.getGeneratedKeys();
+
+		keys.next();
+
+		return keys.getInt(1);
+	}
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(Group14Application.class, args);
 
-		//createTestUsers();
+
+		createTestUsers();
+
+		for(int i=0;i<10;i++){
+			createCodingChallenge(4,new CodingChallenge(-1,"q1",100,"zor",10,10,"title1","solution1",0));
+		}
+
+
+
 
 		/*
 		User user1  = login("admin","admin");
@@ -201,7 +264,7 @@ public class Group14Application {
 		}
 		*/
 
-		//System.exit(0);
+		System.exit(0);
 
 	}
 

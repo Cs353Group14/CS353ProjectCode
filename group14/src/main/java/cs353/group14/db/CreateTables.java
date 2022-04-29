@@ -11,10 +11,10 @@ import java.sql.Statement;
 @Component
 public class CreateTables {
 
-    //@Bean
+    @Bean
     public static void createUserTables() {
 
-        int sqlCount = 5;
+        int sqlCount = 8;
 
         String[] createSqls = new String[sqlCount];
         String[] dropSqls = new String[sqlCount];
@@ -24,6 +24,9 @@ public class CreateTables {
         dropSqls[2] = "editor";
         dropSqls[3] = "company";
         dropSqls[4] = "coder";
+        dropSqls[5] = "coding_challenge";
+        dropSqls[6] = "creates";
+        dropSqls[7] = "test_case";
 
         // enum yerine int koydum
 
@@ -61,6 +64,34 @@ public class CreateTables {
                 "   place VARCHAR(255)," +
                 "   birth_year INTEGER NOT NULL," +
                 "   PRIMARY KEY (user_id))";
+
+        createSqls[5] = "CREATE TABLE coding_challenge (" +
+                " challenge_id SERIAL NOT NULL ," +
+                "  question VARCHAR(1023) NOT NULL," +
+                "  points INTEGER NOT NULL," +
+                "  difficulty VARCHAR(31) NOT NULL," +
+                "  solved_number INTEGER NOT NULL," +
+                "  attempt_number INTEGER NOT NULL," +
+                "  title VARCHAR(31) NOT NULL," +
+                "  solution VARCHAR(1023) NOT NULL," +
+                "  publicity INTEGER NOT NULL," +
+                " PRIMARY KEY(challenge_id)) ";
+
+        createSqls[6] = "CREATE TABLE creates (" +
+                " user_id INTEGER NOT NULL," +
+                " challenge_id INTEGER NOT NULL," +
+                " PRIMARY KEY(challenge_id,user_id)," +
+                " FOREIGN KEY(challenge_id) REFERENCES coding_challenge(challenge_id)," +
+                " FOREIGN KEY(user_id) REFERENCES editor(user_id))";
+
+        createSqls[7] = "CREATE TABLE test_case (" +
+                "  challenge_id INTEGER NOT NULL," +
+                "  case_id INTEGER NOT NULL," +
+                "  inputs VARCHAR(127)," +
+                "  outputs VARCHAR(127)," +
+                "  PRIMARY KEY (challenge_id, case_id)," +
+                " FOREIGN KEY (challenge_id) REFERENCES coding_challenge(challenge_id)" +
+                " ON DELETE CASCADE)";
 
         try {
 

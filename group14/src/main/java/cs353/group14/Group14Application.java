@@ -1,5 +1,6 @@
 package cs353.group14;
 
+import cs353.group14.db.ConnectionSingle;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,74 +9,6 @@ import java.sql.*;
 @SpringBootApplication
 public class Group14Application {
 
-	public static Connection connection = null;
-
-	public static void createUserTables(){
-
-		int sqlCount = 5;
-
-		String[] createSqls = new String[sqlCount];
-		String[] dropSqls = new String[sqlCount];
-
-		dropSqls[0] = "users";
-		dropSqls[1] = "admin";
-		dropSqls[2] = "editor";
-		dropSqls[3] = "company";
-		dropSqls[4] = "coder";
-
-		// enum yerine int koydum
-
-		createSqls[0]  = "CREATE TABLE users( " +
-				"user_id SERIAL PRIMARY KEY, " +
-				"username VARCHAR(31) NOT NULL UNIQUE, " +
-				"password VARCHAR(31) NOT NULL, " +
-				"mail VARCHAR(255) NOT NULL UNIQUE, " +
-				"name VARCHAR(31) NOT NULL, " +
-				"usertype INTEGER NOT NULL, " +
-				"profile_photo BYTEA, " +
-				"information VARCHAR(1023)) ";
-
-		createSqls[1] = "CREATE TABLE admin( " +
-				"user_id INTEGER REFERENCES users (user_id), " +
-				"PRIMARY KEY (user_id) )";
-
-		createSqls[2] ="CREATE TABLE editor(" +
-				"user_id INTEGER REFERENCES users (user_id)," +
-				"position VARCHAR(31)," +
-				"place VARCHAR(31)," +
-				"PRIMARY KEY (user_id))";
-
-		createSqls[3] = "CREATE TABLE company(" +
-				"user_id INTEGER REFERENCES users (user_id)," +
-				"location VARCHAR(255)," +
-				"web_page_link VARCHAR(63)," +
-				"PRIMARY KEY (user_id))";
-
-		createSqls[4] = "CREATE TABLE coder(" +
-				"   user_id INTEGER REFERENCES users (user_id)," +
-				"   rating INTEGER NOT NULL," +
-				"   points INTEGER NOT NULL," +
-				"   position VARCHAR(31)," +
-				"   place VARCHAR(255)," +
-				"   birth_year INTEGER NOT NULL," +
-				"   PRIMARY KEY (user_id))";
-
-		try {
-
-			Statement statement = connection.createStatement();
-			for(int i=sqlCount-1;i>-1;i--){
-				statement.executeUpdate("DROP TABLE IF EXISTS "+dropSqls[i]);
-			}
-
-			for(int i=0;i<sqlCount;i++){
-				statement.executeUpdate(createSqls[i]);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	// İçeriğini direkt bastırmak için kullanabilirsinize
 	public static void printResultSet(ResultSet rs) throws SQLException
@@ -93,7 +26,7 @@ public class Group14Application {
 
 	public static boolean checkUserExist( String username, String mail) throws SQLException {
 		String checkUserCounter = "SELECT COUNT(*) AS noOfRecord from users WHERE username = ? or mail = ?";
-		PreparedStatement statement= connection.prepareStatement(checkUserCounter);
+		PreparedStatement statement= ConnectionSingle.getConnection().prepareStatement(checkUserCounter);
 		statement.setString(1, username);
 		statement.setString(2, mail);
 		ResultSet checkRS = statement.executeQuery();
@@ -106,7 +39,7 @@ public class Group14Application {
 
 	public static void insertUserTable(User user) throws SQLException {
 		String insertUser = "Insert INTO users (username, password, mail, name, usertype) VALUES(?,?,?,?,?)";
-		PreparedStatement insertStmt= connection.prepareStatement(insertUser);
+		PreparedStatement insertStmt= ConnectionSingle.getConnection().prepareStatement(insertUser);
 		insertStmt.setString(1,user.username);
 		insertStmt.setString(2,user.password);
 		insertStmt.setString(3,user.mail);
@@ -117,7 +50,7 @@ public class Group14Application {
 
 	public static int getUserId(String username) throws SQLException {
 		String getUserId = "SELECT user_id from users WHERE username = ?";
-		PreparedStatement getUserIdPrepared= connection.prepareStatement(getUserId);
+		PreparedStatement getUserIdPrepared= ConnectionSingle.getConnection().prepareStatement(getUserId);
 		getUserIdPrepared.setString(1,username);
 		ResultSet rs2 = getUserIdPrepared.executeQuery();
 		rs2.next();
@@ -153,13 +86,13 @@ public class Group14Application {
 
 			case Admin:
 				insertUserWithType = "Insert INTO admin(user_id) VALUES(?)";
-				insertPrepared= connection.prepareStatement(insertUserWithType);
+				insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
 				insertPrepared.setInt(1,user.userId);
 				break;
 
 			case Coder:
 				insertUserWithType = "Insert INTO coder(user_id,rating,points,position,place,birth_year) VALUES(?,?,?,?,?,?)";
-				insertPrepared= connection.prepareStatement(insertUserWithType);
+				insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
 				insertPrepared.setInt(1,user.userId);
 				insertPrepared.setInt(2,0);
 				insertPrepared.setInt(3,0);
@@ -170,14 +103,14 @@ public class Group14Application {
 
 			case Editor:
 				insertUserWithType = "Insert INTO editor(user_id,position,place) VALUES(?,?,?)";
-				insertPrepared= connection.prepareStatement(insertUserWithType);
+				insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
 				insertPrepared.setInt(1,user.userId);
 				insertPrepared.setString(2,((Editor) user).position);
 				insertPrepared.setString(3,((Editor) user).place);
 				break;
 			case Company:
 				insertUserWithType = "Insert INTO company(user_id,location,web_page_link) VALUES(?,?,?)";
-				insertPrepared= connection.prepareStatement(insertUserWithType);
+				insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
 				insertPrepared.setInt(1,user.userId);
 				insertPrepared.setString(2,((Company) user).location);
 				insertPrepared.setString(3,((Company) user).webPageLink);
@@ -239,7 +172,7 @@ public class Group14Application {
 
 		try {
 			String loginQuery = "SELECT * from users WHERE username = ? and password = ?";
-			PreparedStatement loginStmt = connection.prepareStatement(loginQuery);
+			PreparedStatement loginStmt = ConnectionSingle.getConnection().prepareStatement(loginQuery);
 			loginStmt.setString(1,username);
 			loginStmt.setString(2,password);
 			ResultSet rs = loginStmt.executeQuery();
@@ -256,7 +189,7 @@ public class Group14Application {
 			System.out.println(userType);
 
 			String dataForUserType = "SELECT * from "+userType+" WHERE user_id = ?";
-			PreparedStatement getUserDataStmt = connection.prepareStatement(dataForUserType);
+			PreparedStatement getUserDataStmt = ConnectionSingle.getConnection().prepareStatement(dataForUserType);
 			getUserDataStmt.setInt(1,userId);
 			ResultSet rs2 = getUserDataStmt.executeQuery();
 			rs2.next();
@@ -299,16 +232,6 @@ public class Group14Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Group14Application.class, args);
 
-		try {
-			connection =  DriverManager.getConnection("jdbc:postgresql://group14.ckx3kijsemgc.us-east-2.rds.amazonaws.com:5432/", "postgres", "postgrelc");
-			System.out.println("Connection successful.");
-
-
-		} catch (SQLException throwables) {
-			throwables.printStackTrace();
-		}
-
-		createUserTables();
 		createTestUsers();
 		User user1  = login("admin","admin");
 		System.out.println(user1);
@@ -337,7 +260,7 @@ public class Group14Application {
 		}
 		*/
 
-		System.exit(0);
+		//System.exit(0);
 
 	}
 

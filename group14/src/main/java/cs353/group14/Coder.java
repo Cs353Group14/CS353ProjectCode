@@ -1,11 +1,14 @@
 package cs353.group14;
 
+import lombok.Getter;
+
+@Getter
 public class Coder extends User{
-    int rating;
-    int points;
-    String position;
-    String place;
-    int birthYear;
+    public int rating;
+    public int points;
+    public String position;
+    public String place;
+    public int birthYear;
 
     public Coder(int userId, String username, String mail, String password, UserType userType, String name, String information, String foto, int rating, int points, String position, String place, int birthYear) {
         super(userId, username, mail, password, userType, name, information, foto);

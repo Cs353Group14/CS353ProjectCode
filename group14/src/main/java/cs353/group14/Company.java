@@ -1,8 +1,11 @@
 package cs353.group14;
 
+import lombok.Getter;
+
+@Getter
 public class Company extends User{
-    String location;
-    String webPageLink;
+    public String location;
+    public String webPageLink;
 
     public Company(int userId, String username, String mail, String password, UserType userType, String name, String information, String foto, String location, String webPageLink) {
         super(userId, username, mail, password, userType, name, information, foto);

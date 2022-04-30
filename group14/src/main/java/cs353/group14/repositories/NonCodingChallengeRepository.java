@@ -2,6 +2,7 @@ package cs353.group14.repositories;
 
 import cs353.group14.CodingChallenge;
 import cs353.group14.NonCodingChallenge;
+import cs353.group14.Reply;
 import cs353.group14.UserType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.CodingChallengeQueryResponse;
@@ -171,6 +172,27 @@ public class NonCodingChallengeRepository {
 
 
         return result;
+    }
+
+    public void replyQuestion(Reply reply){
+
+        try {
+            String insertReplySql = "Insert into reply VALUES( ?, ?, ?, null, ?)";
+
+            PreparedStatement insertStmt= ConnectionSingle.getConnection().prepareStatement(insertReplySql);
+            insertStmt.setInt(1,reply.getNonChallengeId());
+            insertStmt.setInt(2, reply.getUserId());
+            insertStmt.setString(3,reply.getAnswer());
+            insertStmt.setTimestamp(4,reply.getReplyTime());
+
+            insertStmt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+
     }
 
 }

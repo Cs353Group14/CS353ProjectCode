@@ -2,6 +2,7 @@ package cs353.group14.controllers;
 
 
 import cs353.group14.NonCodingChallenge;
+import cs353.group14.Reply;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import cs353.group14.services.NonCodingChallengeService;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +44,10 @@ public class NonCodingChallengeController {
     @GetMapping("/getNonCodingChallenge/{noncodingChallengeId}")
     public NonCodingChallenge getNonCodingChallenge(@PathVariable int noncodingChallengeId){
         return nonCodingChallengeService.getNonCodingChallenge(noncodingChallengeId);
+    }
+
+    @GetMapping("/replyQuestion")
+    public void replyQuestion(@RequestBody Reply reply){
+        nonCodingChallengeService.replyQuestion(reply);
     }
 }

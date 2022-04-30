@@ -7,6 +7,7 @@ import { Box, FormControl, TextField, MenuItem, Typography, Button} from "@mater
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import {CreateCodingChallengeAPI} from './CreateCodingChallengeAPI'
 
 
 const difficulties = [
@@ -41,41 +42,30 @@ function CreateCodingChallenge(props) {
   const [solution, setSolution] = useState("");
   const [question, setQuestion] = useState("");
   const [category, setCatefories] = useState("");
+  const createCodingChallengeAPI = new CreateCodingChallengeAPI();
 
-  let handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      let res = await fetch("http://localhost:8080/createCodingChallenge/1", {
-        method: "PUT",
-        body: JSON.stringify({
-          difficulty: difficulty,
-           title: title,
-          points: points,
-          solution: solution,
-          question: question,
-          category: category,
-          solvedNumber: 0,
-          attempt_number: 0,
-          publicity: false
 
-        }),
-      });
+  async function handleSubmit() {
 
-      let resJson = await res.json();
-      if (res.status === 200) {
-        alert("Submited successfully")
-      } else {
-        alert("Some error occured");
-      }
-    } catch (err) {
-      console.log(err);
+
+    const newQuestion = {
+      "difficulty": difficulty,
+      "title": title,
+     "points": points,
+     "solution": solution,
+     "question": question,
+     "solvedNumber": 0,
+     "attempt_number": 0,
+     "publicity": 0
     }
-  };
 
+    await createCodingChallengeAPI.createCoding(newQuestion);
 
-  const handleChange = (event) => {
-    
-  };
+    setTimeout(function() {
+        window.location.href = "http://localhost:3000";
+    }, 1000)
+
+}
 
     return(
         <div>

@@ -2,6 +2,7 @@ package cs353.group14.controllers;
 
 import cs353.group14.*;
 import cs353.group14.requests.LoginRequest;
+import cs353.group14.responses.LoginResponse;
 import cs353.group14.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody LoginRequest loginRequest){
-        return userService.login(loginRequest.getUsername(),loginRequest.getPassword());
+    public LoginResponse login(@RequestBody LoginRequest loginRequest){
+        return userService.loginWithBasicResponse(loginRequest.getUsername(),loginRequest.getPassword());
     }
 
 

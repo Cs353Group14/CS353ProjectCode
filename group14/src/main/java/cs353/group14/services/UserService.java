@@ -3,6 +3,7 @@ package cs353.group14.services;
 import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.repositories.UserRepository;
+import cs353.group14.responses.LoginResponse;
 import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
@@ -83,5 +84,7 @@ public class UserService {
         return userRepository.login(username,password);
     }
 
-
+    public LoginResponse loginWithBasicResponse ( String username, String password) {
+        return userRepository.loginWithBasicResponse(username,password);
+    }
 }

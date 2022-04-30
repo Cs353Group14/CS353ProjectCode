@@ -59,9 +59,62 @@ public class CodingChallengeRepository {
         return keys.getInt(1);
     }
 
+    public void updateDifficultyCodingChallenge( int challenge_id, String difficulty)
+    {
+        try {
+            String query = "UPDATE coding_challenge SET difficulty = ? where challenge_id = ?";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setString(1,difficulty);
+            preparedStatement.setInt(2,challenge_id);
+            int result = preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
+    public void addCategoryCodingChallenge( int challenge_id, String category)
+    {
+        try {
+            String query = "INSERT INTO coding_challenge_categories( challenge_id,category) VALUES ( ?,?);";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,challenge_id);
+            preparedStatement.setString(2,category);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+    }
+
+
+
+
+    public void removeCategoryFromChallenge( int challenge_id, String category)
+    {
+        try {
+            String query = "DELETE FROM coding_challenge_categories where challenge_id = ? and category = ?";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,challenge_id);
+            preparedStatement.setString(2,category);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+    }
+
+
+
     public List<CodingChallengeQueryResponse> getAllPublicChallenges()  {
 
         List<CodingChallengeQueryResponse> result = new ArrayList<>();
+
 
         try {
             String getAllPublicChallengesSql = "Select * From coding_challenge where publicity = 1";

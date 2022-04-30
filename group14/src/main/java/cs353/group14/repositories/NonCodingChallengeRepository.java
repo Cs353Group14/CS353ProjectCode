@@ -19,7 +19,7 @@ public class NonCodingChallengeRepository {
 
         try {
             int codingChallengeId = insertNonCodingChallengeTable(noncodingChallenge);
-            insertCreatesTable(editorId,codingChallengeId);
+          //  insertCreatesTable(editorId,codingChallengeId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,5 +107,31 @@ public class NonCodingChallengeRepository {
         return result;
     }
 
+
+    public List<NonCodingChallengeQueryResponse> getAllNonCodingChallenges( )
+    {
+        List<NonCodingChallengeQueryResponse> result = new ArrayList<>();
+
+        try {
+            String getAllPublicChallengesSql = "Select * From non_coding_challenge where publicity = 1";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getAllPublicChallengesSql);
+            ResultSet rs = insertCodingPrepared.executeQuery();
+            while (rs.next()){
+
+                String difficulty = rs.getString("difficulty");
+
+                String title = rs.getString("title");
+
+                NonCodingChallengeQueryResponse nccqr = new NonCodingChallengeQueryResponse(title, difficulty);
+
+                result.add(nccqr);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        return result;
+    }
 
 }

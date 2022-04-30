@@ -47,5 +47,23 @@ public class CodingChallengeController {
     }
 
 
+    @PutMapping("/updateDifficultyCodingChallenge/{challengeId}")
+    public void updateDifficultyCodingChallenge(@RequestBody String difficulty, @PathVariable int challengeId){
+        codingChallengeService.updateDifficultyCodingChallenge(challengeId,difficulty);
+    }
+
+
+    @PutMapping("/addCategoryCodingChallenge/{challengeId}")
+    public void addCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
+        codingChallengeService.addCategoryCodingChallenge(challengeId,category);
+    }
+
+
+    @PutMapping("/removeCategoryCodingChallenge/{challengeId}")
+    public void removeCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
+        codingChallengeService.removeCategoryCodingChallenge(challengeId,category);
+    }
+
+
 
 }

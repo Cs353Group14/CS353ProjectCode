@@ -23,6 +23,23 @@ public class CodingChallengeService {
         codingChallengeRepository.createCodingChallenge(editorId,codingChallenge);
     }
 
+    public void updateDifficultyCodingChallenge( int challenge_id, String difficulty)
+    {
+        codingChallengeRepository.updateDifficultyCodingChallenge(challenge_id,difficulty);
+    }
+
+    public void addCategoryCodingChallenge( int challenge_id, String category)
+    {
+        codingChallengeRepository.addCategoryCodingChallenge(challenge_id,category);
+    }
+
+    public void removeCategoryCodingChallenge( int challenge_id, String category)
+    {
+        codingChallengeRepository.removeCategoryFromChallenge(challenge_id,category);
+    }
+
+
+
     public List<CodingChallengeQueryResponse> getAllPublicChallenges(){
         return codingChallengeRepository.getAllPublicChallenges();
     }

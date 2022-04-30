@@ -1,10 +1,10 @@
 package cs353.group14.controllers;
 
+import cs353.group14.CodingChallenge;
+import cs353.group14.requests.LoginRequest;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.services.CodingChallengeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +21,10 @@ public class CodingChallengeController {
     @GetMapping("/publicCodingChallenges")
     public List<CodingChallengeQueryResponse> getPublicCodingChallenges(){
         return codingChallengeService.getAllPublicChallenges();
+    }
+
+    @PutMapping("/createCodingChallenge/{editorId}")
+    public void createCodingChallenge(@RequestBody CodingChallenge codingChallenge, @PathVariable int editorId){
+         codingChallengeService.createAtCodingChallenge(editorId,codingChallenge);
     }
 }

@@ -21,7 +21,12 @@ public class CodingChallengeService {
     public void createAtCodingChallenge(int editorId, CodingChallenge codingChallenge){
         codingChallengeRepository.createCodingChallenge(editorId,codingChallenge);
     }
+
     public List<CodingChallengeQueryResponse> getAllPublicChallenges(){
         return codingChallengeRepository.getAllPublicChallenges();
+    }
+
+    public CodingChallenge getCodingChallenge(int editorId){
+        return codingChallengeRepository.getCodingChallenge(editorId);
     }
 }

@@ -27,4 +27,11 @@ public class CodingChallengeController {
     public void createCodingChallenge(@RequestBody CodingChallenge codingChallenge, @PathVariable int editorId){
          codingChallengeService.createAtCodingChallenge(editorId,codingChallenge);
     }
+
+    @GetMapping("/getCodingChallenge/{challengeId}")
+    public CodingChallenge getCodingChallenge(@PathVariable int challengeId){
+        return codingChallengeService.getCodingChallenge(challengeId);
+    }
+
+
 }

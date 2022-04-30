@@ -1,6 +1,7 @@
 package cs353.group14.repositories;
 
 import cs353.group14.CodingChallenge;
+import cs353.group14.UserType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import org.springframework.stereotype.Repository;
@@ -77,12 +78,58 @@ public class CodingChallengeRepository {
 
                 result.add(ccqr);
             }
-           // printResultSet(rs);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
 
         return result;
+    }
+
+    public CodingChallenge getCodingChallenge(int challengeId){
+
+        int challenge_id = -1;
+        String question = "";
+        int points = -1;
+        String difficulty = "";
+        int solved_number = -1;
+        int attempt_number = -1;
+        String title = "";
+        String solution = "";
+        int publicity = -1;
+
+        try {
+            String getChallengeSql = "Select * From coding_challenge where challenge_id = ?";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
+            insertCodingPrepared.setInt(1,challengeId);
+            ResultSet rs = insertCodingPrepared.executeQuery();
+
+            int size = 0;
+
+            while (rs.next()){
+                 challenge_id = rs.getInt("challenge_id");
+                 question = rs.getString("question");
+                 points = rs.getInt("points");
+                 difficulty = rs.getString("difficulty");
+                 solved_number = rs.getInt("solved_number");
+                 attempt_number = rs.getInt("attempt_number");
+                 title = rs.getString("title");
+                 solution = rs.getString("solution");
+                 publicity = rs.getInt("publicity");
+
+                size++;
+            }
+
+            if(size!=1){
+                return null;
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return new CodingChallenge (challenge_id, question, points, difficulty,  solved_number, attempt_number, title, solution, publicity);
+
     }
 }

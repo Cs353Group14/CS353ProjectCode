@@ -31,8 +31,8 @@ function CodingCardContainer(props) {
     },[]);
 
     codingQuestions.forEach( (question) => {
-        codingCards.push(<CodingCard key={question.id}
-                                         id={question.id}
+        codingCards.push(<CodingCard key={question.challenge_id}
+                                         id={question.challenge_id}
                                          title = {question.title}
                                          category = {question.category}
                                          difficulity = {question.difficulity}

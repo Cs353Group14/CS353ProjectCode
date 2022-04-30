@@ -1,7 +1,7 @@
 import { Button, Paper, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 
-function CodingChallengeSolve() {
+function CodingChallengeSolve(props) {
 
     const title = "Coin Change";
     const [description, setDescription] = useState("You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money. \n" +
@@ -27,7 +27,7 @@ function CodingChallengeSolve() {
     const languages = ["Java", "C", "C++", "C#", "Python", "Javascript"];
 
     function SplitParagraph() {
-        return description.split('\n')
+        return props.description.split('\n')
         .map( (text,i) => <p key = {i}>{text}</p>);
     }
 
@@ -54,7 +54,7 @@ function CodingChallengeSolve() {
             
             <h2>Descripition:</h2>
 
-            <h3>{title}</h3> 
+            <h3>{props.title}</h3> 
 
             <SplitParagraph/>
 

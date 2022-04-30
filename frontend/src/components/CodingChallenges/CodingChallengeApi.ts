@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export interface CodingChallengeQueryResponse {
-    id: number,
+    challenge_id: number,
     title: string,
     difficulity: string,
     points: number,
@@ -13,7 +13,7 @@ export interface CodingChallengeModel {
     challenge_id: number,
     question: string,
     title: string,
-    difficulity: string,
+    difficulity: number,
     points: number,
     attempt_number:  number,
     solved_number: number,
@@ -30,7 +30,7 @@ export class CodingChallengeApi {
     }
 
     async getCodingChallenge(): Promise<CodingChallengeModel> {
-        const response = await axios.get("/getCodingChallenge/1");
+        const response = await axios.get(`/getCodingChallenge/${localStorage.getItem('codingId')}`);
         return response.data;
 
     }

@@ -11,13 +11,13 @@ const info = {
     acceptedNo: 63,
     author:"Hakan Yılmaz"
 }
-function CodingChallengeInformation() {
+function CodingChallengeInformation(props) {
 
     return(
         <div className="coding-challenge-info-root">
             <Divider/>
             <h4>Title</h4>
-            {info.title}
+            {props.title}
 
             <Divider/>
             <h4>Author</h4>
@@ -29,19 +29,19 @@ function CodingChallengeInformation() {
 
             <Divider/>
             <h4>Difficulity</h4>
-            {info.difficulity}
+            {props.difficulity}
 
             <Divider/>
             <h4>Point</h4>
-            {info.point}
+            {props.point}
 
             <Divider/>
             <h4>Number of Attempts</h4>
-            {info.attemptNo}
+            {props.attemptNo}
 
             <Divider/>
             <h4>Number of Accepted Answers</h4>
-            {info.acceptedNo}
+            {props.acceptedNo}
             <Divider/>
         </div>
     );

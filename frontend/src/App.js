@@ -13,7 +13,7 @@ import CodingChallengeSolve from './components/CodingChallenges/CodingChallengeV
 import EditorProfile from './components/Profile/Editor/EditorProfile';
 import NonCodingCardContainer from './components/NonCodingChallenges/Components/NonCodingCardContainer';
 import NonCodingChallengeView from './components/NonCodingChallenges/View/NonCodingChallengeView'
-
+import CreateCodingChallenge from './components/Interview/CreateInterview/CreateCodingInterview';
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +30,8 @@ function App() {
 
       <Route path = {"/profile"} element = {<Profile/>}/>
       <Route path = {"/profileEditor"} element = {<EditorProfile/>}/>
+      <Route path = {"/CreateCodingChallenge"} element = {<CreateCodingChallenge/>}/>
+
     </Routes>
     </BrowserRouter>
   );

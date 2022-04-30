@@ -23,6 +23,12 @@ public class CodingChallengeController {
         return codingChallengeService.getAllPublicChallenges();
     }
 
+
+    @GetMapping("/publicCodingChallengesFiltered")
+    public List<CodingChallengeQueryResponse> getPublicCodingChallengesFiltered( @RequestBody List<String> filters){
+        return codingChallengeService.getAllPublicCodingChallengesFiltered(filters);
+    }
+
     @PutMapping("/createCodingChallenge/{editorId}")
     public void createCodingChallenge(@RequestBody CodingChallenge codingChallenge, @PathVariable int editorId){
          codingChallengeService.createAtCodingChallenge(editorId,codingChallenge);

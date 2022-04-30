@@ -195,4 +195,37 @@ public class NonCodingChallengeRepository {
 
     }
 
+    public Reply seeReply(int userId, int nonChallengeId) {
+
+        String answer = "";
+        String theResult = "";
+        Timestamp replyTime = null;
+
+
+        try {
+            String getReplySql = "Select * from reply where non_challenge_id = ? and user_id = ?";
+            PreparedStatement getReplyPrepared = ConnectionSingle.getConnection().prepareStatement(getReplySql);
+            getReplyPrepared.setInt(1,nonChallengeId);
+            getReplyPrepared.setInt(2,userId);
+
+            ResultSet rs = getReplyPrepared.executeQuery();
+
+            int size = 0;
+
+            while (rs.next()){
+                answer = rs.getString("answer");
+                theResult = rs.getString("the_result");
+                replyTime = rs.getTimestamp("reply_time");
+
+                size++;
+            }
+
+            if(size!=1){
+                return null;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return new Reply(nonChallengeId,userId,answer,theResult,replyTime);
+    }
 }

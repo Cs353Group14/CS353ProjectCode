@@ -43,4 +43,8 @@ public class NonCodingChallengeService {
         reply.setReplyTime(new Timestamp(System.currentTimeMillis()));
         noncodingChallengeRepository.replyQuestion(reply);
     }
+
+    public Reply seeReply(int userId, int nonChallengeId) {
+        return noncodingChallengeRepository.seeReply(userId,nonChallengeId);
+    }
 }

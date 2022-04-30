@@ -46,8 +46,13 @@ public class NonCodingChallengeController {
         return nonCodingChallengeService.getNonCodingChallenge(noncodingChallengeId);
     }
 
-    @GetMapping("/replyQuestion")
+    @PutMapping("/replyQuestion")
     public void replyQuestion(@RequestBody Reply reply){
         nonCodingChallengeService.replyQuestion(reply);
+    }
+
+    @GetMapping("/seeReply/{userId}/{nonChallengeId}")
+    public Reply seeReply(@PathVariable int userId,@PathVariable int nonChallengeId){
+        return nonCodingChallengeService.seeReply(userId,nonChallengeId);
     }
 }

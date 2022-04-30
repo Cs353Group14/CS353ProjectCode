@@ -46,7 +46,7 @@ public class NonCodingChallengeController {
         return nonCodingChallengeService.getNonCodingChallenge(noncodingChallengeId);
     }
 
-<<<<<<< Updated upstream
+
     @PutMapping("/replyQuestion")
     public void replyQuestion(@RequestBody Reply reply){
         nonCodingChallengeService.replyQuestion(reply);
@@ -56,7 +56,7 @@ public class NonCodingChallengeController {
     public Reply seeReply(@PathVariable int userId,@PathVariable int nonChallengeId){
         return nonCodingChallengeService.seeReply(userId,nonChallengeId);
     }
-=======
+
 
     @PutMapping("/updateDifficultyNonCodingChallenge/{challengeId}")
     public void updateDifficultyCodingChallenge(@RequestBody String difficulty, @PathVariable int challengeId){
@@ -76,5 +76,4 @@ public class NonCodingChallengeController {
     }
 
 
->>>>>>> Stashed changes
 }

@@ -38,7 +38,21 @@ public class CodingChallengeService {
         codingChallengeRepository.removeCategoryFromChallenge(challenge_id,category);
     }
 
+    public void addTestCaseForCodingChallenge( int challenge_id, String input, String output)
+    {
+        codingChallengeRepository.addTestCaseForCodingChallenge(challenge_id,input,output);
+    }
 
+
+    public  List<String> getInputsForCodingChallenge( int challenge_id)
+    {
+       return codingChallengeRepository.getInputsForCodingChallenge(challenge_id);
+    }
+
+    public List<String>  getOutputsForCodingChallenge( int challenge_id)
+    {
+        return codingChallengeRepository.getOutputsForCodingChallenge(challenge_id);
+    }
 
     public List<CodingChallengeQueryResponse> getAllPublicChallenges(){
         return codingChallengeRepository.getAllPublicChallenges();

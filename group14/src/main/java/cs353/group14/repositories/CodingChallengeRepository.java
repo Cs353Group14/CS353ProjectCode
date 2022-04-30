@@ -295,18 +295,78 @@ public class CodingChallengeRepository {
 
 
 
-    public void createTestCaseForCodingChallenge( int challenge_id, String input, String output)
+    public void addTestCaseForCodingChallenge( int challenge_id, String input, String output)
     {
-        
-
+        try {
+            String query = "INSERT INTO test_case( challenge_id, inputs, outputs) VALUES ( ?, ?, ?)";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,challenge_id);
+            preparedStatement.setString(2,input);
+            preparedStatement.setString(3,output);
+            preparedStatement.executeUpdate();
+            }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
 
-    public void getTestCasesForCodingChallenge( int challenge_id, String input, String output)
+    public List<String> getInputsForCodingChallenge( int challenge_id )
     {
+        List<String> result = new ArrayList<>();
+
+        try {
+            String getChallengeSql = "Select * From test_case where challenge_id = ?";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
+            insertCodingPrepared.setInt(1,challenge_id);
+            ResultSet rs = insertCodingPrepared.executeQuery();
 
 
 
+            while (rs.next()){
+                List <String> a;
+                result.add(rs.getString("inputs"));
+
+
+            }
+
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
     }
+
+
+
+    public List<String> getOutputsForCodingChallenge( int challenge_id )
+    {
+        List<String> result = new ArrayList<>();
+
+        try {
+            String getChallengeSql = "Select * From test_case where challenge_id = ?";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
+            insertCodingPrepared.setInt(1,challenge_id);
+            ResultSet rs = insertCodingPrepared.executeQuery();
+
+
+
+            while (rs.next()){
+                List <String> a;
+                result.add(rs.getString("outputs"));
+
+            }
+
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
+
+
+
 }

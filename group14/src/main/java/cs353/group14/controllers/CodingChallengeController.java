@@ -65,5 +65,20 @@ public class CodingChallengeController {
     }
 
 
+    @PutMapping("/addTestCaseForCodingChallenge/{challengeId}")
+    public void addTestCaseForCodingChallenge(@RequestBody List<String> inputsoutputs,  @PathVariable int challengeId){
+        codingChallengeService.addTestCaseForCodingChallenge(challengeId,inputsoutputs.get(0),inputsoutputs.get(1));
+    }
 
+
+    @GetMapping("/getInputsForCodingChallenge/{challengeId}")
+    public List<String> getInputsForCodingChallenge(  @PathVariable int challengeId){
+        return codingChallengeService.getInputsForCodingChallenge(challengeId);
+    }
+
+
+    @GetMapping("/getOutputsForCodingChallenge/{challengeId}")
+    public List<String> getOutputsForCodingChallenge(  @PathVariable int challengeId){
+        return codingChallengeService.getOutputsForCodingChallenge(challengeId);
+    }
 }

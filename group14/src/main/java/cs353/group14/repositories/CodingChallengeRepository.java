@@ -85,17 +85,4 @@ public class CodingChallengeRepository {
 
         return result;
     }
-
-    // silincek
-    private void printResultSet(ResultSet rs) throws SQLException {
-        ResultSetMetaData rsmd = rs.getMetaData();
-        int columnsNumber = rsmd.getColumnCount();
-        while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(" | ");
-                System.out.print(rs.getString(i));
-            }
-            System.out.println("");
-        }
-    }
 }

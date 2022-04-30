@@ -20,27 +20,27 @@ public class NonCodingChallengeRepository {
 
         try {
             int codingChallengeId = insertNonCodingChallengeTable(noncodingChallenge);
-          //  insertCreatesTable(editorId,codingChallengeId);
+            insertMakeTable(editorId,codingChallengeId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void insertCreatesTable(int editorId, int noncodingChallengeId)throws SQLException  {
-        String insertCreatesChallenge = "Insert INTO creates(user_id,challenge_id) VALUES(?,?)";
-        PreparedStatement insertCreatesPrepared= ConnectionSingle.getConnection().prepareStatement(insertCreatesChallenge);
-        insertCreatesPrepared.setInt(1,editorId);
-        insertCreatesPrepared.setInt(2,noncodingChallengeId);
+    public void insertMakeTable(int editorId, int noncodingChallengeId)throws SQLException  {
+        String insertCreatesChallenge = "Insert INTO make(user_id,non_challenge_id) VALUES(?,?)";
+        PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(insertCreatesChallenge);
+        preparedStatement.setInt(1,editorId);
+        preparedStatement.setInt(2,noncodingChallengeId);
 
-        insertCreatesPrepared.executeUpdate();
+        preparedStatement.executeUpdate();
     }
 
 
     public int insertNonCodingChallengeTable(NonCodingChallenge noncodingChallenge)throws SQLException {
 
         String insertCodingChallenge = "Insert INTO non_coding_challenge(question,difficulty,title,publicity ) " +
-                "VALUES(?,?,?,?,?)";
+                "VALUES(?,?,?,?)";
         PreparedStatement insertCodingPrepared= ConnectionSingle.getConnection().prepareStatement(insertCodingChallenge, Statement.RETURN_GENERATED_KEYS);
         insertCodingPrepared.setString(1,noncodingChallenge.getQuestion());
         insertCodingPrepared.setString(2,noncodingChallenge.getDifficulty());
@@ -55,6 +55,60 @@ public class NonCodingChallengeRepository {
 
         return keys.getInt(1);
     }
+
+    public void updateDifficultyNonCodingChallenge( int challenge_id, String difficulty)
+    {
+        try {
+            String query = "UPDATE non_coding_challenge SET difficulty = ? where challenge_id = ?";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setString(1,difficulty);
+            preparedStatement.setInt(2,challenge_id);
+            int result = preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
+    public void addCategoryNonCodingChallenge( int challenge_id, String category)
+    {
+        try {
+            String query = "INSERT INTO non_coding_challenge_categories( non_challenge_id,category) VALUES ( ?,?);";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,challenge_id);
+            preparedStatement.setString(2,category);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+    }
+
+
+
+
+    public void removeCategoryNonCodingChallenge( int challenge_id, String category)
+    {
+        try {
+            String query = "DELETE FROM non_coding_challenge_categories where non_challenge_id = ? and category = ?";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,challenge_id);
+            preparedStatement.setString(2,category);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+    }
+
+
+
+
 
 
     public List<NonCodingChallengeQueryResponse> getAllPublicNonCodingChallengesWithFiltered(List <String> input )  {

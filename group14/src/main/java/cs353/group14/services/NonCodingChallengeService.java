@@ -31,7 +31,20 @@ public class NonCodingChallengeService {
         return noncodingChallengeRepository.getAllNonCodingChallenges();
     }
 
+    public void updateDifficultyNonCodingChallenge( int challenge_id, String difficulty)
+    {
+        noncodingChallengeRepository.updateDifficultyNonCodingChallenge(challenge_id,difficulty);
+    }
 
+    public void addCategoryNonCodingChallenge( int challenge_id, String category)
+    {
+        noncodingChallengeRepository.addCategoryNonCodingChallenge(challenge_id,category);
+    }
+
+    public void removeCategoryNonCodingChallenge( int challenge_id, String category)
+    {
+        noncodingChallengeRepository.removeCategoryNonCodingChallenge(challenge_id,category);
+    }
 
 
 

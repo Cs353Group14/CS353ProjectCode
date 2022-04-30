@@ -292,4 +292,21 @@ public class CodingChallengeRepository {
         return new CodingChallenge (challenge_id, question, points, difficulty,  solved_number, attempt_number, title, solution, publicity);
 
     }
+
+
+
+    public void createTestCaseForCodingChallenge( int challenge_id, String input, String output)
+    {
+        
+
+
+    }
+
+
+    public void getTestCasesForCodingChallenge( int challenge_id, String input, String output)
+    {
+
+
+
+    }
 }

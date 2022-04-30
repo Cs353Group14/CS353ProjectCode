@@ -3,7 +3,10 @@ package cs353.group14.services;
 import cs353.group14.CodingChallenge;
 import cs353.group14.repositories.CodingChallengeRepository;
 import cs353.group14.repositories.UserRepository;
+import cs353.group14.responses.CodingChallengeQueryResponse;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -17,5 +20,8 @@ public class CodingChallengeService {
 
     public void createAtCodingChallenge(int editorId, CodingChallenge codingChallenge){
         codingChallengeRepository.createCodingChallenge(editorId,codingChallenge);
+    }
+    public List<CodingChallengeQueryResponse> getAllPublicChallenges(){
+        return codingChallengeRepository.getAllPublicChallenges();
     }
 }

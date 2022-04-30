@@ -23,7 +23,7 @@ public class CreateTables {
         this.codingChallengeService = codingChallengeService;
     }
 
-    @Bean
+    //@Bean
     public void createUserTables() {
 
         System.out.println("create table");
@@ -340,7 +340,7 @@ public class CreateTables {
         userService.registerEditor(new Editor(userId,username,mail,password,UserType.Editor,name,"","",position,place));
 
         for(int i=0;i<10;i++){
-            codingChallengeService.createAtCodingChallenge(4,new CodingChallenge(-1,"q1",100,"zor",10,10,"title1","solution1",0));
+            codingChallengeService.createAtCodingChallenge(4,new CodingChallenge(-1,"q1",100,"zor",10,10,"title1","solution1",i%2));
         }
 
     }

@@ -32,22 +32,49 @@ const categories =
   {value: "BFS"}
 ]
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 function CreateCodingChallenge(props) {
 
-  const [value, setValue] = React.useState('Controlled');
   const [difficulty, setdifficulty] = React.useState('Easy');
+  const [title, setTitle] = useState("");
+  const [points, setPoints] = useState("");
+  const [solution, setSolution] = useState("");
+  const [question, setQuestion] = useState("");
+  const [category, setCatefories] = useState("");
+
+  let handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let res = await fetch("http://localhost:8080/createCodingChallenge/1", {
+        method: "PUT",
+        body: JSON.stringify({
+          difficulty: difficulty,
+           title: title,
+          points: points,
+          solution: solution,
+          question: question,
+          category: category,
+          solvedNumber: 0,
+          attempt_number: 0,
+          publicity: false
+
+        }),
+      });
+
+      let resJson = await res.json();
+      if (res.status === 200) {
+        alert("Submited successfully")
+      } else {
+        alert("Some error occured");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    
   };
 
     return(
@@ -73,7 +100,7 @@ function CreateCodingChallenge(props) {
             alignItems="center"
           >
             
-          <FormControl onSubmit = "">
+          <FormControl onSubmit = {handleSubmit}>
             <Box
               component="form"
               sx={{
@@ -87,21 +114,24 @@ function CreateCodingChallenge(props) {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Title"
-                onChange={handleChange}
+                onChange={(e) => setTitle(e.target.value)}
                 margin="normal"
                 fullWidth
                 variant="outlined"
+                value={title}
               />
             </div>
             <div>
               <TextField
                 id="outlined-textarea"
                 label="Question"
+                onChange={(e) => setQuestion(e.target.value)}
                 placeholder="Placeholder"
                 multiline
                 fullWidth
                 margin="normal"
                 variant="outlined"
+                value={question}
               />
             </div>
       
@@ -111,10 +141,11 @@ function CreateCodingChallenge(props) {
                     <TextField
                       id="outlined-multiline-flexible"
                       label="Points"
-                      onChange={handleChange}
+                      onChange={(e) => setPoints(e.target.value)}
                       margin="normal"
                       variant="outlined"
                       type="number"
+                      value={points}
                     />
                 </div>
               </Grid>
@@ -124,9 +155,8 @@ function CreateCodingChallenge(props) {
                       id="outlined-select-currency"
                       select
                       margin="normal"
-
                       value={difficulty}
-                      onChange={handleChange}
+                      onChange={(e) => setdifficulty(e.target.value)}
                     >
                       {difficulties.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -146,6 +176,9 @@ function CreateCodingChallenge(props) {
                   multiline
                   margin="normal"
                   variant="outlined"
+                  onChange={(e) => setSolution(e.target.value)}
+                  value= {solution}
+
                 />
                </div>
               <Stack spacing={3} sx={{ width: 500 }}>
@@ -156,6 +189,7 @@ function CreateCodingChallenge(props) {
                     getOptionLabel={(option) => option.value}
                     filterSelectedOptions
                     margin="normal"
+                    onChange={(e) => setCatefories(e.target.value)}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -181,6 +215,7 @@ function CreateCodingChallenge(props) {
                     fullWidth
                     variant="contained"
                     color="primary"
+                    onClick={handleSubmit}
                     > Save</Button>
               </Grid>
             </Grid>

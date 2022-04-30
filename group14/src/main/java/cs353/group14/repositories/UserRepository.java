@@ -3,6 +3,8 @@ package cs353.group14.repositories;
 
 import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
+import cs353.group14.requests.LoginRequest;
+import cs353.group14.responses.LoginResponse;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -198,5 +200,76 @@ public class UserRepository {
 
     }
 
+
+    public LoginResponse loginWithBasicResponse(String username, String password)
+    {
+        LoginResponse user = null;
+
+        try {
+            String loginQuery = "SELECT * from users WHERE username = ? and password = ?";
+            PreparedStatement loginStmt = ConnectionSingle.getConnection().prepareStatement(loginQuery);
+            loginStmt.setString(1,username);
+            loginStmt.setString(2,password);
+            ResultSet rs = loginStmt.executeQuery();
+            int size =0;
+            int userId = -1;
+            UserType userType = UserType.Company;
+            String mail = "";
+            String name = "";
+            String information = "";
+
+            while (rs.next()){
+                userId = rs.getInt("user_id");
+                int userTypeInt = rs.getInt("usertype");
+                userType = UserType.values()[userTypeInt];
+                mail = rs.getString("mail");
+                name = rs.getString("name");
+                information = rs.getString("information");
+                //Byte[] foto; // şimdilik dursun
+                size++;
+            }
+
+            if(size!=1){
+                return null;
+            }
+
+            String dataForUserType = "SELECT * from "+userType+" WHERE user_id = ?";
+            PreparedStatement getUserDataStmt = ConnectionSingle.getConnection().prepareStatement(dataForUserType);
+            getUserDataStmt.setInt(1,userId);
+            ResultSet rs2 = getUserDataStmt.executeQuery();
+            rs2.next();
+
+            switch (userType){
+                case Admin:
+                    user = new LoginResponse(username,userId,userType.ordinal());
+                    break;
+                case Coder:
+                    int rating = rs2.getInt("rating");
+                    int points = rs2.getInt("points");
+                    String position = rs2.getString("position");
+                    String place = rs2.getString("place");
+                    int birthYear = rs2.getInt("birth_year");
+                    user = new LoginResponse(username,userId,userType.ordinal());
+                    break;
+                case Company:
+                    String location = rs2.getString("location");
+                    String webPageLink = rs2.getString("web_page_link");
+                    user = new LoginResponse(username,userId,userType.ordinal());
+                    break;
+                case Editor:
+                    String positionE = rs2.getString("position");
+                    String placeE = rs2.getString("place");
+                    user = new LoginResponse(username,userId,userType.ordinal());
+                    break;
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+// username userid user type
 
 }

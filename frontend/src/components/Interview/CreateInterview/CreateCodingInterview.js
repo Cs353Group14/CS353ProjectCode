@@ -46,7 +46,7 @@ function CreateCodingChallenge(props) {
     e.preventDefault();
     try {
       let res = await fetch("http://localhost:8080/createCodingChallenge/1", {
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify({
           difficulty: difficulty,
            title: title,

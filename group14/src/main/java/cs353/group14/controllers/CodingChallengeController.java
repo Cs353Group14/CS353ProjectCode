@@ -2,6 +2,7 @@ package cs353.group14.controllers;
 
 import cs353.group14.CodingChallenge;
 import cs353.group14.requests.LoginRequest;
+import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.services.CodingChallengeService;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,13 @@ public class CodingChallengeController {
     public CodingChallenge getCodingChallenge(@PathVariable int challengeId){
         return codingChallengeService.getCodingChallenge(challengeId);
     }
+
+
+    @GetMapping("/getCodingChallengeAuthorAndCategory/{challengeId}")
+    public CodingChallengeAuthorCategoryResponse getCodingChallengeAuthorAndCategory(@PathVariable int challengeId){
+        return codingChallengeService.getAuthorandCategoryofCodingChallenge(challengeId);
+    }
+
 
 
 }

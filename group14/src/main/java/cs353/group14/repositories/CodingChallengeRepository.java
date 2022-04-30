@@ -110,7 +110,7 @@ public class CodingChallengeRepository {
                 i++;
             }
         }
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + getAllPublicChallengesSql);
+
         try {
 
             PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getAllPublicChallengesSql);

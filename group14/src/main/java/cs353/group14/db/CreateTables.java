@@ -128,7 +128,7 @@ public class CreateTables {
                 " ON DELETE CASCADE)";
 
         createSqls[8] = "CREATE TABLE submission (" +
-                " submission_id INTEGER NOT NULL," +
+                " submission_id SERIAL NOT NULL," +
                 "  answer VARCHAR(1023)," +
                 "  pass_result INTEGER NOT NULL," +
                 "  fail_result INTEGER NOT NULL," +
@@ -224,7 +224,7 @@ public class CreateTables {
 
         createSqls[21] = "CREATE TABLE interview (" +
                 "  user_id INTEGER NOT NULL," +
-                "  interview_id INTEGER NOT NULL," +
+                "  interview_id SERIAL NOT NULL," +
                 "  duration INTEGER NOT NULL," +
                 "  position VARCHAR(31) NOT NULL," +
                 "   PRIMARY KEY (user_id, interview_id)," +

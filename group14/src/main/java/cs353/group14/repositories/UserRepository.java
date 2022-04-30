@@ -270,6 +270,38 @@ public class UserRepository {
 
         return user;
     }
-// username userid user type
 
+    public void giveReferCoder(int userId, int referredId, String referReason) {
+
+        try {
+            String insertRefer = "insert into refer ( user_id, referred_id, refer_reason, accepted) VALUES(?, ?, ?, ?)";
+            PreparedStatement insertReferStmt = ConnectionSingle.getConnection().prepareStatement(insertRefer);
+            insertReferStmt.setInt(1,userId);
+            insertReferStmt.setInt(2,referredId);
+            insertReferStmt.setString(3,referReason);
+            insertReferStmt.setInt(4,1);
+            insertReferStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+
+    public void giveReferEditor(int userId, int coderId, String suggestReason) {
+
+        try {
+            String insertRefer = "insert into suggest ( user_id, coder_id, suggest_reason, accepted) VALUES(?, ?, ?, ?)";
+            PreparedStatement insertReferStmt = ConnectionSingle.getConnection().prepareStatement(insertRefer);
+            insertReferStmt.setInt(1,userId);
+            insertReferStmt.setInt(2,coderId);
+            insertReferStmt.setString(3,suggestReason);
+            insertReferStmt.setInt(4,1);
+            insertReferStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

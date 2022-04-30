@@ -2,9 +2,12 @@ package cs353.group14.controllers;
 
 import cs353.group14.*;
 import cs353.group14.requests.LoginRequest;
+import cs353.group14.requests.ReferRequest;
 import cs353.group14.responses.LoginResponse;
 import cs353.group14.services.UserService;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping
@@ -37,6 +40,16 @@ public class UserController {
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest loginRequest){
         return userService.loginWithBasicResponse(loginRequest.getUsername(),loginRequest.getPassword());
+    }
+
+     @PutMapping("/giveReferCoder/{userId}/{referredId}")
+     public void giveReferCoder(@PathVariable int userId, @PathVariable int referredId, @RequestBody ReferRequest referRequest){
+         userService.giveReferCoder(userId,referredId,referRequest.getReason());
+     }
+
+    @PutMapping("/giveReferEditor/{userId}/{coderId}")
+    public void giveReferEditor(@PathVariable int userId, @PathVariable int coderId,@RequestBody ReferRequest referRequest ){
+        userService.giveReferEditor(userId,coderId,referRequest.getReason());
     }
 
 

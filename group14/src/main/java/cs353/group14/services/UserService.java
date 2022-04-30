@@ -87,4 +87,11 @@ public class UserService {
     public LoginResponse loginWithBasicResponse ( String username, String password) {
         return userRepository.loginWithBasicResponse(username,password);
     }
+
+    public void giveReferCoder(int userId, int referredId, String referReason) {
+        userRepository.giveReferCoder(userId, referredId, referReason);
+    }
+    public void giveReferEditor(int userId, int coderId, String suggestReason) {
+        userRepository.giveReferEditor(userId, coderId, suggestReason);
+    }
 }

@@ -219,6 +219,7 @@ public class Group14Application {
 		SpringApplication.run(Group14Application.class, args);
 
 
+		/*
 		createTestUsers();
 
 		for(int i=0;i<10;i++){
@@ -258,7 +259,7 @@ public class Group14Application {
 		}
 		*/
 
-		System.exit(0);
+		//System.exit(0);
 
 	}
 

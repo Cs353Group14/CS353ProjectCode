@@ -11,7 +11,7 @@ import java.sql.Statement;
 @Component
 public class CreateTables {
 
-    @Bean
+    //@Bean
     public static void createUserTables() {
 
         int sqlCount = 8;

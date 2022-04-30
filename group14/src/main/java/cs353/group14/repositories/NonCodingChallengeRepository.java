@@ -107,6 +107,45 @@ public class NonCodingChallengeRepository {
         return result;
     }
 
+    public NonCodingChallenge getNonCodingChallenge(int noncodingChallengeId){
+
+        int non_challenge_id = -1;
+        String question = "";
+        String difficulty = "";
+        String title = "";
+        int publicity = -1;
+
+        try {
+            String getNonChallengeSql = "Select * From non_coding_challenge where non_challenge_id = ?";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getNonChallengeSql);
+            insertCodingPrepared.setInt(1,noncodingChallengeId);
+            ResultSet rs = insertCodingPrepared.executeQuery();
+
+            int size = 0;
+
+            while (rs.next()){
+                non_challenge_id = rs.getInt("challenge_id");
+                question = rs.getString("question");
+                difficulty = rs.getString("difficulty");
+                title = rs.getString("title");
+                publicity = rs.getInt("publicity");
+
+                size++;
+            }
+
+            if(size!=1){
+                return null;
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return new NonCodingChallenge (non_challenge_id, question, difficulty, title, publicity);
+
+    }
+
 
     public List<NonCodingChallengeQueryResponse> getAllNonCodingChallenges( )
     {

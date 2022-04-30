@@ -44,8 +44,8 @@ public class CodingChallengeService {
         return codingChallengeRepository.getAllPublicChallenges();
     }
 
-    public CodingChallenge getCodingChallenge(int editorId){
-        return codingChallengeRepository.getCodingChallenge(editorId);
+    public CodingChallenge getCodingChallenge(int challengeId){
+        return codingChallengeRepository.getCodingChallenge(challengeId);
     }
 
 

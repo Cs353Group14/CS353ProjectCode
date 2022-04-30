@@ -1,11 +1,14 @@
 package cs353.group14.controllers;
 
-import cs353.group14.CodingChallenge;
+
 import cs353.group14.NonCodingChallenge;
-import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import cs353.group14.services.NonCodingChallengeService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -35,5 +38,10 @@ public class NonCodingChallengeController {
     @GetMapping("/NonCodingChallenges")
     public List<NonCodingChallengeQueryResponse> getAllNonCodingChallenges(){
         return nonCodingChallengeService.getAllNonCodingChallenges();
+    }
+
+    @GetMapping("/getNonCodingChallenge/{noncodingChallengeId}")
+    public NonCodingChallenge getNonCodingChallenge(@PathVariable int noncodingChallengeId){
+        return nonCodingChallengeService.getNonCodingChallenge(noncodingChallengeId);
     }
 }

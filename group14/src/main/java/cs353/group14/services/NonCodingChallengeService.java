@@ -1,6 +1,5 @@
 package cs353.group14.services;
 
-import cs353.group14.CodingChallenge;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.repositories.NonCodingChallengeRepository;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
@@ -33,4 +32,8 @@ public class NonCodingChallengeService {
 
 
 
+
+    public NonCodingChallenge getNonCodingChallenge(int noncodingChallengeId){
+        return noncodingChallengeRepository.getNonCodingChallenge(noncodingChallengeId);
+    }
 }

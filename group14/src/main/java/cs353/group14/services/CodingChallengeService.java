@@ -3,6 +3,7 @@ package cs353.group14.services;
 import cs353.group14.CodingChallenge;
 import cs353.group14.repositories.CodingChallengeRepository;
 import cs353.group14.repositories.UserRepository;
+import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +35,12 @@ public class CodingChallengeService {
     public List<CodingChallengeQueryResponse> getAllPublicCodingChallengesFiltered(List<String> filters){
         return codingChallengeRepository.getAllPublicCodingChallengesWithFiltered(filters);
     }
+
+
+    public CodingChallengeAuthorCategoryResponse getAuthorandCategoryofCodingChallenge(int challengeId){
+        return codingChallengeRepository.getCodingChallengeAuthorResponse(challengeId);
+    }
+
+
+
 }

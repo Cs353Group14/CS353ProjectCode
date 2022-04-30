@@ -3,6 +3,7 @@ package cs353.group14.repositories;
 import cs353.group14.CodingChallenge;
 import cs353.group14.UserType;
 import cs353.group14.db.ConnectionSingle;
+import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import org.springframework.stereotype.Repository;
 
@@ -143,7 +144,52 @@ public class CodingChallengeRepository {
         return result;
     }
 
+    public CodingChallengeAuthorCategoryResponse getCodingChallengeAuthorResponse(int challengeId)
+    {
+        List<String> categoryList = new ArrayList<>();
+        String author = "";
+        try {
+            String getChallengeSql = "Select * From coding_challenge_categories where challenge_id = ?";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
+            insertCodingPrepared.setInt(1,challengeId);
+            ResultSet rs = insertCodingPrepared.executeQuery();
 
+
+            while (rs.next()){
+
+                categoryList.add( rs.getString("category"));
+
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+        try {
+            String getChallengeSql = "Select * From creates C, users U where U.user_id = C.user_id" +
+                    " and challenge_id = ?";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
+            insertCodingPrepared.setInt(1,challengeId);
+            ResultSet rs = insertCodingPrepared.executeQuery();
+
+
+            while (rs.next()){
+
+                author = rs.getString("username");
+
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        return  new CodingChallengeAuthorCategoryResponse(categoryList,author);
+    }
 
 
 

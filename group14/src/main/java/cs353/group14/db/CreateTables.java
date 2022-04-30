@@ -1,5 +1,8 @@
 package cs353.group14.db;
 
+import cs353.group14.*;
+import cs353.group14.services.CodingChallengeService;
+import cs353.group14.services.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -11,8 +14,19 @@ import java.sql.Statement;
 @Component
 public class CreateTables {
 
-    //@Bean
-    public static void createUserTables() {
+
+    private final UserService userService;
+    private final CodingChallengeService codingChallengeService;
+
+    public CreateTables(UserService userService, CodingChallengeService codingChallengeService) {
+        this.userService = userService;
+        this.codingChallengeService = codingChallengeService;
+    }
+
+    @Bean
+    public void createUserTables() {
+
+        System.out.println("create table");
 
         int sqlCount = 28;
 
@@ -106,7 +120,7 @@ public class CreateTables {
 
         createSqls[7] = "CREATE TABLE test_case (" +
                 "  challenge_id INTEGER NOT NULL," +
-                "  case_id INTEGER NOT NULL," +
+                "  case_id SERIAL NOT NULL," +
                 "  inputs VARCHAR(127)," +
                 "  outputs VARCHAR(127)," +
                 "  PRIMARY KEY (challenge_id, case_id)," +
@@ -277,6 +291,56 @@ public class CreateTables {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+
+        createTestUsers();
+
+    }
+
+    public void createTestUsers()  {
+
+        System.out.println("create test users");
+
+        String username = "admin";
+        String password = "admin";
+        String mail = "admin@admin.com";
+        String name = "admin";
+        int userId = -1;
+
+        userService.registerAdmin(new Admin(userId,username,mail,password, UserType.Admin, name, "", ""));
+
+        username = "akin";
+        password = "1234";
+        mail = "akin@gmail.com";
+        name = "akin kutlu";
+
+        String position = "position1";
+        String place = "place1";
+        int year = 1990;
+        userService.registerCoder(new Coder(userId,username,mail,password,UserType.Coder,name,"","",0,0,position,place,year));
+
+        username = "b";
+        password = "1234";
+        mail = "b@gmail.com";
+        name = "b c";
+
+        String location = "location1";
+        String link = "web_page_link1";
+
+        userService.registerCompany(new Company(userId,username,mail,password,UserType.Company,name,"","",location,link));
+
+        username = "q";
+        password = "1234";
+        mail = "q@gmail.com";
+        name = "q m";
+
+        position = "position1";
+        place = "place1";
+
+        userService.registerEditor(new Editor(userId,username,mail,password,UserType.Editor,name,"","",position,place));
+
+        for(int i=0;i<10;i++){
+            codingChallengeService.createAtCodingChallenge(4,new CodingChallenge(-1,"q1",100,"zor",10,10,"title1","solution1",0));
         }
 
     }

@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import {Button, TextField} from "@material-ui/core";
 import RegisterBar from "./RegisterBar";
+import { RegisterApi } from "./RegisterApi";
 
 
 
@@ -12,6 +13,8 @@ function RegisterEditor() {
     const[mail, setMail] = useState("");
     const[position, setPosition] = useState("");
     const[place, setPlace] = useState("");
+
+    const registerApi = new RegisterApi();
 
     function handleNewUsername(event) {
         setUsername(event.target.value);
@@ -37,9 +40,22 @@ function RegisterEditor() {
         setPlace(event.target.value);
     }
 
-    function handleRegisterClick() {
+    async function handleRegisterClick() {
 
         console.log("Signed In");
+
+        const editor = {
+            "username": username,
+            "mail": mail,
+            "password": password,
+            "userType": "Editor",
+            "name": name,
+            "position": position,
+            "place": place
+        }
+
+        await registerApi.registerEditor(editor);
+
         setTimeout(function() {
             window.location.href = "http://localhost:3000";
         }, 1000)

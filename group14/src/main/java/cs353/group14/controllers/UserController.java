@@ -8,6 +8,7 @@ import cs353.group14.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping
@@ -50,6 +51,36 @@ public class UserController {
     @PutMapping("/giveReferEditor/{userId}/{coderId}")
     public void giveReferEditor(@PathVariable int userId, @PathVariable int coderId,@RequestBody ReferRequest referRequest ){
         userService.giveReferEditor(userId,coderId,referRequest.getReason());
+    }
+
+    @PutMapping("/askReferCoder/{userId}/{referredId}")
+    public void askReferCoder(@PathVariable int userId, @PathVariable int referredId){
+        userService.askReferCoder(userId,referredId);
+    }
+
+    @PutMapping("/askReferEditor/{userId}/{coderId}")
+    public void askReferEditor(@PathVariable int userId, @PathVariable int coderId ){
+        userService.askReferEditor(userId,coderId);
+    }
+
+    @PutMapping("/answerReferCoder/{userId}/{referredId}/{answer}")
+    public void answerReferCoder(@PathVariable int userId, @PathVariable int referredId,@PathVariable int answer,@RequestBody ReferRequest referRequest ){
+        userService.answerReferCoder(userId,referredId,answer,referRequest.getReason());
+    }
+
+    @PutMapping("/answerReferEditor/{userId}/{coderId}/{answer}")
+    public void answerReferEditor(@PathVariable int userId, @PathVariable int coderId,@PathVariable int answer,@RequestBody ReferRequest referRequest ){
+        userService.answerReferEditor(userId,coderId, answer,referRequest.getReason());
+    }
+
+    @GetMapping("/listReferCoder/{userId}")
+    public List<Integer> listReferCoder(@PathVariable int userId){
+        return userService.listReferCoder(userId);
+    }
+
+    @GetMapping("/listReferEditor/{userId}")
+    public List<Integer> listReferEditor(int userId){
+        return userService.listReferEditor(userId);
     }
 
 

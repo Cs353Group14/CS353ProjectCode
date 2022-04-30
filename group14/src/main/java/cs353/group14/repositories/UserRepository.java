@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class UserRepository {
@@ -284,10 +286,39 @@ public class UserRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
     }
+
+    public void askReferCoder(int userId, int referredId) {
+
+        try {
+            String insertRefer = "insert into refer ( user_id, referred_id, refer_reason, accepted) VALUES(?, ?, ?, ?)";
+            PreparedStatement insertReferStmt = ConnectionSingle.getConnection().prepareStatement(insertRefer);
+            insertReferStmt.setInt(1,userId);
+            insertReferStmt.setInt(2,referredId);
+            insertReferStmt.setString(3,"");
+            insertReferStmt.setInt(4,0);
+            insertReferStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void answerReferCoder(int userId, int referredId, int answer,String referReason ) {
+
+        try {
+            String insertRefer = "UPDATE refer SET refer_reason = ? , accepted = ?  where user_id = ? and referred_id = ?";
+            PreparedStatement insertReferStmt = ConnectionSingle.getConnection().prepareStatement(insertRefer);
+            insertReferStmt.setString(1,referReason);
+            insertReferStmt.setInt(2,answer);
+            insertReferStmt.setInt(3,userId);
+            insertReferStmt.setInt(4,referredId);
+            insertReferStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
     public void giveReferEditor(int userId, int coderId, String suggestReason) {
@@ -304,4 +335,84 @@ public class UserRepository {
             e.printStackTrace();
         }
     }
+
+    public void askReferEditor(int userId, int coderId) {
+
+        try {
+            String insertRefer = "insert into suggest ( user_id, coder_id, suggest_reason, accepted) VALUES(?, ?, ?, ?)";
+            PreparedStatement insertReferStmt = ConnectionSingle.getConnection().prepareStatement(insertRefer);
+            insertReferStmt.setInt(1,userId);
+            insertReferStmt.setInt(2,coderId);
+            insertReferStmt.setString(3,"");
+            insertReferStmt.setInt(4,0);
+            insertReferStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void answerReferEditor(int userId, int coderId, int answer,String suggestReason ) {
+
+        try {
+            String insertRefer = "UPDATE suggest SET suggest_reason = ? , accepted = ?  where user_id = ? and coder_id = ?";
+            PreparedStatement insertReferStmt = ConnectionSingle.getConnection().prepareStatement(insertRefer);
+            insertReferStmt.setString(1,suggestReason);
+            insertReferStmt.setInt(2,answer);
+            insertReferStmt.setInt(3,userId);
+            insertReferStmt.setInt(4,coderId);
+            insertReferStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Integer> listReferCoder(int userId){
+
+        List<Integer> result = new ArrayList<>();
+
+        try {
+        String listRefer = "select referred_id from refer where accepted = 0 and user_id = ?";
+        PreparedStatement insertReferStmt = ConnectionSingle.getConnection().prepareStatement(listRefer);
+        insertReferStmt.setInt(1,userId);
+
+        ResultSet rs = insertReferStmt.executeQuery();
+            while (rs.next()){
+                int referred_id= rs.getInt("referred_id");
+                result.add(referred_id);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
+    public List<Integer> listReferEditor(int userId){
+
+        List<Integer> result = new ArrayList<>();
+
+        try {
+            String listRefer = "select from suggest where accepted = 0 and user_id = ?";
+            PreparedStatement insertReferStmt = ConnectionSingle.getConnection().prepareStatement(listRefer);
+            insertReferStmt.setInt(1,userId);
+
+            ResultSet rs = insertReferStmt.executeQuery();
+
+            while (rs.next()){
+                int coder_id= rs.getInt("coder_id");
+                result.add(coder_id);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
+
 }

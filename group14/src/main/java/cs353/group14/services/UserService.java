@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -91,7 +92,32 @@ public class UserService {
     public void giveReferCoder(int userId, int referredId, String referReason) {
         userRepository.giveReferCoder(userId, referredId, referReason);
     }
+
+    public void askReferCoder(int userId, int referredId) {
+        userRepository.askReferCoder(userId, referredId);
+    }
+
+    public void answerReferCoder(int userId, int referredId, int answer,String referReason ){
+        userRepository.answerReferCoder(userId, referredId,answer, referReason );
+    }
+
     public void giveReferEditor(int userId, int coderId, String suggestReason) {
         userRepository.giveReferEditor(userId, coderId, suggestReason);
+    }
+
+    public void askReferEditor(int userId, int coderId) {
+        userRepository.askReferEditor(userId, coderId);
+    }
+
+    public void answerReferEditor(int userId, int coderId, int answer,String suggestReason ){
+        userRepository.answerReferEditor(userId, coderId, answer, suggestReason);
+    }
+
+    public List<Integer> listReferCoder(int userId){
+        return userRepository.listReferCoder(userId);
+    }
+
+    public List<Integer> listReferEditor(int userId){
+        return userRepository.listReferEditor(userId);
     }
 }

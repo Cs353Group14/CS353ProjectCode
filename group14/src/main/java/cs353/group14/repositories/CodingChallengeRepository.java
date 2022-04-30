@@ -86,6 +86,67 @@ public class CodingChallengeRepository {
         return result;
     }
 
+
+
+
+    public List<CodingChallengeQueryResponse> getAllPublicCodingChallengesWithFiltered( List <String> input )  {
+
+        List<CodingChallengeQueryResponse> result = new ArrayList<>();
+        String getAllPublicChallengesSql = "Select * From coding_challenge where publicity = 1";
+        int i = 0;
+        if ( input.size() > 0 ) {
+            getAllPublicChallengesSql += "AND challenge_id IN";
+            while (i < input.size() - 1) {
+                getAllPublicChallengesSql += "(SELECT challenge_id from coding_challenge_categories WHERE category =  ? " +
+                        " AND challenge_id IN";
+
+                i++;
+            }
+
+            getAllPublicChallengesSql += "(SELECT challenge_id from coding_challenge_categories WHERE category = ?)";
+            i = 0;
+            while (i < input.size() - 1) {
+                getAllPublicChallengesSql += ")";
+                i++;
+            }
+        }
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + getAllPublicChallengesSql);
+        try {
+
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getAllPublicChallengesSql);
+            int j = 0;
+            while ( j < input.size())
+            {
+                insertCodingPrepared.setString(j+1, input.get(j));
+                j++;
+            }
+            ResultSet rs = insertCodingPrepared.executeQuery();
+
+
+            while (rs.next()){
+                int challenge_id = rs.getInt("challenge_id");
+                int points = rs.getInt("points");
+                String difficulty = rs.getString("difficulty");
+                int solved_number = rs.getInt("solved_number");
+                int attempt_number = rs.getInt("attempt_number");
+                String title = rs.getString("title");
+
+                CodingChallengeQueryResponse ccqr = new CodingChallengeQueryResponse(challenge_id, title, difficulty, points, solved_number, attempt_number);
+
+                result.add(ccqr);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        return result;
+    }
+
+
+
+
+
     public CodingChallenge getCodingChallenge(int challengeId){
 
         int challenge_id = -1;

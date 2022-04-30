@@ -29,4 +29,9 @@ public class CodingChallengeService {
     public CodingChallenge getCodingChallenge(int editorId){
         return codingChallengeRepository.getCodingChallenge(editorId);
     }
+
+
+    public List<CodingChallengeQueryResponse> getAllPublicCodingChallengesFiltered(List<String> filters){
+        return codingChallengeRepository.getAllPublicCodingChallengesWithFiltered(filters);
+    }
 }

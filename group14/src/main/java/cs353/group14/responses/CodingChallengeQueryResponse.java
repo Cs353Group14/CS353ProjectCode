@@ -13,7 +13,8 @@ public class CodingChallengeQueryResponse {
     private int solved_number;
     private int attempt_number;
 
-    public CodingChallengeQueryResponse(int challenge_id, String title, String difficulty, int points, int solved_number, int attempt_number) {
+
+    public CodingChallengeQueryResponse( int challenge_id, String title, String difficulty, int points, int solved_number, int attempt_number) {
         this.challenge_id = challenge_id;
         this.title = title;
         this.difficulty = difficulty;

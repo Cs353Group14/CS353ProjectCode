@@ -1,10 +1,13 @@
 import React, {ChangeEvent, useState} from "react";
 import {Button, TextField} from "@material-ui/core";
 import RegisterBar from "./RegisterBar";
+import { RegisterApi } from "./RegisterApi";
 
 
 
 function RegisterCompany() {
+
+    const registerApi = new RegisterApi();
 
     const[username, setUsername] = useState("");
     const[password,setPassword] = useState("");
@@ -37,9 +40,22 @@ function RegisterCompany() {
         setLink(event.target.value);
     }
 
-    function handleRegisterClick() {
+    async function handleRegisterClick() {
 
         console.log("Signed In");
+
+        const coder = {
+            "username": username,
+            "mail": mail,
+            "password": password,
+            "userType": "Company",
+            "name": name,
+            "location": location,
+            "webPageLink": link
+        }
+
+        await registerApi.registerCompany(coder);
+
         setTimeout(function() {
             window.location.href = "http://localhost:3000";
         }, 1000)

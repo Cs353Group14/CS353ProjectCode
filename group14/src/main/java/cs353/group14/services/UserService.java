@@ -120,4 +120,8 @@ public class UserService {
     public List<Integer> listReferEditor(int userId){
         return userRepository.listReferEditor(userId);
     }
+
+    public List<Submission> listOldAttempts(int userId,int challengeId){
+        return userRepository.listOldAttempts(userId, challengeId);
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -411,6 +412,40 @@ public class UserRepository {
         }
 
         return result;
+
+    }
+
+    public List<Submission> listOldAttempts(int userId, int challengeId){
+
+        List<Submission> result = new ArrayList<>();
+
+        try {
+        String listAttempts = "SELECT * from submit NATURAL JOIN submission where challenge_id = ? and user_id = ? ";
+        PreparedStatement listAttemptsStmt = ConnectionSingle.getConnection().prepareStatement(listAttempts);
+        listAttemptsStmt.setInt(1,challengeId);
+        listAttemptsStmt.setInt(2,userId);
+
+        ResultSet rs = listAttemptsStmt.executeQuery();
+
+        while (rs.next()){
+
+            int submission_id = rs.getInt("submission_id");
+            String answer = rs.getString("answer");
+            int passResult = rs.getInt("pass_result");
+            int failResult = rs.getInt("fail_result");
+            String programmingLanguage = rs.getString("programming_language");
+            Timestamp submissionTime = rs.getTimestamp("submission_time");
+
+            Submission submission = new Submission(submission_id,answer,passResult,failResult,programmingLanguage,submissionTime);
+            result.add(submission);
+        }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
 
     }
 

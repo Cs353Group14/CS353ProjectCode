@@ -79,10 +79,14 @@ public class UserController {
     }
 
     @GetMapping("/listReferEditor/{userId}")
-    public List<Integer> listReferEditor(int userId){
+    public List<Integer> listReferEditor(@PathVariable int userId){
         return userService.listReferEditor(userId);
     }
 
+    @GetMapping("/listOldAttempts/{userId}/{challengeId}")
+    public List<Submission> listOldAttempts(@PathVariable int userId, @PathVariable int challengeId){
+        return userService.listOldAttempts(userId, challengeId);
+    }
 
 
 }

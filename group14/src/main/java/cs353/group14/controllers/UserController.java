@@ -33,7 +33,7 @@ public class UserController {
         userService.registerCompany(company);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public User login(@RequestBody LoginRequest loginRequest){
         return userService.login(loginRequest.getUsername(),loginRequest.getPassword());
     }

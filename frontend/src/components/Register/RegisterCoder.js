@@ -2,10 +2,13 @@ import React, {ChangeEvent, useState} from "react";
 import {Button, TextField} from "@material-ui/core";
 import RegisterBar from "./RegisterBar";
 import './Register.css'
+import { RegisterApi } from "./RegisterApi";
 
 
 
 function RegisterCoder() {
+
+    const registerApi = new RegisterApi();
 
     const[username, setUsername] = useState("");
     const[password,setPassword] = useState("");
@@ -43,13 +46,26 @@ function RegisterCoder() {
         setPlace(event.target.value);
     }
 
-    function handleRegisterClick() {
+    async function handleRegisterClick() {
 
         console.log("Signed In");
+
+        const coder = {
+            "username": username,
+            "mail": mail,
+            "password": password,
+            "userType": "Coder",
+            "name": name,
+            "birthYear": birthYear,
+            "position": position,
+            "place": place
+        }
+
+        await registerApi.registerCoder(coder);
+
         setTimeout(function() {
             window.location.href = "http://localhost:3000";
         }, 1000)
-
 
     }
 

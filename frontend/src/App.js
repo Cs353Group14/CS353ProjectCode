@@ -14,11 +14,13 @@ import EditorProfile from './components/Profile/Editor/EditorProfile';
 import NonCodingCardContainer from './components/NonCodingChallenges/Components/NonCodingCardContainer';
 import NonCodingChallengeView from './components/NonCodingChallenges/View/NonCodingChallengeView'
 import CreateCodingChallenge from './components/Interview/CreateInterview/CreateCodingInterview';
+import HomePage from './components/Home/HomePage';
 function App() {
   return (
     <BrowserRouter>
     <Routes>
       <Route path = {"/"} element = {<Login/>}/>
+      <Route path = {"/home"} element = {<HomePage/>}/>
       <Route path = {"/register-coder"} element = {<RegisterCoder/>}/>
       <Route path = {"/register-editor"} element = {<RegisterEditor/>}/>
       <Route path = {"/register-company"} element = {<RegisterCompany/>}/>

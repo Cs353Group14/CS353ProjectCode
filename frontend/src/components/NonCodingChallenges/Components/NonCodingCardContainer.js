@@ -1,3 +1,4 @@
+/*
 import { Card, IconButton, InputBase, Paper, TextField } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import React, {useEffect, useState} from "react";
@@ -131,3 +132,4 @@ function NonCodingCardContainer(props) {
 }
 
 export default NonCodingCardContainer;
+*/

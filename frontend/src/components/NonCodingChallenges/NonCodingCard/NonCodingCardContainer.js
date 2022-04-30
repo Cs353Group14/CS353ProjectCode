@@ -103,7 +103,6 @@ function NonCodingCardContainer(props) {
 
     return(
         <div>
-            <NavBar/>
             <h3>Filter for Non-Coding Challenges:</h3>
 
             <Paper

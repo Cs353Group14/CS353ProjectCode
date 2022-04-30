@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping("/login")
     public User login(@RequestBody LoginRequest loginRequest){
-        return UserService.login(loginRequest.getUsername(),loginRequest.getPassword());
+        return userService.login(loginRequest.getUsername(),loginRequest.getPassword());
     }
 
 

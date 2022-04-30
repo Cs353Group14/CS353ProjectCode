@@ -20,19 +20,13 @@ public class UserService {
 
     public int register(User user ){
 
-        try {
-            if( userRepository.checkUserExist( user.getUsername(), user.getMail())){
-                System.out.println("username or mail already used");
-            }else{
-                userRepository.insertUserTable(user);
-                return userRepository.getUserId(user.getUsername());
-            }
-
-        }catch (SQLException e) {
-            e.printStackTrace();
+        if( userRepository.checkUserExist( user.getUsername(), user.getMail())){
+            System.out.println("username or mail already used");
+            return -1;
+        }else{
+            userRepository.insertUser(user);
+            return userRepository.getUserId(user.getUsername());
         }
-
-        return -1;
     }
 
     public void registerCoder(Coder coder) {
@@ -44,47 +38,7 @@ public class UserService {
         return;
         }
 
-
-        String sql = "Insert INTO coder(user_id,rating,points,position,place,birth_year) VALUES(?,?,?,?,?,?)";
-        PreparedStatement insertPrepared= null;
-        try {
-            insertPrepared = ConnectionSingle.getConnection().prepareStatement(sql);
-            insertPrepared.setInt(1,userId);
-            insertPrepared.setInt(2,0);
-            insertPrepared.setInt(3,0);
-            insertPrepared.setString(4,coder.getPosition());
-            insertPrepared.setString(5,coder.getPlace());
-            insertPrepared.setInt(6, coder.getBirthYear() );
-
-            insertPrepared.executeUpdate();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-    }
-
-    public void registerCompany(Company company) {
-        int userId = register(company);
-
-        if(userId == -1){
-            System.out.println("error");
-            return;
-        }
-
-        String sql = "Insert INTO company(user_id,location,web_page_link) VALUES(?,?,?)";
-        PreparedStatement insertPrepared= null;
-        try {
-            insertPrepared= ConnectionSingle.getConnection().prepareStatement(sql);
-            insertPrepared.setInt(1,userId);
-            insertPrepared.setString(2, company.getLocation());
-            insertPrepared.setString(3, company.getWebPageLink());
-
-            insertPrepared.executeUpdate();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        userRepository.insertCoder(userId, coder);
 
     }
 
@@ -96,70 +50,23 @@ public class UserService {
             return;
         }
 
-        String sql = "Insert INTO editor(user_id,position,place) VALUES(?,?,?)";
-        PreparedStatement insertPrepared= null;
-        try {
-            insertPrepared= ConnectionSingle.getConnection().prepareStatement(sql);
-            insertPrepared.setInt(1,userId);
-            insertPrepared.setString(2,editor.getPosition());
-            insertPrepared.setString(3, editor.getPlace());
-
-            insertPrepared.executeUpdate();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        userRepository.insertEditor(userId, editor);
 
     }
 
-    public void insertUserWithType(User user) throws SQLException {
+    public void registerCompany(Company company) {
+        int userId = register(company);
 
-        PreparedStatement insertPrepared = null;
-        String insertUserWithType;
-        switch (user.getUserType()){
-
-            case Admin:
-                insertUserWithType = "Insert INTO admin(user_id) VALUES(?)";
-                insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
-                insertPrepared.setInt(1,user.getUserId());
-                break;
-
-            case Coder:
-                insertUserWithType = "Insert INTO coder(user_id,rating,points,position,place,birth_year) VALUES(?,?,?,?,?,?)";
-                insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
-                insertPrepared.setInt(1,user.getUserId());
-                insertPrepared.setInt(2,0);
-                insertPrepared.setInt(3,0);
-                insertPrepared.setString(4,((Coder) user).getPosition());
-                insertPrepared.setString(5,((Coder) user).getPlace());
-                insertPrepared.setInt(6, ((Coder) user).getBirthYear() );
-                break;
-
-            case Editor:
-                insertUserWithType = "Insert INTO editor(user_id,position,place) VALUES(?,?,?)";
-                insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
-                insertPrepared.setInt(1,user.getUserId());
-                insertPrepared.setString(2,((Editor) user).getPosition());
-                insertPrepared.setString(3,((Editor) user).getPlace());
-                break;
-            case Company:
-                insertUserWithType = "Insert INTO company(user_id,location,web_page_link) VALUES(?,?,?)";
-                insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
-                insertPrepared.setInt(1,user.getUserId());
-                insertPrepared.setString(2,((Company) user).getLocation());
-                insertPrepared.setString(3,((Company) user).getWebPageLink());
-                break;
+        if(userId == -1){
+            System.out.println("error");
+            return;
         }
 
-        if (insertPrepared!=null){
-            insertPrepared.executeUpdate();
-        }else{
-            System.out.println("error in insertUserWithType");
-        }
+        userRepository.insertCompany(userId,company);
 
     }
 
-    public static User login( String username, String password) {
+    public User login( String username, String password) {
         User user = null;
 
         try {
@@ -228,4 +135,53 @@ public class UserService {
         return user;
 
     }
+
+    public void insertUserWithType(User user) throws SQLException {
+
+        PreparedStatement insertPrepared = null;
+        String insertUserWithType;
+        switch (user.getUserType()){
+
+            case Admin:
+                insertUserWithType = "Insert INTO admin(user_id) VALUES(?)";
+                insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
+                insertPrepared.setInt(1,user.getUserId());
+                break;
+
+            case Coder:
+                insertUserWithType = "Insert INTO coder(user_id,rating,points,position,place,birth_year) VALUES(?,?,?,?,?,?)";
+                insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
+                insertPrepared.setInt(1,user.getUserId());
+                insertPrepared.setInt(2,0);
+                insertPrepared.setInt(3,0);
+                insertPrepared.setString(4,((Coder) user).getPosition());
+                insertPrepared.setString(5,((Coder) user).getPlace());
+                insertPrepared.setInt(6, ((Coder) user).getBirthYear() );
+                break;
+
+            case Editor:
+                insertUserWithType = "Insert INTO editor(user_id,position,place) VALUES(?,?,?)";
+                insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
+                insertPrepared.setInt(1,user.getUserId());
+                insertPrepared.setString(2,((Editor) user).getPosition());
+                insertPrepared.setString(3,((Editor) user).getPlace());
+                break;
+            case Company:
+                insertUserWithType = "Insert INTO company(user_id,location,web_page_link) VALUES(?,?,?)";
+                insertPrepared= ConnectionSingle.getConnection().prepareStatement(insertUserWithType);
+                insertPrepared.setInt(1,user.getUserId());
+                insertPrepared.setString(2,((Company) user).getLocation());
+                insertPrepared.setString(3,((Company) user).getWebPageLink());
+                break;
+        }
+
+        if (insertPrepared!=null){
+            insertPrepared.executeUpdate();
+        }else{
+            System.out.println("error in insertUserWithType");
+        }
+
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package cs353.group14.controllers;
 
+import cs353.group14.Attend;
 import cs353.group14.Interview;
 import cs353.group14.services.InterviewService;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,5 +20,10 @@ public class InterviewController {
     @PutMapping("/createInterview")
     public int createInterview(@RequestBody Interview interview){
         return interviewService.createInterview(interview);
+    }
+
+    @PutMapping("/createAttend")
+    public void createAttend(@RequestBody Attend attend){
+        interviewService.createAttend(attend);
     }
 }

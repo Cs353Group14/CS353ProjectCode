@@ -1,5 +1,6 @@
 package cs353.group14.repositories;
 
+import cs353.group14.Attend;
 import cs353.group14.CodingChallenge;
 import cs353.group14.Interview;
 import cs353.group14.db.ConnectionSingle;
@@ -32,6 +33,26 @@ public class InterviewRepository {
         }
 
         return -1;
+
+    }
+
+    public void insertAttend(Attend attend){
+
+        try {
+            String insertAttendSql = "INSERT INTO attend (interview_id,coder_id,company_id, start_time,end_time,interview_result,invitation_code)" +
+                    "VALUES ( ?, ?, ?, ?, ?, ?, ?) ";
+            PreparedStatement insertAttendStmt = ConnectionSingle.getConnection().prepareStatement(insertAttendSql);
+            insertAttendStmt.setInt(1,attend.getInterviewId());
+            insertAttendStmt.setInt(2,attend.getCoderId());
+            insertAttendStmt.setInt(3,attend.getCompanyId());
+            insertAttendStmt.setTimestamp(4,attend.getStartTime());
+            insertAttendStmt.setTimestamp(5,attend.getEndTime());
+            insertAttendStmt.setString(6,"Not determined");
+            insertAttendStmt.setString(7,attend.getInvitationCode());
+            insertAttendStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -1,5 +1,6 @@
 package cs353.group14.services;
 
+import cs353.group14.Attend;
 import cs353.group14.Interview;
 import cs353.group14.repositories.InterviewRepository;
 import org.springframework.stereotype.Service;
@@ -14,5 +15,9 @@ public class InterviewService {
 
     public int createInterview(Interview interview){
         return interviewRepository.createInterview(interview);
+    }
+
+    public void createAttend(Attend attend){
+        interviewRepository.insertAttend(attend);
     }
 }

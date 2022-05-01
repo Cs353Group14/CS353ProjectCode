@@ -6,7 +6,8 @@ export interface newNonCodingQuestionModel {
     difficulty: string,
     title: string,
     question: string,
-    publicity: number    
+    publicity: number,
+       
 }
 
 
@@ -16,4 +17,6 @@ export class CreateNonCodingQuestionAPI {
         const response = await axios.put("/createNonCodingChallenge/" + localStorage.getItem('userId'), newQuestion);
         return response.data;
     }
+
+    
 }

@@ -40,20 +40,22 @@ function CreateNonCodingQuestion(props) {
   const [title, setTitle] = useState("");
   const [points, setPoints] = useState("");
   const [question, setQuestion] = useState("");
-  const [category, setCatefories] = useState("");
+  const [category, setCategories] = useState("");
   const createNonCodingQuestionAPI = new CreateNonCodingQuestionAPI();
-
+  let listOfCategories = [];
 
   async function handleSubmit() {
 
 
+    console.log(listOfCategories);
     const newQuestion = {
       non_challenge_id: -1,
       difficulty: difficulty,
       title: title,
       question: question,
-      publicity: 0,
+      publicity: 0
     }
+
 
     await createNonCodingQuestionAPI.createNonCoding(newQuestion);
 
@@ -163,13 +165,15 @@ function CreateNonCodingQuestion(props) {
                     getOptionLabel={(option) => option.value}
                     filterSelectedOptions
                     margin="normal"
-                    onChange={(e) => setCatefories(e.target.value)}
+                    onChange={(event, options) => {
+                      listOfCategories = options;
+                    }}
                     renderInput={(params) => (
                       <TextField
                         {...params}
                         label="Catogories"
                         placeholder="Category"
-                      />
+                                          />
                     )}
                   />
                 </Stack>

@@ -44,6 +44,7 @@ function CreateCodingChallenge(props) {
   const [category, setCatefories] = useState("");
   const createCodingChallengeAPI = new CreateCodingChallengeAPI();
 
+  let listOfCategories = [];
 
   async function handleSubmit() {
 
@@ -179,7 +180,9 @@ function CreateCodingChallenge(props) {
                     getOptionLabel={(option) => option.value}
                     filterSelectedOptions
                     margin="normal"
-                    onChange={(e) => setCatefories(e.target.value)}
+                    onChange={(event, options) => {
+                      listOfCategories = options;
+                    }}
                     renderInput={(params) => (
                       <TextField
                         {...params}

@@ -82,8 +82,8 @@ public class NonCodingChallengeController {
         return nonCodingChallengeService.seeOtherCodersAnswers(userId,nonChallengeId);
     }
 
-    
-    @GetMapping("/seeOtherCodersAnswers/{nonChallengeId}")
+
+    @GetMapping("/getNonCodingChallengeAuthorCategory/{nonChallengeId}")
     public NonCodingChallengeAuthorCategoryResponse getNonCodingChallengeAuthorResponse(@PathVariable int nonChallengeId){
         return nonCodingChallengeService.getNonCodingChallengeAuthorResponse(nonChallengeId);
     }

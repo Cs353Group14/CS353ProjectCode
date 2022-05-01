@@ -2,6 +2,7 @@ package cs353.group14.controllers;
 
 
 import cs353.group14.NonCodingChallenge;
+import cs353.group14.OtherAnswerResponse;
 import cs353.group14.Reply;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import cs353.group14.services.NonCodingChallengeService;
@@ -73,6 +74,11 @@ public class NonCodingChallengeController {
     @PutMapping("/removeCategoryNonCodingChallenge/{challengeId}")
     public void removeCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
         nonCodingChallengeService.removeCategoryNonCodingChallenge(challengeId,category);
+    }
+
+    @GetMapping("/seeOtherCodersAnswers/{userId}/{nonChallengeId}")
+    public List<OtherAnswerResponse> seeOtherCodersAnswers(@PathVariable int userId,@PathVariable int nonChallengeId){
+        return nonCodingChallengeService.seeOtherCodersAnswers(userId,nonChallengeId);
     }
 
 

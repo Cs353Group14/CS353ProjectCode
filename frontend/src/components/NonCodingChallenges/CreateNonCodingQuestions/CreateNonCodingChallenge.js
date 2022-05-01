@@ -48,10 +48,11 @@ function CreateNonCodingQuestion(props) {
 
 
     const newQuestion = {
-      "difficulty": difficulty,
-      "title": title,
-      "question": question,
-     "publicity": 0,
+      non_challenge_id: -1,
+      difficulty: difficulty,
+      title: title,
+      question: question,
+      publicity: 0,
     }
 
     await createNonCodingQuestionAPI.createNonCoding(newQuestion);

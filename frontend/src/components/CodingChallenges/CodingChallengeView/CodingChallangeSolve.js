@@ -1,5 +1,6 @@
 import { Button, Paper, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
+import {CodingChallengeApi} from '../CodingChallengeApi'
 
 function CodingChallengeSolve(props) {
 
@@ -26,6 +27,8 @@ function CodingChallengeSolve(props) {
 
     const languages = ["Java", "C", "C++", "C#", "Python", "Javascript"];
 
+    const codingChallengeApi = new CodingChallengeApi();
+
     function SplitParagraph() {
         return props.description.split('\n')
         .map( (text,i) => <p key = {i}>{text}</p>);
@@ -45,6 +48,18 @@ function CodingChallengeSolve(props) {
 
     function handleNewCode(event) {
         setCode(event.target.value);
+    }
+
+    function handleSubmit() {
+        const solution = {
+            answer: code,
+            programming_language: language,
+            submission_id: -1,
+            pass_result: 0,
+            fail_result: 0,
+            submission_time: "2022-01-01"
+        }
+        codingChallengeApi.submitSolution(solution);
     }
 
     return(
@@ -80,7 +95,7 @@ function CodingChallengeSolve(props) {
         />
          
          <div className='coding-submission-button'>
-            <Button variant="contained"  color="primary"> Submit </Button>
+            <Button variant="contained"  color="primary" onClick = {handleSubmit} > Submit </Button>
          </div>
          </div>
 

@@ -25,7 +25,7 @@ export default function NavBar(props) {
     const classes = useStyles();
 
     function handleLogout() {
-        
+        localStorage.clear();
 
     }
 

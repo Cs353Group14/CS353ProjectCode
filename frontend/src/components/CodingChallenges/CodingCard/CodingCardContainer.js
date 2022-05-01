@@ -35,7 +35,7 @@ function CodingCardContainer(props) {
                                          id={question.challenge_id}
                                          title = {question.title}
                                          category = {question.category}
-                                         difficulity = {question.difficulity}
+                                         difficulty = {question.difficulty}
                                          point = {question.points}
                                          attemptNo = {question.attempt_number}
                                          acceptedNo = {question.solved_number}/>);

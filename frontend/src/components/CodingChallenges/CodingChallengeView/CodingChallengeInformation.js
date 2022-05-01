@@ -1,18 +1,10 @@
 import { Divider } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { CodingChallengeApi } from "../CodingChallengeApi";
 
-const info = {
-    id: 10,
-    title: "Coin Change",
-    category: "Array Dynamic-Programming Breadth-First-Search",
-    difficulity: "Medium",
-    point: 35,
-    attemptNo:  102,
-    acceptedNo: 63,
-    author:"Hakan Yılmaz"
-}
 function CodingChallengeInformation(props) {
 
+    console.log(props.info.categories);
     return(
         <div className="coding-challenge-info-root">
             <Divider/>
@@ -21,15 +13,18 @@ function CodingChallengeInformation(props) {
 
             <Divider/>
             <h4>Author</h4>
-            {info.author}
+            {props.info.authorName}
 
             <Divider/>
             <h4>Categories</h4>
-            {info.category}
+            
+            {props.info.categories.map(category => {
+                return <li>{category}</li>
+            })}
 
             <Divider/>
-            <h4>Difficulity</h4>
-            {props.difficulity}
+            <h4>Difficulty</h4>
+            {props.difficulty}
 
             <Divider/>
             <h4>Point</h4>

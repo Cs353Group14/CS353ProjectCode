@@ -2,11 +2,14 @@ import React, {useState} from "react";
 import {Button, TextField} from "@material-ui/core";
 import LoginBar from "./LoginBar";
 import './Login.css'
+import {LoginApi} from './LoginApi'
 
 function Login() {
 
     const[username, setUsername] = useState("");
     const[password,setPassword] = useState("");
+
+    const loginApi = new LoginApi();
 
     function handleNewUsername(event) {
         setUsername(event.target.value);
@@ -18,8 +21,21 @@ function Login() {
 
     function handleLoginClick() {
         console.log("Logged In");
+
+        const loginRequest = {
+            username: username,
+            password: password
+        }
+        loginApi.login(loginRequest).then(data => {
+            if(data != null) {
+                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('usertype', data.usertype);
+                localStorage.setItem('username', data.username);
+            }
+        })
+
         setTimeout(function() {
-            window.location.href = "http://localhost:3000/coding-challenges";
+            window.location.href = "http://localhost:3000/home";
         }, 1000)
     }
 

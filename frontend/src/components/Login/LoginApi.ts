@@ -3,7 +3,7 @@ import axios from "axios";
 export interface LoginResponse {
     username: string;
     userId: number;
-    userType: string;
+    usertype: string;
 }
 export interface LoginRequest {
     username: string;

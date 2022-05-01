@@ -21,7 +21,7 @@ export default function CodingCard(props) {
                     {props.title}
                 </Typography>
                 <Typography className={"coding-card-info"} color="textSecondary">
-                    Difficulity: {props.difficulity} 
+                    Difficulty: {props.difficulty} 
                     <br /> 
                     Point: {props.point}
                 </Typography>

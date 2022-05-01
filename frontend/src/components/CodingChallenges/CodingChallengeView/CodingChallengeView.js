@@ -56,15 +56,22 @@ function CodingChallengeView() {
     publicity: -1
   });
 
+  const[info, setInfo] = useState({
+    authorName: "",
+    categories: []
+  })
+
   function fetchCodingQuestion(){
-    console.log("here");
       codingChallengeApi.getCodingChallenge().then(data => setCodingChallenge(data));
-      console.log("there");
-      console.log(codingChallenge);
   }
 
+  function fetchCodingChallengeInformation() {
+      codingChallengeApi.getCodingChallengeInformation()
+                        .then(data => {setInfo(data);});
+}
   useEffect(() => {
     fetchCodingQuestion();
+    fetchCodingChallengeInformation();
 },[]);
 
 
@@ -96,10 +103,11 @@ function CodingChallengeView() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <CodingChallengeInformation title = {codingChallenge.title}
-                                    difficulity = {codingChallenge.difficulity}
+                                    difficulty = {codingChallenge.difficulty}
                                     point = {codingChallenge.points}
                                     attemptNo = {codingChallenge.attempt_number}
                                     acceptedNo = {codingChallenge.solved_number}
+                                    info = {info}
         
         />
       </TabPanel>

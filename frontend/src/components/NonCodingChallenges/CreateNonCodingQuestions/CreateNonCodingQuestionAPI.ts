@@ -2,10 +2,11 @@ import axios from "axios";
 //import {MessageResponse, MessageType} from "../common/dto/MessageResponse";
 
 export interface newNonCodingQuestionModel {
-        "difficulty": string,
-         "title": string,
-        "question": string,
-        "publicity": number    
+    non_challenge_id: number;
+    difficulty: string,
+    title: string,
+    question: string,
+    publicity: number    
 }
 
 

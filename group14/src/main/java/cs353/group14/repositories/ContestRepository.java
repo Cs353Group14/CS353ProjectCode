@@ -47,7 +47,7 @@ public class ContestRepository {
     }
     public void insertPrepareTable( int editor_id, int contest_id) {
         try {
-            String query = "INSERT INTO prepare ( editor_id, contest_id) " +
+            String query = "INSERT INTO prepare ( user_id, contest_id) " +
                     "VALUES ( ?, ?)";
             PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,editor_id);
@@ -71,13 +71,15 @@ public class ContestRepository {
                 int q = 0;
                 while (q < questionsToAdded.size() - 1) {
                     query = query + "(?,?),";
+                    q++;
                 }
                 query = query + "(?,?)";
             }
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             for (int i = 0; i < questionsToAdded.size(); i++) {
 
-                preparedStatement.setInt(2 * i, contest_id);
+                preparedStatement.setInt(2 * i+1, questionsToAdded.get(i));
+                preparedStatement.setInt(2 * i+2, contest_id);
             }
             preparedStatement.executeUpdate();
         }
@@ -88,9 +90,35 @@ public class ContestRepository {
 
     }
 
-    public void getContest()
+    public Contest getContest(int contest_id)
     {
+        Timestamp start_time = null; String description = ""; String title = ""; int difficulty = 0;
+        int duration = 0; Timestamp deadline = null;
+        try {
+            String query = "SELECT * FROM contest where contest_id = ?";
+            PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,contest_id);
 
+            preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()){
+                start_time = ( rs.getTimestamp("start_time"));
+                description = ( rs.getString("description"));
+                title = ( rs.getString("title"));
+                difficulty = ( rs.getInt("difficulty"));
+                duration = ( rs.getInt("duration"));
+                deadline = ( rs.getTimestamp("deadline"));
+            }
+        }
+
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+        return new Contest(contest_id,start_time,description,title,difficulty,duration,deadline);
     }
 
     public void deleteContest( int contest_id)

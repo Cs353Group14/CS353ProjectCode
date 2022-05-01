@@ -21,4 +21,17 @@ public class ContestController {
         contestService.createContest(editorId,contest);
     }
 
+
+    @PutMapping("/addQuestonsToContest/{contestId}")
+    public void addQuestionsToContest (@RequestBody List<Integer> contest, @PathVariable int contestId){
+        contestService.addQuestionsToContest(contestId,contest);
+    }
+
+
+    @GetMapping("/getContest/{contestId}")
+    public Contest getContest ( @PathVariable int contestId){
+        return contestService.getContest(contestId);
+    }
+
+
 }

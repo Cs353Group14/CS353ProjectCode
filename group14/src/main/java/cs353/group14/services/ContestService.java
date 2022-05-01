@@ -26,4 +26,10 @@ public class ContestService {
     {
         contestRepository.addQuestionToContest(contest_id,questions);
     }
+    public Contest getContest( int contest_id)
+    {
+        return contestRepository.getContest(contest_id);
+    }
+
+
 }

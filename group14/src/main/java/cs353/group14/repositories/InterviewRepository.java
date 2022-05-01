@@ -3,13 +3,11 @@ package cs353.group14.repositories;
 import cs353.group14.Attend;
 import cs353.group14.CodingChallenge;
 import cs353.group14.Interview;
+import cs353.group14.Notification;
 import cs353.group14.db.ConnectionSingle;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 @Repository
 public class InterviewRepository {
@@ -54,6 +52,63 @@ public class InterviewRepository {
             e.printStackTrace();
         }
 
+    }
+
+    public void changeAttendResult(int interviewId, String result , int userId){
+        try {
+            String updateAttend = "UPDATE attend SET interview_result = ? where interview_id = ?";
+            PreparedStatement updateAttendStmt = ConnectionSingle.getConnection().prepareStatement(updateAttend);
+            updateAttendStmt.setString(1,result);
+            updateAttendStmt.setInt(2,interviewId);
+            updateAttendStmt.executeUpdate();
+
+            String nInfo = "You found "+result+ " in one of the interviews check your interviews";
+
+            Notification notification = new Notification(-1,nInfo,new Timestamp(System.currentTimeMillis()),"Interview");
+
+           int n_id =  insertNotification(notification);
+
+           insertNotify(userId,n_id);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int insertNotification(Notification notification){
+        try {
+            String insertNotificationSql = "INSERT INTO notification( n_info,notif_date,type) VALUES ( ?, ? , ? )";
+
+            PreparedStatement insertNotificationPrepared= ConnectionSingle.getConnection().prepareStatement(insertNotificationSql, Statement.RETURN_GENERATED_KEYS);
+            insertNotificationPrepared.setString(1,notification.getNInfo());
+            insertNotificationPrepared.setTimestamp(2,notification.getNotifDate());
+            insertNotificationPrepared.setString(3,notification.getType());
+            insertNotificationPrepared.executeUpdate();
+
+            ResultSet keys = insertNotificationPrepared.getGeneratedKeys();
+
+            keys.next();
+
+            return keys.getInt(1);
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    public void insertNotify(int userId, int nId){
+        try {
+            String insertNotifSql = "INSERT INTO notify(user_id,n_id) VALUES( ?, ?)";
+            PreparedStatement insertNotifPrepared= ConnectionSingle.getConnection().prepareStatement(insertNotifSql);
+            insertNotifPrepared.setInt(1,userId);
+            insertNotifPrepared.setInt(2,nId);
+
+            insertNotifPrepared.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

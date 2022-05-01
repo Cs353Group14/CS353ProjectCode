@@ -50,14 +50,14 @@ function CreateCodingChallenge(props) {
 
 
     const newQuestion = {
-      "difficulty": difficulty,
-      "title": title,
-     "points": points,
-     "solution": solution,
-     "question": question,
-     "solvedNumber": 0,
-     "attempt_number": 0,
-     "publicity": 0
+      difficulty: difficulty,
+      title: title,
+      points: points,
+     solution: solution,
+     question: question,
+     solvedNumber: 0,
+     attempt_number: 0,
+     publicity: 0
     }
 
     await createCodingChallengeAPI.createCoding(newQuestion);

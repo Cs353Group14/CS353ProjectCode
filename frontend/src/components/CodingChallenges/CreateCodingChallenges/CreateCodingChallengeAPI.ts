@@ -2,14 +2,14 @@ import axios from "axios";
 //import {MessageResponse, MessageType} from "../common/dto/MessageResponse";
 
 export interface newCodingQuestionModel {
-        "difficulty": string,
-         "title": string,
-        "points": string,
-        "solution": string,
-        "question": string,
-        "solvedNumber": number,
-        "attempt_number": number,
-        "publicity": number
+        difficulty: string,
+         title: string,
+        points: string,
+        solution: string,
+        question: string,
+        solvedNumber: number,
+        attempt_number: number,
+        publicity: number
     
 }
 

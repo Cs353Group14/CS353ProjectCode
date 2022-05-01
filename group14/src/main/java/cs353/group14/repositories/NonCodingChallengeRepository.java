@@ -1,9 +1,6 @@
 package cs353.group14.repositories;
 
-import cs353.group14.CodingChallenge;
-import cs353.group14.NonCodingChallenge;
-import cs353.group14.Reply;
-import cs353.group14.UserType;
+import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
@@ -282,4 +279,42 @@ public class NonCodingChallengeRepository {
         }
         return new Reply(nonChallengeId,userId,answer,theResult,replyTime);
     }
+
+    public List<OtherAnswerResponse> seeOtherCodersAnswers(int userId, int nonChallengeId){
+        List<OtherAnswerResponse> result = new ArrayList<>();
+
+        try {
+            String seeOtherCodersAnswersSql = "SELECT username, answer FROM reply R1 NATURAL JOIN users  C " +
+                    "WHERE non_challenge_id = ? AND EXISTS (select * from reply R2 where answer IS NOT NULL and " +
+                    "R2.user_id = ?  and R2.non_challenge_id = ?)";
+            PreparedStatement seeOtherCodersAnswersPrepared = ConnectionSingle.getConnection().prepareStatement(seeOtherCodersAnswersSql);
+            seeOtherCodersAnswersPrepared.setInt(1,nonChallengeId);
+            seeOtherCodersAnswersPrepared.setInt(2,userId);
+            seeOtherCodersAnswersPrepared.setInt(3,nonChallengeId);
+            ResultSet rs = seeOtherCodersAnswersPrepared.executeQuery();
+
+
+            while (rs.next()){
+
+                String username = rs.getString("username");
+
+                String answer = rs.getString("answer");
+
+                OtherAnswerResponse otherAnswerResponse = new OtherAnswerResponse(username, answer);
+
+                result.add(otherAnswerResponse);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return result;
+
+
+
+
+    }
+
+
 }

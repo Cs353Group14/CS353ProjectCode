@@ -116,8 +116,8 @@ public class NonCodingChallengeRepository {
         if ( input.size() > 0 ) {
             getAllPublicChallengesSql += "AND non_challenge_id IN";
             while (i < input.size() - 1) {
-                getAllPublicChallengesSql += "(SELECT challenge_id from coding_challenge_categories WHERE category =  ? " +
-                        " AND challenge_id IN";
+                getAllPublicChallengesSql += "(SELECT non_challenge_id from coding_challenge_categories WHERE category =  ? " +
+                        " AND non_challenge_id IN";
 
                 i++;
             }
@@ -177,7 +177,7 @@ public class NonCodingChallengeRepository {
             int size = 0;
 
             while (rs.next()){
-                non_challenge_id = rs.getInt("challenge_id");
+                non_challenge_id = rs.getInt("non_challenge_id");
                 question = rs.getString("question");
                 difficulty = rs.getString("difficulty");
                 title = rs.getString("title");

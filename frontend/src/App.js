@@ -29,7 +29,7 @@ function App() {
       <Route path = {"/non-coding-challenges"} element = {<NonCodingCardContainer/>}/>
 
       <Route path = {`/coding-challenges/${localStorage.getItem('codingId')}`} element = {<CodingChallengeView/>}/>
-      <Route path = {`/non-coding-challenges/${localStorage.getItem('codingId')}`} element = {<NonCodingChallengeView/>}/>
+      <Route path = {`/non-coding-challenges/${localStorage.getItem('nonCodingId')}`} element = {<NonCodingChallengeView/>}/>
 
       <Route path = {"/profile"} element = {<Profile/>}/>
       <Route path = {"/profileEditor"} element = {<EditorProfile/>}/>

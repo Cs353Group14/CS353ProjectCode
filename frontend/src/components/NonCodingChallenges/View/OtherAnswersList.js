@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Avatar, ListItem, List,ListItemAvatar, ListItemText, Grid } from "@material-ui/core";
-import OtherAnswerCard from "../Components/OtherAnswersCard";
+import OtherAnswerCard from "./OtherAnswersCard";
 
 function OtherAnswerList(props)
 {

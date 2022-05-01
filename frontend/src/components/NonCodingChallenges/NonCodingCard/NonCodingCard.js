@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 export default function NonCodingCard(props) {
 
-    function setActivityId() {
+    function setNonCodingId() {
         localStorage.setItem('nonCodingId', props.id);
         console.log(localStorage.getItem('nonCodingId'));
     }
@@ -22,15 +22,15 @@ export default function NonCodingCard(props) {
                 </Typography>
                 <Typography className={"coding-card-info"} color="textSecondary">
                 <br />
-                    Difficulity: {props.difficulity} 
+                    Difficulty: {props.difficulty} 
                 </Typography>
                 <Typography className={"coding-card-info"}  variant="body2" component="p" color="textSecondary">
                     <br />
-                    Category: {props.category}
+                    
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick = {setActivityId} href={("/non-coding-challenges/" + props.id )} variant= "outlined">See Challenge</Button>
+                <Button size="small" onClick = {setNonCodingId} href={("/non-coding-challenges/" + props.id )} variant= "outlined">See Challenge</Button>
             </CardActions>
         </Card>
     );

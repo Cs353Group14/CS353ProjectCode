@@ -146,8 +146,9 @@ public class NonCodingChallengeRepository {
 
                 String difficulty = rs.getString("difficulty");
                 String title = rs.getString("title");
+                int non_challenge_id = rs.getInt("non_challenge_id");
 
-                NonCodingChallengeQueryResponse nccqr = new NonCodingChallengeQueryResponse( title, difficulty);
+                NonCodingChallengeQueryResponse nccqr = new NonCodingChallengeQueryResponse( title, difficulty,non_challenge_id);
 
                 result.add(nccqr);
             }
@@ -212,8 +213,8 @@ public class NonCodingChallengeRepository {
                 String difficulty = rs.getString("difficulty");
 
                 String title = rs.getString("title");
-
-                NonCodingChallengeQueryResponse nccqr = new NonCodingChallengeQueryResponse(title, difficulty);
+                int non_challenge_id = rs.getInt("non_challenge_id");
+                NonCodingChallengeQueryResponse nccqr = new NonCodingChallengeQueryResponse(title, difficulty,non_challenge_id);
 
                 result.add(nccqr);
             }

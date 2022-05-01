@@ -15,9 +15,8 @@ export interface newNonCodingQuestionModel {
 
 export class CreateNonCodingQuestionAPI {
 
-
     async createNonCoding(newQuestion: newNonCodingQuestionModel) {
-        const response = await axios.put("/createCodingChallenge/4", newQuestion);
+        const response = await axios.put("/createCodingChallenge/" + localStorage.getItem('userId'), newQuestion);
         return response.data;
     }
 }

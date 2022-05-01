@@ -18,7 +18,7 @@ export class CreateCodingChallengeAPI {
 
 
     async createCoding(newQuestion: newCodingQuestionModel) {
-        const response = await axios.put("/createCodingChallenge/4", newQuestion);
+        const response = await axios.put("/createCodingChallenge/"+localStorage.getItem('userId'), newQuestion);
         return response.data;
     }
 }

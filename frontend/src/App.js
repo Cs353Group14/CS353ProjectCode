@@ -13,9 +13,9 @@ import CodingChallengeSolve from './components/CodingChallenges/CodingChallengeV
 import EditorProfile from './components/Profile/Editor/EditorProfile';
 import NonCodingCardContainer from './components/NonCodingChallenges/Components/NonCodingCardContainer';
 import NonCodingChallengeView from './components/NonCodingChallenges/View/NonCodingChallengeView'
-import CreateCodingChallenge from './components/Interview/CreateInterview/CreateCodingInterview';
+import CreateCodingChallenge from './components/CodingChallenges/CreateCodingChallenges/CreateCodingInterview';
 import HomePage from './components/Home/HomePage';
-import CreateNonCodingQuestion from './components/Interview/CreateInterview/CreateNonCodingChallenge';
+import CreateNonCodingQuestion from './components/NonCodingChallenges/CreateNonCodingQuestions/CreateNonCodingChallenge';
 function App() {
   return (
     <BrowserRouter>

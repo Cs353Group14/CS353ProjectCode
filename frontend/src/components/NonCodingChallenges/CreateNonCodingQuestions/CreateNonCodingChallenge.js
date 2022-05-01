@@ -52,8 +52,6 @@ function CreateNonCodingQuestion(props) {
       "title": title,
      "points": points,
      "question": question,
-     "solvedNumber": 0,
-     "attempt_number": 0,
      "publicity": 0
     }
 

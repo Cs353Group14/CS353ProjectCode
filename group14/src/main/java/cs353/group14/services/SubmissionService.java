@@ -22,9 +22,12 @@ public class SubmissionService {
 
         Random rn = new Random();
         int fail = rn.nextInt(2) ;
-        int pass = rn.nextInt(15) ;
+        if(fail == 1){
+            fail  = rn.nextInt(15) ;
+        }
+        int total = 15 ;
 
-        submission.setPass_result(pass);
+        submission.setPass_result(total-fail);
         submission.setFail_result(fail);
 
         submissionRepository.submitQuestion(userId,challengeId,submission);

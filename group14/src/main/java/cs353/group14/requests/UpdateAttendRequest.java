@@ -9,5 +9,6 @@ import lombok.RequiredArgsConstructor;
 public class UpdateAttendRequest {
     int interviewId;
     String interviewResult;
+    int userId;
 
 }

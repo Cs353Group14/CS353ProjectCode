@@ -21,7 +21,7 @@ public class InterviewService {
         interviewRepository.insertAttend(attend);
     }
 
-    public void changeAttendResult(int interviewId, String result){
-        interviewRepository.changeAttendResult(interviewId,result);
+    public void changeAttendResult(int interviewId, String result, int userId){
+        interviewRepository.changeAttendResult(interviewId,result,userId);
     }
 }

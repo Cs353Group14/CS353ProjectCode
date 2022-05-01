@@ -29,7 +29,7 @@ public class InterviewController {
 
     @PutMapping("/updateAttend")
     public void changeAttendResult(@RequestBody UpdateAttendRequest updateAttendRequest){
-        interviewService.changeAttendResult(updateAttendRequest.getInterviewId(),updateAttendRequest.getInterviewResult());
+        interviewService.changeAttendResult(updateAttendRequest.getInterviewId(),updateAttendRequest.getInterviewResult(), updateAttendRequest.getUserId());
     }
 
 }

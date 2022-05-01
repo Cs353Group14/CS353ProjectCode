@@ -20,4 +20,8 @@ public class InterviewService {
     public void createAttend(Attend attend){
         interviewRepository.insertAttend(attend);
     }
+
+    public void changeAttendResult(int interviewId, String result){
+        interviewRepository.changeAttendResult(interviewId,result);
+    }
 }

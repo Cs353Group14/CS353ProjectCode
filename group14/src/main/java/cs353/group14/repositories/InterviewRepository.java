@@ -56,5 +56,17 @@ public class InterviewRepository {
 
     }
 
+    public void changeAttendResult(int interviewId, String result){
+        try {
+            String updateAttend = "UPDATE attend SET interview_result = ? where interview_id = ?";
+            PreparedStatement updateAttendStmt = ConnectionSingle.getConnection().prepareStatement(updateAttend);
+            updateAttendStmt.setString(1,result);
+            updateAttendStmt.setInt(2,interviewId);
+            updateAttendStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

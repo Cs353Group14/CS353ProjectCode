@@ -16,6 +16,7 @@ import NonCodingChallengeView from './components/NonCodingChallenges/View/NonCod
 import CreateCodingChallenge from './components/CodingChallenges/CreateCodingChallenges/CreateCodingInterview';
 import HomePage from './components/Home/HomePage';
 import CreateNonCodingQuestion from './components/NonCodingChallenges/CreateNonCodingQuestions/CreateNonCodingChallenge';
+import CreateInterview from './components/Interview/CreateInterview/CreateInterview';
 function App() {
   return (
     <BrowserRouter>
@@ -35,6 +36,8 @@ function App() {
       <Route path = {"/profileEditor"} element = {<EditorProfile/>}/>
       <Route path = {"/CreateCodingChallenge"} element = {<CreateCodingChallenge/>}/>
       <Route path = {"/CreateNonCodingQuestion"} element = {<CreateNonCodingQuestion/>}/>
+      <Route path = {"/CreateInterview"} element = {<CreateInterview/>}/>
+
 
 
     </Routes>

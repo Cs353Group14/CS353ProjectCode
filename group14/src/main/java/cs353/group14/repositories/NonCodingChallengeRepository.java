@@ -2,7 +2,9 @@ package cs353.group14.repositories;
 
 import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
+import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
+import cs353.group14.responses.NonCodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import org.springframework.stereotype.Repository;
 
@@ -315,6 +317,49 @@ public class NonCodingChallengeRepository {
 
 
 
+    }
+
+
+    public NonCodingChallengeAuthorCategoryResponse getNonCodingChallengeAuthorResponse(int challengeId)
+    {
+        List<String> categoryList = new ArrayList<>();
+        String author = "";
+        try {
+            String getChallengeSql = "Select * From non_coding_challenge_categories where non_challenge_id = ?";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
+            insertCodingPrepared.setInt(1,challengeId);
+            ResultSet rs = insertCodingPrepared.executeQuery();
+
+
+            while (rs.next()){
+
+                categoryList.add( rs.getString("category"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+        try {
+            String getChallengeSql = "Select * From make M, users U where U.user_id = M.user_id" +
+                    " and non_challenge_id = ?";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
+            insertCodingPrepared.setInt(1,challengeId);
+            ResultSet rs = insertCodingPrepared.executeQuery();
+
+            while (rs.next()){
+
+                author = rs.getString("username");
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return  new NonCodingChallengeAuthorCategoryResponse(categoryList,author);
     }
 
 

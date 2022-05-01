@@ -45,7 +45,7 @@ public class SubmissionRepository {
 
     }
 
-    private void updateCodingChallenge(int challengeId,int submissionId) throws SQLException{
+    private void updateCodingChallenge(int challengeId,int submissionId,int userId) throws SQLException{
         String updateAttemptSql = "UPDATE coding_challenge SET attempt_number = attempt_number +1 where challenge_id = ?";
         PreparedStatement updateAttemptStmt = ConnectionSingle.getConnection().prepareStatement(updateAttemptSql);
         updateAttemptStmt.setInt(1,challengeId);
@@ -64,7 +64,22 @@ public class SubmissionRepository {
         updateSolvedStmt.setInt(2,challengeId);
         updateSolvedStmt.executeUpdate();
 
+
+        String query ="UPDATE coder SET points = case WHEN EXISTS" +
+                "( SELECT * FROM  submission where submission_id = ? and fail_result = 0) " +
+                "THEN points + ( SELECT points from coding_challenge where challenge_id = ?) " +
+                "else points END " +
+                "where user_id = ?" ;
+
+        PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+        preparedStatement.setInt(1,submissionId);
+        preparedStatement.setInt(2,challengeId);
+        preparedStatement.setInt(3,userId);
+        preparedStatement.executeUpdate();
+
     }
+
+
 
     public void submitQuestion(int userId,int challengeId,Submission submission){
 
@@ -72,7 +87,63 @@ public class SubmissionRepository {
             int submissionId = insertSubmission(submission);
             submission.setSubmission_id(submissionId);
             insertSubmit(userId,challengeId,submissionId);
-            updateCodingChallenge( challengeId, submissionId);
+            updateCodingChallenge( challengeId, submissionId,userId);
+
+            System.out.println(submission);
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
+
+
+
+    private void updateCodingChallengeContest(int challengeId,int submissionId,int userId,int contestId) throws SQLException{
+        String updateAttemptSql = "UPDATE coding_challenge SET attempt_number = attempt_number +1 where challenge_id = ?";
+        PreparedStatement updateAttemptStmt = ConnectionSingle.getConnection().prepareStatement(updateAttemptSql);
+        updateAttemptStmt.setInt(1,challengeId);
+
+        updateAttemptStmt.executeUpdate();
+
+
+        String updateSolvedNumberSql ="UPDATE coding_challenge SET solved_number = case WHEN EXISTS" +
+                "( SELECT * FROM  submission where submission_id = ? and fail_result = 0) " +
+                "THEN solved_number + 1 " +
+                "else solved_number END " +
+                "WHERE challenge_id = ?";
+
+        PreparedStatement updateSolvedStmt = ConnectionSingle.getConnection().prepareStatement(updateSolvedNumberSql);
+        updateSolvedStmt.setInt(1,submissionId);
+        updateSolvedStmt.setInt(2,challengeId);
+        updateSolvedStmt.executeUpdate();
+
+
+        String query ="UPDATE participate SET points = case WHEN EXISTS" +
+                "( SELECT * FROM  submission where submission_id = ? and fail_result = 0) " +
+                "THEN points + ( SELECT points from coding_challenge where challenge_id = ?) " +
+                "else points END " +
+                "where user_id = ? and contest_id = ?" ;
+
+        PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+        preparedStatement.setInt(1,submissionId);
+        preparedStatement.setInt(2,challengeId);
+        preparedStatement.setInt(3,userId);
+        preparedStatement.setInt(4,contestId);
+        preparedStatement.executeUpdate();
+
+    }
+
+    public void submitQuestionToContest(int userId,int challengeId,int contestId,Submission submission){
+
+        try {
+            int submissionId = insertSubmission(submission);
+            submission.setSubmission_id(submissionId);
+            insertSubmit(userId,challengeId,submissionId);
+            updateCodingChallengeContest( challengeId, submissionId,userId,contestId);
 
             System.out.println(submission);
 

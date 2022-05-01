@@ -19,4 +19,13 @@ public class SubmissionController {
     public void submitSolution( @PathVariable int userId,@PathVariable int challengeId, @RequestBody Submission submission){
         submissionService.submitSolution(userId,challengeId,submission );
     }
+
+
+    @PutMapping("/submitSolution/{userId}/{challengeId}/{contestId}")
+    public void submitSolutionForContest( @PathVariable int userId,@PathVariable int challengeId,
+                                          @PathVariable int contestId, @RequestBody Submission submission){
+        submissionService.submitSolutionForContest(userId,challengeId,contestId,submission );
+    }
+
+
 }

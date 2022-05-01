@@ -32,4 +32,25 @@ public class SubmissionService {
 
         submissionRepository.submitQuestion(userId,challengeId,submission);
     }
+
+
+
+    public void submitSolutionForContest(int userId, int challengeId, int contestId, Submission submission){
+        submission.setSubmission_time(new Timestamp(System.currentTimeMillis()));
+
+        Random rn = new Random();
+        int fail = rn.nextInt(2) ;
+        if(fail == 1){
+            fail  = rn.nextInt(15) ;
+        }
+        int total = 15 ;
+        if ( fail == 0)
+        {
+
+        }
+        submission.setPass_result(total-fail);
+        submission.setFail_result(fail);
+
+        submissionRepository.submitQuestionToContest(userId,challengeId,contestId,submission);
+    }
 }

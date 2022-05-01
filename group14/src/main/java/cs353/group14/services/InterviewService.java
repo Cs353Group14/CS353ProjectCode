@@ -24,4 +24,15 @@ public class InterviewService {
     public void changeAttendResult(int interviewId, String result, int userId){
         interviewRepository.changeAttendResult(interviewId,result,userId);
     }
+
+
+    public void addCodingQuestionToInterview(int interview_id,int challenge_id, int company_id, int time_limit)
+    {
+        interviewRepository.addCodingQuestionToInterview(interview_id,challenge_id,company_id,time_limit);
+    }
+
+    public void addNonCodingQuestionToInterview(int interview_id,int challenge_id, int company_id)
+    {
+        interviewRepository.addNonCodingQuestionToInterview(interview_id,challenge_id,company_id);
+    }
 }

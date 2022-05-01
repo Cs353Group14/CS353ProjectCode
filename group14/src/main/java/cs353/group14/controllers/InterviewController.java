@@ -32,4 +32,16 @@ public class InterviewController {
         interviewService.changeAttendResult(updateAttendRequest.getInterviewId(),updateAttendRequest.getInterviewResult(), updateAttendRequest.getUserId());
     }
 
+    @PutMapping("/addCodingQuestionToInterview/{interview_id}/{challenge_id}/{company_id}/{time_limit}")
+    public void addCodingQuestionToInterview(@PathVariable int interview_id, @PathVariable int challenge_id, @PathVariable int company_id, @PathVariable int time_limit)
+    {
+        interviewService.addCodingQuestionToInterview(interview_id,challenge_id,company_id,time_limit);
+    }
+
+    @PutMapping("/addNonCodingQuestionToInterview/{interview_id}/{non_challenge_id}/{company_id}")
+    public void addNonCodingQuestionToInterview(@PathVariable int interview_id, @PathVariable int non_challenge_id, @PathVariable int company_id)
+    {
+        interviewService.addNonCodingQuestionToInterview(interview_id,non_challenge_id,company_id);
+    }
+
 }

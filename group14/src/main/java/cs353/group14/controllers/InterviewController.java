@@ -2,11 +2,13 @@ package cs353.group14.controllers;
 
 import cs353.group14.Attend;
 import cs353.group14.Interview;
+import cs353.group14.Notification;
 import cs353.group14.requests.UpdateAttendRequest;
 import cs353.group14.services.InterviewService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping
@@ -42,6 +44,11 @@ public class InterviewController {
     public void addNonCodingQuestionToInterview(@PathVariable int interview_id, @PathVariable int non_challenge_id, @PathVariable int company_id)
     {
         interviewService.addNonCodingQuestionToInterview(interview_id,non_challenge_id,company_id);
+    }
+
+    @GetMapping("/seeNotifications/{userId}")
+    public List<Notification> seeNotifications(@PathVariable int userId){
+        return interviewService.seeNotifications(userId);
     }
 
 }

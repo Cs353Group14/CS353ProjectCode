@@ -2,8 +2,11 @@ package cs353.group14.services;
 
 import cs353.group14.Attend;
 import cs353.group14.Interview;
+import cs353.group14.Notification;
 import cs353.group14.repositories.InterviewRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class InterviewService {
@@ -34,5 +37,9 @@ public class InterviewService {
     public void addNonCodingQuestionToInterview(int interview_id,int challenge_id, int company_id)
     {
         interviewRepository.addNonCodingQuestionToInterview(interview_id,challenge_id,company_id);
+    }
+
+    public List<Notification> seeNotifications(int userId){
+        return interviewRepository.seeNotifications(userId);
     }
 }

@@ -15,6 +15,7 @@ import NonCodingCardContainer from './components/NonCodingChallenges/Components/
 import NonCodingChallengeView from './components/NonCodingChallenges/View/NonCodingChallengeView'
 import CreateCodingChallenge from './components/Interview/CreateInterview/CreateCodingInterview';
 import HomePage from './components/Home/HomePage';
+import CreateNonCodingQuestion from './components/Interview/CreateInterview/CreateNonCodingChallenge';
 function App() {
   return (
     <BrowserRouter>
@@ -33,6 +34,8 @@ function App() {
       <Route path = {"/profile"} element = {<Profile/>}/>
       <Route path = {"/profileEditor"} element = {<EditorProfile/>}/>
       <Route path = {"/CreateCodingChallenge"} element = {<CreateCodingChallenge/>}/>
+      <Route path = {"/CreateNonCodingQuestion"} element = {<CreateNonCodingQuestion/>}/>
+
 
     </Routes>
     </BrowserRouter>

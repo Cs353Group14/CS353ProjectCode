@@ -28,6 +28,11 @@ export interface NonCodingChallegeInformation {
     categories: [];
 }
 
+export interface OthersAnswer{
+    username: string;
+    answer: string;
+}
+
 export class NonCodingChallengeApi {
     
     async getNonCodingChallenges(): Promise<NonCodingChallengeQueryResponse[]> {
@@ -42,12 +47,23 @@ export class NonCodingChallengeApi {
     }
 
     async getNonCodingChallengeInformation(): Promise<NonCodingChallegeInformation> {
-        const response = await axios.get(`/getCodingChallengeAuthorAndCategory/${localStorage.getItem('nonCodingId')}`);
+        const response = await axios.get(`/getNonCodingChallengeAuthorCategory/${localStorage.getItem('nonCodingId')}`);
         return response.data;
     }
 
     async submitAnswer(reply: Reply) {
         const response = await axios.put(`/replyQuestion`, reply);
+    }
+
+    async getSubmission() : Promise<Reply> {
+        const response = await axios.get(`/seeReply/${localStorage.getItem('userId')}/${localStorage.getItem('nonCodingId')}`);
+        return response.data;
+    }
+
+    async getOtherAnswers() : Promise<OthersAnswer[]> {
+        const response = await axios.get(`/seeOtherCodersAnswers/${localStorage.getItem('userId')}/${localStorage.getItem('nonCodingId')}`);
+        return response.data;
+
     }
 
 }

@@ -19,14 +19,16 @@ function NonCodingChallengeInformation(props) {
 
             <Divider/>
             <h4>Author</h4>
-            
+            {props.info.authorName}
 
             <Divider/>
             <h4>Categories</h4>
-            
+            {props.info.categories.map(category => {
+                return <li>{category}</li>
+            })}
 
             <Divider/>
-            <h4>Difficulity</h4>
+            <h4>Difficulty</h4>
             {props.difficulty}
 
         </div>

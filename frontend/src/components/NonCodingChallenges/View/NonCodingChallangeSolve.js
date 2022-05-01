@@ -1,5 +1,5 @@
-import { Button, Paper, TextField } from '@material-ui/core';
-import React, { useState } from 'react';
+import { Button, Divider, Paper, TextField } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { NonCodingChallengeApi } from '../NonCodingChallengeApi';
 
 function NonCodingChallengeSolve(props) {
@@ -8,6 +8,8 @@ function NonCodingChallengeSolve(props) {
     const [description, setDescription] = useState("What are the various types of relationships in Database? Define them." );
     
     const [answer, setAnswer] = useState("");
+    const[date, setDate] = useState("");
+    const[disabled, setDisabled] = useState(false);
 
     const nonCodingChallengeApi = new NonCodingChallengeApi();
 
@@ -19,6 +21,21 @@ function NonCodingChallengeSolve(props) {
     function handleNewAnswer(event) {
         setAnswer(event.target.value);
     }
+
+    function fetchSubmission() {
+        nonCodingChallengeApi.getSubmission().then(data=> {
+            console.log(data);
+            if(data != [] ){
+                setDisabled(true);
+                setAnswer(data.answer);
+                setDate(data.replyTime);
+            }            
+        });
+    }
+
+    useEffect(() => {
+        fetchSubmission();
+    },[]);
 
     function submitAnswer() {
         const reply = {
@@ -48,13 +65,19 @@ function NonCodingChallengeSolve(props) {
         <h2>Answer:</h2>
         <div className="dropdown">
 </div>
+        <div hidden = {!disabled} >
+            Submission Date:
+            {date}
+            <Divider/>
+        </div>
 
          <TextField
          fullWidth
           id="filled-multiline-static"
           multiline
           minRows={30}
-          defaultValue=""
+          defaultValue= {answer}
+          disabled = {disabled}
           variant="filled"
           onChange={handleNewAnswer}
         />

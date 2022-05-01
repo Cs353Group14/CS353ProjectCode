@@ -21,7 +21,7 @@ function OtherAnswerCard(props) {
 
                 </Avatar>
             }
-            title= {props.name}
+            title= {props.username}
             titleTypographyProps={{variant:'h5' }}
             subheader={props.position}
             subheaderTypographyProps={{variant: 'subtitle1'}}

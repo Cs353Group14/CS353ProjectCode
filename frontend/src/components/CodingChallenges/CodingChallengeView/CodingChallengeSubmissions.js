@@ -92,7 +92,6 @@ function CodindChallengeSubmissions() {
 
     useEffect(() => {
         fetchSubmissions();
-        //fetchNonCodingChallengeInformation();
     },[]);
 
     function SplitParagraph() {

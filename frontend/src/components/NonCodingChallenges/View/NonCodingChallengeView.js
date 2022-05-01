@@ -68,6 +68,9 @@ function a11yProps(index) {
 function CodingChallengeView() {
 
   const nonCodingChallengeApi = new NonCodingChallengeApi();
+
+  const[otherAnswers, setOtherAnswers] = useState([]);
+
   const[nonCodingChallenge, setNonCodingChallenge] = useState({
     non_challenge_id: -1,
     question: "",
@@ -88,10 +91,18 @@ function CodingChallengeView() {
   function fetchNonCodingChallengeInformation() {
     nonCodingChallengeApi.getNonCodingChallengeInformation()
                         .then(data => {setInfo(data);});
-}
+  }
+
+  function fetchOtherAnswers() {
+    nonCodingChallengeApi.getOtherAnswers().then(data=> {
+      console.log(data);
+      setOtherAnswers(data)});
+  }
+
   useEffect(() => {
     fetchNonCodingQuestion();
-    //fetchNonCodingChallengeInformation();
+    fetchNonCodingChallengeInformation();
+    fetchOtherAnswers();
 },[]);
 
     const [value, setValue] = React.useState(0);

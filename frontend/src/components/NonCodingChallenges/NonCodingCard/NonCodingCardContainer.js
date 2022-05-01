@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import NavBar from "../../NavBar/NavBar";
 import NonCodingCard from "./NonCodingCard";
 import './NonCodingCard.css'
+import {NonCodingChallengeApi} from '../NonCodingChallengeApi'
 
 
 const nonCodingQuestions = [
@@ -85,19 +86,31 @@ const nonCodingQuestions = [
 function NonCodingCardContainer(props) {
 
     const[category, setCategory] = useState("");
+    const[nonCodingQuestions, setNonCodingQuestions] = useState([]);
+
+    let nonCodingCards=  [];
+
+    const nonCodingChallengeApi = new NonCodingChallengeApi();
+
+
+    function fetchNonCodingQuestions() {
+        nonCodingChallengeApi.getNonCodingChallenges().then(data => setNonCodingQuestions(data));
+
+    }
+
+    useEffect(() => {
+        fetchNonCodingQuestions();
+    },[]);
 
     function handleNewCategory(event){
 
     }
 
-    let nonCodingCards=  [];
-
     nonCodingQuestions.forEach( (question) => {
-        nonCodingCards.push(<NonCodingCard key={question.id}
-                                         id={question.id}
+        nonCodingCards.push(<NonCodingCard key={question.non_challenge_id}
+                                         id={question.non_challenge_id}
                                          title = {question.title}
-                                         category = {question.category}
-                                         difficulity = {question.difficulity}
+                                         difficulty = {question.difficulty}
 />);
     } )
 

@@ -1,5 +1,6 @@
 package cs353.group14.services;
 
+import cs353.group14.Contest;
 import cs353.group14.repositories.ContestRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +16,20 @@ public class ContestService {
         this.contestRepository = contestRepository;
     }
 
-    public void createContest(int editorId, Timestamp start_time, String description, String title, int difficulty,
-                              int duration, Timestamp deadline)
+    public void createContest(int editorId, Contest contest)
     {
-        contestRepository.createContest(editorId,start_time, description, title, difficulty, duration, deadline);
-
+        contestRepository.createContest(editorId,contest.getStart_time(), contest.getDescription(),
+                contest.getTitle(), contest.getDifficulty(), contest.getDuration(), contest.getDeadline());
     }
 
     public void addQuestionsToContest(int contest_id, List<Integer> questions)
     {
         contestRepository.addQuestionToContest(contest_id,questions);
     }
+    public Contest getContest( int contest_id)
+    {
+        return contestRepository.getContest(contest_id);
+    }
+
+
 }

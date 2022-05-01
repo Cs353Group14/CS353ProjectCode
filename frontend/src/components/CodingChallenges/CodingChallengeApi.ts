@@ -36,6 +36,7 @@ export interface CodingChallegeInformation {
     categories: [];
 }
 
+
 export class CodingChallengeApi {
     
     async getCodingChallenges(): Promise<CodingChallengeQueryResponse[]> {
@@ -56,6 +57,11 @@ export class CodingChallengeApi {
 
     async submitSolution(submission: Submission) {
         const response = await axios.put(`/submitSolution/${localStorage.getItem('userId')}/${localStorage.getItem('codingId')}`, submission)
+    }
+
+    async getOldSubmissions(): Promise<Submission[]> {
+        const response = await axios.get(`/listOldAttempts/${localStorage.getItem('userId')}/${localStorage.getItem('codingId')}`);
+        return response.data;
     }
 
 }

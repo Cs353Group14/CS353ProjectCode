@@ -1,21 +1,51 @@
-import { Button, Paper, TextField } from '@material-ui/core';
-import React, { useState } from 'react';
+import { Button, Divider, Paper, TextField } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { NonCodingChallengeApi } from '../NonCodingChallengeApi';
 
-function NonCodingChallengeSolve() {
+function NonCodingChallengeSolve(props) {
 
     const title = "Non coding question";
     const [description, setDescription] = useState("What are the various types of relationships in Database? Define them." );
     
-    const [code, setCode] = useState("");
+    const [answer, setAnswer] = useState("");
+    const[date, setDate] = useState("");
+    const[disabled, setDisabled] = useState(false);
 
+    const nonCodingChallengeApi = new NonCodingChallengeApi();
 
     function SplitParagraph() {
-        return description.split('\n')
+        return props.description.split('\n')
         .map( (text,i) => <p key = {i}>{text}</p>);
     }
 
-    function handleNewCode(event) {
-        setCode(event.target.value);
+    function handleNewAnswer(event) {
+        setAnswer(event.target.value);
+    }
+
+    function fetchSubmission() {
+        nonCodingChallengeApi.getSubmission().then(data=> {
+            console.log(data);
+            if(data != [] ){
+                setDisabled(true);
+                setAnswer(data.answer);
+                setDate(data.replyTime);
+            }            
+        });
+    }
+
+    useEffect(() => {
+        fetchSubmission();
+    },[]);
+
+    function submitAnswer() {
+        const reply = {
+            nonChallengeId: localStorage.getItem('nonCodingId'),
+            userId: localStorage.getItem('userId'),
+            answer: answer,
+            theResult: "",
+            replyTime: "2022-01-01"}
+
+            nonCodingChallengeApi.submitAnswer(reply);
     }
 
     return(
@@ -25,7 +55,7 @@ function NonCodingChallengeSolve() {
             
             <h2>Descripition:</h2>
 
-            <h3>{title}</h3> 
+            <h3>{props.title}</h3> 
 
             <SplitParagraph/>
 
@@ -35,19 +65,25 @@ function NonCodingChallengeSolve() {
         <h2>Answer:</h2>
         <div className="dropdown">
 </div>
+        <div hidden = {!disabled} >
+            Submission Date:
+            {date}
+            <Divider/>
+        </div>
 
          <TextField
          fullWidth
           id="filled-multiline-static"
           multiline
           minRows={30}
-          defaultValue=""
+          defaultValue= {answer}
+          disabled = {disabled}
           variant="filled"
-          onChange={handleNewCode}
+          onChange={handleNewAnswer}
         />
          
          <div className='coding-submission-button'>
-            <Button variant="contained"  color="primary"> Submit </Button>
+            <Button variant="contained"  color="primary" onClick={submitAnswer} > Submit </Button>
          </div>
          </div>
 

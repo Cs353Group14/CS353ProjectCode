@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { NonCodingChallengeApi } from '../NonCodingChallengeApi';
 import NonCodingChallengeSubmissionTable from './NonCodingChallengeSubmisisonTable';
 
 
@@ -19,6 +20,23 @@ const submissions = [
 function NonCodindChallengeSubmissions() {
 
     const[currentSubIndex, setCurrentSubIindex] = useState(null); 
+    const[submissions, setSubmissions] = useState([]);
+
+    const nonCodingChallengeApi = new NonCodingChallengeApi();
+
+    function fetchSubmissions() {
+        nonCodingChallengeApi.getSubmission().then(data=> {
+            //console.log(data);
+            const array = [data];
+            //console.log(array);
+            setSubmissions(array);
+            //console.log(submissions);
+        });
+    }
+
+    useEffect(() => {
+        fetchSubmissions();
+    },[]);
 
     function SplitParagraph() {
         return submissions[currentSubIndex].answer.split('\n')

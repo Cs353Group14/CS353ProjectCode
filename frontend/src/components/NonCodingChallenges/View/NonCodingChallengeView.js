@@ -1,5 +1,5 @@
 import { Box, Tab, Tabs, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import './NonCodingChallengeView.css';
 import NonCodingChallengeSolve from "./NonCodingChallangeSolve";
@@ -7,6 +7,7 @@ import NavBar from "../../NavBar/NavBar";
 import NonCodindChallengeSubmissions from "./NonCodingChallengeSubmissions"
 import NonCodingChallengeInformation from "./NonCodingChallengeInformation";
 import OtherAnswerList from "./OtherAnswersList";
+import { NonCodingChallengeApi } from "../NonCodingChallengeApi";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,6 +67,44 @@ function a11yProps(index) {
 
 function CodingChallengeView() {
 
+  const nonCodingChallengeApi = new NonCodingChallengeApi();
+
+  const[otherAnswers, setOtherAnswers] = useState([]);
+
+  const[nonCodingChallenge, setNonCodingChallenge] = useState({
+    non_challenge_id: -1,
+    question: "",
+    title: "",
+    difficulity: -1,
+    publicity: -1
+  });
+
+  const[info, setInfo] = useState({
+    authorName: "",
+    categories: []
+  })
+
+  function fetchNonCodingQuestion(){
+      nonCodingChallengeApi.getNonCodingChallenge().then(data => setNonCodingChallenge(data));
+  }
+
+  function fetchNonCodingChallengeInformation() {
+    nonCodingChallengeApi.getNonCodingChallengeInformation()
+                        .then(data => {setInfo(data);});
+  }
+
+  function fetchOtherAnswers() {
+    nonCodingChallengeApi.getOtherAnswers().then(data=> {
+      console.log(data);
+      setOtherAnswers(data)});
+  }
+
+  useEffect(() => {
+    fetchNonCodingQuestion();
+    fetchNonCodingChallengeInformation();
+    fetchOtherAnswers();
+},[]);
+
     const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -87,13 +126,15 @@ function CodingChallengeView() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <NonCodingChallengeSolve/>
+        <NonCodingChallengeSolve  title = {nonCodingChallenge.title} description = {nonCodingChallenge.question}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <NonCodindChallengeSubmissions/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <NonCodingChallengeInformation/>
+        <NonCodingChallengeInformation title = {nonCodingChallenge.title}
+                                    difficulty = {nonCodingChallenge.difficulty}
+                                    info = {info}/>
       </TabPanel>
       <TabPanel value={value} index={3}>
         <OtherAnswerList content={otherAnswers}></OtherAnswerList>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { CodingChallengeApi } from '../CodingChallengeApi';
 import CodingChallengeSubmissionTable from './CodingChallengeSubmisisonTable';
 
 
@@ -81,6 +82,17 @@ const submissions = [
 function CodindChallengeSubmissions() {
 
     const[currentSubIndex, setCurrentSubIindex] = useState(null); 
+    const[submissions, setSubmissions] = useState([]);
+
+    const codingChallengeApi = new CodingChallengeApi();
+
+    function fetchSubmissions() {
+        codingChallengeApi.getOldSubmissions().then(data=> setSubmissions(data));
+    }
+
+    useEffect(() => {
+        fetchSubmissions();
+    },[]);
 
     function SplitParagraph() {
         return submissions[currentSubIndex].answer.split('\n')

@@ -42,11 +42,11 @@ const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
           </TableHead>
           <TableBody>
             {props.submissions.map((row,i) => (
-              <StyledTableRow key={row.submission_id}>
+              <StyledTableRow key={row.nonChallengeId}>
                 <StyledTableCell align="left">
                   {row.submission_date}
                 </StyledTableCell>
-                <StyledTableCell align="left">{row.submission_time}</StyledTableCell>
+                <StyledTableCell align="left">{row.replyTime}</StyledTableCell>
                 <StyledTableCell align="left">
                     <Button onClick={() => {
                     props.setCurrentSubIindex(i);

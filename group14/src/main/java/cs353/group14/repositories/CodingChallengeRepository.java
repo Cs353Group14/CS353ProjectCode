@@ -1,6 +1,7 @@
 package cs353.group14.repositories;
 
 import cs353.group14.CodingChallenge;
+import cs353.group14.Company;
 import cs353.group14.UserType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
@@ -342,32 +343,59 @@ public class CodingChallengeRepository {
 
 
 
-    public List<String> getOutputsForCodingChallenge( int challenge_id )
-    {
+    public List<String> getOutputsForCodingChallenge( int challenge_id ) {
         List<String> result = new ArrayList<>();
 
         try {
             String getChallengeSql = "Select * From test_case where challenge_id = ?";
             PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
-            insertCodingPrepared.setInt(1,challenge_id);
+            insertCodingPrepared.setInt(1, challenge_id);
             ResultSet rs = insertCodingPrepared.executeQuery();
 
 
-
-            while (rs.next()){
-                List <String> a;
+            while (rs.next()) {
+                List<String> a;
                 result.add(rs.getString("outputs"));
 
             }
-
 
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return result;
+
+
+    }
+
+    public void makeCompanySponsorToContest( int contestId, int companyId)
+    {
+        try {
+            String query = "INSERT INTO sponsor( contest_id,user_id ) VALUES(?,?)";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,contestId);
+            preparedStatement.setInt(2,companyId);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
 
-
+    public List<Company> getSponsorsOfContest(int contestId, int companyId)
+    {
+        List<Company> result = new ArrayList<>();
+        try {
+            String query = "INSERT INTO sponsor( contest_id,user_id ) VALUES(?,?)";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,contestId);
+            preparedStatement.setInt(2,companyId);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
 }

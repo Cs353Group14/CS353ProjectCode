@@ -81,4 +81,11 @@ public class CodingChallengeController {
     public List<String> getOutputsForCodingChallenge(  @PathVariable int challengeId){
         return codingChallengeService.getOutputsForCodingChallenge(challengeId);
     }
+
+    @PutMapping("/makeCompanySponsorToContest/{contestId}")
+    public void makeCompanySponsorToContest(@RequestBody int companyId,  @PathVariable int contestId){
+        codingChallengeService.makeCompanySponsorToContest(contestId,companyId);
+    }
+
+
 }

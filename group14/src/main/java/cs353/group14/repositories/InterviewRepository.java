@@ -8,6 +8,8 @@ import cs353.group14.db.ConnectionSingle;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class InterviewRepository {
@@ -109,6 +111,77 @@ public class InterviewRepository {
         }catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void addCodingQuestionToInterview(int interview_id,int challenge_id, int company_id, int time_limit)  {
+        try {
+            String query = "INSERT INTO includes(challenge_id, interview_id,company_id,time_limit) VALUES (?,?,?,?) ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+
+                preparedStatement.setInt(1, challenge_id);
+                preparedStatement.setInt(2, interview_id);
+                preparedStatement.setInt(3, company_id);
+                 preparedStatement.setInt(4, time_limit);
+
+                 preparedStatement.executeUpdate();
+            }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
+    public void addNonCodingQuestionToInterview(int interview_id,int non_challenge_id, int company_id)  {
+        try {
+            String query = "INSERT INTO made_of(non_challenge_id, interview_id,company_id) VALUES (?,?,?) ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+
+            preparedStatement.setInt(1, non_challenge_id);
+            preparedStatement.setInt(2, interview_id);
+            preparedStatement.setInt(3, company_id);
+
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public List<Notification> seeNotifications(int userId){
+
+        List<Notification> result = new ArrayList<>();
+
+        try{
+            String query = "Select * from notification N, notify O where N.n_id = O.n_id and user_id = ? ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,userId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                int n_id = rs.getInt("n_id");
+                String n_info = rs.getString("n_info");
+                Timestamp notif_date = rs.getTimestamp("notif_date");
+                String type = rs.getString("type");
+
+                Notification notification = new Notification(n_id,n_info,notif_date,type);
+                result.add(notification);
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+        return result;
+
+
     }
 
 

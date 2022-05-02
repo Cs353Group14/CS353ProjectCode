@@ -71,6 +71,9 @@ public class CodingChallengeService {
         return codingChallengeRepository.getCodingChallengeAuthorResponse(challengeId);
     }
 
-
+    public void makeCompanySponsorToContest( int contestId, int companyId)
+    {
+         codingChallengeRepository.makeCompanySponsorToContest(contestId,companyId);
+    }
 
 }

@@ -3,6 +3,8 @@ package cs353.group14.repositories;
 import cs353.group14.CodingChallenge;
 import cs353.group14.Contest;
 import cs353.group14.db.ConnectionSingle;
+import cs353.group14.responses.NonCodingChallengeQueryResponse;
+import cs353.group14.responses.UserNameAndPointResponse;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -90,6 +92,57 @@ public class ContestRepository {
 
     }
 
+    public void addCoderToContest( int user_id, int contest_id)
+    {
+        try {
+            String query = "INSERT INTO participate(contest_id, user_id,points) VALUES(?,?,0) ";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,contest_id);
+            preparedStatement.setInt(2,user_id);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+    }
+
+    public List<UserNameAndPointResponse> getOrder( int contestId)
+    {
+        List<UserNameAndPointResponse> result = new ArrayList<>();
+
+        try {
+            String query = "Select * from participate P, users U where P.user_id = U.user_id and P.contest_id = ? order by P.points DESC";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,contestId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()){
+
+                String username = rs.getString("username");
+
+                int points = rs.getInt("points");
+
+                UserNameAndPointResponse userNameAndPointResponse = new UserNameAndPointResponse(points,username );
+
+                result.add(userNameAndPointResponse);
+            }
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+        return result;
+    }
+
+
+
+
     public Contest getContest(int contest_id)
     {
         Timestamp start_time = null; String description = ""; String title = ""; int difficulty = 0;
@@ -99,7 +152,6 @@ public class ContestRepository {
             PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,contest_id);
 
-            preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.executeQuery();
 
 

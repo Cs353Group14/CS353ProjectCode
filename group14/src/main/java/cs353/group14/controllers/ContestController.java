@@ -1,6 +1,7 @@
 package cs353.group14.controllers;
 
 import cs353.group14.responses.CodingChallengeQueryResponse;
+import cs353.group14.responses.UserNameAndPointResponse;
 import cs353.group14.services.ContestService;
 import org.springframework.web.bind.annotation.*;
 import cs353.group14.Contest;
@@ -33,5 +34,14 @@ public class ContestController {
         return contestService.getContest(contestId);
     }
 
+    @PutMapping("/addCoderToContest/{contestId}")
+    public void addCoderToContest (@RequestBody int userId, @PathVariable int contestId){
+        contestService.addCoderToContest(userId,contestId);
+    }
+
+    @GetMapping("/getContestOrder/{contestId}")
+    public List<UserNameAndPointResponse> getContestOrder ( @PathVariable int contestId){
+        return contestService.getOrder(contestId);
+    }
 
 }

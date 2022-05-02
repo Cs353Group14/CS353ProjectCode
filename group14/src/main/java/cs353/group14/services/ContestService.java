@@ -2,6 +2,7 @@ package cs353.group14.services;
 
 import cs353.group14.Contest;
 import cs353.group14.repositories.ContestRepository;
+import cs353.group14.responses.UserNameAndPointResponse;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -31,5 +32,13 @@ public class ContestService {
         return contestRepository.getContest(contest_id);
     }
 
+    public void addCoderToContest( int user_id, int contest_id)
+    {
+        contestRepository.addCoderToContest(user_id,contest_id);
+    }
 
+    public List<UserNameAndPointResponse> getOrder(int contestId)
+    {
+        return contestRepository.getOrder(contestId);
+    }
 }

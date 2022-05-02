@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 import CodingCardContainer from "../CodingChallenges/CodingCard/CodingCardContainer";
 import CreateCodingChallenge from "../CodingChallenges/CreateCodingChallenges/CreateCodingInterview";
+import CreateInterview from "../Interview/CreateInterview/CreateInterview";
 import NavBar from "../NavBar/NavBar";
+import CreateNonCodingQuestion from "../NonCodingChallenges/CreateNonCodingQuestions/CreateNonCodingChallenge";
 import NonCodingCardContainer from "../NonCodingChallenges/NonCodingCard/NonCodingCardContainer";
 
 export default function HomePage() {
@@ -9,29 +11,47 @@ export default function HomePage() {
     const [codingChallengesHidden, setCodingChallengesHidded] = useState(false);
     const [noncodingChallengesHidden, setNoncodingChallengesHidded] = useState(true);
     const [createCodingChallengeHidden, setCreateCodingChallengeHidded] = useState(true);
+    const [createNonCodingChallengeHidden, setNonCreateCodingChallengeHidded] = useState(true);
+    const [createInterview, setCreateInterview] = useState(true);
 
 
     function makesVisible(componentNumber) {
         if(componentNumber == 1){
-            console.log("here");
             setCodingChallengesHidded(false);
             setNoncodingChallengesHidded(true);
             setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
         }
         else if(componentNumber == 2){
-            console.log("there");
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(false);
             setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
         } else if(componentNumber == 3){
-            console.log("there");
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
             setCreateCodingChallengeHidded(false);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
+        } else if(componentNumber == 4){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(false);
+            setCreateInterview(true);
+        } else if(componentNumber == 5){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(false);
         }
     }
 
     useEffect(() => {
+        makesVisible(localStorage.getItem('menuId'));
     },[]);
 
     return(
@@ -45,6 +65,12 @@ export default function HomePage() {
             </div>
             <div hidden = {createCodingChallengeHidden} >
                 <CreateCodingChallenge />
+            </div>
+            <div hidden = {createNonCodingChallengeHidden} >
+                <CreateNonCodingQuestion />
+            </div>
+            <div hidden = {createInterview} >
+                <CreateInterview />
             </div>
         </div>
     );

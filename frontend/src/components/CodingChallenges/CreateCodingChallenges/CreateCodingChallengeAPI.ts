@@ -22,7 +22,10 @@ export class CreateCodingChallengeAPI {
         return response.data;
     }
 
-    async addCategory(challengeId: number, category: string) {
-        const response = await axios.put(`/addCategoryCodingChallenge/${challengeId}`, category);
+    async addCategory(challengeId: number, categories: string[]) {
+        categories.forEach(category => {
+            const config = { headers: {'Content-Type': 'application/json'} };
+            axios.put(`/addCategoryCodingChallenge/${challengeId}`, category, config);
+        })
     }
 }

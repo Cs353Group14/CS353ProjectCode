@@ -27,8 +27,8 @@ public class NonCodingChallengeController {
 
 
     @PutMapping("/createNonCodingChallenge/{userId}")
-    public void createNonCodingChallenge(@RequestBody NonCodingChallenge nonCodingChallenge, @PathVariable int userId){
-        nonCodingChallengeService.createNonCodingChallenge(userId,nonCodingChallenge);
+    public int createNonCodingChallenge(@RequestBody NonCodingChallenge nonCodingChallenge, @PathVariable int userId){
+        return  nonCodingChallengeService.createNonCodingChallenge(userId,nonCodingChallenge);
     }
 
 

@@ -34,6 +34,8 @@ function Login() {
             }
         })
 
+        localStorage.setItem('menuId', 1);
+
         setTimeout(function() {
             window.location.href = "http://localhost:3000/home";
         }, 1000)

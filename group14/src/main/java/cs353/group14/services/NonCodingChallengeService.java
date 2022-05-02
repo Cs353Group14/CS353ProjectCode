@@ -21,8 +21,8 @@ public class NonCodingChallengeService {
     }
 
 
-    public void createNonCodingChallenge(int editorId, NonCodingChallenge nonCodingChallenge){
-        noncodingChallengeRepository.createNonCodingChallenge(editorId,nonCodingChallenge);
+    public int createNonCodingChallenge(int editorId, NonCodingChallenge nonCodingChallenge){
+        return noncodingChallengeRepository.createNonCodingChallenge(editorId,nonCodingChallenge);
     }
 
     public List<NonCodingChallengeQueryResponse> getAllPublicNonCodingChallengesFiltered(List<String> filters){

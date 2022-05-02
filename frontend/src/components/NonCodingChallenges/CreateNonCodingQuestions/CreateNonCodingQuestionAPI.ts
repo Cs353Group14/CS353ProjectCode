@@ -18,5 +18,12 @@ export class CreateNonCodingQuestionAPI {
         return response.data;
     }
 
+    async addCategory(nonChallengeId: number, categories: string[]) {
+        categories.forEach(category => {
+            const config = { headers: {'Content-Type': 'application/json'} };
+            axios.put(`/addCategoryNonCodingChallenge/${nonChallengeId}`, category, config);
+        })
+    }
+
     
 }

@@ -46,22 +46,24 @@ function CreateNonCodingQuestion(props) {
 
   async function handleSubmit() {
 
-
-    console.log(listOfCategories);
     const newQuestion = {
       non_challenge_id: -1,
       difficulty: difficulty,
       title: title,
       question: question,
-      publicity: 0
+      publicity: 1
     }
 
+    const challengeId = await createNonCodingQuestionAPI.createNonCoding(newQuestion);
 
-    await createNonCodingQuestionAPI.createNonCoding(newQuestion);
+    let categoryArray =[];
 
-    setTimeout(function() {
-        window.location.href = "http://localhost:3000";
-    }, 1000)
+    listOfCategories.forEach(category => {
+      categoryArray.push(category.value);
+    });
+
+    await createNonCodingQuestionAPI.addCategory(challengeId, categoryArray);
+
 
 }
 

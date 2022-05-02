@@ -50,38 +50,65 @@ export default function Menu(props) {
             <br/>
             <Divider />
             <div>
-                <Button color="inherit"  onClick={fetchAllCodingChallenges}>Coding Challenges</Button>
+                <Button color="inherit"  onClick={openAllCodingChallenges}>Coding Challenges</Button>
             </div>
             <br/>
             <Divider />
             <div  >
-                <Button color="inherit"  onClick={fetchAllNoncodingChallenges}>Non Coding Challenges</Button>
+                <Button color="inherit"  onClick={openAllNoncodingChallenges}>Non Coding Challenges</Button>
             </div>
+            <br/>
             <Divider />
             <div  >
                 <Button color="inherit"  onClick={openCreateCodingChallenge}>Create Coding Challenge</Button>
+            </div>
+            <br/>
+            <Divider />
+            <div  >
+                <Button color="inherit"  onClick={openCreateNonCodingChallenge}>Create Non-Coding Challenge</Button>
+            </div>
+            <br/>
+            <Divider />
+            <div  >
+                <Button color="inherit"  onClick={openCreateInterview}>Create Interview</Button>
             </div>
 
         </div>
     );
 
-    const fetchAllCodingChallenges = () => {
+    const openAllCodingChallenges = () => {
 
-        props.makesVisible(1);
+        localStorage.setItem('menuId', 1);
+        window.location.href = "http://localhost:3000/home";
+        //props.makesVisible(1);
         //props.fetchActivities();
     }
 
-    const fetchAllNoncodingChallenges = () => {
+    const openAllNoncodingChallenges = () => {
 
-        props.makesVisible(2);
+        localStorage.setItem('menuId', 2);
+        window.location.href = "http://localhost:3000/home";
+        //props.makesVisible(2);
 
         //props.fetchActivities();
     }
 
     const openCreateCodingChallenge = () => {
-        props.makesVisible(3);
+        localStorage.setItem('menuId', 3);
+        window.location.href = "http://localhost:3000/home";
+        //props.makesVisible(3);
     }
 
+    const openCreateNonCodingChallenge = () => {
+        localStorage.setItem('menuId', 4);
+        window.location.href = "http://localhost:3000/home";
+        //props.makesVisible(4);
+    }
+
+    const openCreateInterview = () => {
+        localStorage.setItem('menuId', 5);
+        window.location.href = "http://localhost:3000/home";
+    }
 
 
     return (

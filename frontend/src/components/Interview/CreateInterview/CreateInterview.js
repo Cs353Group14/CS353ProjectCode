@@ -57,7 +57,6 @@ function CreateInterview(props) {
 
     return(
         <div>
-        <NavBar></NavBar>
           <Grid
             container
             direction="row"

@@ -57,14 +57,18 @@ function CreateCodingChallenge(props) {
      question: question,
      solvedNumber: 0,
      attempt_number: 0,
-     publicity: 0
+     publicity: 1 // değişecekkk
     }
 
     const challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
 
-    console.log(challengeId);
+    let categoryArray =[];
 
-    await createCodingChallengeAPI.addCategory(challengeId, listOfCategories[0]);
+    listOfCategories.forEach(category => {
+      categoryArray.push(category.value);
+    });
+
+    await createCodingChallengeAPI.addCategory(challengeId, categoryArray);
 
 }
 

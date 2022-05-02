@@ -15,15 +15,16 @@ import java.util.List;
 @Repository
 public class NonCodingChallengeRepository {
 
-    public void createNonCodingChallenge(int editorId, NonCodingChallenge noncodingChallenge){
+    public int createNonCodingChallenge(int editorId, NonCodingChallenge noncodingChallenge){
 
         try {
             int codingChallengeId = insertNonCodingChallengeTable(noncodingChallenge);
             insertMakeTable(editorId,codingChallengeId);
+            return codingChallengeId;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return -1;
     }
 
     public void insertMakeTable(int editorId, int noncodingChallengeId)throws SQLException  {

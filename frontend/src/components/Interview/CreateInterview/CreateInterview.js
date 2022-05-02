@@ -27,6 +27,7 @@ function CreateInterview(props) {
   const [duration, setDuration] = useState(timeUnit[0].value);
   const createNewInterview = new CreateNewInterview();
   let durationInMin = 0;
+  let showInterview = 0;
 
   async function handleSubmit() {
 
@@ -53,108 +54,115 @@ function CreateInterview(props) {
       }
       await createNewInterview.createInterview(newInterview);
 
+    document.getElementById("creat_interview").remove();
+    document.getElementById("interview").style.display ="block";
 }
 
     return(
         <div>
-          <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Grid item>
-              <Typography variant="h3" component="h3">
-                Create new interview
-              </Typography>
-              </Grid>
-          </Grid>
-        
-          <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            
-          <FormControl onSubmit = {handleSubmit}>
-            <Box
-              component="form"
-              sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' }
-              }}
-              noValidate
-              autoComplete="off"
-          
+            <div id="create_interview_container">
+            <div id="creat_interview" >
+            <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
             >
-            <div>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Position"
-                onChange={(e) => setPosition(e.target.value)}
-                margin="normal"
-                fullWidth
-                variant="outlined"
-                value={position}
-              />
-            </div>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
+                <Grid item>
+                <Typography variant="h3" component="h3">
+                    Create new interview
+                </Typography>
+                </Grid>
+            </Grid>
+            
+            <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+            >
+                
+            <FormControl onSubmit = {handleSubmit}>
+                <Box
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '25ch' }
+                }}
+                noValidate
+                autoComplete="off"
+            
+                >
+                <div>
+                <TextField
+                    id="outlined-multiline-flexible"
+                    label="Position"
+                    onChange={(e) => setPosition(e.target.value)}
+                    margin="normal"
+                    fullWidth
+                    variant="outlined"
+                    value={position}
+                />
+                </div>
+                <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <div>
+                        <TextField
+                        id="outlined-multiline-flexible"
+                        label="Duration"
+                        onChange={(e) => setDuration(e.target.value)}
+                        margin="normal"
+                        variant="outlined"
+                        type="number"
+                        value={duration}
+                        />
+                    </div>
+                </Grid>
+                <Grid item xs={6}>
                 <div>
                     <TextField
-                      id="outlined-multiline-flexible"
-                      label="Duration"
-                      onChange={(e) => setDuration(e.target.value)}
-                      margin="normal"
-                      variant="outlined"
-                      type="number"
-                      value={duration}
-                    />
+                        id="outlined-select-currency"
+                        select
+                        margin="normal"
+                        value={timeUnit}
+                        onChange={(e) => setTimeUnit(e.target.value)}
+                        >
+                        {timeUnits.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                            {option.value}
+                            </MenuItem>
+                        ))}
+                        </TextField>
+                    </div>
+                </Grid>
+                </Grid>
+                <div>
                 </div>
-              </Grid>
-              <Grid item xs={6}>
-              <div>
-                  <TextField
-                      id="outlined-select-currency"
-                      select
-                      margin="normal"
-                      value={timeUnit}
-                      onChange={(e) => setTimeUnit(e.target.value)}
-                    >
-                      {timeUnits.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.value}
-                        </MenuItem>
-                      ))}
-                      </TextField>
-                  </div>
-              </Grid>
-              </Grid>
-              <div>
-               </div>
-              </Box>
-              <Grid container spacing={12} >
-              <Grid item  justify="flex-end">
-                  <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                > Cancel</Button>
-              </Grid>
-              <Grid item >
-                <Button
+                </Box>
+                <Grid container spacing={12} >
+                <Grid item  justify="flex-end">
+                    <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
-                    onClick={handleSubmit}
-                    > Create</Button>
-              </Grid>
+                    > Cancel</Button>
+                </Grid>
+                <Grid item >
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                        > Create</Button>
+                </Grid>
+                </Grid>
+                </FormControl>
             </Grid>
-            </FormControl>
-          </Grid>
+          </div>
+        </div>
           <div >
+              <div style={{display:"none"}} id="interview">
               <Grid container
                 direction="row"
                 justifyContent="center"
@@ -187,6 +195,7 @@ function CreateInterview(props) {
                     </Grid> 
                   </Grid>          
               </Grid>
+              </div>
             <Grid
                 container
                 direction="row"

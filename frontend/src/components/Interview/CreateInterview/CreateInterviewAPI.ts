@@ -13,7 +13,7 @@ export interface newInterview {
 export class CreateNewInterview {
 
     async createInterview(newQuestion: newInterview) {
-        const response = await axios.put("/createInterview/", newQuestion);
+        const response = await axios.put("/createInterview", newQuestion);
         return response.data;
     }
 

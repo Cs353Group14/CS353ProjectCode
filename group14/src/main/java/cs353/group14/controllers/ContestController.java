@@ -1,5 +1,7 @@
 package cs353.group14.controllers;
 
+import cs353.group14.CodingChallenge;
+import cs353.group14.NonCodingChallenge;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.responses.UserNameAndPointResponse;
 import cs353.group14.services.ContestService;
@@ -43,5 +45,13 @@ public class ContestController {
     public List<UserNameAndPointResponse> getContestOrder ( @PathVariable int contestId){
         return contestService.getOrder(contestId);
     }
+
+
+    @GetMapping("/getContestCodingQuestions/{contestId}")
+    public  List<CodingChallenge> getContestCodingQuestions(@PathVariable int contestId){
+        return contestService.getCodingChallengesOfContest(contestId);
+    }
+
+
 
 }

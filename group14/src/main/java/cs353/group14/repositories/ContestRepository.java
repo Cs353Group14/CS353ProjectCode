@@ -173,6 +173,78 @@ public class ContestRepository {
 
         return new Contest(contest_id,start_time,description,title,difficulty,duration,deadline);
     }
+
+    public List<Contest> getFutureContestsRegistered( int userId)
+    {
+        Timestamp start_time = null; String description = ""; String title = ""; int difficulty = -1;
+        int duration = -1; Timestamp deadline = null; int contest_id = -1;
+        List<Contest> result = new ArrayList<>();
+        try {
+            String query = "Select * From participate P,  contest C where C.contest_id = P.contest_id and P.user_id = ? and C.start_time > CURRENT_TIMESTAMP ";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                contest_id =( rs.getInt("contest_id"));
+                start_time = ( rs.getTimestamp("start_time"));
+                description = ( rs.getString("description"));
+                title = ( rs.getString("title"));
+                difficulty = ( rs.getInt("difficulty"));
+                duration = ( rs.getInt("duration"));
+                deadline = ( rs.getTimestamp("deadline"));
+
+                Contest contest = new Contest(contest_id,start_time,description,title,difficulty,duration,deadline);
+
+                result.add(contest);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        return result;
+
+    }
+
+
+
+    public List<Contest> getFutureContestsNotRegistered( int userId)
+    {
+        Timestamp start_time = null; String description = ""; String title = ""; int difficulty = -1;
+        int duration = -1; Timestamp deadline = null; int contest_id = -1;
+        List<Contest> result = new ArrayList<>();
+        try {
+            String query = "SELECT * from  contest where start_time > CURRENT_TIMESTAMP  EXCEPT " +
+                    "Select C.contest_id,C.start_time,C.description,C.title,C.difficulty,C.duration,C.deadline" +
+                    " From participate P,  contest C where C.contest_id = P.contest_id and P.user_id = ? ";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                contest_id =( rs.getInt("contest_id"));
+                start_time = ( rs.getTimestamp("start_time"));
+                description = ( rs.getString("description"));
+                title = ( rs.getString("title"));
+                difficulty = ( rs.getInt("difficulty"));
+                duration = ( rs.getInt("duration"));
+                deadline = ( rs.getTimestamp("deadline"));
+
+                Contest contest = new Contest(contest_id,start_time,description,title,difficulty,duration,deadline);
+
+                result.add(contest);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        
+        return result;
+
+    }
+
+
+
     public List<CodingChallenge> getCodingChallengesOfContest( int contest_id)
     {
         List<CodingChallenge> result = new ArrayList<>();

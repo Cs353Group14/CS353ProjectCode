@@ -36,6 +36,17 @@ public class ContestController {
         return contestService.getContest(contestId);
     }
 
+    @GetMapping("/getFutureContestsRegistered/{userId}")
+    public List<Contest> getFutureContestsRegistered ( @PathVariable int userId) {
+        return contestService.getFutureContestsRegistered(userId);
+    }
+
+    @GetMapping("/getFutureContestsNotRegistered/{userId}")
+    public List<Contest> getFutureContestsNotRegistered ( @PathVariable int userId) {
+        return contestService.getFutureContestsNotRegistered(userId);
+    }
+
+
     @PutMapping("/addCoderToContest/{contestId}")
     public void addCoderToContest (@RequestBody int userId, @PathVariable int contestId){
         contestService.addCoderToContest(userId,contestId);

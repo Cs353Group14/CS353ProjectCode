@@ -25,6 +25,11 @@ public class CodingChallengeController {
     }
 
 
+    @GetMapping("/getChallengesOfEditor/{editorId}")
+    public List<CodingChallengeQueryResponse> getChallengesOfEditor(@PathVariable int editorId){
+        return codingChallengeService.getChallengesOfEditor(editorId);
+    }
+
     @GetMapping("/publicCodingChallengesFiltered")
     public List<CodingChallengeQueryResponse> getPublicCodingChallengesFiltered( @RequestBody List<String> filters){
         return codingChallengeService.getAllPublicCodingChallengesFiltered(filters);

@@ -45,7 +45,15 @@ public class ContestService {
     }
 
 
+    public List<Contest> getFutureContestsRegistered( int userId)
+    {
+        return contestRepository.getFutureContestsRegistered(userId);
+    }
 
+    public List<Contest> getFutureContestsNotRegistered( int userId)
+    {
+        return contestRepository.getFutureContestsNotRegistered(userId);
+    }
 
     public List<CodingChallenge> getCodingChallengesOfContest(int contestId)
     {

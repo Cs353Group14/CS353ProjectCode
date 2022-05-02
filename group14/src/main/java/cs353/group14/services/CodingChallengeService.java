@@ -57,6 +57,12 @@ public class CodingChallengeService {
         return codingChallengeRepository.getAllPublicChallenges();
     }
 
+
+    public List<CodingChallengeQueryResponse> getChallengesOfEditor( int editorId){
+        return codingChallengeRepository.getChallengesOfEditor(editorId);
+    }
+
+
     public CodingChallenge getCodingChallenge(int challengeId){
         return codingChallengeRepository.getCodingChallenge(challengeId);
     }

@@ -144,6 +144,38 @@ public class CodingChallengeRepository {
 
 
 
+    public List<CodingChallengeQueryResponse> getChallengesOfEditor( int editorId)  {
+
+        List<CodingChallengeQueryResponse> result = new ArrayList<>();
+
+
+        try {
+            String getAllPublicChallengesSql = "Select * From creates C, coding_challenge CC where C.challenge_id = CC.challenge_id and C.user_id = ? and publicity = 1";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(getAllPublicChallengesSql);
+            preparedStatement.setInt(1,editorId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int challenge_id = rs.getInt("challenge_id");
+                int points = rs.getInt("points");
+                String difficulty = rs.getString("difficulty");
+                int solved_number = rs.getInt("solved_number");
+                int attempt_number = rs.getInt("attempt_number");
+                String title = rs.getString("title");
+
+                CodingChallengeQueryResponse ccqr = new CodingChallengeQueryResponse(challenge_id, title, difficulty, points, solved_number, attempt_number);
+
+                result.add(ccqr);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        return result;
+    }
+
+
 
     public List<CodingChallengeQueryResponse> getAllPublicCodingChallengesWithFiltered( List <String> input )  {
 

@@ -38,6 +38,35 @@ public class InterviewRepository {
 
     }
 
+    public Interview getInterview( int interviewId)
+    {
+
+         int user_id = 0;
+         int duration = 0;
+         String position = "";
+        try{
+            String query = "Select * from interview  where interview_id = ? ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,interviewId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                user_id = rs.getInt("user_id");
+                duration = rs.getInt("duration");
+                position = rs.getString("position");
+
+
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return  new Interview(user_id,interviewId,duration, position);
+    }
+
 
 
     public void insertAttend(Attend attend){

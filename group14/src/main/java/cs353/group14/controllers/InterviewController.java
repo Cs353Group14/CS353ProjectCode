@@ -64,4 +64,8 @@ public class InterviewController {
     }
 
 
+    @GetMapping("/getInterview/{interviewId}")
+    public  Interview getInterview(@PathVariable int interviewId){
+        return interviewService.getInterview(interviewId);
+    }
 }

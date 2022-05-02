@@ -55,4 +55,9 @@ public class InterviewService {
     {
         return interviewRepository.getInterviewsForCoder(userId);
     }
+
+    public Interview getInterview( int interviewId)
+    {
+        return interviewRepository.getInterview(  interviewId);
+    }
 }

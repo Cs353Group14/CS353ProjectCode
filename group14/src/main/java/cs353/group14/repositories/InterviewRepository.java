@@ -5,6 +5,8 @@ import cs353.group14.CodingChallenge;
 import cs353.group14.Interview;
 import cs353.group14.Notification;
 import cs353.group14.db.ConnectionSingle;
+import cs353.group14.responses.InterviewResponse;
+import cs353.group14.responses.UserNameAndInterviewResultResponse;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -35,6 +37,8 @@ public class InterviewRepository {
         return -1;
 
     }
+
+
 
     public void insertAttend(Attend attend){
 
@@ -183,6 +187,77 @@ public class InterviewRepository {
 
 
     }
+
+    public List<InterviewResponse> getInterviewsForCoder( int userId)
+    {
+        List<InterviewResponse> result = new ArrayList<>();
+
+
+        try{
+            String query = "Select * from attend A, interview I,company C where I.interview_id = A.interview_id and C.user_id = I.user_id and A.coder_id = ? ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,userId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                int duration = rs.getInt("duration");
+                int interviewId = rs.getInt("interview_id");
+                String companyName = rs.getString("username");
+                Timestamp startTime = rs.getTimestamp("start_time");
+                Timestamp endTime = rs.getTimestamp("end_time");
+                String position = rs.getString("position");
+                String interviewResult = rs.getString("interview_result");
+                String invitationCode = rs.getString("invitation_code");
+
+                InterviewResponse interviewResponse = new InterviewResponse(companyName,duration,position,interviewId,startTime,endTime,interviewResult,invitationCode);
+                result.add(interviewResponse);
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+    public List<UserNameAndInterviewResultResponse> getInterviewsForCompany(int companyId)
+    {
+        List<UserNameAndInterviewResultResponse> result = new ArrayList<>();
+
+        try{
+            String query = "Select * from attend A, interview I, users U where I.interview_id = A.interview_id and A.coder_id = U.user_id and I.user_id = ? ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,companyId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                int duration = rs.getInt("duration");
+                int interviewId = rs.getInt("interview_id");
+                String companyName = rs.getString("username");
+                Timestamp startTime = rs.getTimestamp("start_time");
+                Timestamp endTime = rs.getTimestamp("end_time");
+                String position = rs.getString("position");
+                String interviewResult = rs.getString("interview_result");
+                String invitationCode = rs.getString("invitation_code");
+
+                UserNameAndInterviewResultResponse userNameAndInterviewResultResponse = new UserNameAndInterviewResultResponse(companyName,interviewId,duration,position,startTime,endTime,interviewResult,invitationCode);
+                result.add(userNameAndInterviewResultResponse);
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return result;
+
+    }
+
 
 
 }

@@ -1,8 +1,6 @@
 package cs353.group14.controllers;
 
-import cs353.group14.Attend;
-import cs353.group14.Interview;
-import cs353.group14.Notification;
+import cs353.group14.*;
 import cs353.group14.requests.UpdateAttendRequest;
 import cs353.group14.responses.InterviewResponse;
 import cs353.group14.responses.UserNameAndInterviewResultResponse;
@@ -67,5 +65,17 @@ public class InterviewController {
     @GetMapping("/getInterview/{interviewId}")
     public  Interview getInterview(@PathVariable int interviewId){
         return interviewService.getInterview(interviewId);
+    }
+
+
+    @GetMapping("/getInterviewCodingQuestions/{interviewId}")
+    public  List<CodingChallenge> getInterviewCodingQuestions(@PathVariable int interviewId){
+        return interviewService.getCodingChallengesOfInterview(interviewId);
+    }
+
+
+    @GetMapping("/getInterviewNonCodingQuestions/{interviewId}")
+    public  List<NonCodingChallenge> getInterviewNonCodingQuetions(@PathVariable int interviewId){
+        return interviewService.getNonCodingChallengesOfInterview(interviewId);
     }
 }

@@ -1,9 +1,6 @@
 package cs353.group14.repositories;
 
-import cs353.group14.Attend;
-import cs353.group14.CodingChallenge;
-import cs353.group14.Interview;
-import cs353.group14.Notification;
+import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.InterviewResponse;
 import cs353.group14.responses.UserNameAndInterviewResultResponse;
@@ -132,6 +129,95 @@ public class InterviewRepository {
 
         return -1;
     }
+
+    public List<CodingChallenge> getCodingChallengesOfInterview( int interview_id)
+    {
+        List<CodingChallenge> result = new ArrayList<>();
+
+        int challenge_id = -1;
+        String question = "";
+        int points = -1;
+        String difficulty = "";
+        int solved_number = -1;
+        int attempt_number = -1;
+        String title = "";
+        String solution = "";
+        int publicity = -1;
+        try{
+            String query = "Select * from  includes IC, coding_challenge C  " +
+                    "where C.challenge_id = IC.challenge_id and IC.interview_id = ? ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,interview_id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                challenge_id = rs.getInt("challenge_id");
+                question = rs.getString("question");
+                points = rs.getInt("points");
+                difficulty = rs.getString("difficulty");
+                solved_number = rs.getInt("solved_number");
+                attempt_number = rs.getInt("attempt_number");
+                title = rs.getString("title");
+                solution = rs.getString("solution");
+                publicity = rs.getInt("publicity");
+
+                CodingChallenge cc =  new CodingChallenge (challenge_id, question, points, difficulty,  solved_number, attempt_number, title, solution, publicity);
+
+                result.add(cc);
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return  result;
+    }
+
+
+
+    public List<NonCodingChallenge> getNonCodingChallengesOfInterview(int interview_id)
+    {
+        List<NonCodingChallenge> result = new ArrayList<>();
+
+        int non_challenge_id = -1;
+        String question = "";
+        String difficulty = "";
+        String title = "";
+        int publicity = -1;
+        try{
+            String query = "Select * from  made_of M, non_coding_challenge N  " +
+                    "where M.non_challenge_id = N.non_challenge_id and M.interview_id = ? ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,interview_id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                non_challenge_id = rs.getInt("non_challenge_id");
+                question = rs.getString("question");
+                difficulty = rs.getString("difficulty");
+                title = rs.getString("title");
+                publicity = rs.getInt("publicity");
+
+                NonCodingChallenge ncc = new NonCodingChallenge (non_challenge_id, question, difficulty, title, publicity);
+
+                result.add(ncc);
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return  result;
+    }
+
+
+
+
+
 
     public void insertNotify(int userId, int nId){
         try {

@@ -1,8 +1,6 @@
 package cs353.group14.services;
 
-import cs353.group14.Attend;
-import cs353.group14.Interview;
-import cs353.group14.Notification;
+import cs353.group14.*;
 import cs353.group14.repositories.InterviewRepository;
 import cs353.group14.responses.InterviewResponse;
 import cs353.group14.responses.UserNameAndInterviewResultResponse;
@@ -60,4 +58,15 @@ public class InterviewService {
     {
         return interviewRepository.getInterview(  interviewId);
     }
+
+    public List<NonCodingChallenge> getNonCodingChallengesOfInterview( int interviewId)
+    {
+        return interviewRepository.getNonCodingChallengesOfInterview(  interviewId);
+    }
+
+    public List<CodingChallenge> getCodingChallengesOfInterview(int interviewId)
+    {
+        return interviewRepository.getCodingChallengesOfInterview(  interviewId);
+    }
+
 }

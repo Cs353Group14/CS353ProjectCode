@@ -31,8 +31,8 @@ public class CodingChallengeController {
     }
 
     @PutMapping("/createCodingChallenge/{editorId}")
-    public void createCodingChallenge(@RequestBody CodingChallenge codingChallenge, @PathVariable int editorId){
-         codingChallengeService.createAtCodingChallenge(editorId,codingChallenge);
+    public int createCodingChallenge(@RequestBody CodingChallenge codingChallenge, @PathVariable int editorId){
+         return codingChallengeService.createAtCodingChallenge(editorId,codingChallenge);
     }
 
     @GetMapping("/getCodingChallenge/{challengeId}")

@@ -18,8 +18,8 @@ public class CodingChallengeService {
         this.codingChallengeRepository = codingChallengeRepository;
     }
 
-    public void createAtCodingChallenge(int editorId, CodingChallenge codingChallenge){
-        codingChallengeRepository.createCodingChallenge(editorId,codingChallenge);
+    public int createAtCodingChallenge(int editorId, CodingChallenge codingChallenge){
+        return codingChallengeRepository.createCodingChallenge(editorId,codingChallenge);
     }
 
     public void updateDifficultyCodingChallenge( int challenge_id, String difficulty)

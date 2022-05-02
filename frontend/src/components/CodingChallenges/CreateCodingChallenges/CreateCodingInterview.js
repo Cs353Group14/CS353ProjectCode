@@ -60,11 +60,11 @@ function CreateCodingChallenge(props) {
      publicity: 0
     }
 
-    await createCodingChallengeAPI.createCoding(newQuestion);
+    const challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
 
-    setTimeout(function() {
-        window.location.href = "http://localhost:3000";
-    }, 1000)
+    console.log(challengeId);
+
+    await createCodingChallengeAPI.addCategory(challengeId, listOfCategories[0]);
 
 }
 

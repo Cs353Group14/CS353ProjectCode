@@ -17,8 +17,12 @@ export interface newCodingQuestionModel {
 export class CreateCodingChallengeAPI {
 
 
-    async createCoding(newQuestion: newCodingQuestionModel) {
+    async createCoding(newQuestion: newCodingQuestionModel): Promise<number> {
         const response = await axios.put("/createCodingChallenge/"+localStorage.getItem('userId'), newQuestion);
         return response.data;
+    }
+
+    async addCategory(challengeId: number, category: string) {
+        const response = await axios.put(`/addCategoryCodingChallenge/${challengeId}`, category);
     }
 }

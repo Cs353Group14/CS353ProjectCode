@@ -57,6 +57,10 @@ export default function Menu(props) {
             <div  >
                 <Button color="inherit"  onClick={fetchAllNoncodingChallenges}>Non Coding Challenges</Button>
             </div>
+            <Divider />
+            <div  >
+                <Button color="inherit"  onClick={openCreateCodingChallenge}>Create Coding Challenge</Button>
+            </div>
 
         </div>
     );
@@ -72,6 +76,10 @@ export default function Menu(props) {
         props.makesVisible(2);
 
         //props.fetchActivities();
+    }
+
+    const openCreateCodingChallenge = () => {
+        props.makesVisible(3);
     }
 
 

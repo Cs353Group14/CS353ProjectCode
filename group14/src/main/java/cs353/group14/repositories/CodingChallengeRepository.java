@@ -14,15 +14,16 @@ import java.util.List;
 @Repository
 public class CodingChallengeRepository {
 
-    public void createCodingChallenge(int editorId, CodingChallenge codingChallenge){
+    public int createCodingChallenge(int editorId, CodingChallenge codingChallenge){
 
         try {
             int codingChallengeId = insertCodingChallengeTable(codingChallenge);
             insertCreatesTable(editorId,codingChallengeId);
+            return codingChallengeId;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return -1;
     }
 
     public void insertCreatesTable(int editorId, int codingChallengeId)throws SQLException  {

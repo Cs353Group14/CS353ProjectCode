@@ -33,5 +33,17 @@ export class CreateNewInterview {
         return response.data;
     }
 
+    async getInterview() :Promise<newInterview>
+    {
+        const response = await axios.get("/getInterview/"+ localStorage.getItem('interviewID') );
+        return response.data;
+    }
+
+    async addNonCodingQuestionToInterview(){
+        const response = await axios.put("/addNonCodingQuestionToInterview/"+localStorage.getItem('interviewID')+"/"+localStorage.getItem('challengeId')+"/"+localStorage.getItem('userId')+"/"+localStorage.getItem('duration'));
+        return response.data;
+    }
+
+
     
 }

@@ -23,6 +23,15 @@ const difficulties = [
   }
 ]
 
+const timeUnits = [
+  {
+    value: 'min'
+  },
+  {
+    value: 'hour(s)'
+  }
+]
+
 const categories =
 [
   {value: "DP"},
@@ -43,11 +52,14 @@ function CreateCodingChallenge(props) {
   const [solution, setSolution] = useState("");
   const [question, setQuestion] = useState("");
   const [category, setCatefories] = useState("");
+  const [timeUnit, setTimeUnit] = useState('min');
+  const [duration, setDuration] = useState(timeUnit[0].value);
   const createCodingChallengeAPI = new CreateCodingChallengeAPI();
   const createNewInterviewQuestion = new CreateNewInterview()
   let publicity = 0
 
   let listOfCategories = [];
+  let showDuration = localStorage.getItem('interviewID');
 
   async function handleSubmit() {
 
@@ -85,6 +97,7 @@ function CreateCodingChallenge(props) {
     if(publicity === 0) //Then need to add this question to interview also
     {
       localStorage.setItem('challengeId', challengeId);
+      localStorage.setItem('duration', duration);
       createNewInterviewQuestion.addCodingQuestionToInterview();
     }
 
@@ -215,6 +228,39 @@ function CreateCodingChallenge(props) {
                   />
                 </Stack>
               </Box>
+              { showDuration &&
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <div>
+                        <TextField
+                        id="outlined-multiline-flexible"
+                        label="Duration"
+                        onChange={(e) => setDuration(e.target.value)}
+                        margin="normal"
+                        variant="outlined"
+                        type="number"
+                        value={duration}
+                        />
+                    </div>
+                </Grid>
+                <Grid item xs={6}>
+                <div>
+                    <TextField
+                        id="outlined-select-currency"
+                        select
+                        margin="normal"
+                        value={timeUnit}
+                        onChange={(e) => setTimeUnit(e.target.value)}
+                        >
+                        {timeUnits.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                            {option.value}
+                            </MenuItem>
+                        ))}
+                        </TextField>
+                    </div>
+                </Grid>
+                </Grid> }
               <Grid container spacing={12} style= {{marginTop: "1rem"}} >
               <Grid item  justify="flex-end">
                   <Button

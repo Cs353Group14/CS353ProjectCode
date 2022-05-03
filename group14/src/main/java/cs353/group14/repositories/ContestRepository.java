@@ -304,7 +304,6 @@ public class ContestRepository {
         try{
 
         String updateContestSql = "UPDATE participate SET participate_start_time = ? where user_id = ? and contest_id = ? and participate_start_time is null";
-        //String updateContestSql = "UPDATE participate SET participate_start_time = ? where user_id = ? and contest_id = ?";
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
 
@@ -317,10 +316,50 @@ public class ContestRepository {
 
 
 
-    } catch (SQLException throwables) {
-        throwables.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public List<Contest> getAvailableRegisteredContests(int userId){
+        List<Contest> result = new ArrayList<>();
+
+        Timestamp start_time = null;
+        String description = "";
+        String title = "";
+        int difficulty = -1;
+        int duration = -1;
+        Timestamp deadline = null;
+        int contest_id = -1;
+
+        try {
+            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and start_time < CURRENT_TIMESTAMP and deadline > CURRENT_TIMESTAMP";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                contest_id =( rs.getInt("contest_id"));
+                start_time = ( rs.getTimestamp("start_time"));
+                description = ( rs.getString("description"));
+                title = ( rs.getString("title"));
+                difficulty = ( rs.getInt("difficulty"));
+                duration = ( rs.getInt("duration"));
+                deadline = ( rs.getTimestamp("deadline"));
+
+                Contest contest = new Contest(contest_id,start_time,description,title,difficulty,duration,deadline);
+
+                result.add(contest);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return result;
     }
 
 
-    }
+
+
 }

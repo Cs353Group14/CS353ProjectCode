@@ -68,6 +68,11 @@ public class ContestController {
         contestService.startContest(userId,contestId);
     }
 
+    @GetMapping("/getAvailableRegisteredContests/{userId}")
+    public List<Contest> getAvailableRegisteredContests(@PathVariable int userId){
+        return contestService.getAvailableRegisteredContests(userId);
+    }
+
 
 
 }

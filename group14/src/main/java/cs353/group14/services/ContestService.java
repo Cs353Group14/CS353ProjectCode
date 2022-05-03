@@ -63,4 +63,8 @@ public class ContestService {
     public void startContest(int userId, int contestId) {
         contestRepository.startContest(userId,contestId);
     }
+
+    public List<Contest> getAvailableRegisteredContests(int userId){
+        return contestRepository.getAvailableRegisteredContests(userId);
+    }
 }

@@ -4,6 +4,7 @@ import cs353.group14.CodingChallenge;
 import cs353.group14.Contest;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.db.ConnectionSingle;
+import cs353.group14.responses.ContestResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import cs353.group14.responses.UserNameAndPointResponse;
 import org.springframework.stereotype.Repository;
@@ -360,6 +361,44 @@ public class ContestRepository {
     }
 
 
+    public List<ContestResponse> getOldRegisteredContests(int userId) {
 
+        List<ContestResponse> result = new ArrayList<>();
 
+        Timestamp start_time = null;
+        String description = "";
+        String title = "";
+        int difficulty = -1;
+        int duration = -1;
+        Timestamp deadline = null;
+        int contest_id = -1;
+
+        int points = -1;
+
+        try {
+            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and deadline < CURRENT_TIMESTAMP";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                contest_id =( rs.getInt("contest_id"));
+                start_time = ( rs.getTimestamp("start_time"));
+                description = ( rs.getString("description"));
+                title = ( rs.getString("title"));
+                difficulty = ( rs.getInt("difficulty"));
+                duration = ( rs.getInt("duration"));
+                deadline = ( rs.getTimestamp("deadline"));
+                points = rs.getInt("points");
+
+                ContestResponse contest = new ContestResponse(contest_id,start_time,description,title,difficulty,duration,deadline,points);
+
+                result.add(contest);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return result;
+    }
 }

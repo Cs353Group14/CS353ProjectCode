@@ -28,18 +28,32 @@ function CreateInterview(props) {
   const createNewInterview = new CreateNewInterview();
   let durationInMin = 0;
   let interviewId;
+  let isSet = localStorage.getItem('interviewID');
+  let interview 
+  if(isSet)
+  {
+    interview = createNewInterview.getInterview();
+  
+  }
+  console.log(interview);
+
+  if(interview)
+  {
+      setTimeUnit('min')
+      setPosition(interview.position)
+      setDuration(interview.duration)
+  }
+
 
   function addCodingQuestions()
   {
     localStorage.setItem('interviewID', interviewId);
-    localStorage.setItem('duration', durationInMin);
     window.location.href = "http://localhost:3000/CreateCodingChallenge";
   }
 
   function addNonCodingQuestions()
   {
     localStorage.setItem('interviewID', interviewId);
-    localStorage.setItem('duration', durationInMin);
     window.location.href = "http://localhost:3000/CreateNonCodingQuestion";
     //props.makesVisible(4);
   }
@@ -68,16 +82,21 @@ function CreateInterview(props) {
         position: position
       }
       interviewId = await createNewInterview.createInterview(newInterview);
-
+        localStorage.setItem('position', position);
+        localStorage.setItem('interviewDuration', durationInMin)
+        localStorage.setItem('timeUnit', timeUnit);
+   
+      setTimeout(function() {
     document.getElementById("creat_interview").remove();
     document.getElementById("interview").style.display ="block";
     console.log(interviewId);
-
+}, 1000);
 
 }
 
     return(
         <div>
+        { !isSet &&
             <div id="create_interview_container">
             <div id="creat_interview" >
             <Grid
@@ -179,6 +198,7 @@ function CreateInterview(props) {
             </Grid>
           </div>
         </div>
+        }
           <div >
               <div style={{display:"none"}} id="interview">
               <Grid container

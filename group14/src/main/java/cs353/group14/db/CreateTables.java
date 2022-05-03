@@ -208,6 +208,7 @@ public class CreateTables {
                 "contest_id INTEGER REFERENCES contest(contest_id)," +
                 "user_id INTEGER REFERENCES coder(user_id)," +
                 "points INTEGER NOT NULL ," +
+                "participate_start_time TIMESTAMP ,"+
                 "PRIMARY KEY (contest_id, user_id))";
 
         createSqls[19] = "CREATE TABLE sponsor(" +
@@ -277,6 +278,17 @@ public class CreateTables {
                 "  PRIMARY KEY(non_challenge_id,category)," +
                 "  FOREIGN key( non_challenge_id) REFERENCES non_coding_challenge(non_challenge_id))";
 
+        /*
+        try{
+            Statement statement = ConnectionSingle.getConnection().createStatement();
+            statement.executeUpdate("DROP TABLE IF EXISTS " + dropSqls[18]);
+            statement.executeUpdate(createSqls[18]);
+
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+         */
 
         try {
 
@@ -292,7 +304,6 @@ public class CreateTables {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         createTestUsers();
 
     }

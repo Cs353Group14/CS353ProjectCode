@@ -47,8 +47,8 @@ public class ContestController {
     }
 
 
-    @PutMapping("/addCoderToContest/{contestId}")
-    public void addCoderToContest (@RequestBody int userId, @PathVariable int contestId){
+    @PutMapping("/addCoderToContest/{userId}/{contestId}")
+    public void addCoderToContest (@PathVariable int userId, @PathVariable int contestId){
         contestService.addCoderToContest(userId,contestId);
     }
 

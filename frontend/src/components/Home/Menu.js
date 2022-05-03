@@ -26,6 +26,9 @@ export default function Menu(props) {
         left: false,
     });
 
+    function isUser(user) {
+        return(user == localStorage.getItem('usertype'));
+    }
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -44,38 +47,41 @@ export default function Menu(props) {
             onKeyDown={toggleDrawer(anchor, false)}
         >
 
-            <div>
-                <Button color="inherit" href="/" onClick={props.handleLogout}>Logout</Button>
-            </div>
             <br/>
-            <Divider />
             <div>
                 <Button color="inherit"  onClick={openAllCodingChallenges}>Coding Challenges</Button>
+                <br/>
+                <Divider />
             </div>
-            <br/>
-            <Divider />
             <div  >
                 <Button color="inherit"  onClick={openAllNoncodingChallenges}>Non Coding Challenges</Button>
+                <br/>
+                <Divider />
             </div>
-            <br/>
-            <Divider />
-            <div  >
-                <Button color="inherit"  onClick={openCreateCodingChallenge}>Create Coding Challenge</Button>
+            <div hidden= {!isUser(3)}   >
+                <Button color="inherit" onClick={openCreateCodingChallenge}>Create Coding Challenge</Button>
+                <br/>
+                <Divider />
             </div>
-            <br/>
-            <Divider />
-            <div  >
-                <Button color="inherit"  onClick={openCreateNonCodingChallenge}>Create Non-Coding Challenge</Button>
+            <div  hidden= {!isUser(3)}>
+                <Button color="inherit" onClick={openCreateNonCodingChallenge}>Create Non-Coding Challenge</Button>
+                <br/>
+                <Divider />
             </div>
-            <br/>
-            <Divider />
-            <div  >
-                <Button color="inherit"  onClick={openCreateInterview}>Create Interview</Button>
+            <div hidden= {!isUser(2)} >
+                <Button color="inherit" onClick={openCreateInterview}>Create Interview</Button>
+                <br/>
+                <Divider />
             </div>
-            <br/>
-            <Divider />
-            <div  >
+            <div hidden= {!isUser(3)} >
                 <Button color="inherit"  onClick={openCreateContest}>Create Contest</Button>
+                <br/>
+                <Divider />
+            </div>
+            <div hidden= {!isUser(1)} >
+                <Button color="inherit" onClick={openNonRegisteredContests}>New Contests</Button>
+                <br/>
+                <Divider />
             </div>
 
         </div>
@@ -117,6 +123,11 @@ export default function Menu(props) {
 
     const openCreateContest = () => {
         localStorage.setItem('menuId', 6);
+        window.location.href = "http://localhost:3000/home";
+    }
+
+    const openNonRegisteredContests = () => {
+        localStorage.setItem('menuId', 7);
         window.location.href = "http://localhost:3000/home";
     }
 

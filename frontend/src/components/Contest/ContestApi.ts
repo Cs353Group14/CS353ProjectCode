@@ -25,4 +25,13 @@ export class ContestApi {
     async addQuestionsToContest(contestIds: number[]) {
         const response = await axios.put(`/addQuestionsToContest/${localStorage.getItem('contestId')}`,contestIds);
     }
+
+    async getFutureContestsNotRegistered() : Promise<ContestModel[]> {
+        const response = await axios.get(`/getFutureContestsNotRegistered/${localStorage.getItem('userId')}`);
+        return response.data;
+    }
+
+    async addCoderToContest(contestId: number) {
+        const response = await axios.put(`/addCoderToContest/${localStorage.getItem('userId')}/${contestId}`);
+    }
 }

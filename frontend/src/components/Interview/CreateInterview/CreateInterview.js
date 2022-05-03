@@ -27,7 +27,22 @@ function CreateInterview(props) {
   const [duration, setDuration] = useState(timeUnit[0].value);
   const createNewInterview = new CreateNewInterview();
   let durationInMin = 0;
-  let showInterview = 0;
+  let interviewId;
+
+  function addCodingQuestions()
+  {
+    localStorage.setItem('interviewID', interviewId);
+    localStorage.setItem('duration', durationInMin);
+    window.location.href = "http://localhost:3000/CreateCodingChallenge";
+  }
+
+  function addNonCodingQuestions()
+  {
+    localStorage.setItem('interviewID', interviewId);
+    localStorage.setItem('duration', durationInMin);
+    window.location.href = "http://localhost:3000/CreateNonCodingQuestion";
+    //props.makesVisible(4);
+  }
 
   async function handleSubmit() {
 
@@ -52,10 +67,13 @@ function CreateInterview(props) {
         duration: durationInMin,
         position: position
       }
-      await createNewInterview.createInterview(newInterview);
+      interviewId = await createNewInterview.createInterview(newInterview);
 
     document.getElementById("creat_interview").remove();
     document.getElementById("interview").style.display ="block";
+    console.log(interviewId);
+
+
 }
 
     return(
@@ -177,7 +195,7 @@ function CreateInterview(props) {
                 
                         >
                             <Grid item>  
-                                <Typography variant="h6" > Position</Typography>
+                                <Typography variant="h6" > {position}</Typography>
                             </Grid>  
                     </Grid> 
                   </Grid>
@@ -190,12 +208,12 @@ function CreateInterview(props) {
                 
                         >
                             <Grid item >  
-                                <Typography variant="h6" > Duration</Typography>
+                                <Typography variant="h6" > {duration}  {timeUnit}</Typography>
                             </Grid>  
                     </Grid> 
                   </Grid>          
               </Grid>
-              </div>
+          
             <Grid
                 container
                 direction="row"
@@ -208,7 +226,7 @@ function CreateInterview(props) {
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={handleSubmit}
+                        onClick={addCodingQuestions}
                         > Add Coding Question
                     </Button>
                     </Grid>
@@ -218,12 +236,13 @@ function CreateInterview(props) {
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={handleSubmit}
-                        > Add Coding Question
+                        onClick={addNonCodingQuestions}
+                        > Add Non Coding Question
                     </Button>
                     </Grid>
                 </Grid>
             </Grid>
+            </div>
         </div>
         </div>
     );

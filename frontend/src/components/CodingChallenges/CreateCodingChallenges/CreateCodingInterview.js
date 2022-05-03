@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import {CreateCodingChallengeAPI} from './CreateCodingChallengeAPI'
+import {CreateNewInterview} from '../../Interview/CreateInterview/CreateInterviewAPI'
 
 
 const difficulties = [
@@ -43,11 +44,22 @@ function CreateCodingChallenge(props) {
   const [question, setQuestion] = useState("");
   const [category, setCatefories] = useState("");
   const createCodingChallengeAPI = new CreateCodingChallengeAPI();
+  const createNewInterviewQuestion = new CreateNewInterview()
+  let publicity = 0
 
   let listOfCategories = [];
 
   async function handleSubmit() {
 
+
+    if(localStorage.getItem('interviewID'))
+    {
+      publicity = 0;
+    }
+    else
+    {
+      publicity = 1;
+    }
 
     const newQuestion = {
       difficulty: difficulty,
@@ -57,7 +69,7 @@ function CreateCodingChallenge(props) {
      question: question,
      solvedNumber: 0,
      attempt_number: 0,
-     publicity: 1 // değişecekkk
+     publicity: publicity 
     }
 
     const challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
@@ -69,6 +81,12 @@ function CreateCodingChallenge(props) {
     });
 
     await createCodingChallengeAPI.addCategory(challengeId, categoryArray);
+
+    if(publicity === 0) //Then need to add this question to interview also
+    {
+      localStorage.setItem('challengeId', challengeId);
+      createNewInterviewQuestion.addCodingQuestionToInterview();
+    }
 
 }
 

@@ -299,4 +299,28 @@ public class ContestRepository {
     {
 
     }
+
+    public void startContest(int user_id, int contest_id ){
+        try{
+
+        String updateContestSql = "UPDATE participate SET participate_start_time = ? where user_id = ? and contest_id = ? and participate_start_time is null";
+        //String updateContestSql = "UPDATE participate SET participate_start_time = ? where user_id = ? and contest_id = ?";
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
+
+        PreparedStatement updateAttemptStmt = ConnectionSingle.getConnection().prepareStatement(updateContestSql);
+        updateAttemptStmt.setTimestamp(1,now);
+        updateAttemptStmt.setInt(2,user_id);
+        updateAttemptStmt.setInt(3, contest_id);
+
+        updateAttemptStmt.executeUpdate();
+
+
+
+    } catch (SQLException throwables) {
+        throwables.printStackTrace();
+    }
+
+
+    }
 }

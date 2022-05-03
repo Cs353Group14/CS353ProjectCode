@@ -63,6 +63,11 @@ public class ContestController {
         return contestService.getCodingChallengesOfContest(contestId);
     }
 
+    @PutMapping("/participateContest/{userId}/{contestId}")
+    public void startContest (@PathVariable int userId, @PathVariable int contestId){
+        contestService.startContest(userId,contestId);
+    }
+
 
 
 }

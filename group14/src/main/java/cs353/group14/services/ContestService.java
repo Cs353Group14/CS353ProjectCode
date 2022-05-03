@@ -60,4 +60,7 @@ public class ContestService {
         return contestRepository.getCodingChallengesOfContest(  contestId);
     }
 
+    public void startContest(int userId, int contestId) {
+        contestRepository.startContest(userId,contestId);
+    }
 }

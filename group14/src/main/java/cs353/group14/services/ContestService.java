@@ -19,9 +19,9 @@ public class ContestService {
         this.contestRepository = contestRepository;
     }
 
-    public void createContest(int editorId, Contest contest)
+    public int createContest(int editorId, Contest contest)
     {
-        contestRepository.createContest(editorId,contest.getStart_time(), contest.getDescription(),
+        return contestRepository.createContest(editorId,contest.getStart_time(), contest.getDescription(),
                 contest.getTitle(), contest.getDifficulty(), contest.getDuration(), contest.getDeadline());
     }
 

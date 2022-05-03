@@ -20,12 +20,12 @@ public class ContestController {
     }
 
     @PutMapping("/createContest/{editorId}")
-    public void createContest (@RequestBody Contest contest, @PathVariable int editorId){
-        contestService.createContest(editorId,contest);
+    public int  createContest (@RequestBody Contest contest, @PathVariable int editorId){
+        return contestService.createContest(editorId,contest);
     }
 
 
-    @PutMapping("/addQuestonsToContest/{contestId}")
+    @PutMapping("/addQuestionsToContest/{contestId}")
     public void addQuestionsToContest (@RequestBody List<Integer> contest, @PathVariable int contestId){
         contestService.addQuestionsToContest(contestId,contest);
     }

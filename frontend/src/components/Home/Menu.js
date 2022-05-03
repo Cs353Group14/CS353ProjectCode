@@ -72,6 +72,11 @@ export default function Menu(props) {
             <div  >
                 <Button color="inherit"  onClick={openCreateInterview}>Create Interview</Button>
             </div>
+            <br/>
+            <Divider />
+            <div  >
+                <Button color="inherit"  onClick={openCreateContest}>Create Contest</Button>
+            </div>
 
         </div>
     );
@@ -107,6 +112,11 @@ export default function Menu(props) {
 
     const openCreateInterview = () => {
         localStorage.setItem('menuId', 5);
+        window.location.href = "http://localhost:3000/home";
+    }
+
+    const openCreateContest = () => {
+        localStorage.setItem('menuId', 6);
         window.location.href = "http://localhost:3000/home";
     }
 

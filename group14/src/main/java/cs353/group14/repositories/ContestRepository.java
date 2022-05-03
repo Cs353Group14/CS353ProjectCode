@@ -17,14 +17,17 @@ public class ContestRepository {
 
 
 
-    public void createContest(int editor_id, Timestamp start_time, String description, String title, int difficulty,
+    public int createContest(int editor_id, Timestamp start_time, String description, String title, int difficulty,
                               int duration, Timestamp deadline) {
         try {
             int contestId = insertContestTable(start_time, description, title, difficulty, duration, deadline);
             insertPrepareTable(editor_id, contestId);
+            return contestId;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return -1;
     }
 
     public int insertContestTable( Timestamp start_time, String description, String title, int difficulty,

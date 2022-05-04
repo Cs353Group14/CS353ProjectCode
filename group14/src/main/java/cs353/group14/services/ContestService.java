@@ -4,6 +4,7 @@ import cs353.group14.CodingChallenge;
 import cs353.group14.Contest;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.repositories.ContestRepository;
+import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.responses.ContestResponse;
 import cs353.group14.responses.UserNameAndPointResponse;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class ContestService {
         return contestRepository.getFutureContestsNotRegistered(userId);
     }
 
-    public List<CodingChallenge> getCodingChallengesOfContest(int contestId)
+    public List<CodingChallengeQueryResponse> getCodingChallengesOfContest(int contestId)
     {
         return contestRepository.getCodingChallengesOfContest(  contestId);
     }

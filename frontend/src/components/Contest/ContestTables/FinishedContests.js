@@ -22,26 +22,27 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function NonRegisteredContests() {
+export default function FinishedContests() {
 
     const[rows, setRows] = useState([]);
-    const[currentSubIndex, setCurrentSubIndex] = useState(0);
+    const[currentSubIndex, setCurrentSubIndex] = useState(null);
 
     const contestApi = new ContestApi();
 
-    function fetchNonRegisteredFuruteContests() {
-        contestApi.getFutureContestsNotRegistered().then(data => setRows(data));
+    function fetchFinishedContests() {
+        contestApi.getOldRegisteredContests().then(data => {
+            setRows(data)});
 
     }
 
     useEffect(() => {
-        fetchNonRegisteredFuruteContests();
+        fetchFinishedContests();
     },[]);
 
-    async function handleRegister() {
-        await contestApi.addCoderToContest(rows[currentSubIndex].contest_id);
+    async function handleStart() {
+        //await contestApi.addCoderToContest(rows[currentSubIndex].contest_id);
         setOpen(false);
-        window.location.href = "http://localhost:3000/home";
+        //fetchContinuesContests();
     }
 
     const [open, setOpen] = React.useState(false);
@@ -57,7 +58,6 @@ export default function NonRegisteredContests() {
 
     function ContestDetails() {
         if(rows != []) { 
-            console.log("here");
             return (<div>
 
             <h2> {rows[currentSubIndex].title} </h2>
@@ -65,8 +65,6 @@ export default function NonRegisteredContests() {
             {rows[currentSubIndex].description}
             </div>);
         }
-
-        console.log("there");
     }
 
     return (
@@ -113,10 +111,10 @@ export default function NonRegisteredContests() {
 </DialogContent>
 <DialogActions>
     <Button onClick={handleClose} color="primary">
-        Close
+        Cancel
     </Button>
-    <Button onClick={handleRegister} color="primary">
-        Register
+    <Button onClick={handleStart} color="primary">
+        Start
     </Button>
 </DialogActions>
 </Dialog>

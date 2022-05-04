@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react";
 import CodingCardContainer from "../CodingChallenges/CodingCard/CodingCardContainer";
 import CreateCodingChallenge from "../CodingChallenges/CreateCodingChallenges/CreateCodingInterview";
+import ContinuesContests from "../Contest/ContestTables/ContinuesContests";
+import FinishedContests from "../Contest/ContestTables/FinishedContests";
 import NonRegisteredContests from "../Contest/ContestTables/NonRegisteredContests";
+import RegisteredContests from "../Contest/ContestTables/RegisteredContests";
 import CreateContest from "../Contest/CreateContest/CreateContest";
 import CreateInterview from "../Interview/CreateInterview/CreateInterview";
 import NavBar from "../NavBar/NavBar";
@@ -17,6 +20,9 @@ export default function HomePage() {
     const [createInterview, setCreateInterview] = useState(true);
     const [createContest, setCreateContest] = useState(true);
     const [nonRegisteredContests, setNonRegisteredContests] = useState(true);
+    const [registeredContests, setRegisteredContests] = useState(true);
+    const [continuesContests, setContinuesContests] = useState(true);
+    const [finishedContests, setFinishedContests] = useState(true);
 
 
     function makesVisible(componentNumber) {
@@ -28,6 +34,9 @@ export default function HomePage() {
             setCreateInterview(true);
             setCreateContest(true);
             setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
         }
         else if(componentNumber == 2){
             setCodingChallengesHidded(true);
@@ -37,6 +46,9 @@ export default function HomePage() {
             setCreateInterview(true);
             setCreateContest(true);
             setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
         } else if(componentNumber == 3){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -45,6 +57,9 @@ export default function HomePage() {
             setCreateInterview(true);
             setCreateContest(true);
             setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
         } else if(componentNumber == 4){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -53,6 +68,9 @@ export default function HomePage() {
             setCreateInterview(true);
             setCreateContest(true);
             setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
         } else if(componentNumber == 5){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -61,6 +79,9 @@ export default function HomePage() {
             setCreateInterview(false);
             setCreateContest(true);
             setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
         }else if(componentNumber == 6){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -69,6 +90,9 @@ export default function HomePage() {
             setCreateInterview(true);
             setCreateContest(false);
             setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
         }else if(componentNumber == 7){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -77,6 +101,42 @@ export default function HomePage() {
             setCreateInterview(true);
             setCreateContest(true);
             setNonRegisteredContests(false);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
+        }else if(componentNumber == 8){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
+            setCreateContest(true);
+            setNonRegisteredContests(true);
+            setRegisteredContests(false);
+            setContinuesContests(true);
+            setFinishedContests(true);
+        }else if(componentNumber == 9){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
+            setCreateContest(true);
+            setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(false);
+            setFinishedContests(true);
+        }else if(componentNumber == 10){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
+            setCreateContest(true);
+            setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(false);
         }
     }
 
@@ -107,6 +167,15 @@ export default function HomePage() {
             </div>
             <div hidden = {nonRegisteredContests} >
                 <NonRegisteredContests />
+            </div>
+            <div hidden = {registeredContests} >
+                <RegisteredContests />
+            </div>
+            <div hidden = {continuesContests} >
+                <ContinuesContests />
+            </div>
+            <div hidden = {finishedContests} >
+                <FinishedContests />
             </div>
         </div>
     );

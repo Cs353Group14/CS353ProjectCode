@@ -31,6 +31,22 @@ export class ContestApi {
         return response.data;
     }
 
+    async getFutureContestsRegistered() : Promise<ContestModel[]> {
+        const response = await axios.get(`/getFutureContestsRegistered/${localStorage.getItem('userId')}`);
+        return response.data;
+    }
+
+    async getAvailableRegisteredContests(): Promise<ContestModel[]> {
+        const response = await axios.get(`/getAvailableRegisteredContests/${localStorage.getItem('userId')}`);
+        return response.data;
+    }
+
+    async getOldRegisteredContests(): Promise<ContestModel[]> {
+        const response = await axios.get(`/getOldRegisteredContests/${localStorage.getItem('userId')}`);
+        return response.data;
+    }
+
+
     async addCoderToContest(contestId: number) {
         const response = await axios.put(`/addCoderToContest/${localStorage.getItem('userId')}/${contestId}`);
     }

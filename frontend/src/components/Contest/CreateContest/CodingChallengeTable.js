@@ -37,11 +37,13 @@ export default function CodingChallengeTable() {
         fetchCodingChallenges();
     },[]);
 
-    function handleClick() {
+    async function handleClick() {
       console.log(localStorage.getItem('contestId'));
       console.log(selecetedRows);
 
-      contestApi.addQuestionsToContest(selecetedRows);
+      await contestApi.addQuestionsToContest(selecetedRows);
+
+      window.location.href = "http://localhost:3000/home";
     }
 
     return (

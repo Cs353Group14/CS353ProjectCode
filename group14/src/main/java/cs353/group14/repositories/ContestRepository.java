@@ -335,7 +335,7 @@ public class ContestRepository {
         int contest_id = -1;
 
         try {
-            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and start_time < CURRENT_TIMESTAMP and deadline > CURRENT_TIMESTAMP";
+            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and C.start_time < CURRENT_TIMESTAMP and C.deadline > CURRENT_TIMESTAMP";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,userId);
@@ -376,7 +376,7 @@ public class ContestRepository {
         int points = -1;
 
         try {
-            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and deadline < CURRENT_TIMESTAMP";
+            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and C.deadline < CURRENT_TIMESTAMP";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,userId);

@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '../Home/Menu';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +40,9 @@ export default function NavBar(props) {
                     <Typography variant="h6" className={classes.title}>
                         Welcome
                     </Typography>
+                    <Button  color="inherit" startIcon={<NotificationsNoneIcon />}></Button>
                     <Button color="inherit" href="/" onClick={handleLogout}>Logout</Button>
+                
                 </Toolbar>
             </AppBar>
         </div>

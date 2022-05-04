@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Repository
 public class ContestRepository {
@@ -301,25 +302,87 @@ public class ContestRepository {
 
     }
 
-    public void startContest(int user_id, int contest_id ){
-        try{
+    public int getContestStatus(int user_id, int contest_id){
+        // null sa 0 gönder set yapıyoruz
+        // duration geçmemisse sadece 1 yolluyorum
+        // duration geçimişse sadece 2
+        // register olmamışsa veya contest yoksa -2
+        // başka bir hata varsa -1
 
-        String updateContestSql = "UPDATE participate SET participate_start_time = ? where user_id = ? and contest_id = ? and participate_start_time is null";
-        Timestamp now = new Timestamp(System.currentTimeMillis());
+        Timestamp participate_start_time = null;
+        Timestamp participate_end_time = null;
+
+        int duration = -1;
+        try {
+            String query = "SELECT * FROM participate P, contest C where P.user_id = ? and P.contest_id = ? and P.contest_id = C.contest_id";
+            PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,user_id);
+            preparedStatement.setInt(2,contest_id);
+
+            ResultSet rs = preparedStatement.executeQuery();
 
 
-        PreparedStatement updateAttemptStmt = ConnectionSingle.getConnection().prepareStatement(updateContestSql);
-        updateAttemptStmt.setTimestamp(1,now);
-        updateAttemptStmt.setInt(2,user_id);
-        updateAttemptStmt.setInt(3, contest_id);
+            int size =0;
+            while (rs.next()){
+                participate_start_time =  rs.getTimestamp("participate_start_time");
+                duration = rs.getInt("duration");
+                size++;
+            }
+            if(size!=1){
+                return -2;
+            }else if(participate_start_time==null){
+                return 0;
+            }else{
+                participate_end_time = new Timestamp(participate_start_time.getTime() + TimeUnit.MINUTES.toMillis(duration));
 
-        updateAttemptStmt.executeUpdate();
+                Timestamp current = new Timestamp(System.currentTimeMillis());
+
+               if(participate_end_time.before(current)){
+                   return 2;
+               }else{
+                   return 1;
+               }
+            }
 
 
+        }
 
-        } catch (SQLException throwables) {
+        catch (SQLException throwables)
+        {
             throwables.printStackTrace();
         }
+
+        return -1;
+
+
+    }
+
+    public int startContest(int user_id, int contest_id ){
+
+        int status = getContestStatus(user_id,contest_id);
+
+        if(status == 0){
+            try{
+
+                String updateContestSql = "UPDATE participate SET participate_start_time = ? where user_id = ? and contest_id = ? and participate_start_time is null";
+                Timestamp now = new Timestamp(System.currentTimeMillis());
+
+
+                PreparedStatement updateAttemptStmt = ConnectionSingle.getConnection().prepareStatement(updateContestSql);
+                updateAttemptStmt.setTimestamp(1,now);
+                updateAttemptStmt.setInt(2,user_id);
+                updateAttemptStmt.setInt(3, contest_id);
+
+                updateAttemptStmt.executeUpdate();
+
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+        return status;
 
     }
 

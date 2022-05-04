@@ -65,8 +65,13 @@ public class ContestController {
     }
 
     @PutMapping("/participateContest/{userId}/{contestId}")
-    public void startContest (@PathVariable int userId, @PathVariable int contestId){
-        contestService.startContest(userId,contestId);
+    public int startContest (@PathVariable int userId, @PathVariable int contestId){
+        return contestService.startContest(userId,contestId);
+    }
+
+    @PutMapping("/getContestStatus/{userId}/{contestId}")
+    public int getContestStatus (@PathVariable int userId, @PathVariable int contestId){
+        return contestService.getContestStatus(userId,contestId);
     }
 
     @GetMapping("/getAvailableRegisteredContests/{userId}")

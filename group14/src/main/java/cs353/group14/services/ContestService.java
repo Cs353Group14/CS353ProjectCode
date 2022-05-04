@@ -61,8 +61,11 @@ public class ContestService {
         return contestRepository.getCodingChallengesOfContest(  contestId);
     }
 
-    public void startContest(int userId, int contestId) {
-        contestRepository.startContest(userId,contestId);
+    public int startContest(int userId, int contestId) {
+        return contestRepository.startContest(userId,contestId);
+    }
+    public int getContestStatus(int userId, int contestId) {
+        return contestRepository.getContestStatus(userId,contestId);
     }
 
     public List<Contest> getAvailableRegisteredContests(int userId){

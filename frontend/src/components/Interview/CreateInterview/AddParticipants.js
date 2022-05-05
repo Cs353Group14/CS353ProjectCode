@@ -110,7 +110,6 @@ function AddParticipants(props) {
                 <TableRow>
                     <TableCell>Username</TableCell>
                     <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">See details</TableCell>
                     <TableCell align="right">Remove</TableCell>
                 </TableRow>
                 </TableHead>
@@ -124,13 +123,6 @@ function AddParticipants(props) {
                         {row.username}
                     </TableCell>
                     <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">
-                    <Button
-                        variant="contained"
-                        color="default"
-                        > See Details
-                    </Button>
-                    </TableCell>
                     <TableCell align="right">
                     <Button
                         variant="contained"

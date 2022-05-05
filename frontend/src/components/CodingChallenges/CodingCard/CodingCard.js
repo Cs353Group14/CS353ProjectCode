@@ -10,6 +10,7 @@ export default function CodingCard(props) {
 
     function setActivityId() {
         localStorage.setItem('codingId', props.id);
+        localStorage.setItem('inContest', props.inContest);
         console.log(localStorage.getItem('codingId'));
     }
 

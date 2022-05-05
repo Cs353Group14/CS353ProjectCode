@@ -21,8 +21,13 @@ function CodingCardContainer(props) {
     let codingCards=  [];
 
     function fetchCodingQuestions() {
-        codingChallengeApi.getCodingChallenges()
-        .then(data => setCodingQuestions(data));
+
+        if(props.inContest == true) {
+
+        } else {
+            codingChallengeApi.getCodingChallenges()
+                .then(data => setCodingQuestions(data));
+        }
 
     }
 
@@ -38,7 +43,8 @@ function CodingCardContainer(props) {
                                          difficulty = {question.difficulty}
                                          point = {question.points}
                                          attemptNo = {question.attempt_number}
-                                         acceptedNo = {question.solved_number}/>);
+                                         acceptedNo = {question.solved_number}
+                                         inContest = {props.inContest}/>);
     } )
 
     return(

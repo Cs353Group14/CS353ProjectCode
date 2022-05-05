@@ -51,6 +51,12 @@ function CodingChallengeSolve(props) {
     }
 
     function handleSubmit() {
+
+        if(localStorage.getItem('inContest') == true) {
+            alert("Time is up");
+            return;
+        }
+
         const solution = {
             answer: code,
             programming_language: language,

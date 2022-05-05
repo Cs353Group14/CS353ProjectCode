@@ -18,6 +18,7 @@ import HomePage from './components/Home/HomePage';
 import CreateNonCodingQuestion from './components/NonCodingChallenges/CreateNonCodingQuestions/CreateNonCodingChallenge';
 import CreateInterview from './components/Interview/CreateInterview/CreateInterview';
 import CodingChallengeTable from './components/Contest/CreateContest/CodingChallengeTable';
+import ContestChallenges from './components/Contest/ContestChallenges';
 function App() {
   return (
     <BrowserRouter>
@@ -39,6 +40,7 @@ function App() {
       <Route path = {"/CreateNonCodingQuestion"} element = {<CreateNonCodingQuestion/>}/>
       <Route path = {"/CreateInterview"} element = {<CreateInterview/>}/>
       <Route path = {"/AddContestChallenges"} element = {<CodingChallengeTable/>}/>
+      <Route path = {"/SolveContest"} element = {<ContestChallenges/>}/>
 
 
 

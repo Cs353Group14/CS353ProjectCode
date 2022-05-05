@@ -148,7 +148,7 @@ export default function HomePage() {
         <div>
             <NavBar makesVisible = {makesVisible}/>
             <div hidden = {codingChallengesHidden} >
-                <CodingCardContainer />
+                <CodingCardContainer inContest = {false} />
             </div>
             <div hidden = {noncodingChallengesHidden} >
                 <NonCodingCardContainer />

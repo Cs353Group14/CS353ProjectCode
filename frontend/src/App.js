@@ -21,6 +21,8 @@ import CodingChallengeTable from './components/Contest/CreateContest/CodingChall
 import ContestChallenges from './components/Contest/ContestChallenges';
 import AddParticipants from './components/Interview/CreateInterview/AddParticipants';
 import StartInterview from './components/Interview/AttendInterview/StartInterview';
+import AttendInterview from './components/Interview/AttendInterview/AttendInterview';
+import ViewCandidates from './components/Interview/InterviewResults/ViewCandidates';
 
 function App() {
   return (
@@ -46,6 +48,9 @@ function App() {
       <Route path = {"/SolveContest"} element = {<ContestChallenges/>}/>
       <Route path = {"/AddParticipants"} element = {<AddParticipants/>}/>
       <Route path = {"/StartInterview"} element = {<StartInterview/>}/>
+      <Route path = {"/AttendInterview"} element = {<AttendInterview/>}/>
+      <Route path = {"/ViewCandidates"} element = {<ViewCandidates/>}/>
+
 
 
 

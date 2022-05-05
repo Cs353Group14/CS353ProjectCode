@@ -27,6 +27,10 @@ function createData(name) {
     createData('Name7'),
     createData('Name8')
   ];
+  function seeResultsOfCandidate()
+  {
+    window.location.href = "http://localhost:3000/ResultOfCandidate";
+  }
 
 function ViewCandidates(props) {
 
@@ -75,6 +79,7 @@ function ViewCandidates(props) {
                     <Button
                         variant="contained"
                         color="default"
+                        onClick={seeResultsOfCandidate}
                         > See Results
                     </Button>
                     </TableCell>

@@ -13,6 +13,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+function startInterview()
+{
+    window.location.href = "http://localhost:3000/AttendInterview";
+}
 function StartInterview(props) {
 
   let interviewId;
@@ -97,6 +101,7 @@ function StartInterview(props) {
                     <Button
                         variant="contained"
                         color="secondary"
+                        onClick= {startInterview}
                         > START
                     </Button>
                     </Grid>

@@ -234,8 +234,20 @@ function CreateInterview(props) {
                         {row.type}
                     </TableCell>
                     <TableCell align="right">{row.title}</TableCell>
-                    <TableCell align="right">See details</TableCell>
-                    <TableCell align="right">Remove</TableCell>
+                    <TableCell align="right">
+                    <Button
+                        variant="contained"
+                        color="default"
+                        > See Details
+                    </Button>
+                    </TableCell>
+                    <TableCell align="right">
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        > Remove
+                    </Button>
+                    </TableCell>
                     </TableRow>
                 ))}
                 </TableBody>

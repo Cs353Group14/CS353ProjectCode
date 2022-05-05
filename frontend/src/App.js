@@ -25,6 +25,7 @@ import AttendInterview from './components/Interview/AttendInterview/AttendInterv
 import ViewCandidates from './components/Interview/InterviewResults/ViewCandidates';
 import ResultOfCandidate from './components/Interview/InterviewResults/ResultOfCandidate';
 import InterviewListForCompany from './components/Interview/InterviewListForCompany';
+import InterviewListForCoder from './components/Interview/InterviewListForCoder';
 function App() {
   return (
     <BrowserRouter>
@@ -53,6 +54,8 @@ function App() {
       <Route path = {"/ViewCandidates"} element = {<ViewCandidates/>}/>
       <Route path = {"/ResultOfCandidate"} element = {<ResultOfCandidate/>}/>
       <Route path = {"/InterviewListForCompany"} element = {<InterviewListForCompany/>}/>
+      <Route path = {"/InterviewListForCoder"} element = {<InterviewListForCoder/>}/>
+
 
 
 

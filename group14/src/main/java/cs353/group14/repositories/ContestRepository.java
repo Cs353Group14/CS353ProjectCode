@@ -4,6 +4,7 @@ import cs353.group14.CodingChallenge;
 import cs353.group14.Contest;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.db.ConnectionSingle;
+import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.responses.ContestResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import cs353.group14.responses.UserNameAndPointResponse;
@@ -250,21 +251,18 @@ public class ContestRepository {
 
 
 
-    public List<CodingChallenge> getCodingChallengesOfContest( int contest_id)
+    public List<CodingChallengeQueryResponse> getCodingChallengesOfContest(int contest_id)
     {
-        List<CodingChallenge> result = new ArrayList<>();
+        List<CodingChallengeQueryResponse> result = new ArrayList<>();
 
         int challenge_id = -1;
-        String question = "";
         int points = -1;
         String difficulty = "";
         int solved_number = -1;
         int attempt_number = -1;
         String title = "";
-        String solution = "";
-        int publicity = -1;
         try{
-            String query = "Select * from  consist CS, coding_challenge C  " +
+            String query = "Select C.challenge_id, points, difficulty, solved_number, attempt_number, title from  consist CS, coding_challenge C  " +
                     "where C.challenge_id = CS.challenge_id and CS.contest_id = ? ";
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,contest_id);
@@ -273,16 +271,13 @@ public class ContestRepository {
 
             while (rs.next()){
                 challenge_id = rs.getInt("challenge_id");
-                question = rs.getString("question");
                 points = rs.getInt("points");
                 difficulty = rs.getString("difficulty");
                 solved_number = rs.getInt("solved_number");
                 attempt_number = rs.getInt("attempt_number");
                 title = rs.getString("title");
-                solution = rs.getString("solution");
-                publicity = rs.getInt("publicity");
 
-                CodingChallenge cc =  new CodingChallenge (challenge_id, question, points, difficulty,  solved_number, attempt_number, title, solution, publicity);
+                CodingChallengeQueryResponse cc =  new CodingChallengeQueryResponse (challenge_id, title, difficulty, points, solved_number, attempt_number);
 
                 result.add(cc);
             }

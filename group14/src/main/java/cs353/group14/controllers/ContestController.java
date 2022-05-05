@@ -60,7 +60,7 @@ public class ContestController {
 
 
     @GetMapping("/getContestCodingQuestions/{contestId}")
-    public  List<CodingChallenge> getContestCodingQuestions(@PathVariable int contestId){
+    public  List<CodingChallengeQueryResponse> getContestCodingQuestions(@PathVariable int contestId){
         return contestService.getCodingChallengesOfContest(contestId);
     }
 

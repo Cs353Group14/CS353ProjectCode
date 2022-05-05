@@ -5,6 +5,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
 import { Box, FormControl, TextField, MenuItem, Typography, Button, Select} from "@material-ui/core";
 import Grid from '@mui/material/Grid';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import {CreateNewInterview} from './CreateInterviewAPI'
 
 
@@ -19,6 +26,18 @@ const timeUnits = [
     value: 'day(s)'
   }
 ]
+function createData(type, title) {
+    return { type, title };
+  }
+  
+  const rows = [
+    createData('Non coding question', 'Title1'),
+    createData('Non coding question', 'Title2'),
+    createData('Non coding question', 'Title3'),
+    createData('Coding question', 'Title4'),
+    createData('Coding question', 'Title5'),
+    createData('Coding question', 'Title6')
+  ];
 
 function CreateInterview(props) {
 
@@ -29,21 +48,6 @@ function CreateInterview(props) {
   let durationInMin = 0;
   let interviewId;
   let isSet = localStorage.getItem('interviewID');
-  let interview 
-  if(isSet)
-  {
-    interview = createNewInterview.getInterview();
-  
-  }
-  console.log(interview);
-
-  if(interview)
-  {
-      setTimeUnit('min')
-      setPosition(interview.position)
-      setDuration(interview.duration)
-  }
-
 
   function addCodingQuestions()
   {
@@ -55,7 +59,7 @@ function CreateInterview(props) {
   {
     localStorage.setItem('interviewID', interviewId);
     window.location.href = "http://localhost:3000/CreateNonCodingQuestion";
-    //props.makesVisible(4);
+
   }
 
   async function handleSubmit() {
@@ -75,6 +79,7 @@ function CreateInterview(props) {
     }
 
     console.log(durationInMin);
+    isSet = 1;
     const newInterview = {
         user_id: localStorage.getItem('userId'),
         interview_id: -1,
@@ -82,21 +87,15 @@ function CreateInterview(props) {
         position: position
       }
       interviewId = await createNewInterview.createInterview(newInterview);
-        localStorage.setItem('position', position);
-        localStorage.setItem('interviewDuration', durationInMin)
-        localStorage.setItem('timeUnit', timeUnit);
    
-      setTimeout(function() {
-    document.getElementById("creat_interview").remove();
-    document.getElementById("interview").style.display ="block";
+    localStorage.setItem('interviewID', interviewId);
     console.log(interviewId);
-}, 1000);
+    window.location.href = "http://localhost:3000/home";
 
 }
 
     return(
         <div>
-        { !isSet &&
             <div id="create_interview_container">
             <div id="creat_interview" >
             <Grid
@@ -175,71 +174,17 @@ function CreateInterview(props) {
                 <div>
                 </div>
                 </Box>
-                <Grid container spacing={12} >
-                <Grid item  justify="flex-end">
-                    <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    > Cancel</Button>
-                </Grid>
-                <Grid item >
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        onClick={handleSubmit}
-                        > Create</Button>
-                </Grid>
-                </Grid>
                 </FormControl>
             </Grid>
           </div>
         </div>
-        }
           <div >
-              <div style={{display:"none"}} id="interview">
-              <Grid container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ mt: 8 }}>
-                     <Grid item xs={6}>  
-                    <Grid
-                            container
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                
-                        >
-                            <Grid item>  
-                                <Typography variant="h6" > {position}</Typography>
-                            </Grid>  
-                    </Grid> 
-                  </Grid>
-                 <Grid item xs={6}>  
-                    <Grid
-                            container
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                
-                        >
-                            <Grid item >  
-                                <Typography variant="h6" > {duration}  {timeUnit}</Typography>
-                            </Grid>  
-                    </Grid> 
-                  </Grid>          
-              </Grid>
-          
             <Grid
                 container
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ mt: 8 }}
+                sx={{ mt: 8 , mb: 8}}
             >
                 <Grid item xs={6} >
                     <Grid container  direction="row" justifyContent="center" alignItems="center">
@@ -263,7 +208,70 @@ function CreateInterview(props) {
                 </Grid>
             </Grid>
             </div>
-        </div>
+            <Grid container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ mt: 8 , mb: 8, ml: 3, mr:3}}>
+                    <Grid item xs={8} >
+            <TableContainer component={Paper}>
+            <Table  aria-label="simple table">
+                <TableHead>
+                <TableRow>
+                    <TableCell>Type</TableCell>
+                    <TableCell align="right">Title</TableCell>
+                    <TableCell align="right">See details</TableCell>
+                    <TableCell align="right">Remove</TableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody>
+                {rows.map((row) => (
+                    <TableRow
+                    key={row.title}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                    <TableCell component="th" scope="row">
+                        {row.type}
+                    </TableCell>
+                    <TableCell align="right">{row.title}</TableCell>
+                    <TableCell align="right">See details</TableCell>
+                    <TableCell align="right">Remove</TableCell>
+                    </TableRow>
+                ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+        </Grid>
+        </Grid>
+            <div >
+            <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ mt: 8 }}
+            >
+                <Grid item xs={6} >
+                    <Grid container  direction="row" justifyContent="center" alignItems="center">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        > Cancel
+                    </Button>
+                    </Grid>
+                </Grid>
+                <Grid item xs={6}>
+                <Grid container  direction="row" justifyContent="center" alignItems="center">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                        > Submit
+                    </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+            </div>
         </div>
     );
     

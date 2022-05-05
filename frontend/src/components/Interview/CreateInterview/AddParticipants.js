@@ -41,6 +41,7 @@ function AddParticipants(props) {
 
     return(
         <div>
+            <NavBar></NavBar>
             <div id="create_interview_container">
             <div id="creat_interview" >
             <Grid

@@ -55,9 +55,9 @@ function InterviewListForCoder(props) {
                 <TableHead>
                 <TableRow>
                     <TableCell align="left">Company</TableCell>
-                    <TableCell align="left">Location</TableCell>
+                    <TableCell align="center">Location</TableCell>
                     <TableCell align="center">Position</TableCell>
-                    <TableCell align="right">Date</TableCell>
+                    <TableCell align="center">Date</TableCell>
                     <TableCell align="right">Result</TableCell>
                 </TableRow>
                 </TableHead>
@@ -68,8 +68,8 @@ function InterviewListForCoder(props) {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                     <TableCell align="left">{row.company}</TableCell>
-                    <TableCell align="left">{row.location}</TableCell>
-                    <TableCell align="left">{row.position}</TableCell>
+                    <TableCell align="center">{row.location}</TableCell>
+                    <TableCell align="center">{row.position}</TableCell>
                     <TableCell align="center">{row.date}</TableCell>
                     <TableCell align="center">{row.result}</TableCell>
                     </TableRow>

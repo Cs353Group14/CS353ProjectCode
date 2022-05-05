@@ -49,6 +49,7 @@ function AddParticipants(props) {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
+                sx={{m:3}}
             >
                 <Grid item>
                 <Typography variant="h3" component="h3">

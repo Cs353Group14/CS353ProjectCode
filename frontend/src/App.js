@@ -22,6 +22,7 @@ import AddParticipants from './components/Interview/CreateInterview/AddParticipa
 import StartInterview from './components/Interview/AttendInterview/StartInterview';
 import AttendInterview from './components/Interview/AttendInterview/AttendInterview';
 import ViewCandidates from './components/Interview/InterviewResults/ViewCandidates';
+import ResultOfCandidate from './components/Interview/InterviewResults/ResultOfCandidate';
 function App() {
   return (
     <BrowserRouter>
@@ -47,6 +48,7 @@ function App() {
       <Route path = {"/StartInterview"} element = {<StartInterview/>}/>
       <Route path = {"/AttendInterview"} element = {<AttendInterview/>}/>
       <Route path = {"/ViewCandidates"} element = {<ViewCandidates/>}/>
+      <Route path = {"/ResultOfCandidate"} element = {<ResultOfCandidate/>}/>
 
 
 

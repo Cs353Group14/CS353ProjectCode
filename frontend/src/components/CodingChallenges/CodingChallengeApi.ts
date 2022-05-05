@@ -64,4 +64,9 @@ export class CodingChallengeApi {
         return response.data;
     }
 
+    async getContestCodingQuestions(): Promise<CodingChallengeQueryResponse[]> {
+        const response = await axios.get(`/getContestCodingQuestions/${localStorage.getItem('contestId')}`);
+        return response.data;
+    }
+
 }

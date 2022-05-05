@@ -21,8 +21,14 @@ function CodingCardContainer(props) {
     let codingCards=  [];
 
     function fetchCodingQuestions() {
-        codingChallengeApi.getCodingChallenges()
-        .then(data => setCodingQuestions(data));
+
+        if(props.inContest == true) {
+            codingChallengeApi.getContestCodingQuestions()
+                .then(data=> setCodingQuestions(data));
+        } else {
+            codingChallengeApi.getCodingChallenges()
+                .then(data => setCodingQuestions(data));
+        }
 
     }
 
@@ -38,11 +44,14 @@ function CodingCardContainer(props) {
                                          difficulty = {question.difficulty}
                                          point = {question.points}
                                          attemptNo = {question.attempt_number}
-                                         acceptedNo = {question.solved_number}/>);
+                                         acceptedNo = {question.solved_number}
+                                         inContest = {props.inContest}/>);
     } )
 
     return(
         <div>
+            <div hidden = {props.inContest}>
+
             <h3>Filter for Coding Challenges:</h3>
 
             <Paper
@@ -60,6 +69,8 @@ function CodingCardContainer(props) {
                 inputProps={{ 'aria-label': 'search google maps'}}
             />
             </Paper>
+
+            </div>
                 
             <div className ="coding-card-container" >
 

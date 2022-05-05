@@ -18,6 +18,7 @@ import HomePage from './components/Home/HomePage';
 import CreateNonCodingQuestion from './components/NonCodingChallenges/CreateNonCodingQuestions/CreateNonCodingChallenge';
 import CreateInterview from './components/Interview/CreateInterview/CreateInterview';
 import CodingChallengeTable from './components/Contest/CreateContest/CodingChallengeTable';
+import ContestChallenges from './components/Contest/ContestChallenges';
 import AddParticipants from './components/Interview/CreateInterview/AddParticipants';
 import StartInterview from './components/Interview/AttendInterview/StartInterview';
 import AttendInterview from './components/Interview/AttendInterview/AttendInterview';
@@ -44,6 +45,7 @@ function App() {
       <Route path = {"/CreateNonCodingQuestion"} element = {<CreateNonCodingQuestion/>}/>
       <Route path = {"/CreateInterview"} element = {<CreateInterview/>}/>
       <Route path = {"/AddContestChallenges"} element = {<CodingChallengeTable/>}/>
+      <Route path = {"/SolveContest"} element = {<ContestChallenges/>}/>
       <Route path = {"/AddParticipants"} element = {<AddParticipants/>}/>
       <Route path = {"/StartInterview"} element = {<StartInterview/>}/>
       <Route path = {"/AttendInterview"} element = {<AttendInterview/>}/>

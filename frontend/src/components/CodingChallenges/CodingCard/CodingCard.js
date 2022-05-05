@@ -10,6 +10,7 @@ export default function CodingCard(props) {
 
     function setActivityId() {
         localStorage.setItem('codingId', props.id);
+        localStorage.setItem('inContest', props.inContest);
         console.log(localStorage.getItem('codingId'));
     }
 
@@ -25,10 +26,7 @@ export default function CodingCard(props) {
                     <br /> 
                     Point: {props.point}
                 </Typography>
-                <Typography className={"coding-card-info"}  variant="body2" component="p" color="textSecondary">
-                    <br />
-                    Category: {props.category}
-                </Typography>
+                
                 <Typography className={"coding-card-info"}  variant="body2" component="p" color="textSecondary">
                     <br />
                     Number of Attempts: {props.attemptNo}

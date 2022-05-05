@@ -50,4 +50,16 @@ export class ContestApi {
     async addCoderToContest(contestId: number) {
         const response = await axios.put(`/addCoderToContest/${localStorage.getItem('userId')}/${contestId}`);
     }
+
+    async participateContest(contestId: number) {
+        const response = await axios.put(`/participateContest/${localStorage.getItem('userId')}/${contestId}`);
+    }
+
+
+    async getContestStatus(contestId: number): Promise<number> {
+        const response = await axios.get(`/getContestStatus/${localStorage.getItem('userId')}/${contestId}`);
+        return response.data;
+    }
+
+
 }

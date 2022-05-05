@@ -26,6 +26,8 @@ export default function ContinuesContests() {
 
     const[rows, setRows] = useState([]);
     const[currentSubIndex, setCurrentSubIndex] = useState(null);
+    const[startHidden, setStartHidden] = useState(true);
+    const[continueHidden, setContinueHidden] = useState(true);
 
     const contestApi = new ContestApi();
 
@@ -40,15 +42,31 @@ export default function ContinuesContests() {
     },[]);
 
     async function handleStart() {
-        //await contestApi.addCoderToContest(rows[currentSubIndex].contest_id);
+        await contestApi.participateContest(rows[currentSubIndex].contest_id);
         setOpen(false);
+        localStorage.setItem('contestId', rows[currentSubIndex].contest_id);
+        window.location.href = "http://localhost:3000/SolveContest";
+        
         //fetchContinuesContests();
     }
 
     const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-        console.log(currentSubIndex);        
+    const handleClickOpen = async (i) => {
+      console.log(rows[i]);
+         const data = await contestApi.getContestStatus(rows[i].contest_id)
+                //  .then(data => {
+                      if(data == 0 ){
+                        setStartHidden(false);
+                        setContinueHidden(true);
+                      } else if (data == 1) {
+                        setStartHidden(true);
+                        setContinueHidden(false);
+                      } else {
+                        setStartHidden(true);
+                        setContinueHidden(true);
+                      }
+                 // })
         setOpen(true);
     };
 
@@ -59,7 +77,6 @@ export default function ContinuesContests() {
     function ContestDetails() {
         if(rows != []) { 
             return (<div>
-
             <h2> {rows[currentSubIndex].title} </h2>
 
             {rows[currentSubIndex].description}
@@ -93,9 +110,8 @@ export default function ContinuesContests() {
                   <StyledTableCell align="right">{row.duration}</StyledTableCell>
                   <StyledTableCell align="right">
                       <Button onClick={() => {
-                          console.log(row.contest_id);
                       setCurrentSubIndex(i);
-                      handleClickOpen();
+                      handleClickOpen(i);
                       }}>Details</Button>
                   </StyledTableCell>
                 </StyledTableRow>
@@ -113,9 +129,16 @@ export default function ContinuesContests() {
     <Button onClick={handleClose} color="primary">
         Cancel
     </Button>
+    <div hidden = {startHidden}>
     <Button onClick={handleStart} color="primary">
         Start
     </Button>
+    </div>
+    <div hidden = {continueHidden}>
+    <Button onClick={handleStart} color="primary">
+        Continue
+    </Button>
+    </div>
 </DialogActions>
 </Dialog>
 </div>

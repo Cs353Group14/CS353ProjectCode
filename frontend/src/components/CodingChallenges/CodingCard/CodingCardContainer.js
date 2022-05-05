@@ -23,7 +23,8 @@ function CodingCardContainer(props) {
     function fetchCodingQuestions() {
 
         if(props.inContest == true) {
-
+            codingChallengeApi.getContestCodingQuestions()
+                .then(data=> setCodingQuestions(data));
         } else {
             codingChallengeApi.getCodingChallenges()
                 .then(data => setCodingQuestions(data));
@@ -49,6 +50,8 @@ function CodingCardContainer(props) {
 
     return(
         <div>
+            <div hidden = {props.inContest}>
+
             <h3>Filter for Coding Challenges:</h3>
 
             <Paper
@@ -66,6 +69,8 @@ function CodingCardContainer(props) {
                 inputProps={{ 'aria-label': 'search google maps'}}
             />
             </Paper>
+
+            </div>
                 
             <div className ="coding-card-container" >
 

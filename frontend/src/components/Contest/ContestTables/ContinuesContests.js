@@ -53,6 +53,7 @@ export default function ContinuesContests() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = async (i) => {
+      console.log(rows[i]);
          const data = await contestApi.getContestStatus(rows[i].contest_id)
                 //  .then(data => {
                       if(data == 0 ){

@@ -1,5 +1,6 @@
 import { Button, Paper, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
+import { ContestApi } from '../../Contest/ContestApi';
 import {CodingChallengeApi} from '../CodingChallengeApi'
 
 function CodingChallengeSolve(props) {
@@ -28,6 +29,7 @@ function CodingChallengeSolve(props) {
     const languages = ["Java", "C", "C++", "C#", "Python", "Javascript"];
 
     const codingChallengeApi = new CodingChallengeApi();
+    const contestApi = new ContestApi();
 
     function SplitParagraph() {
         return props.description.split('\n')
@@ -50,11 +52,16 @@ function CodingChallengeSolve(props) {
         setCode(event.target.value);
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
 
-        if(localStorage.getItem('inContest') == true) {
-            alert("Time is up");
-            return;
+        if(localStorage.getItem('inContest') == 'true') {
+            console.log("here");
+            const data = await contestApi.getContestStatus(localStorage.getItem('contestId'));
+
+            if(data == 2 ){
+                alert("Time is up");
+                return;
+            }
         }
 
         const solution = {

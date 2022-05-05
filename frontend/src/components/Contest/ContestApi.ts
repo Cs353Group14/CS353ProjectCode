@@ -55,8 +55,11 @@ export class ContestApi {
         const response = await axios.put(`/participateContest/${localStorage.getItem('userId')}/${contestId}`);
     }
 
+
     async getContestStatus(contestId: number): Promise<number> {
         const response = await axios.get(`/getContestStatus/${localStorage.getItem('userId')}/${contestId}`);
         return response.data;
     }
+
+
 }

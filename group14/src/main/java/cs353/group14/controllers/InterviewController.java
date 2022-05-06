@@ -97,5 +97,10 @@ public class InterviewController {
         return interviewService.getPastInterviewsForCoder(coder_id);
     }
 
+    @GetMapping("/getFutureInterviewsForCoder/{coder_id}")
+    public List<InterviewResponse> getFutureInterviewsForCoder(int coder_id){
+        return interviewService.getFutureInterviewsForCoder(coder_id);
+    }
+
 
 }

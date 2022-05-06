@@ -10,8 +10,9 @@ import CreateInterview from "../Interview/CreateInterview/CreateInterview";
 import NavBar from "../NavBar/NavBar";
 import CreateNonCodingQuestion from "../NonCodingChallenges/CreateNonCodingQuestions/CreateNonCodingChallenge";
 import NonCodingCardContainer from "../NonCodingChallenges/NonCodingCard/NonCodingCardContainer";
-import InterviewListForCoder from "../Interview/InterviewListForCoder";
+import PastInterviewListForCoder from "../Interview/PastInterviewListForCoder";
 import InterviewListForCompany from "../Interview/InterviewListForCompany";
+import NewInterviewListForCoder from "../Interview/NewInterviewListForCoder";
 
 export default function HomePage() {
 
@@ -259,10 +260,10 @@ export default function HomePage() {
                 <FinishedContests />
             </div>
             <div hidden = {pastInterviews} >
-                <InterviewListForCoder />
+                <PastInterviewListForCoder />
             </div>
             <div hidden = {newInterviews} >
-                <InterviewListForCoder />
+                <NewInterviewListForCoder />
             </div>
             <div hidden = {listOfInterviews} >
                 <InterviewListForCompany />

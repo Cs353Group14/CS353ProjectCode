@@ -28,7 +28,7 @@ function createData(company, location, position, date, result) {
   ];
 
 
-function InterviewListForCoder(props) {
+function PastInterviewListForCoder(props) {
     const interviewAPI = new InterviewAPI();
     let interviewList = interviewAPI.getInterviewList();
   
@@ -87,4 +87,4 @@ function InterviewListForCoder(props) {
     
 }
 
-export default InterviewListForCoder;
+export default PastInterviewListForCoder;

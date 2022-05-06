@@ -98,6 +98,16 @@ export default function Menu(props) {
                 <br/>
                 <Divider />
             </div>
+            <div hidden= {!isUser(1)} >
+                <Button color="inherit" onClick={openPastInterviews}>Past Interviews</Button>
+                <br/>
+                <Divider />
+            </div>
+            <div hidden= {!isUser(1)} >
+                <Button color="inherit" onClick={openNewInterviews}>New Interviews</Button>
+                <br/>
+                <Divider />
+            </div>
 
         </div>
     );
@@ -158,6 +168,20 @@ export default function Menu(props) {
 
     const openFinishedContests = () => {
         localStorage.setItem('menuId', 10);
+        window.location.href = "http://localhost:3000/home";
+    }
+    const openPastInterviews = () => {
+        localStorage.setItem('menuId', 11);
+        window.location.href = "http://localhost:3000/home";
+    }
+
+    const openNewInterviews = () => {
+        localStorage.setItem('menuId', 12);
+        window.location.href = "http://localhost:3000/home";
+    }
+   
+    const openListOfInterviews = () => {
+        localStorage.setItem('menuId', 14);
         window.location.href = "http://localhost:3000/home";
     }
 

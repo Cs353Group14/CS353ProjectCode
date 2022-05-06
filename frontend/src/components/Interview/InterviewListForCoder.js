@@ -12,6 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import {InterviewAPI} from './InterviewAPI'
 
 function createData(company, location, position, date, result) {
     return { company, location, position, date, result };
@@ -26,11 +27,13 @@ function createData(company, location, position, date, result) {
     createData('Company1', 'Location1','Position1', '12/12/2021', 'Hire')
   ];
 
+
 function InterviewListForCoder(props) {
+    const interviewAPI = new InterviewAPI();
+    let interviewList = interviewAPI.getInterviewList();
   
     return(
         <div>
-            <NavBar></NavBar>
             <Grid
                 container
                 direction="row"

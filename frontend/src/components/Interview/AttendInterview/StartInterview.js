@@ -5,24 +5,24 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
 import { Box, FormControl, TextField, MenuItem, Typography, Button, Select} from "@material-ui/core";
 import Grid from '@mui/material/Grid';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { AttendInterviewAPI } from "./AttendInterviewAPI";
 
 function startInterview()
 {
     window.location.href = "http://localhost:3000/AttendInterview";
 }
 function StartInterview(props) {
+//Get interview
+let interviewID = localStorage.getItem('interviewID');
+const attendInterviewAPI = new AttendInterviewAPI();
 
-  let interviewId;
+let company =  attendInterviewAPI.getCompany(interviewID);
+let interview =  attendInterviewAPI.getInterview(interviewID);
+console.log(company);
+console.log(interview);
+
   let isSet = localStorage.getItem('interviewID');
   const [username, setUsername] = React.useState('');
-  let company = "Company Name";
   let location = "Company location";
   let position = "Position";
   let duration = "234 min";

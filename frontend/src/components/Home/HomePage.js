@@ -10,6 +10,7 @@ import CreateInterview from "../Interview/CreateInterview/CreateInterview";
 import NavBar from "../NavBar/NavBar";
 import CreateNonCodingQuestion from "../NonCodingChallenges/CreateNonCodingQuestions/CreateNonCodingChallenge";
 import NonCodingCardContainer from "../NonCodingChallenges/NonCodingCard/NonCodingCardContainer";
+import InterviewListForCoder from "../Interview/InterviewListForCoder";
 
 export default function HomePage() {
 
@@ -23,6 +24,9 @@ export default function HomePage() {
     const [registeredContests, setRegisteredContests] = useState(true);
     const [continuesContests, setContinuesContests] = useState(true);
     const [finishedContests, setFinishedContests] = useState(true);
+    const [pastInterviews, setPastInterviews] = useState(true);
+    const [newInterviews, setNewInterviews] = useState(true);
+
 
 
     function makesVisible(componentNumber) {
@@ -37,6 +41,8 @@ export default function HomePage() {
             setRegisteredContests(true);
             setContinuesContests(true);
             setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
         }
         else if(componentNumber == 2){
             setCodingChallengesHidded(true);
@@ -49,6 +55,8 @@ export default function HomePage() {
             setRegisteredContests(true);
             setContinuesContests(true);
             setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
         } else if(componentNumber == 3){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -60,6 +68,8 @@ export default function HomePage() {
             setRegisteredContests(true);
             setContinuesContests(true);
             setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
         } else if(componentNumber == 4){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -71,6 +81,8 @@ export default function HomePage() {
             setRegisteredContests(true);
             setContinuesContests(true);
             setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
         } else if(componentNumber == 5){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -82,6 +94,8 @@ export default function HomePage() {
             setRegisteredContests(true);
             setContinuesContests(true);
             setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
         }else if(componentNumber == 6){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -93,6 +107,8 @@ export default function HomePage() {
             setRegisteredContests(true);
             setContinuesContests(true);
             setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
         }else if(componentNumber == 7){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -104,6 +120,8 @@ export default function HomePage() {
             setRegisteredContests(true);
             setContinuesContests(true);
             setFinishedContests(true);
+             setPastInterviews(true);
+            setNewInterviews(true);
         }else if(componentNumber == 8){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -115,6 +133,8 @@ export default function HomePage() {
             setRegisteredContests(false);
             setContinuesContests(true);
             setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
         }else if(componentNumber == 9){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -126,6 +146,8 @@ export default function HomePage() {
             setRegisteredContests(true);
             setContinuesContests(false);
             setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
         }else if(componentNumber == 10){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -137,6 +159,36 @@ export default function HomePage() {
             setRegisteredContests(true);
             setContinuesContests(true);
             setFinishedContests(false);
+            setPastInterviews(true);
+            setNewInterviews(true);
+        }
+        else if(componentNumber == 11){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
+            setCreateContest(true);
+            setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
+            setPastInterviews(false);
+            setNewInterviews(true);
+        }
+        else if(componentNumber == 12){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
+            setCreateContest(true);
+            setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(false);
         }
     }
 
@@ -177,6 +229,13 @@ export default function HomePage() {
             <div hidden = {finishedContests} >
                 <FinishedContests />
             </div>
+            <div hidden = {pastInterviews} >
+                <InterviewListForCoder />
+            </div>
+            <div hidden = {newInterviews} >
+                <InterviewListForCoder />
+            </div>
+            
         </div>
     );
 }

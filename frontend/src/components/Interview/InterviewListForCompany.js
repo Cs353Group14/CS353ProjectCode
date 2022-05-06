@@ -34,7 +34,6 @@ function InterviewListForCompany(props) {
   
     return(
         <div>
-            <NavBar></NavBar>
             <Grid
                 container
                 direction="row"

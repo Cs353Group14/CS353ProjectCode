@@ -49,16 +49,39 @@ function CreateInterview(props) {
   let interviewId;
   let isSet = localStorage.getItem('interviewID');
 
-  function addCodingQuestions()
+ async function addCodingQuestions()
   {
     localStorage.setItem('interviewID', interviewId);
     window.location.href = "http://localhost:3000/CreateCodingChallenge";
+    if(!isSet)
+    {
+        const newInterview = {
+            user_id: localStorage.getItem('userId'),
+            interview_id: -1,
+            duration: durationInMin,
+            position: position
+          }
+          interviewId = await createNewInterview.createInterview(newInterview);
+          console.log(interviewId);
+    }
+
   }
 
-  function addNonCodingQuestions()
+  async function addNonCodingQuestions()
   {
     localStorage.setItem('interviewID', interviewId);
     window.location.href = "http://localhost:3000/CreateNonCodingQuestion";
+    if(!isSet)
+    {
+        const newInterview = {
+            user_id: localStorage.getItem('userId'),
+            interview_id: -1,
+            duration: durationInMin,
+            position: position
+          }
+          interviewId = await createNewInterview.createInterview(newInterview);
+          console.log(interviewId);
+    }
 
   }
 
@@ -77,17 +100,8 @@ function CreateInterview(props) {
     {
         durationInMin = duration * 60*24;
     }
-
-    console.log(durationInMin);
     isSet = 1;
-    const newInterview = {
-        user_id: localStorage.getItem('userId'),
-        interview_id: -1,
-        duration: durationInMin,
-        position: position
-      }
-      interviewId = await createNewInterview.createInterview(newInterview);
-   
+
     localStorage.setItem('interviewID', interviewId);
     console.log(interviewId);
     window.location.href = "http://localhost:3000/home";

@@ -56,11 +56,6 @@ function App() {
       <Route path = {"/InterviewListForCompany"} element = {<InterviewListForCompany/>}/>
       <Route path = {"/InterviewListForCoder"} element = {<InterviewListForCoder/>}/>
 
-
-
-
-
-
     </Routes>
     </BrowserRouter>
   );

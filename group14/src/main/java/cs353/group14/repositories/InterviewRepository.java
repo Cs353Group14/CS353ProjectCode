@@ -483,7 +483,8 @@ public class InterviewRepository {
 
 
         try{
-            String query = "Select * from attend A, interview I,company C where I.interview_id = A.interview_id and C.user_id = I.user_id and A.coder_id = ? and end_time > CURRENT_TIMESTAMP ";
+            String query = "Select * from attend A, interview I,company C, users U where I.interview_id = A.interview_id " +
+                    "and C.user_id = I.user_id and A.coder_id = ? and A.start_time < CURRENT_TIMESTAMP and C.user_id = U.user_id";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,coder_id);
@@ -519,7 +520,8 @@ public class InterviewRepository {
 
 
         try{
-            String query = "Select * from attend A, interview I,company C where I.interview_id = A.interview_id and C.user_id = I.user_id and A.coder_id = ? and start_time < CURRENT_TIMESTAMP ";
+            String query = "Select * from attend A, interview I,company C, users U where I.interview_id = A.interview_id " +
+                    "and C.user_id = I.user_id and A.coder_id = ? and A.end_time > CURRENT_TIMESTAMP and C.user_id = U.user_id ";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,coder_id);

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Box, FormControl, TextField, MenuItem, Typography, Button, Select} from "@material-ui/core";
+import { Box, FormControl, TextField, MenuItem, Typography, Button, Select, Form} from "@material-ui/core";
 import Grid from '@mui/material/Grid';
 import {ContestApi} from '../ContestApi'
 import CodingChallengeTable from "./CodingChallengeTable";
@@ -175,7 +175,7 @@ export default function CreateContest(props) {
                <div>
               <br/>
               <br/>
-               <form  noValidate>
+              
                         <TextField
                             label="Start Date"
                             type="date"
@@ -193,10 +193,10 @@ export default function CreateContest(props) {
                             }}
                             onChange={(e)=> setStartTime(e.target.value)}
                         />
-                    </form>
+                   
                     <br/>
                     <br/>
-                    <form  noValidate>
+                  
                         <TextField
                             label="Deadline"
                             type="date"
@@ -214,7 +214,7 @@ export default function CreateContest(props) {
                             }}
                             onChange={(e)=> setEndTime(e.target.value)}
                         />
-                    </form>
+               
                     <br/>
                     <br/>
 

@@ -108,7 +108,7 @@ export default function Menu(props) {
                 <br/>
                 <Divider />
             </div>
-            <div hidden= {!isUser(3)} >
+            <div hidden= {!isUser(2)} >
                 <Button color="inherit" onClick={openListOfInterviews}>List of Interviews</Button>
                 <br/>
                 <Divider />

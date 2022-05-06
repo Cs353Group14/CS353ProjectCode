@@ -11,6 +11,7 @@ import {CreateCodingChallengeAPI} from './CreateCodingChallengeAPI'
 import {CreateNewInterviewAPI} from '../../Interview/CreateInterview/CreateInterviewAPI'
 
 
+
 const difficulties = [
   {
     value: 'Easy'
@@ -98,7 +99,8 @@ function CreateCodingChallenge(props) {
     {
       localStorage.setItem('challengeId', challengeId);
       localStorage.setItem('duration', duration);
-      createNewInterviewQuestion.addCodingQuestionToInterview();
+      await createNewInterviewQuestion.addCodingQuestionToInterview();
+      window.location.href = "http://localhost:3000/CreateInterview";
     }
 
 }

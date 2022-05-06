@@ -12,6 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import {InterviewAPI} from './InterviewAPI'
 
 function createData(position, dateCreated) {
     return { position, dateCreated };
@@ -19,11 +20,11 @@ function createData(position, dateCreated) {
   
   const rows = [
     createData('Position1', '12/12/2021'),
-    createData('Position2', '12/12/2021'),
-    createData('Position3', '12/12/2021'),
-    createData('Position4', '12/12/2021'),
-    createData('Position5', '12/12/2021'),
-    createData('Position6', '12/12/2021'),
+    createData('Position2', '12/11/2021'),
+    createData('Position3', '12/10/2021'),
+    createData('Position4', '12/09/2021'),
+    createData('Position5', '12/08/2021'),
+    createData('Position6', '12/07/2021'),
   ];
   function seeCandidates()
   {
@@ -31,6 +32,14 @@ function createData(position, dateCreated) {
   }
 
 function InterviewListForCompany(props) {
+    let interviewList = [];
+
+    const interviewAPI = new InterviewAPI();
+    if(localStorage.getItem('userType') === 1)
+    {
+        interviewList = interviewAPI.getInterviewListCompany();
+        console.log(interviewList);
+    }
   
     return(
         <div>
@@ -63,7 +72,7 @@ function InterviewListForCompany(props) {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {rows.map((row) => (
+                {interviewList.map((row) => (
                     <TableRow
                     key={row.dateCreated}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

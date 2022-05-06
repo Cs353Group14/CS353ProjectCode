@@ -62,6 +62,8 @@ function CreateInterview(props) {
             position: position
           }
           interviewId = await createNewInterview.createInterview(newInterview);
+          alert.log(interviewId);
+          localStorage.setItem('interviewID', interviewId);
           console.log(interviewId);
     }
 
@@ -80,6 +82,7 @@ function CreateInterview(props) {
             position: position
           }
           interviewId = await createNewInterview.createInterview(newInterview);
+          localStorage.setItem('interviewID', interviewId);
           console.log(interviewId);
     }
 

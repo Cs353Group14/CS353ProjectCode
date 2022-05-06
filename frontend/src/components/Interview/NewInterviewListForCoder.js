@@ -20,17 +20,20 @@ function createData(company, location, position, date, result) {
   
   const rows = [
     createData('Company1', 'Location1','Position1', '12/12/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/12/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/12/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/12/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/12/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/12/2021', 'Hire')
+    createData('Company1', 'Location1','Position1', '12/11/2021', 'Hire'),
+    createData('Company1', 'Location1','Position1', '12/10/2021', 'Hire'),
+    createData('Company1', 'Location1','Position1', '12/09/2021', 'Hire'),
+    createData('Company1', 'Location1','Position1', '12/08/2021', 'Hire'),
+    createData('Company1', 'Location1','Position1', '12/07/2021', 'Hire')
   ];
 
 
 function NewInterviewListForCoder(props) {
     const interviewAPI = new InterviewAPI();
-    let interviewList = interviewAPI.getInterviewList();
+    if(localStorage.getItem('userType') === 1)
+    {
+        let interviewList = interviewAPI.getNewInterviewList();
+    }
   
     return(
         <div>

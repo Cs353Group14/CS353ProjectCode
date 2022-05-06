@@ -108,6 +108,11 @@ export default function Menu(props) {
                 <br/>
                 <Divider />
             </div>
+            <div hidden= {!isUser(3)} >
+                <Button color="inherit" onClick={openListOfInterviews}>List of Interviews</Button>
+                <br/>
+                <Divider />
+            </div>
 
         </div>
     );
@@ -179,9 +184,8 @@ export default function Menu(props) {
         localStorage.setItem('menuId', 12);
         window.location.href = "http://localhost:3000/home";
     }
-   
     const openListOfInterviews = () => {
-        localStorage.setItem('menuId', 14);
+        localStorage.setItem('menuId', 13);
         window.location.href = "http://localhost:3000/home";
     }
 

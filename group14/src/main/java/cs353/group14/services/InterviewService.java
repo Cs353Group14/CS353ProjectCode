@@ -88,5 +88,7 @@ public class InterviewService {
         return interviewRepository.getFutureInterviewsForCoder(coder_id);
     }
 
-
+    public List<Interview> getInterviewsOfCompanyNew(int user_id){
+        return interviewRepository.getInterviewsOfCompanyNew(user_id);
+    }
 }

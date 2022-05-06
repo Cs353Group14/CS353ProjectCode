@@ -98,8 +98,14 @@ public class InterviewController {
     }
 
     @GetMapping("/getFutureInterviewsForCoder/{coder_id}")
-    public List<InterviewResponse> getFutureInterviewsForCoder( @PathVariable int coder_id){
+    public List<InterviewResponse> getFutureInterviewsForCoder(@PathVariable  int coder_id){
         return interviewService.getFutureInterviewsForCoder(coder_id);
+    }
+
+
+    @GetMapping("/getInterviewsOfCompanyNew/{user_id}")
+    public List<Interview> getInterviewsOfCompanyNew(@PathVariable int user_id){
+        return interviewService.getInterviewsOfCompanyNew(user_id);
     }
 
 

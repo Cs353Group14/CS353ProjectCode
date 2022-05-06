@@ -337,6 +337,10 @@ public class InterviewRepository {
 
     }
 
+
+
+
+
     public List<InterviewResponse> getInterviewsForCoder( int userId)
     {
         List<InterviewResponse> result = new ArrayList<>();
@@ -371,6 +375,40 @@ public class InterviewRepository {
         return result;
     }
 
+
+
+
+    public List<Interview> getInterviewsOfCompanyNew( int userId)
+    {
+        List<Interview> result = new ArrayList<>();
+
+
+        try{
+            String query = "Select * from  interview I  where   I.user_id = ? ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,userId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                int duration = rs.getInt("duration");
+                int interviewId = rs.getInt("interview_id");
+
+
+                String position = rs.getString("position");
+
+
+                Interview interviewResponse = new Interview(userId,interviewId,duration,position);
+                result.add(interviewResponse);
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
 
 
     public List<UserNameAndInterviewResultResponse> getInterviewsForCompany(int companyId)

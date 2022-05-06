@@ -93,12 +93,12 @@ public class InterviewController {
 
 
     @GetMapping("/getPastInterviewsForCoder/{coder_id}")
-    public List<InterviewResponse> getPastInterviewsForCoder(int coder_id){
+    public List<InterviewResponse> getPastInterviewsForCoder(@PathVariable int coder_id){
         return interviewService.getPastInterviewsForCoder(coder_id);
     }
 
     @GetMapping("/getFutureInterviewsForCoder/{coder_id}")
-    public List<InterviewResponse> getFutureInterviewsForCoder(int coder_id){
+    public List<InterviewResponse> getFutureInterviewsForCoder( @PathVariable int coder_id){
         return interviewService.getFutureInterviewsForCoder(coder_id);
     }
 

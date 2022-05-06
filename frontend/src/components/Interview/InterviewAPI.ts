@@ -1,7 +1,19 @@
 import axios from "axios";
 //import {MessageResponse, MessageType} from "../common/dto/MessageResponse";
 
-export interface interviewModel {
+export interface interviewModelForCoder {
+    user_id: number;
+    interview_id: number,
+    duration: number,
+    position: string    
+    companyName: string,
+     startTime: string;
+     endTime: string;
+     interviewResult: string;
+     invitationCode: string; 
+}
+
+export interface interviewModelForCompany {
     user_id: number;
     interview_id: number,
     duration: number,
@@ -10,8 +22,23 @@ export interface interviewModel {
 
 
 export class InterviewAPI {
-    async getInterviewList(): Promise<interviewModel[]> {
-        const response = await axios.get("getInterviewsForCoder/" + localStorage.getItem('userId'));
+
+    //Get lists
+    async getPastInterviewList(): Promise<interviewModelForCoder[]> {
+        const response = await axios.get("/getPastInterviewsForCoder/" + localStorage.getItem('userId'));
         return response.data;
     }
+    async getNewInterviewList(): Promise<interviewModelForCoder[]> {
+        const response = await axios.get("/getNewInterviewsForCoder/" + localStorage.getItem('userId'));
+        return response.data;
+    }
+
+    async getInterviewListCompany(): Promise<interviewModelForCompany[]> {
+        const response = await axios.get("/getInterviewsForCompany/" + localStorage.getItem('userId'));
+        return response.data;
+    }
+
+    //Start interview
+    
+
 }

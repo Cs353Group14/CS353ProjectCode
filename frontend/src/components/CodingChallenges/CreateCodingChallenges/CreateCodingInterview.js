@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import {CreateCodingChallengeAPI} from './CreateCodingChallengeAPI'
-import {CreateNewInterview} from '../../Interview/CreateInterview/CreateInterviewAPI'
+import {CreateNewInterviewAPI} from '../../Interview/CreateInterview/CreateInterviewAPI'
 
 
 const difficulties = [
@@ -55,7 +55,7 @@ function CreateCodingChallenge(props) {
   const [timeUnit, setTimeUnit] = useState('min');
   const [duration, setDuration] = useState(timeUnit[0].value);
   const createCodingChallengeAPI = new CreateCodingChallengeAPI();
-  const createNewInterviewQuestion = new CreateNewInterview()
+  const createNewInterviewQuestion = new CreateNewInterviewAPI()
   let publicity = 0
 
   let listOfCategories = [];

@@ -7,13 +7,17 @@ export interface interviewModel {
     duration: number,
     position: string     
 }
-export interface companyModel { //Might change
+export interface companyModel {
     location: string;
     webPageLink: string,
     userId: number,
     username: string,
-    name: string
-       
+    name: string,
+    mail: string, 
+    password: string, 
+    userType: string, 
+    information: string,
+    foto: string     
 }
 
 export interface NonCodingQuestionsOfInterviewModel {
@@ -57,13 +61,5 @@ export class AttendInterviewAPI {
     async getCodingQuestionsOfInterview(interviewID: number): Promise<CodingQuestionsOfInterviewModel[]> {
         const response = await axios.put("/createNonCodingChallenge/" + localStorage.getItem('userId'), interviewID);
         return response.data;
-    }
-
-    async submitInterview(interviewID: number)  {///IDK
-        const response = await axios.put("/createNonCodingChallenge/" + localStorage.getItem('userId'), interviewID);
-        return response.data;
-    }
-
-
-    
+    } 
 }

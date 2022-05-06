@@ -21,7 +21,21 @@ export interface InterviewQueryResponse {
        
 }
 
-export class CreateNewInterview {
+
+export interface Participant {
+    interviewId: number,
+    coderId: number,
+    companyId: number,
+    startTime: string,
+    endTime: string,
+    interviewResult: string;
+    invitationCode: string;
+     
+}
+
+
+
+export class CreateNewInterviewAPI {
 
     async createInterview(newQuestion: newInterview): Promise<InterviewQueryResponse> {
         const response = await axios.put("/createInterview", newQuestion);
@@ -40,10 +54,13 @@ export class CreateNewInterview {
     }
 
     async addNonCodingQuestionToInterview(){
-        const response = await axios.put("/addNonCodingQuestionToInterview/"+localStorage.getItem('interviewID')+"/"+localStorage.getItem('challengeId')+"/"+localStorage.getItem('userId')+"/"+localStorage.getItem('duration'));
+        const response = await axios.put("/addNonCodingQuestionToInterview/"+localStorage.getItem('interviewID')+"/"+localStorage.getItem('challengeId')+"/"+localStorage.getItem('userId'));
         return response.data;
     }
 
-
-    
+    async addParticipant(participant: Participant){
+        const response = await axios.put("/createAttend/", participant);
+        return response.data;
+    }
+ 
 }

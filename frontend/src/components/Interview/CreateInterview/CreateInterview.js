@@ -12,7 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {CreateNewInterview} from './CreateInterviewAPI'
+import {CreateNewInterviewAPI} from './CreateInterviewAPI'
 
 
 const timeUnits = [
@@ -44,7 +44,7 @@ function CreateInterview(props) {
   const [position, setPosition] = React.useState('');
   const [timeUnit, setTimeUnit] = useState('min');
   const [duration, setDuration] = useState(timeUnit[0].value);
-  const createNewInterview = new CreateNewInterview();
+  const createNewInterview = new CreateNewInterviewAPI();
   let durationInMin = 0;
   let interviewId;
   let isSet = localStorage.getItem('interviewID');

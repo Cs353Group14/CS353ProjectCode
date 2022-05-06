@@ -4,6 +4,7 @@ import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.repositories.UserRepository;
 import cs353.group14.responses.LoginResponse;
+import cs353.group14.responses.UserNameandNameResponse;
 import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
@@ -123,5 +124,10 @@ public class UserService {
 
     public List<Submission> listOldAttempts(int userId,int challengeId){
         return userRepository.listOldAttempts(userId, challengeId);
+    }
+
+    public UserNameandNameResponse getUserNameandName(String username)
+    {
+        return userRepository.getUserNameandName(username);
     }
 }

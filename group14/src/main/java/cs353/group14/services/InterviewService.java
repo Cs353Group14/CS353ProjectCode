@@ -4,6 +4,7 @@ import cs353.group14.*;
 import cs353.group14.repositories.InterviewRepository;
 import cs353.group14.responses.InterviewResponse;
 import cs353.group14.responses.UserNameAndInterviewResultResponse;
+import cs353.group14.responses.UserNameandNameResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,5 +69,16 @@ public class InterviewService {
     {
         return interviewRepository.getCodingChallengesOfInterview(  interviewId);
     }
+
+    public Company getCompanyofInterview( int interview_id)
+    {
+        return interviewRepository.getCompanyofInterview( interview_id);
+    }
+
+    public List<UserNameandNameResponse>  getUsersAttendingToInterview( int interview_id)
+    {
+        return interviewRepository.getUsersAttendingToInterview( interview_id);
+    }
+
 
 }

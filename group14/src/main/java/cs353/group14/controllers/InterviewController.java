@@ -4,6 +4,7 @@ import cs353.group14.*;
 import cs353.group14.requests.UpdateAttendRequest;
 import cs353.group14.responses.InterviewResponse;
 import cs353.group14.responses.UserNameAndInterviewResultResponse;
+import cs353.group14.responses.UserNameandNameResponse;
 import cs353.group14.services.InterviewService;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,4 +79,16 @@ public class InterviewController {
     public  List<NonCodingChallenge> getInterviewNonCodingQuetions(@PathVariable int interviewId){
         return interviewService.getNonCodingChallengesOfInterview(interviewId);
     }
+
+    @GetMapping("/getCompanyofInterview/{interviewId}")
+    public  Company getCompanyofInterview(@PathVariable int interviewId){
+        return interviewService.getCompanyofInterview(interviewId);
+    }
+
+
+    @GetMapping("/getUsersAttendingToInterview/{interviewId}")
+    public  List<UserNameandNameResponse>  getUsersAttendingToInterview(@PathVariable int interviewId){
+        return interviewService.getUsersAttendingToInterview(interviewId);
+    }
+
 }

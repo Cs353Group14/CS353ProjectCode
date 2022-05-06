@@ -5,6 +5,7 @@ import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.requests.LoginRequest;
 import cs353.group14.responses.LoginResponse;
+import cs353.group14.responses.UserNameandNameResponse;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -68,6 +69,25 @@ public class UserRepository {
         return -1;
 
     }
+
+
+    public UserNameandNameResponse getUserNameandName( String username)
+    {
+        String getUserId = "SELECT * from users WHERE username = ?";
+        String name ="";
+        try{
+            PreparedStatement getUserIdPrepared= ConnectionSingle.getConnection().prepareStatement(getUserId);
+            getUserIdPrepared.setString(1,username);
+            ResultSet rs2 = getUserIdPrepared.executeQuery();
+            rs2.next();
+
+            name = rs2.getString("name");
+        } catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
+        return new UserNameandNameResponse(username,name);
+    }
+
 
     public void insertCoder(int userId, Coder coder)  {
         String sql = "Insert INTO coder(user_id,rating,points,position,place,birth_year) VALUES(?,?,?,?,?,?)";

@@ -4,6 +4,7 @@ import cs353.group14.*;
 import cs353.group14.requests.LoginRequest;
 import cs353.group14.requests.ReferRequest;
 import cs353.group14.responses.LoginResponse;
+import cs353.group14.responses.UserNameandNameResponse;
 import cs353.group14.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,6 +88,13 @@ public class UserController {
     public List<Submission> listOldAttempts(@PathVariable int userId, @PathVariable int challengeId){
         return userService.listOldAttempts(userId, challengeId);
     }
+
+
+    @GetMapping("/getUserNameandName/{userName}")
+    public UserNameandNameResponse getUserNameandName(@PathVariable String userName){
+        return userService.getUserNameandName(userName);
+    }
+
 
 
 }

@@ -4,6 +4,7 @@ import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.InterviewResponse;
 import cs353.group14.responses.UserNameAndInterviewResultResponse;
+import cs353.group14.responses.UserNameandNameResponse;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -64,7 +65,40 @@ public class InterviewRepository {
         return  new Interview(user_id,interviewId,duration, position);
     }
 
+    public Company getCompanyofInterview( int interview_id)
+    {
+        int userId = -1; String username =""; String mail = ""; String password =""; UserType userType =UserType.Company;
+            String name =""; String information =""; String foto =""; String location = ""; String webPageLink ="";
+        try{
+            String query = "Select * from interview I, company C, users U  " +
+                    "where I.interview_id = ? and I.user_id = C.user_id and U.user_id = C.user_id ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,interview_id);
 
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                userId = rs.getInt("user_id");
+                username = rs.getString("username");
+                mail = rs.getString("mail");
+                password = rs.getString("password");
+               // userType = rs.getInt("usetype");
+                name = rs.getString("name");
+                information = rs.getString("information");
+                foto = rs.getString("profile_photo");
+                location = rs.getString("location");
+                webPageLink = rs.getString("web_page_link");
+
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+            return new Company(userId, username, mail , password , userType ,
+                    name ,information ,foto ,location ,  webPageLink);
+    }
 
     public void insertAttend(Attend attend){
 
@@ -373,6 +407,35 @@ public class InterviewRepository {
 
     }
 
+
+    public List<UserNameandNameResponse> getUsersAttendingToInterview( int interviewId)
+    {
+        List<UserNameandNameResponse> result = new ArrayList<>();
+
+        try{
+            String query = "Select * from attend A, users U where A.interview_id = ? and A.coder_id = U.user_id ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,interviewId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+
+                String userName = rs.getString("username");
+                String name = rs.getString("name");
+
+                UserNameandNameResponse userNameandNameResponse = new UserNameandNameResponse(userName,name);
+                result.add(userNameandNameResponse);
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return result;
+
+    }
 
 
 }

@@ -80,5 +80,9 @@ public class InterviewService {
         return interviewRepository.getUsersAttendingToInterview( interview_id);
     }
 
+    public List<InterviewResponse> getPastInterviewsForCoder(int coder_id){
+        return interviewRepository.getPastInterviewsForCoder(coder_id);
+    }
+
 
 }

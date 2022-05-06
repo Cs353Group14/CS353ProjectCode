@@ -91,4 +91,11 @@ public class InterviewController {
         return interviewService.getUsersAttendingToInterview(interviewId);
     }
 
+
+    @GetMapping("/getPastInterviewsForCoder/{coder_id}")
+    public List<InterviewResponse> getPastInterviewsForCoder(int coder_id){
+        return interviewService.getPastInterviewsForCoder(coder_id);
+    }
+
+
 }

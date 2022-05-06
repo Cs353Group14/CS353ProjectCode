@@ -62,5 +62,12 @@ export class CreateNewInterviewAPI {
         const response = await axios.put("/createAttend/", participant);
         return response.data;
     }
+
+    async getUserToAdd(username: string){
+        const response = await axios.get("/getUserNameandName/" + username);
+        return response.data;
+    }
+
+
  
 }

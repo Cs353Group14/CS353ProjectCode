@@ -34,11 +34,7 @@ const[inter, setInter] = useState([]);
         fetchInterview();
     },[]);
 
-  async function handleSubmit() {
 
-    window.location.href = "http://localhost:3000/home";
-
-}
 
     return(
         <div>
@@ -108,7 +104,7 @@ const[inter, setInter] = useState([]);
                     <Button
                         variant="contained"
                         color="secondary"
-                        onClick= {()=> startInterview}
+                        onClick= {()=> startInterview()}
                         > START
                     </Button>
                     </Grid>

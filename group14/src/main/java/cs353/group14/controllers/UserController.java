@@ -3,6 +3,7 @@ package cs353.group14.controllers;
 import cs353.group14.*;
 import cs353.group14.requests.LoginRequest;
 import cs353.group14.requests.ReferRequest;
+import cs353.group14.responses.IdUserNameandNameResponse;
 import cs353.group14.responses.LoginResponse;
 import cs353.group14.responses.UserNameandNameResponse;
 import cs353.group14.services.UserService;
@@ -93,6 +94,12 @@ public class UserController {
     @GetMapping("/getUserNameandName/{userName}")
     public UserNameandNameResponse getUserNameandName(@PathVariable String userName){
         return userService.getUserNameandName(userName);
+    }
+
+
+    @GetMapping("/getIdUserNameandName/{userName}")
+    public IdUserNameandNameResponse getIdUserNameandName(@PathVariable String userName){
+        return userService.getIdUserNameandName(userName);
     }
 
 

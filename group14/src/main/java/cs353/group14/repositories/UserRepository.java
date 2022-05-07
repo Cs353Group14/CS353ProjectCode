@@ -4,6 +4,7 @@ package cs353.group14.repositories;
 import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.requests.LoginRequest;
+import cs353.group14.responses.IdUserNameandNameResponse;
 import cs353.group14.responses.LoginResponse;
 import cs353.group14.responses.UserNameandNameResponse;
 import org.springframework.stereotype.Repository;
@@ -86,6 +87,26 @@ public class UserRepository {
             System.out.println(exception.getMessage());
         }
         return new UserNameandNameResponse(username,name);
+    }
+
+
+    public IdUserNameandNameResponse getIdUserNameandName(String username)
+    {
+        String getUserId = "SELECT * from users WHERE username = ?";
+        String name ="";
+        int id = -1;
+        try{
+            PreparedStatement getUserIdPrepared= ConnectionSingle.getConnection().prepareStatement(getUserId);
+            getUserIdPrepared.setString(1,username);
+            ResultSet rs2 = getUserIdPrepared.executeQuery();
+            rs2.next();
+
+            id = rs2.getInt("user_id");
+            name = rs2.getString("name");
+        } catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
+        return new IdUserNameandNameResponse(id,username,name);
     }
 
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from 'prop-types';
 import NavBar from "../NavBar/NavBar";
 import Autocomplete from '@mui/material/Autocomplete';
@@ -29,12 +29,18 @@ function createData(company, location, position, date, result) {
 
 
 function PastInterviewListForCoder(props) {
+    const[rows, setRows] = useState([]);
     const interviewAPI = new InterviewAPI();
 
-    if(localStorage.getItem('userType') === 1)
-    {
-        let interviewList = interviewAPI.getPastInterviewList();
+    function fetchPastInterviews() {
+        interviewAPI.getPastInterviewList().then(data => {
+            setRows(data)});;
+
     }
+    
+    useEffect(() => {
+        fetchPastInterviews();
+    },[]);
   
     return(
         <div>
@@ -57,28 +63,30 @@ function PastInterviewListForCoder(props) {
                 alignItems="center"
                 sx={{ mt: 8 , mb: 8, ml: 3, mr:3}}>
                     <Grid item xs={8} >
-            <TableContainer component={Paper}>
+                    <TableContainer component={Paper}>
             <Table  aria-label="simple table">
                 <TableHead>
                 <TableRow>
                     <TableCell align="left">Company</TableCell>
-                    <TableCell align="center">Location</TableCell>
+                    <TableCell align="center">Duration</TableCell>
                     <TableCell align="center">Position</TableCell>
-                    <TableCell align="center">Date</TableCell>
+                    <TableCell align="center">Start time</TableCell>
+                    <TableCell align="center">End time</TableCell>
                     <TableCell align="right">Result</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
                 {rows.map((row) => (
                     <TableRow
-                    key={row.date}
+                    key={row.interviewId}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                    <TableCell align="left">{row.company}</TableCell>
-                    <TableCell align="center">{row.location}</TableCell>
+                    <TableCell align="left">{row.companyName}</TableCell>
+                    <TableCell align="center">{row.duration}</TableCell>
                     <TableCell align="center">{row.position}</TableCell>
-                    <TableCell align="center">{row.date}</TableCell>
-                    <TableCell align="center">{row.result}</TableCell>
+                    <TableCell align="center">{row.startTime}</TableCell>
+                    <TableCell align="center">{row.endTime}</TableCell>
+                    <TableCell align="center">{row.interviewResult}</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>

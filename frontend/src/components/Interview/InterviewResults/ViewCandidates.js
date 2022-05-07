@@ -96,7 +96,7 @@ function ViewCandidates(props) {
                     <Button
                         variant="contained"
                         color="default"
-                        onClick={seeResultsOfCandidate}
+                        onClick={seeResultsOfCandidate(row.username)}
                         > See Results
                     </Button>
                     </TableCell>

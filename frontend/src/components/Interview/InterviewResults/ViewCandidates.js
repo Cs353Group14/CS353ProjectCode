@@ -14,21 +14,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {InterviewResultAPI} from './InterviewResultAPI'
 
-function createData(name) {
-    return { name };
-  }
-  /*
-  const rows = [
-    createData('Name1'),
-    createData('Name2'),
-    createData('Name3'),
-    createData('Name4'),
-    createData('Name5'),
-    createData('Name6'),
-    createData('Name7'),
-    createData('Name8')
-  ];
-  */
   function seeResultsOfCandidate()
   {
     window.location.href = "http://localhost:3000/ResultOfCandidate";
@@ -96,7 +81,7 @@ function ViewCandidates(props) {
                     <Button
                         variant="contained"
                         color="default"
-                        onClick={seeResultsOfCandidate(row.username)}
+                        onClick={() => seeResultsOfCandidate(row.username)}
                         > See Results
                     </Button>
                     </TableCell>

@@ -49,7 +49,7 @@ export class AttendInterviewAPI {
     }
 
     async getCompany(interviewID: number): Promise<companyModel> {
-        const response = await axios.get("/getCompanyofInterview" + interviewID);
+        const response = await axios.get("/getCompanyofInterview/" + interviewID);
         return response.data;
     }
 

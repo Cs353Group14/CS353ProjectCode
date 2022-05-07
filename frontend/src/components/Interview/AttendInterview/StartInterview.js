@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from 'prop-types';
 import NavBar from "../../NavBar/NavBar";
 import Autocomplete from '@mui/material/Autocomplete';
@@ -11,21 +11,28 @@ function startInterview()
 {
     window.location.href = "http://localhost:3000/AttendInterview";
 }
+
+
 function StartInterview(props) {
 //Get interview
-let interviewID = localStorage.getItem('interviewID');
+let interviewID = localStorage.getItem('startInterview');
 const attendInterviewAPI = new AttendInterviewAPI();
 
-let company =  attendInterviewAPI.getCompany(interviewID);
-let interview =  attendInterviewAPI.getInterview(interviewID);
-console.log(company);
-console.log(interview);
+const[comp, setComp] = useState([]);
+const[inter, setInter] = useState([]);
 
-  let isSet = localStorage.getItem('interviewID');
-  const [username, setUsername] = React.useState('');
-  let location = "Company location";
-  let position = "Position";
-  let duration = "234 min";
+
+    function fetchInterview() {
+        attendInterviewAPI.getCompany(interviewID).then(data => {
+            setComp(data)});;
+        attendInterviewAPI.getInterview(interviewID).then(data => {
+            setInter(data)});;
+
+    }
+    
+    useEffect(() => {
+        fetchInterview();
+    },[]);
 
   async function handleSubmit() {
 
@@ -58,14 +65,14 @@ console.log(interview);
                 <Grid item xs={6}>
                     <Grid container  direction="row" justifyContent="center" alignItems="center">
                         <Typography variant="h4" component="h4">
-                        {company}
+                        {comp.name}
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid item xs={6}>
                     <Grid container  direction="row" justifyContent="center" alignItems="center">
                         <Typography variant="h4" component="h4">
-                            {location}
+                            {comp.location}
                         </Typography>
                     </Grid>
                 </Grid>
@@ -78,14 +85,14 @@ console.log(interview);
                 <Grid item xs={6}>
                     <Grid container  direction="row" justifyContent="center" alignItems="center">
                         <Typography variant="h5" component="h5">
-                            {position}
+                            {inter.position}
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid item xs={6}>
                     <Grid container  direction="row" justifyContent="center" alignItems="center">
                         <Typography variant="h5" component="h5">
-                            {duration}
+                            {inter.duration} min
                         </Typography>
                     </Grid>
                 </Grid>
@@ -101,7 +108,7 @@ console.log(interview);
                     <Button
                         variant="contained"
                         color="secondary"
-                        onClick= {startInterview}
+                        onClick= {()=> startInterview}
                         > START
                     </Button>
                     </Grid>

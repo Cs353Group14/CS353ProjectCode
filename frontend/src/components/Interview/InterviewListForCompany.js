@@ -13,10 +13,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {InterviewAPI} from './InterviewAPI'
-
-function createData(position, dateCreated) {
-    return { position, dateCreated };
-  }
   
   function seeCandidates(id)
   {
@@ -27,7 +23,7 @@ function createData(position, dateCreated) {
   }  
 
 function InterviewListForCompany(props) {
-    let interviewList = [];
+
     const[rows, setRows] = useState([]);
     const interviewAPI = new InterviewAPI();
 

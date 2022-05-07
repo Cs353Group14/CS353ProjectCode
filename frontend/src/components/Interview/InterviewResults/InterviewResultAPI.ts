@@ -32,7 +32,7 @@ export interface UpdateAttend{
 export class InterviewResultAPI {
 
     async getCandidiates(interviewID: number): Promise<Participant[]> {
-        const response = await axios.get("/getUsersAttendingToInterview"+ interviewID);
+        const response = await axios.get("/getUsersAttendingToInterview/"+ interviewID);
         return response.data;
     }
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from 'prop-types';
 import NavBar from "../../NavBar/NavBar";
 import Autocomplete from '@mui/material/Autocomplete';
@@ -12,11 +12,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import {InterviewResultAPI} from './InterviewResultAPI'
 
 function createData(name) {
     return { name };
   }
-  
+  /*
   const rows = [
     createData('Name1'),
     createData('Name2'),
@@ -27,6 +28,7 @@ function createData(name) {
     createData('Name7'),
     createData('Name8')
   ];
+  */
   function seeResultsOfCandidate()
   {
     window.location.href = "http://localhost:3000/ResultOfCandidate";
@@ -37,7 +39,22 @@ function ViewCandidates(props) {
   const [position, setPosition] = React.useState('');
   const [timeUnit, setTimeUnit] = useState('min');
   const [duration, setDuration] = useState(timeUnit[0].value);
-  let interviewId = localStorage.getItem('interviewID');
+  let interviewId = localStorage.getItem('Candidates_Of_Interview');
+
+  const[rows, setRows] = useState([]);
+    const interviewResultAPI = new InterviewResultAPI();
+
+    function fetchCandidates() {
+        interviewResultAPI.getCandidiates(interviewId).then(data => {
+            setRows(data)});;
+            console.log(rows)
+
+    }
+    
+    useEffect(() => {
+        fetchCandidates();
+    },[]);
+
   
     return(
         <div>
@@ -64,7 +81,7 @@ function ViewCandidates(props) {
             <Table  aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    <TableCell align="right">Name</TableCell>
+                    <TableCell align="left">Name</TableCell>
                     <TableCell align="right">See results</TableCell>
                 </TableRow>
                 </TableHead>

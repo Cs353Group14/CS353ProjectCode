@@ -34,7 +34,7 @@ export class InterviewAPI {
     }
 
     async getInterviewListCompany(): Promise<interviewModelForCompany[]> {
-        const response = await axios.get("/getInterviewsForCompany/" + localStorage.getItem('userId'));
+        const response = await axios.get("/getInterviewsOfCompanyNew/" + localStorage.getItem('userId'));
         return response.data;
     }
 

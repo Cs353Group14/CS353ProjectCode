@@ -35,9 +35,6 @@ export default function FinishedContests() {
 
     }
 
-    useEffect(() => {
-        fetchFinishedContests();
-    },[]);
 
     async function handleStart() {
         //await contestApi.addCoderToContest(rows[currentSubIndex].contest_id);

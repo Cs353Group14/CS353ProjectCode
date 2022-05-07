@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import NavBar from "../NavBar/NavBar";
 import Autocomplete from '@mui/material/Autocomplete';
@@ -18,28 +18,29 @@ function createData(position, dateCreated) {
     return { position, dateCreated };
   }
   
-  const rows = [
-    createData('Position1', '12/12/2021'),
-    createData('Position2', '12/11/2021'),
-    createData('Position3', '12/10/2021'),
-    createData('Position4', '12/09/2021'),
-    createData('Position5', '12/08/2021'),
-    createData('Position6', '12/07/2021'),
-  ];
-  function seeCandidates()
+  function seeCandidates(id)
   {
+    console.log(id);
+    localStorage.setItem('Candidates_Of_Interview', id);
     window.location.href = "http://localhost:3000/ViewCandidates";
-  }
+
+  }  
 
 function InterviewListForCompany(props) {
     let interviewList = [];
-
+    const[rows, setRows] = useState([]);
     const interviewAPI = new InterviewAPI();
-    if(localStorage.getItem('userType') === 1)
-    {
-        interviewList = interviewAPI.getInterviewListCompany();
-        console.log(interviewList);
+
+    function fetchInterviews() {
+        interviewAPI.getInterviewListCompany().then(data => {
+            setRows(data)});;
+
     }
+    
+    useEffect(() => {
+        fetchInterviews();
+    },[]);
+
   
     return(
         <div>
@@ -67,23 +68,24 @@ function InterviewListForCompany(props) {
                 <TableHead>
                 <TableRow>
                     <TableCell align="left">Position</TableCell>
-                    <TableCell align="center">Date Created</TableCell>
+                    <TableCell align="center">Duration</TableCell>
                     <TableCell align="right">See Candidates</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {interviewList.map((row) => (
+                {rows.map((row) => (
                     <TableRow
-                    key={row.dateCreated}
+                    key = {row.interview_id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                     <TableCell align="left">{row.position}</TableCell>
-                    <TableCell align="center">{row.dateCreated}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">{row.duration}</TableCell>
+                    <TableCell  id={row.interview_id} align="right">
                     <Button
                         variant="contained"
                         color="default"
-                        onClick={seeCandidates}
+                        id={row.interview_id}
+                        onClick={(e) => seeCandidates(row.interview_id)}
                         > See Candidates
                     </Button>
                     </TableCell>

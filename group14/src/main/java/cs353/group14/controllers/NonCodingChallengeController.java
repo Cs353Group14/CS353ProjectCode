@@ -1,6 +1,7 @@
 package cs353.group14.controllers;
 
 
+import cs353.group14.CodingChallenge;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.OtherAnswerResponse;
 import cs353.group14.Reply;
@@ -86,6 +87,11 @@ public class NonCodingChallengeController {
     @GetMapping("/getNonCodingChallengeAuthorCategory/{nonChallengeId}")
     public NonCodingChallengeAuthorCategoryResponse getNonCodingChallengeAuthorResponse(@PathVariable int nonChallengeId){
         return nonCodingChallengeService.getNonCodingChallengeAuthorResponse(nonChallengeId);
+    }
+
+    @PutMapping("/createAndAddNonQuestionToInterview/{interviewId}/{companyId}")
+    public int createAndAddNonQuestionToInterview (@PathVariable int interviewId, @PathVariable int companyId,@RequestBody NonCodingChallenge noncodingChallenge){
+        return nonCodingChallengeService.createAndAddNonQuestionToInterview(interviewId, companyId, noncodingChallenge);
     }
 
 

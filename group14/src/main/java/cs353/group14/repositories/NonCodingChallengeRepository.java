@@ -363,5 +363,36 @@ public class NonCodingChallengeRepository {
         return  new NonCodingChallengeAuthorCategoryResponse(categoryList,author);
     }
 
+    public int createAndAddNonQuestionToInterview(int interviewId, int companyId, NonCodingChallenge noncodingChallenge){
+        try {
+            int nonCodingChallengeId = insertNonCodingChallengeTable(noncodingChallenge);
+            addNonCodingQuestionToInterview(interviewId,nonCodingChallengeId,companyId );
+            return nonCodingChallengeId;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+
+
+    }
+
+    public void addNonCodingQuestionToInterview(int interview_id,int non_challenge_id, int company_id)  {
+        try {
+            String query = "INSERT INTO made_of(non_challenge_id, interview_id,user_id) VALUES (?,?,?) ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+
+            preparedStatement.setInt(1, non_challenge_id);
+            preparedStatement.setInt(2, interview_id);
+            preparedStatement.setInt(3, company_id);
+
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+    }
+
 
 }

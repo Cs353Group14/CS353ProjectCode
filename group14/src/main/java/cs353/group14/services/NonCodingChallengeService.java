@@ -71,4 +71,8 @@ public class NonCodingChallengeService {
     {
         return noncodingChallengeRepository.getNonCodingChallengeAuthorResponse(challengeId);
     }
+
+    public int createAndAddNonQuestionToInterview(int interviewId, int companyId, NonCodingChallenge noncodingChallenge){
+        return noncodingChallengeRepository.createAndAddNonQuestionToInterview(interviewId,companyId, noncodingChallenge);
+    }
 }

@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {InterviewAPI} from './InterviewAPI'
+import moment from "moment";
 
 function startInterview(invivtaionCode, id)
 {
@@ -30,6 +31,8 @@ function NewInterviewListForCoder(props) {
     useEffect(() => {
         fetchNewInterviews();
     },[]);
+
+    
 
   
     return(
@@ -66,7 +69,9 @@ function NewInterviewListForCoder(props) {
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
+                        {
+                        rows.map((row) => (
+                        
                             <TableRow
                             key={row.interviewId}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -77,12 +82,18 @@ function NewInterviewListForCoder(props) {
                             <TableCell align="center">{row.startTime}</TableCell>
                             <TableCell align="center">{row.endTime}</TableCell>
                             <TableCell align="right">
-                            <Button
+                                { (new Date()) >= (new Date(row.startTime) ) &&
+                                    <Button
                                 variant="contained"
                                 color="default"
                                 onClick={() => startInterview(row.username, row.interviewId)}
                                 > Start
                             </Button>
+                                }
+                                { (new Date()) < (new Date(row.startTime) ) && 
+                                <div> Not started yet</div>
+                                }
+                            
                             </TableCell>
                             </TableRow>
                         ))}

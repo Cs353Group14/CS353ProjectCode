@@ -3,6 +3,7 @@ package cs353.group14.services;
 import cs353.group14.*;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.repositories.UserRepository;
+import cs353.group14.responses.IdUserNameandNameResponse;
 import cs353.group14.responses.LoginResponse;
 import cs353.group14.responses.UserNameandNameResponse;
 import org.springframework.stereotype.Service;
@@ -129,5 +130,11 @@ public class UserService {
     public UserNameandNameResponse getUserNameandName(String username)
     {
         return userRepository.getUserNameandName(username);
+    }
+
+
+    public IdUserNameandNameResponse getIdUserNameandName(String username)
+    {
+        return userRepository.getIdUserNameandName(username);
     }
 }

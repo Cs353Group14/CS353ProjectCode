@@ -22,6 +22,10 @@ public class CodingChallengeService {
         return codingChallengeRepository.createCodingChallenge(editorId,codingChallenge);
     }
 
+    public int createAndAddQuestionToInterview(int interviewId,int company_id, int time_limit, CodingChallenge codingChallenge){
+        return codingChallengeRepository.createAndAddQuestionToInterview( interviewId, company_id,  time_limit,  codingChallenge);
+    }
+
     public void updateDifficultyCodingChallenge( int challenge_id, String difficulty)
     {
         codingChallengeRepository.updateDifficultyCodingChallenge(challenge_id,difficulty);

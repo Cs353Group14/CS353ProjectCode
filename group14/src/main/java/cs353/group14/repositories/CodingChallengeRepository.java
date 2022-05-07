@@ -2,7 +2,6 @@ package cs353.group14.repositories;
 
 import cs353.group14.CodingChallenge;
 import cs353.group14.Company;
-import cs353.group14.UserType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
@@ -25,6 +24,37 @@ public class CodingChallengeRepository {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public int createAndAddQuestionToInterview(int interviewId,int company_id, int time_limit, CodingChallenge codingChallenge){
+        try {
+            int codingChallengeId = insertCodingChallengeTable(codingChallenge);
+            addCodingQuestionToInterview(interviewId,codingChallengeId,company_id, time_limit );
+            return codingChallengeId;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+
+    }
+
+    public void addCodingQuestionToInterview(int interview_id,int challenge_id, int company_id, int time_limit)  {
+        try {
+            String query = "INSERT INTO includes(challenge_id, interview_id,company_id,time_limit) VALUES (?,?,?,?) ";
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+
+            preparedStatement.setInt(1, challenge_id);
+            preparedStatement.setInt(2, interview_id);
+            preparedStatement.setInt(3, company_id);
+            preparedStatement.setInt(4, time_limit);
+
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
     }
 
     public void insertCreatesTable(int editorId, int codingChallengeId)throws SQLException  {

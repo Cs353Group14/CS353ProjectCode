@@ -40,6 +40,11 @@ public class CodingChallengeController {
          return codingChallengeService.createAtCodingChallenge(editorId,codingChallenge);
     }
 
+    @PutMapping("/createAndAddQuestionToInterview/{interviewId}/{company_id}/{time_limit}")
+    public int createAndAddQuestionToInterview (@PathVariable int interviewId, @PathVariable int company_id,@PathVariable int time_limit,@RequestBody  CodingChallenge codingChallenge){
+        return codingChallengeService.createAndAddQuestionToInterview(interviewId, company_id,  time_limit,  codingChallenge);
+    }
+
     @GetMapping("/getCodingChallenge/{challengeId}")
     public CodingChallenge getCodingChallenge(@PathVariable int challengeId){
         return codingChallengeService.getCodingChallenge(challengeId);

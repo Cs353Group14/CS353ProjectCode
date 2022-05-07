@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from 'prop-types';
 import NavBar from "../../NavBar/NavBar";
 import {  Typography, Button, Box} from "@material-ui/core";
@@ -29,15 +29,46 @@ function createData(type, title) {
 
 function AttendInterview(props) {
 
+    let interviewID = localStorage.getItem('startInterview');
+    const attendInterviewAPI = new AttendInterviewAPI();
+
+    const[nonCoding, setNonCoding] = useState([]);
+    const[coding, setCoding] = useState([]);
+
+    function fetchInterviewQuestions() {
+        attendInterviewAPI.getNonCodingQuestionsOfInterview(interviewID).then(data => {
+            setNonCoding(data)});;
+        attendInterviewAPI.getCodingQuestionsOfInterview(interviewID).then(data => {
+            setCoding(data)});;
+
+    }
+    
+    useEffect(() => {
+        fetchInterviewQuestions();
+    },[]);
+
 
   
-  async function handleSubmit() {
+    function handleSubmit() 
+    {
+        localStorage.setItem('menuId', 12);
+        window.location.href = "http://localhost:3000/home";
+    }
 
-    window.location.href = "http://localhost:3000/home";
+    function solveCodingQuestion(questionId)
+    {
+        //localStorage.setItem('menuId', 1);
+        localStorage.setItem('codingId', questionId );
+        window.location.href = "http://localhost:3000/coding-challenges/"+questionId;
 
-}
+    }
 
-
+    function solveNonCodingQuestion(questionId)
+    {
+       /// localStorage.setItem('menuId', 2);
+        localStorage.setItem('nonCodingId', questionId );
+        window.location.href = "http://localhost:3000/non-coding-challenges/" +questionId;;
+    }
 
     return(
         <div>
@@ -51,14 +82,15 @@ function AttendInterview(props) {
             >
                 <Grid item xs={6} >
                     <Grid container  direction="row" justifyContent="fle" alignItems="center">
-                    <Countdown date={Date.now() + 20000} />
+                    <Countdown date={Date.now() + 1000* 60* localStorage.getItem('interviewDuration')} />
                     </Grid>
                 </Grid>
                 <Grid item xs={6}>
                         <Grid container justifyContent="flex-end">
                         <Box  m={2}>
                         <Button  variant="contained"
-                                color="primary" >Finish
+                                color="primary" 
+                                onClick={()=> handleSubmit()}>Finish
                                 </Button>
                             </Box>
                             </Grid>
@@ -72,9 +104,25 @@ function AttendInterview(props) {
                 <TableHead>
                 </TableHead>
                 <TableBody>
-                {rows.map((row) => (
+                {nonCoding.map((row) => (
                     <TableRow
-                    key={row.title}
+                    key={row.non_challenge_id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                    <TableCell component="th" scope="row">
+                                <Typography variant="h5" component="div">
+                                {row.title}
+                                </Typography>
+                                <Typography variant="body2">
+                                Non coding question
+                                </Typography>
+                                <Button size="small" onClick={()=> solveNonCodingQuestion(row.non_challenge_id)}>Solve</Button>
+                    </TableCell>
+                    </TableRow>
+                ))}
+                {coding.map((row) => (
+                    <TableRow
+                    key={row.challenge_id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                     <TableCell component="th" scope="row">
@@ -83,19 +131,15 @@ function AttendInterview(props) {
                                 {row.title}
                                 </Typography>
                                 <Typography variant="body2">
-                                {row.type}
+                                Coding question
                                 </Typography>
-                                <Button size="small">Solve</Button>
-                    </TableCell>
-                    <TableCell align="center">
-                        Solved
+                                <Button size="small" onClick={()=> solveCodingQuestion(row.challenge_id)}>Solve</Button>
                     </TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
             </Table>
         </TableContainer>
-            
         </div>
     );
     

@@ -7,10 +7,7 @@ import { Box, FormControl, TextField, MenuItem, Typography, Button, Select} from
 import Grid from '@mui/material/Grid';
 import { AttendInterviewAPI } from "./AttendInterviewAPI";
 
-function startInterview()
-{
-    window.location.href = "http://localhost:3000/AttendInterview";
-}
+
 
 
 function StartInterview(props) {
@@ -34,6 +31,11 @@ const[inter, setInter] = useState([]);
         fetchInterview();
     },[]);
 
+    function startInterview()
+    {
+        localStorage.setItem('interviewDuration', inter.duration)
+        window.location.href = "http://localhost:3000/AttendInterview";
+    }
 
 
     return(

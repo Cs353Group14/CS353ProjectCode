@@ -54,12 +54,12 @@ export class AttendInterviewAPI {
     }
 
     async getNonCodingQuestionsOfInterview(interviewID: number): Promise<NonCodingQuestionsOfInterviewModel[]> {
-        const response = await axios.put("/createNonCodingChallenge/" + localStorage.getItem('userId'), interviewID);
+        const response = await axios.get("/getInterviewNonCodingQuestions/" + interviewID);
         return response.data;
     }
 
     async getCodingQuestionsOfInterview(interviewID: number): Promise<CodingQuestionsOfInterviewModel[]> {
-        const response = await axios.put("/createNonCodingChallenge/" + localStorage.getItem('userId'), interviewID);
+        const response = await axios.get("/getInterviewCodingQuestions/" +  interviewID);
         return response.data;
     } 
 }

@@ -85,7 +85,7 @@ function CreateCodingChallenge(props) {
      publicity: publicity 
     }
 
-    const challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
+    const challengeId = await createCodingChallengeAPI.addCodingQuestionToInterview(newQuestion);
 
     let categoryArray =[];
 

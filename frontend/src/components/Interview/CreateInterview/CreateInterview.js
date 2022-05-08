@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from 'prop-types';
 import NavBar from "../../NavBar/NavBar";
 import Autocomplete from '@mui/material/Autocomplete';
@@ -13,7 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {CreateNewInterviewAPI} from './CreateInterviewAPI'
-
+import { AttendInterviewAPI } from "../AttendInterview/AttendInterviewAPI";
 
 const timeUnits = [
   {
@@ -41,19 +41,41 @@ function createData(type, title) {
 
 function CreateInterview(props) {
 
-  const [position, setPosition] = React.useState('');
-  const [timeUnit, setTimeUnit] = useState('min');
-  const [duration, setDuration] = useState(timeUnit[0].value);
+  const [position, setPosition] = React.useState(' ');
+  const [timeUnit, setTimeUnit] = useState(timeUnits[0].value);
+  const [duration, setDuration] = useState(0);
   const createNewInterview = new CreateNewInterviewAPI();
   let durationInMin = 0;
   let interviewId;
   let isSet = localStorage.getItem('interviewID');
 
+  let interviewID = localStorage.getItem('interviewID');
+    const attendInterviewAPI = new AttendInterviewAPI();
+
+    const[nonCoding, setNonCoding] = useState([]);
+    const[coding, setCoding] = useState([]);
+
+    function fetchInterviewQuestions() {
+        if(isSet > 0)
+       {
+         attendInterviewAPI.getNonCodingQuestionsOfInterview(interviewID).then(data => {
+            setNonCoding(data)});;
+        attendInterviewAPI.getCodingQuestionsOfInterview(interviewID).then(data => {
+            setCoding(data)});;
+        }
+
+    }
+    
+    useEffect(() => {
+        fetchInterviewQuestions();
+    },[]);
+
  async function addCodingQuestions()
   {
     localStorage.setItem('interviewID', interviewId);
-    window.location.href = "http://localhost:3000/CreateCodingChallenge";
-    if(!isSet)
+    localStorage.setItem('addingToInterview', true);
+    
+    if(isSet === null)
     {
         const newInterview = {
             user_id: localStorage.getItem('userId'),
@@ -62,17 +84,21 @@ function CreateInterview(props) {
             position: position
           }
           interviewId = await createNewInterview.createInterview(newInterview);
-          alert.log(interviewId);
-          localStorage.setItem('interviewID', interviewId);
+          alert(interviewId);
+          await localStorage.setItem('interviewID', interviewId);
           console.log(interviewId);
+          isSet = interviewId
     }
+
+    window.location.href = "http://localhost:3000/CreateCodingChallenge";
+
 
   }
 
   async function addNonCodingQuestions()
   {
     localStorage.setItem('interviewID', interviewId);
-    window.location.href = "http://localhost:3000/CreateNonCodingQuestion";
+    localStorage.setItem('addingToInterview', true);
     if(!isSet)
     {
         const newInterview = {
@@ -85,6 +111,9 @@ function CreateInterview(props) {
           localStorage.setItem('interviewID', interviewId);
           console.log(interviewId);
     }
+
+    window.location.href = "http://localhost:3000/CreateNonCodingQuestion";
+
 
   }
 
@@ -242,13 +271,38 @@ function CreateInterview(props) {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {rows.map((row) => (
+                {nonCoding.map((row) => (
                     <TableRow
-                    key={row.title}
+                    key={row.non_challenge_id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                     <TableCell component="th" scope="row">
-                        {row.type}
+                        Non Coding Question
+                    </TableCell>
+                    <TableCell align="right">{row.title}</TableCell>
+                    <TableCell align="right">
+                    <Button
+                        variant="contained"
+                        color="default"
+                        > See Details
+                    </Button>
+                    </TableCell>
+                    <TableCell align="right">
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        > Remove
+                    </Button>
+                    </TableCell>
+                    </TableRow>
+                ))}
+                {coding.map((row) => (
+                    <TableRow
+                    key={row.challenge_id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                    <TableCell component="th" scope="row">
+                        Coding question
                     </TableCell>
                     <TableCell align="right">{row.title}</TableCell>
                     <TableCell align="right">

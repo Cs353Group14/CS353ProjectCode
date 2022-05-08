@@ -483,7 +483,7 @@ public class ContestRepository {
         String name = "";
 
         try{
-            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users ORDER BY deadline DESC";
+            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users ORDER BY deadline ASC";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
@@ -556,7 +556,7 @@ public class ContestRepository {
         String name = "";
 
         try{
-            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users where user_id = ? ORDER BY deadline DESC";
+            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users where user_id = ? ORDER BY deadline ASC";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,editorId);

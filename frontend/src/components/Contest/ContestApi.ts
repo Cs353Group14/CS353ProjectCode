@@ -16,6 +16,13 @@ export interface ContestResult{
     point: number
 }
 
+export interface ContestDeadlineResponse{
+    contest_id:number;
+    title:string;
+    deadlinePassed: boolean;
+    editorName:string;
+}
+
 export class ContestApi {
     async createContest(contest: ContestModel): Promise<number> {
         const response = await axios.put(`/createContest/${localStorage.getItem('userId')}`, contest);
@@ -77,6 +84,21 @@ export class ContestApi {
 
     async getContesOrder() : Promise<ContestResult[]> {
         const response = await axios.get(`/getContestOrder/${localStorage.getItem('contestId')}`);
+        return response.data;
+    }
+
+    async getAllContests() : Promise<ContestDeadlineResponse[]> {
+        const response = await axios.get(`/getAllContests`);
+        return response.data;
+    }
+
+    async getSponsoredContests() : Promise<ContestDeadlineResponse[]> {
+        const response = await axios.get(`/getSponsoredContests/${localStorage.getItem('userId')}`);
+        return response.data;
+    }
+
+    async getEditorsContests() : Promise<ContestDeadlineResponse[]> {
+        const response = await axios.get(`/getContestsForEditor/${localStorage.getItem('userId')}`);
         return response.data;
     }
 

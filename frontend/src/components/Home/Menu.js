@@ -98,6 +98,21 @@ export default function Menu(props) {
                 <br/>
                 <Divider />
             </div>
+            <div hidden= {isUser(1)} >
+                <Button color="inherit" onClick={openAllContests}>All Contests</Button>
+                <br/>
+                <Divider />
+            </div>
+            <div hidden= {!isUser(2)} >
+                <Button color="inherit" onClick={openContests}>Sponsored Contests</Button>
+                <br/>
+                <Divider />
+            </div>
+            <div hidden= {!isUser(3)} >
+                <Button color="inherit" onClick={openContests}>My Contests</Button>
+                <br/>
+                <Divider />
+            </div>
             <div hidden= {!isUser(1)} >
                 <Button color="inherit" onClick={openPastInterviews}>Past Interviews</Button>
                 <br/>
@@ -113,6 +128,7 @@ export default function Menu(props) {
                 <br/>
                 <Divider />
             </div>
+            
 
         </div>
     );
@@ -186,6 +202,16 @@ export default function Menu(props) {
     }
     const openListOfInterviews = () => {
         localStorage.setItem('menuId', 13);
+        window.location.href = "http://localhost:3000/home";
+    }
+
+    const openAllContests = () => {
+        localStorage.setItem('menuId', 14);
+        window.location.href = "http://localhost:3000/home";
+    }
+
+    const openContests = () => {
+        localStorage.setItem('menuId', 15);
         window.location.href = "http://localhost:3000/home";
     }
 

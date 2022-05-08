@@ -13,6 +13,8 @@ import NonCodingCardContainer from "../NonCodingChallenges/NonCodingCard/NonCodi
 import PastInterviewListForCoder from "../Interview/PastInterviewListForCoder";
 import InterviewListForCompany from "../Interview/InterviewListForCompany";
 import NewInterviewListForCoder from "../Interview/NewInterviewListForCoder";
+import AllContests from "../Contest/ContestTables/AllContests";
+import SponsoredContests from "../Contest/ContestTables/SponsoredContests";
 
 export default function HomePage() {
 
@@ -29,6 +31,8 @@ export default function HomePage() {
     const [pastInterviews, setPastInterviews] = useState(true);
     const [newInterviews, setNewInterviews] = useState(true);
     const [listOfInterviews, setListOfInterviews] = useState(true);
+    const [allContests, setAllContests] = useState(true);
+    const [contests, setContests] = useState(true);
 
 
 
@@ -47,6 +51,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         }
         else if(componentNumber == 2){
             setCodingChallengesHidded(true);
@@ -62,6 +68,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         } else if(componentNumber == 3){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -76,6 +84,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         } else if(componentNumber == 4){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -90,6 +100,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         } else if(componentNumber == 5){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -104,6 +116,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         }else if(componentNumber == 6){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -118,6 +132,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         }else if(componentNumber == 7){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -132,6 +148,8 @@ export default function HomePage() {
              setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         }else if(componentNumber == 8){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -146,6 +164,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         }else if(componentNumber == 9){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -160,6 +180,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         }else if(componentNumber == 10){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -174,6 +196,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         }
         else if(componentNumber == 11){
             setCodingChallengesHidded(true);
@@ -189,6 +213,8 @@ export default function HomePage() {
             setPastInterviews(false);
             setNewInterviews(true);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         }
         else if(componentNumber == 12){
             setCodingChallengesHidded(true);
@@ -204,6 +230,8 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(false);
             setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
         }
         else if(componentNumber == 13){
             setCodingChallengesHidded(true);
@@ -219,6 +247,42 @@ export default function HomePage() {
             setPastInterviews(true);
             setNewInterviews(true);
             setListOfInterviews(false);
+            setAllContests(true);
+            setContests(true);
+        }
+        else if(componentNumber == 14){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
+            setCreateContest(true);
+            setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
+            setListOfInterviews(true);
+            setAllContests(false);
+            setContests(true);
+        }
+        else if(componentNumber == 15){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
+            setCreateContest(true);
+            setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
+            setListOfInterviews(true);
+            setAllContests(true);
+            setContests(false);
         }
     }
 
@@ -259,7 +323,13 @@ export default function HomePage() {
             <div hidden = {finishedContests} >
                 <FinishedContests />
             </div>
-            <div hidden = {pastInterviews} >
+            <div hidden = {allContests} >
+                <AllContests />
+            </div>
+            <div hidden = {contests} >
+                <SponsoredContests />
+            </div>           
+             <div hidden = {pastInterviews} >
                 <PastInterviewListForCoder />
             </div>
             <div hidden = {newInterviews} >

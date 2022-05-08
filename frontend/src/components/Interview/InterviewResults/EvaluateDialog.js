@@ -6,7 +6,7 @@ import { getThemeProps } from "@material-ui/styles";
 
 
 
-function EvaluateDialog({open, handleClose}) {
+function EvaluateDialog({open, handleSubmit, handleClose}) {
 
   return (
     <Dialog
@@ -34,7 +34,7 @@ function EvaluateDialog({open, handleClose}) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
   );

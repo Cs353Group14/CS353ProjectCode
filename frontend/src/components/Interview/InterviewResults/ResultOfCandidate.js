@@ -50,20 +50,20 @@ function ResultOfCandidate(props) {
 
   function seeNonCodingQuestionSolution(id )
   {
-//codingId
     localStorage.setItem('nonCodingId', id);
-    localStorage.setItem()
   }
 
   function seeCodingQuestionSolution(id)
   {
-      
+    localStorage.setItem('codingId', id);
   }
-  async function handleSubmit() {
+   function handleSubmit()
+   {
 
     window.location.href = "http://localhost:3000/home";
 
-}
+
+  }
 
 //Handle dialogs
 const [openDialogName, setOpenDialog] = React.useState(null);
@@ -143,7 +143,7 @@ const closeDialog = () => {
                 </TableBody>
             </Table>
         </TableContainer>
-        <EvaluateDialog open={openDialogName === true} handleClose={closeDialog}></EvaluateDialog>
+        <EvaluateDialog open={openDialogName === true} handleClose={closeDialog} handleSubmit={handleSubmit}></EvaluateDialog>
         </div>
     );
     

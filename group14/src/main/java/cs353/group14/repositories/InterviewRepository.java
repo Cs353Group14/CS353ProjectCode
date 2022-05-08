@@ -122,7 +122,7 @@ public class InterviewRepository {
 
     public void changeAttendResult(int interviewId, String result , int userId){
         try {
-            String updateAttend = "UPDATE attend SET interview_result = ? where interview_id = ? and user_id = ?";
+            String updateAttend = "UPDATE attend SET interview_result = ? where interview_id = ? and coder_id = ?";
             PreparedStatement updateAttendStmt = ConnectionSingle.getConnection().prepareStatement(updateAttend);
             updateAttendStmt.setString(1,result);
             updateAttendStmt.setInt(2,interviewId);

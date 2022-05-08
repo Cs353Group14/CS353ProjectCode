@@ -14,20 +14,20 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {InterviewResultAPI} from './InterviewResultAPI'
 
-  function seeResultsOfCandidate()
-  {
-    window.location.href = "http://localhost:3000/ResultOfCandidate";
-  }
-
+  
 function ViewCandidates(props) {
 
   const [position, setPosition] = React.useState('');
   const [timeUnit, setTimeUnit] = useState('min');
   const [duration, setDuration] = useState(timeUnit[0].value);
+
   let interviewId = localStorage.getItem('Candidates_Of_Interview');
 
   const[rows, setRows] = useState([]);
     const interviewResultAPI = new InterviewResultAPI();
+  
+      const userId = interviewResultAPI.getCandidate('akiiin');
+      console.log(userId);
 
     function fetchCandidates() {
         interviewResultAPI.getCandidiates(interviewId).then(data => {
@@ -35,6 +35,17 @@ function ViewCandidates(props) {
             console.log(rows)
 
     }
+
+    function seeResultsOfCandidate(username)
+    {
+
+    //console.log(username);
+      const userId = interviewResultAPI.getCandidate(username).then(data => {
+        console.log(data);
+        localStorage.setItem('Candidate', data.id ) });;;
+        window.location.href = "http://localhost:3000/ResultOfCandidate";
+    }
+
     
     useEffect(() => {
         fetchCandidates();
@@ -81,7 +92,7 @@ function ViewCandidates(props) {
                     <Button
                         variant="contained"
                         color="default"
-                        onClick={() => seeResultsOfCandidate(row.username)}
+                        onClick={() => seeResultsOfCandidate(row.userName)}
                         > See Results
                     </Button>
                     </TableCell>

@@ -86,7 +86,7 @@ function PastInterviewListForCoder(props) {
                     <TableCell align="center">{row.position}</TableCell>
                     <TableCell align="center">{row.startTime}</TableCell>
                     <TableCell align="center">{row.endTime}</TableCell>
-                    <TableCell align="center">{row.interviewResult}</TableCell>
+                    <TableCell align="center">{row.interviewResult && row.interviewResult}{!row.interviewResult && 'Not out yet'}</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>

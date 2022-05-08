@@ -4,10 +4,7 @@ import cs353.group14.CodingChallenge;
 import cs353.group14.Contest;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.db.ConnectionSingle;
-import cs353.group14.responses.CodingChallengeQueryResponse;
-import cs353.group14.responses.ContestResponse;
-import cs353.group14.responses.NonCodingChallengeQueryResponse;
-import cs353.group14.responses.UserNameAndPointResponse;
+import cs353.group14.responses.*;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -473,5 +470,39 @@ public class ContestRepository {
         {
             throwables.printStackTrace();
         }
+    }
+
+    public List<ContestDeadlineResponse> getAllContests() {
+
+        List<ContestDeadlineResponse> result = new ArrayList<>();
+
+        String title = "";
+        Timestamp deadline = null;
+        int contest_id = -1;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String name = "";
+
+        try{
+            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                contest_id =( rs.getInt("contest_id"));
+                title = ( rs.getString("title"));
+                deadline = ( rs.getTimestamp("deadline"));
+                name = ( rs.getString("name"));
+                ContestDeadlineResponse contest = new ContestDeadlineResponse(contest_id,title,timestamp.after(deadline),name);
+
+                result.add(contest);
+            }
+
+
+        }catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+
+        return result;
+
     }
 }

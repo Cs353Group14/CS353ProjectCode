@@ -3,6 +3,7 @@ package cs353.group14.controllers;
 import cs353.group14.CodingChallenge;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.responses.CodingChallengeQueryResponse;
+import cs353.group14.responses.ContestDeadlineResponse;
 import cs353.group14.responses.ContestResponse;
 import cs353.group14.responses.UserNameAndPointResponse;
 import cs353.group14.services.ContestService;
@@ -87,6 +88,11 @@ public class ContestController {
     @GetMapping("/getOldRegisteredContests/{userId}")
     public List<ContestResponse> getOldRegisteredContests(@PathVariable int userId){
         return contestService.getOldRegisteredContests(userId);
+    }
+
+    @GetMapping("/getAllContests")
+    public List<ContestDeadlineResponse> getAllContests(){
+        return contestService.getAllContests();
     }
 
 

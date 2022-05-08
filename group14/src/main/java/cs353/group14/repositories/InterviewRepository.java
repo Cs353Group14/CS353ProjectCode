@@ -122,10 +122,11 @@ public class InterviewRepository {
 
     public void changeAttendResult(int interviewId, String result , int userId){
         try {
-            String updateAttend = "UPDATE attend SET interview_result = ? where interview_id = ?";
+            String updateAttend = "UPDATE attend SET interview_result = ? where interview_id = ? and user_id = ?";
             PreparedStatement updateAttendStmt = ConnectionSingle.getConnection().prepareStatement(updateAttend);
             updateAttendStmt.setString(1,result);
             updateAttendStmt.setInt(2,interviewId);
+            updateAttendStmt.setInt(3,userId);
             updateAttendStmt.executeUpdate();
 
             String nInfo = "You found "+result+ " in one of the interviews check your interviews";

@@ -61,18 +61,30 @@ function CodingChallengeSolve(props) {
             if(data == 2 ){
                 alert("Time is up");
                 return;
+            } else {
+                const solution = {
+                    answer: code,
+                    programming_language: language,
+                    submission_id: -1,
+                    pass_result: 0,
+                    fail_result: 0,
+                    submission_time: "2022-01-01"
+                }
+                codingChallengeApi.submitSolutionToContest(solution);
+
             }
+        } else {
+            const solution = {
+                answer: code,
+                programming_language: language,
+                submission_id: -1,
+                pass_result: 0,
+                fail_result: 0,
+                submission_time: "2022-01-01"
+            }
+            codingChallengeApi.submitSolution(solution);
         }
 
-        const solution = {
-            answer: code,
-            programming_language: language,
-            submission_id: -1,
-            pass_result: 0,
-            fail_result: 0,
-            submission_time: "2022-01-01"
-        }
-        codingChallengeApi.submitSolution(solution);
     }
 
     return(

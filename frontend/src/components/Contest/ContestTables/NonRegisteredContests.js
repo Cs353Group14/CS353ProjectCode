@@ -30,11 +30,16 @@ export default function NonRegisteredContests() {
     const contestApi = new ContestApi();
 
     function fetchNonRegisteredFuruteContests() {
-        contestApi.getFutureContestsNotRegistered().then(data => setRows(data));
+        contestApi.getFutureContestsNotRegistered().then(data => {
+          setRows(data)
+          console.log(data);
+          console.log(rows);
+        });
 
     }
 
     useEffect(() => {
+      if(localStorage.getItem('menuId') == 7)
         fetchNonRegisteredFuruteContests();
     },[]);
 

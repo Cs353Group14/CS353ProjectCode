@@ -35,6 +35,7 @@ export default function RegisteredContests() {
     }
 
     useEffect(() => {
+      if(localStorage.getItem('menuId') == 8)
         fetchRegisteredFuruteContests();
     },[]);
 

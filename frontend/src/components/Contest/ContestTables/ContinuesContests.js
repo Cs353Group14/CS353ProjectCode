@@ -38,6 +38,7 @@ export default function ContinuesContests() {
     }
 
     useEffect(() => {
+      if(localStorage.getItem('menuId') == 9)
         fetchContinuesContests();
     },[]);
 
@@ -48,6 +49,11 @@ export default function ContinuesContests() {
         window.location.href = "http://localhost:3000/SolveContest";
         
         //fetchContinuesContests();
+    }
+
+    function handleLeaderBoard(){
+        localStorage.setItem('contestId', rows[currentSubIndex].contest_id);
+        window.location.href = "http://localhost:3000/contest";
     }
 
     const [open, setOpen] = React.useState(false);
@@ -129,6 +135,11 @@ export default function ContinuesContests() {
     <Button onClick={handleClose} color="primary">
         Cancel
     </Button>
+    <div>
+    <Button onClick={handleLeaderBoard} color="primary">
+        See LeaderBoard
+    </Button>
+    </div>
     <div hidden = {startHidden}>
     <Button onClick={handleStart} color="primary">
         Start

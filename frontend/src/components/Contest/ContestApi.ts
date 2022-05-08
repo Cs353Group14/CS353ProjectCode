@@ -11,6 +11,11 @@ export interface ContestModel {
     deadline: string,
 }
 
+export interface ContestResult{
+    userName: string,
+    point: number
+}
+
 export class ContestApi {
     async createContest(contest: ContestModel): Promise<number> {
         const response = await axios.put(`/createContest/${localStorage.getItem('userId')}`, contest);
@@ -27,21 +32,25 @@ export class ContestApi {
     }
 
     async getFutureContestsNotRegistered() : Promise<ContestModel[]> {
+        console.log('in non registered future');
         const response = await axios.get(`/getFutureContestsNotRegistered/${localStorage.getItem('userId')}`);
         return response.data;
     }
 
     async getFutureContestsRegistered() : Promise<ContestModel[]> {
+        console.log('in registered future');
         const response = await axios.get(`/getFutureContestsRegistered/${localStorage.getItem('userId')}`);
         return response.data;
     }
 
     async getAvailableRegisteredContests(): Promise<ContestModel[]> {
+        console.log('in registered continues');
         const response = await axios.get(`/getAvailableRegisteredContests/${localStorage.getItem('userId')}`);
         return response.data;
     }
 
     async getOldRegisteredContests(): Promise<ContestModel[]> {
+        console.log('in registered old');
         const response = await axios.get(`/getOldRegisteredContests/${localStorage.getItem('userId')}`);
         return response.data;
     }
@@ -58,6 +67,16 @@ export class ContestApi {
 
     async getContestStatus(contestId: number): Promise<number> {
         const response = await axios.get(`/getContestStatus/${localStorage.getItem('userId')}/${contestId}`);
+        return response.data;
+    }
+
+    async getContestDetails() : Promise<ContestModel> {
+        const response = await axios.get(`/getContest/${localStorage.getItem('contestId')}`);
+        return response.data;
+    }
+
+    async getContesOrder() : Promise<ContestResult[]> {
+        const response = await axios.get(`/getContestOrder/${localStorage.getItem('contestId')}`);
         return response.data;
     }
 

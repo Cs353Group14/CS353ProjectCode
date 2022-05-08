@@ -85,4 +85,12 @@ public class ContestService {
     public List<ContestDeadlineResponse> getAllContests() {
         return contestRepository.getAllContests();
     }
+
+    public List<ContestDeadlineResponse> getSponsoredContests(int companyId){
+        return contestRepository.getSponsoredContests(companyId);
+    }
+
+    public List<ContestDeadlineResponse> getContestsForEditor(int editorId){
+        return contestRepository.getContestsForEditor(editorId);
+    }
 }

@@ -95,6 +95,15 @@ public class ContestController {
         return contestService.getAllContests();
     }
 
+    @GetMapping("/getSponsoredContests/{companyId}")
+    public List<ContestDeadlineResponse> getSponsoredContests(@PathVariable int companyId){
+        return contestService.getSponsoredContests(companyId);
+    }
+
+    @GetMapping("/getContestsForEditor/{editorId}")
+    public List<ContestDeadlineResponse> getContestsForEditor(@PathVariable int editorId){
+        return contestService.getContestsForEditor(editorId);
+    }
 
 
 

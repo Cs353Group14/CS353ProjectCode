@@ -483,7 +483,7 @@ public class ContestRepository {
         String name = "";
 
         try{
-            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users";
+            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users ORDER BY deadline DESC";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
@@ -504,5 +504,78 @@ public class ContestRepository {
 
         return result;
 
+    }
+
+    public List<ContestDeadlineResponse> getSponsoredContests(int companyId) {
+        List<ContestDeadlineResponse> result = new ArrayList<>();
+
+        String title = "";
+        Timestamp deadline = null;
+        int contest_id = -1;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String name = "";
+
+        try{
+            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users" +
+                    " where exists (select * from sponsor where sponsor.user_id = ? and " +
+                    "sponsor.contest_id = contest.contest_id)";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,companyId);
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()){
+                contest_id =( rs.getInt("contest_id"));
+                title = ( rs.getString("title"));
+                deadline = ( rs.getTimestamp("deadline"));
+                name = ( rs.getString("name"));
+                ContestDeadlineResponse contest = new ContestDeadlineResponse(contest_id,title,timestamp.after(deadline),name);
+
+                result.add(contest);
+            }
+
+
+        }catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+
+
+
+        return result;
+    }
+
+    public List<ContestDeadlineResponse> getContestsForEditor(int editorId) {
+
+        List<ContestDeadlineResponse> result = new ArrayList<>();
+
+        String title = "";
+        Timestamp deadline = null;
+        int contest_id = -1;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String name = "";
+
+        try{
+            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users where user_id = ? ORDER BY deadline DESC";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,editorId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                contest_id =( rs.getInt("contest_id"));
+                title = ( rs.getString("title"));
+                deadline = ( rs.getTimestamp("deadline"));
+                name = ( rs.getString("name"));
+                ContestDeadlineResponse contest = new ContestDeadlineResponse(contest_id,title,timestamp.after(deadline),name);
+
+                result.add(contest);
+            }
+
+
+        }catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+
+        return result;
     }
 }

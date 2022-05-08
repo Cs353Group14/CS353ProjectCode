@@ -1,6 +1,7 @@
 package cs353.group14.controllers;
 
 import cs353.group14.*;
+import cs353.group14.common.MessageResponse;
 import cs353.group14.requests.LoginRequest;
 import cs353.group14.requests.ReferRequest;
 import cs353.group14.responses.IdUserNameandNameResponse;
@@ -23,9 +24,9 @@ public class UserController {
     }
 
     @PutMapping("/register-coder")
-    public void registerCoder(@RequestBody Coder coder){
+    public MessageResponse registerCoder(@RequestBody Coder coder){
             coder.setUserType( UserType.Coder);
-            userService.registerCoder(coder);
+            return userService.registerCoder(coder);
     }
 
     @PutMapping("/register-editor")

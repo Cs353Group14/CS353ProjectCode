@@ -1,6 +1,8 @@
 package cs353.group14.services;
 
 import cs353.group14.*;
+import cs353.group14.common.MessageResponse;
+import cs353.group14.common.MessageType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.repositories.UserRepository;
 import cs353.group14.responses.IdUserNameandNameResponse;
@@ -33,16 +35,16 @@ public class UserService {
         }
     }
 
-    public void registerCoder(Coder coder) {
+    public MessageResponse registerCoder(Coder coder) {
 
         int userId = register(coder);
 
         if(userId == -1){
             System.out.println("error");
-        return;
+        return new MessageResponse(MessageType.ERROR, "-1 olması ne anlma geliyorsa o");
         }
 
-        userRepository.insertCoder(userId, coder);
+        return userRepository.insertCoder(userId, coder);
 
     }
 

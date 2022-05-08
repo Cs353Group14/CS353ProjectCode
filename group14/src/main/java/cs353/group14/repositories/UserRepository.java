@@ -2,6 +2,8 @@ package cs353.group14.repositories;
 
 
 import cs353.group14.*;
+import cs353.group14.common.MessageResponse;
+import cs353.group14.common.MessageType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.requests.LoginRequest;
 import cs353.group14.responses.IdUserNameandNameResponse;
@@ -110,7 +112,7 @@ public class UserRepository {
     }
 
 
-    public void insertCoder(int userId, Coder coder)  {
+    public MessageResponse insertCoder(int userId, Coder coder)  {
         String sql = "Insert INTO coder(user_id,rating,points,position,place,birth_year) VALUES(?,?,?,?,?,?)";
 
         try {
@@ -124,8 +126,10 @@ public class UserRepository {
 
             insertPrepared.executeUpdate();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Login is successful");
+
+        } catch (SQLException exception) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 

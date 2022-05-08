@@ -1,6 +1,8 @@
 package cs353.group14.repositories;
 
 import cs353.group14.*;
+import cs353.group14.common.MessageResponse;
+import cs353.group14.common.MessageType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
@@ -56,7 +58,7 @@ public class NonCodingChallengeRepository {
         return keys.getInt(1);
     }
 
-    public void updateDifficultyNonCodingChallenge( int challenge_id, String difficulty)
+    public MessageResponse updateDifficultyNonCodingChallenge( int challenge_id, String difficulty)
     {
         try {
             String query = "UPDATE non_coding_challenge SET difficulty = ? where challenge_id = ?";
@@ -64,16 +66,15 @@ public class NonCodingChallengeRepository {
             preparedStatement.setString(1,difficulty);
             preparedStatement.setInt(2,challenge_id);
             int result = preparedStatement.executeUpdate();
-        }
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Update is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
 
     }
 
 
-    public void addCategoryNonCodingChallenge( int challenge_id, String category)
+    public MessageResponse addCategoryNonCodingChallenge( int challenge_id, String category)
     {
         try {
             String query = "INSERT INTO non_coding_challenge_categories( non_challenge_id,category) VALUES ( ?,?);";
@@ -81,17 +82,16 @@ public class NonCodingChallengeRepository {
             preparedStatement.setInt(1,challenge_id);
             preparedStatement.setString(2,category);
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
     }
 
 
 
 
-    public void removeCategoryNonCodingChallenge( int challenge_id, String category)
+    public MessageResponse removeCategoryNonCodingChallenge( int challenge_id, String category)
     {
         try {
             String query = "DELETE FROM non_coding_challenge_categories where non_challenge_id = ? and category = ?";
@@ -99,10 +99,9 @@ public class NonCodingChallengeRepository {
             preparedStatement.setInt(1,challenge_id);
             preparedStatement.setString(2,category);
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Remove is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
     }
 
@@ -229,7 +228,7 @@ public class NonCodingChallengeRepository {
         return result;
     }
 
-    public void replyQuestion(Reply reply){
+    public MessageResponse replyQuestion(Reply reply){
 
         try {
             String insertReplySql = "Insert into reply VALUES( ?, ?, ?, null, ?)";
@@ -241,8 +240,9 @@ public class NonCodingChallengeRepository {
             insertStmt.setTimestamp(4,reply.getReplyTime());
 
             insertStmt.executeUpdate();
+            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
 
 

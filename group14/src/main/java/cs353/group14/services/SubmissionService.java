@@ -1,6 +1,7 @@
 package cs353.group14.services;
 
 import cs353.group14.Submission;
+import cs353.group14.common.MessageResponse;
 import cs353.group14.repositories.SubmissionRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class SubmissionService {
         this.submissionRepository = submissionRepository;
     }
 
-    public void submitSolution(int userId, int challengeId, Submission submission){
+    public MessageResponse submitSolution(int userId, int challengeId, Submission submission){
         submission.setSubmission_time(new Timestamp(System.currentTimeMillis()));
 
         Random rn = new Random();
@@ -30,12 +31,12 @@ public class SubmissionService {
         submission.setPass_result(total-fail);
         submission.setFail_result(fail);
 
-        submissionRepository.submitQuestion(userId,challengeId,submission);
+        return submissionRepository.submitQuestion(userId,challengeId,submission);
     }
 
 
 
-    public void submitSolutionForContest(int userId, int challengeId, int contestId, Submission submission){
+    public MessageResponse submitSolutionForContest(int userId, int challengeId, int contestId, Submission submission){
         submission.setSubmission_time(new Timestamp(System.currentTimeMillis()));
 
         Random rn = new Random();
@@ -51,6 +52,6 @@ public class SubmissionService {
         submission.setPass_result(total-fail);
         submission.setFail_result(fail);
 
-        submissionRepository.submitQuestionToContest(userId,challengeId,contestId,submission);
+        return submissionRepository.submitQuestionToContest(userId,challengeId,contestId,submission);
     }
 }

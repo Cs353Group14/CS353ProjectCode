@@ -126,14 +126,14 @@ public class UserRepository {
 
             insertPrepared.executeUpdate();
 
-            return new MessageResponse(MessageType.SUCCESS, "Login is successful");
+            return new MessageResponse(MessageType.SUCCESS, "Register is successful");
 
         } catch (SQLException exception) {
             return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 
-    public void insertEditor(int userId, Editor editor)  {
+    public MessageResponse insertEditor(int userId, Editor editor)  {
         String sql = "Insert INTO editor(user_id,position,place) VALUES(?,?,?)";
 
         try {
@@ -143,9 +143,10 @@ public class UserRepository {
             insertPrepared.setString(3, editor.getPlace());
 
             insertPrepared.executeUpdate();
+            return new MessageResponse(MessageType.SUCCESS, "Register is successful");
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException exception) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 
@@ -163,7 +164,7 @@ public class UserRepository {
         }
     }
 
-    public void insertCompany(int userId, Company company)  {
+    public MessageResponse insertCompany(int userId, Company company)  {
         String sql = "Insert INTO company(user_id,location,web_page_link) VALUES(?,?,?)";
         try {
             PreparedStatement insertPrepared= ConnectionSingle.getConnection().prepareStatement(sql);
@@ -172,9 +173,10 @@ public class UserRepository {
             insertPrepared.setString(3, company.getWebPageLink());
 
             insertPrepared.executeUpdate();
+            return new MessageResponse(MessageType.SUCCESS, "Register is successful");
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException exception) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 
@@ -319,7 +321,7 @@ public class UserRepository {
         return user;
     }
 
-    public void giveReferCoder(int userId, int referredId, String referReason) {
+    public MessageResponse giveReferCoder(int userId, int referredId, String referReason) {
 
         try {
             String insertRefer = "insert into refer ( user_id, referred_id, refer_reason, accepted) VALUES(?, ?, ?, ?)";
@@ -329,12 +331,14 @@ public class UserRepository {
             insertReferStmt.setString(3,referReason);
             insertReferStmt.setInt(4,1);
             insertReferStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+
+        } catch (SQLException exception) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 
-    public void askReferCoder(int userId, int referredId) {
+    public MessageResponse askReferCoder(int userId, int referredId) {
 
         try {
             String insertRefer = "insert into refer ( user_id, referred_id, refer_reason, accepted) VALUES(?, ?, ?, ?)";
@@ -344,12 +348,14 @@ public class UserRepository {
             insertReferStmt.setString(3,"");
             insertReferStmt.setInt(4,0);
             insertReferStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+
+        } catch (SQLException exception) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 
-    public void answerReferCoder(int userId, int referredId, int answer,String referReason ) {
+    public MessageResponse answerReferCoder(int userId, int referredId, int answer,String referReason ) {
 
         try {
             String insertRefer = "UPDATE refer SET refer_reason = ? , accepted = ?  where user_id = ? and referred_id = ?";
@@ -359,15 +365,17 @@ public class UserRepository {
             insertReferStmt.setInt(3,userId);
             insertReferStmt.setInt(4,referredId);
             insertReferStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Update is successful");
+
+        } catch (SQLException exception) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 
 
 
 
-    public void giveReferEditor(int userId, int coderId, String suggestReason) {
+    public MessageResponse giveReferEditor(int userId, int coderId, String suggestReason) {
 
         try {
             String insertRefer = "insert into suggest ( user_id, coder_id, suggest_reason, accepted) VALUES(?, ?, ?, ?)";
@@ -377,12 +385,14 @@ public class UserRepository {
             insertReferStmt.setString(3,suggestReason);
             insertReferStmt.setInt(4,1);
             insertReferStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+
+        } catch (SQLException exception) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 
-    public void askReferEditor(int userId, int coderId) {
+    public MessageResponse askReferEditor(int userId, int coderId) {
 
         try {
             String insertRefer = "insert into suggest ( user_id, coder_id, suggest_reason, accepted) VALUES(?, ?, ?, ?)";
@@ -392,13 +402,15 @@ public class UserRepository {
             insertReferStmt.setString(3,"");
             insertReferStmt.setInt(4,0);
             insertReferStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+
+        } catch (SQLException exception) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 
 
-    public void answerReferEditor(int userId, int coderId, int answer,String suggestReason ) {
+    public MessageResponse answerReferEditor(int userId, int coderId, int answer,String suggestReason ) {
 
         try {
             String insertRefer = "UPDATE suggest SET suggest_reason = ? , accepted = ?  where user_id = ? and coder_id = ?";
@@ -408,8 +420,10 @@ public class UserRepository {
             insertReferStmt.setInt(3,userId);
             insertReferStmt.setInt(4,coderId);
             insertReferStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Update is successful");
+
+        } catch (SQLException exception) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());
         }
     }
 

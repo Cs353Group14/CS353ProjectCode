@@ -2,6 +2,7 @@ package cs353.group14.controllers;
 
 import cs353.group14.CodingChallenge;
 import cs353.group14.NonCodingChallenge;
+import cs353.group14.common.MessageResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.responses.ContestDeadlineResponse;
 import cs353.group14.responses.ContestResponse;
@@ -28,8 +29,8 @@ public class ContestController {
 
 
     @PutMapping("/addQuestionsToContest/{contestId}")
-    public void addQuestionsToContest (@RequestBody List<Integer> contest, @PathVariable int contestId){
-        contestService.addQuestionsToContest(contestId,contest);
+    public MessageResponse addQuestionsToContest (@RequestBody List<Integer> contest, @PathVariable int contestId){
+        return contestService.addQuestionsToContest(contestId,contest);
     }
 
 
@@ -50,13 +51,13 @@ public class ContestController {
 
 
     @PutMapping("/addCoderToContest/{userId}/{contestId}")
-    public void addCoderToContest (@PathVariable int userId, @PathVariable int contestId){
-        contestService.addCoderToContest(userId,contestId);
+    public MessageResponse addCoderToContest (@PathVariable int userId, @PathVariable int contestId){
+        return contestService.addCoderToContest(userId,contestId);
     }
 
     @PutMapping("/cancelContestParticipation/{userId}/{contestId}")
-    public void cancelContestParticipation (@PathVariable int userId, @PathVariable int contestId){
-        contestService.cancelContestParticipation(userId,contestId);
+    public MessageResponse cancelContestParticipation (@PathVariable int userId, @PathVariable int contestId){
+       return contestService.cancelContestParticipation(userId,contestId);
     }
 
     @GetMapping("/getContestOrder/{contestId}")

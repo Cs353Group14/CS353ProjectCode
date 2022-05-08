@@ -3,6 +3,8 @@ package cs353.group14.repositories;
 import cs353.group14.CodingChallenge;
 import cs353.group14.Contest;
 import cs353.group14.NonCodingChallenge;
+import cs353.group14.common.MessageResponse;
+import cs353.group14.common.MessageType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.*;
 import org.springframework.stereotype.Repository;
@@ -51,7 +53,7 @@ public class ContestRepository {
         return keys.getInt(1);
 
     }
-    public void insertPrepareTable( int editor_id, int contest_id) {
+    public MessageResponse insertPrepareTable( int editor_id, int contest_id) {
         try {
             String query = "INSERT INTO prepare ( user_id, contest_id) " +
                     "VALUES ( ?, ?)";
@@ -61,15 +63,14 @@ public class ContestRepository {
 
 
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "add is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
 
     }
 
-    public void addQuestionToContest(int contest_id, List<Integer> questionsToAdded)  {
+    public MessageResponse addQuestionToContest(int contest_id, List<Integer> questionsToAdded)  {
         try {
             String query = "INSERT INTO consist(challenge_id, contest_id) VALUES ";
             if (questionsToAdded.size() > 0) {
@@ -88,15 +89,14 @@ public class ContestRepository {
                 preparedStatement.setInt(2 * i+2, contest_id);
             }
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Add is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
 
     }
 
-    public void addCoderToContest( int user_id, int contest_id)
+    public MessageResponse addCoderToContest( int user_id, int contest_id)
     {
         try {
             String query = "INSERT INTO participate(contest_id, user_id,points) VALUES(?,?,0) ";
@@ -105,10 +105,9 @@ public class ContestRepository {
             preparedStatement.setInt(1,contest_id);
             preparedStatement.setInt(2,user_id);
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Add is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
     }
 
@@ -457,7 +456,7 @@ public class ContestRepository {
         return result;
     }
 
-    public void cancelContestParticipation(int userId, int contestId) {
+    public MessageResponse cancelContestParticipation(int userId, int contestId) {
         try {
             String query = "DELETE FROM participate WHERE user_id = ? and contest_id =? ";
 
@@ -465,10 +464,9 @@ public class ContestRepository {
             preparedStatement.setInt(1,userId);
             preparedStatement.setInt(2,contestId);
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Cancel is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
     }
 

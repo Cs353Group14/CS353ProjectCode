@@ -459,4 +459,19 @@ public class ContestRepository {
 
         return result;
     }
+
+    public void cancelContestParticipation(int userId, int contestId) {
+        try {
+            String query = "DELETE FROM participate WHERE user_id = ? and contest_id =? ";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,userId);
+            preparedStatement.setInt(2,contestId);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+    }
 }

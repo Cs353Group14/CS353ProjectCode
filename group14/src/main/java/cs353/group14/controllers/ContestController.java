@@ -53,6 +53,11 @@ public class ContestController {
         contestService.addCoderToContest(userId,contestId);
     }
 
+    @PutMapping("/cancelContestParticipation/{userId}/{contestId}")
+    public void cancelContestParticipation (@PathVariable int userId, @PathVariable int contestId){
+        contestService.cancelContestParticipation(userId,contestId);
+    }
+
     @GetMapping("/getContestOrder/{contestId}")
     public List<UserNameAndPointResponse> getContestOrder ( @PathVariable int contestId){
         return contestService.getOrder(contestId);

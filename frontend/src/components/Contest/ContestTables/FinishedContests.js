@@ -36,36 +36,16 @@ export default function FinishedContests() {
     }
 
     useEffect(() => {
-        fetchFinishedContests();
+      if(localStorage.getItem('menuId') == 10)
+      fetchFinishedContests();
     },[]);
 
-    async function handleStart() {
-        //await contestApi.addCoderToContest(rows[currentSubIndex].contest_id);
-        setOpen(false);
-        //fetchContinuesContests();
+
+    async function openSeeContest(index) {
+        localStorage.setItem('contestId', rows[index].contest_id);
+        window.location.href = "http://localhost:3000/contest";
     }
 
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        console.log(currentSubIndex);        
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    function ContestDetails() {
-        if(rows != []) { 
-            return (<div>
-
-            <h2> {rows[currentSubIndex].title} </h2>
-
-            {rows[currentSubIndex].description}
-            </div>);
-        }
-    }
 
     return (
         <div>
@@ -94,9 +74,8 @@ export default function FinishedContests() {
                   <StyledTableCell align="right">
                       <Button onClick={() => {
                           console.log(row.contest_id);
-                      setCurrentSubIndex(i);
-                      handleClickOpen();
-                      }}>Details</Button>
+                      openSeeContest(i);
+                      }}>See Details</Button>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -104,20 +83,6 @@ export default function FinishedContests() {
           </Table>
         </TableContainer>
 
-<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-<DialogTitle id="form-dialog-title">Contest Detail</DialogTitle>
-<DialogContent>
-   <ContestDetails/>
-</DialogContent>
-<DialogActions>
-    <Button onClick={handleClose} color="primary">
-        Cancel
-    </Button>
-    <Button onClick={handleStart} color="primary">
-        Start
-    </Button>
-</DialogActions>
-</Dialog>
 </div>
       );
 }

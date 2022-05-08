@@ -28,11 +28,18 @@ export interface UpdateAttend{
     userId: number
 }
 
+export interface getCandidate{
+    id: number,
+    userName: string,
+    name: string
+}
+
+
 
 export class InterviewResultAPI {
 
     async getCandidiates(interviewID: number): Promise<Participant[]> {
-        const response = await axios.get("/getUsersAttendingToInterview"+ interviewID);
+        const response = await axios.get("/getUsersAttendingToInterview/"+ interviewID);
         return response.data;
     }
 
@@ -44,6 +51,12 @@ export class InterviewResultAPI {
     async getInterview() :Promise<newInterview>
     {
         const response = await axios.get("/getInterview/"+ localStorage.getItem('interviewID') );
+        return response.data;
+    }
+
+    async getCandidate(username: string) :Promise<getCandidate>
+    {
+        const response = await axios.get("/getIdUserNameandName/"+ username );
         return response.data;
     }
 

@@ -29,12 +29,12 @@ export class InterviewAPI {
         return response.data;
     }
     async getNewInterviewList(): Promise<interviewModelForCoder[]> {
-        const response = await axios.get("/getNewInterviewsForCoder/" + localStorage.getItem('userId'));
+        const response = await axios.get("/getFutureInterviewsForCoder/" + localStorage.getItem('userId'));
         return response.data;
     }
 
     async getInterviewListCompany(): Promise<interviewModelForCompany[]> {
-        const response = await axios.get("/getInterviewsForCompany/" + localStorage.getItem('userId'));
+        const response = await axios.get("/getInterviewsOfCompanyNew/" + localStorage.getItem('userId'));
         return response.data;
     }
 

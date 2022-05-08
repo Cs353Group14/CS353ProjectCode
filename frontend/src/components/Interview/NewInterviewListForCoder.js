@@ -1,8 +1,4 @@
-import React, {useState} from "react";
-import PropTypes from 'prop-types';
-import NavBar from "../NavBar/NavBar";
-import Autocomplete from '@mui/material/Autocomplete';
-import Stack from '@mui/material/Stack';
+import React, {useState, useEffect} from "react";
 import { Typography, Button, Select} from "@material-ui/core";
 import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
@@ -14,26 +10,30 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {InterviewAPI} from './InterviewAPI'
 
-function createData(company, location, position, date, result) {
-    return { company, location, position, date, result };
-  }
-  
-  const rows = [
-    createData('Company1', 'Location1','Position1', '12/12/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/11/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/10/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/09/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/08/2021', 'Hire'),
-    createData('Company1', 'Location1','Position1', '12/07/2021', 'Hire')
-  ];
 
+function startInterview(invivtaionCode, id)
+{
+    localStorage.setItem('startInterview',id);
+    window.location.href = "http://localhost:3000/StartInterview";
+
+}
 
 function NewInterviewListForCoder(props) {
+    const[rows, setRows] = useState([]);
     const interviewAPI = new InterviewAPI();
-    if(localStorage.getItem('userType') === 1)
-    {
-        let interviewList = interviewAPI.getNewInterviewList();
+
+    function fetchNewInterviews() {
+        interviewAPI.getNewInterviewList().then(data => {
+            setRows(data)});;
+
     }
+    
+    useEffect(() => {
+        fetchNewInterviews();
+    },[]);
+
+    
+
   
     return(
         <div>
@@ -45,7 +45,7 @@ function NewInterviewListForCoder(props) {
             >
                 <Grid item>
                 <Typography variant="h3" component="h3">
-                    Past Interviews
+                    New Interviews
                 </Typography>
                 </Grid>
             </Grid>
@@ -56,34 +56,51 @@ function NewInterviewListForCoder(props) {
                 alignItems="center"
                 sx={{ mt: 8 , mb: 8, ml: 3, mr:3}}>
                     <Grid item xs={8} >
-            <TableContainer component={Paper}>
-            <Table  aria-label="simple table">
-                <TableHead>
-                <TableRow>
-                    <TableCell align="left">Company</TableCell>
-                    <TableCell align="center">Location</TableCell>
-                    <TableCell align="center">Position</TableCell>
-                    <TableCell align="center">Date</TableCell>
-                    <TableCell align="right">Result</TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {rows.map((row) => (
-                    <TableRow
-                    key={row.date}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                    <TableCell align="left">{row.company}</TableCell>
-                    <TableCell align="center">{row.location}</TableCell>
-                    <TableCell align="center">{row.position}</TableCell>
-                    <TableCell align="center">{row.date}</TableCell>
-                    <TableCell align="center">{row.result}</TableCell>
-                    </TableRow>
-                ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-        </Grid>
+                    <TableContainer component={Paper}>
+                    <Table  aria-label="simple table">
+                        <TableHead>
+                        <TableRow>
+                            <TableCell align="left">Company</TableCell>
+                            <TableCell align="center">Duration</TableCell>
+                            <TableCell align="center">Position</TableCell>
+                            <TableCell align="center">Start time</TableCell>
+                            <TableCell align="center">End time</TableCell>
+                            <TableCell align="center">Link</TableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {
+                        rows.map((row) => (
+                        
+                            <TableRow
+                            key={row.interviewId}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                            <TableCell align="left">{row.companyName}</TableCell>
+                            <TableCell align="center">{row.duration}</TableCell>
+                            <TableCell align="center">{row.position}</TableCell>
+                            <TableCell align="center">{row.startTime}</TableCell>
+                            <TableCell align="center">{row.endTime}</TableCell>
+                            <TableCell align="right">
+                                { (new Date()) >= (new Date(row.startTime) ) &&
+                                    <Button
+                                variant="contained"
+                                color="default"
+                                onClick={() => startInterview(row.username, row.interviewId)}
+                                > Start
+                            </Button>
+                                }
+                                { (new Date()) < (new Date(row.startTime) ) && 
+                                <div> Not started yet</div>
+                                }
+                            
+                            </TableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Grid>
         </Grid>
         </div>
     );

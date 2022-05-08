@@ -27,6 +27,7 @@ import ResultOfCandidate from './components/Interview/InterviewResults/ResultOfC
 import InterviewListForCompany from './components/Interview/InterviewListForCompany';
 import PastInterviewListForCoder from './components/Interview/PastInterviewListForCoder';
 import NewInterviewListForCoder from './components/Interview/NewInterviewListForCoder';
+import ContestView from './components/Contest/ContestView/ContestView';
 function App() {
   return (
     <BrowserRouter>
@@ -49,6 +50,7 @@ function App() {
       <Route path = {"/CreateInterview"} element = {<CreateInterview/>}/>
       <Route path = {"/AddContestChallenges"} element = {<CodingChallengeTable/>}/>
       <Route path = {"/SolveContest"} element = {<ContestChallenges/>}/>
+      <Route path = {"/contest"} element = {<ContestView/>}/>
       <Route path = {"/AddParticipants"} element = {<AddParticipants/>}/>
       <Route path = {"/StartInterview"} element = {<StartInterview/>}/>
       <Route path = {"/AttendInterview"} element = {<AttendInterview/>}/>

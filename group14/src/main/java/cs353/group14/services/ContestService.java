@@ -41,6 +41,10 @@ public class ContestService {
         contestRepository.addCoderToContest(user_id,contest_id);
     }
 
+    public void cancelContestParticipation(int userId, int contestId) {
+        contestRepository.cancelContestParticipation(userId,contestId);
+    }
+
     public List<UserNameAndPointResponse> getOrder(int contestId)
     {
         return contestRepository.getOrder(contestId);

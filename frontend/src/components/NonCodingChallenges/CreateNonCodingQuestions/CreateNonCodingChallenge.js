@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import {CreateNonCodingQuestionAPI} from './CreateNonCodingQuestionAPI'
+import {CreateNewInterviewAPI} from '../../Interview/CreateInterview/CreateInterviewAPI';
 
 
 const difficulties = [
@@ -42,9 +43,21 @@ function CreateNonCodingQuestion(props) {
   const [question, setQuestion] = useState("");
   const [category, setCategories] = useState("");
   const createNonCodingQuestionAPI = new CreateNonCodingQuestionAPI();
+  const createNewInterviewQuestion = new CreateNewInterviewAPI();
+  let publicity = 0;
+
   let listOfCategories = [];
 
   async function handleSubmit() {
+
+    if(localStorage.getItem('interviewID'))
+    {
+      publicity = 0;
+    }
+    else
+    {
+      publicity = 1;
+    }
 
     const newQuestion = {
       non_challenge_id: -1,
@@ -54,7 +67,7 @@ function CreateNonCodingQuestion(props) {
       publicity: 1
     }
 
-    const challengeId = await createNonCodingQuestionAPI.createNonCoding(newQuestion);
+    const challengeId = await createNonCodingQuestionAPI.addNonCodingQuestionToInterview(newQuestion);
 
     let categoryArray =[];
 
@@ -63,6 +76,14 @@ function CreateNonCodingQuestion(props) {
     });
 
     await createNonCodingQuestionAPI.addCategory(challengeId, categoryArray);
+
+
+    if(publicity === 0) //Then need to add this question to interview also
+    {
+      localStorage.setItem('challengeId', challengeId);
+      await createNewInterviewQuestion.addNonCodingQuestionToInterview();
+      window.location.href = "http://localhost:3000/CreateInterview";
+    }
 
 
 }

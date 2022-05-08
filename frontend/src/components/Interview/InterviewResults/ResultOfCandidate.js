@@ -52,11 +52,14 @@ function ResultOfCandidate(props) {
 
   function seeNonCodingQuestionSolution(id )
   {
+      
+    localStorage.setItem('isInterview', true);
     localStorage.setItem('nonCodingId', id);
   }
 
   function seeCodingQuestionSolution(id)
   {
+    localStorage.setItem('isInterview', true);
     localStorage.setItem('codingId', id);
   }
    function handleSubmit(submit)

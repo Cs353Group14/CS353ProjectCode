@@ -36,13 +36,14 @@ function ViewCandidates(props) {
 
     }
 
-    function seeResultsOfCandidate(username)
+    async function seeResultsOfCandidate(username)
     {
 
-    //console.log(username);
-      const userId = interviewResultAPI.getCandidate(username).then(data => {
+
+       await interviewResultAPI.getCandidate(username).then(data => {
         console.log(data);
-        localStorage.setItem('Candidate', data.id ) });;;
+        localStorage.setItem('Candidate', data.id ) 
+    });
         window.location.href = "http://localhost:3000/ResultOfCandidate";
     }
 

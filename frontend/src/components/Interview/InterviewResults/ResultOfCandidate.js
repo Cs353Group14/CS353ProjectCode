@@ -32,6 +32,8 @@ function ResultOfCandidate(props) {
 
     let interviewID = localStorage.getItem('Candidates_Of_Interview');
     const attendInterviewAPI = new AttendInterviewAPI();
+    const interviewResultAPI = new InterviewResultAPI();
+
 
     const[nonCoding, setNonCoding] = useState([]);
     const[coding, setCoding] = useState([]);
@@ -57,13 +59,21 @@ function ResultOfCandidate(props) {
   {
     localStorage.setItem('codingId', id);
   }
-   function handleSubmit()
+   function handleSubmit(submit)
    {
 
+    alert(submit);
+    setOpenDialog(false);
+
+    const newResult = {
+        interviewId: interviewID,
+        interviewResult: submit,
+        userId: localStorage.getItem('Candidate')
+      }
+    interviewResultAPI.evaluateCandidate(newResult);
     window.location.href = "http://localhost:3000/home";
-
-
   }
+
 
 //Handle dialogs
 const [openDialogName, setOpenDialog] = React.useState(null);

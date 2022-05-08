@@ -1,6 +1,8 @@
 package cs353.group14.repositories;
 
 import cs353.group14.*;
+import cs353.group14.common.MessageResponse;
+import cs353.group14.common.MessageType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.responses.InterviewResponse;
 import cs353.group14.responses.UserNameAndInterviewResultResponse;
@@ -100,7 +102,7 @@ public class InterviewRepository {
                     name ,information ,foto ,location ,  webPageLink);
     }
 
-    public void insertAttend(Attend attend){
+    public MessageResponse insertAttend(Attend attend){
 
         try {
             String insertAttendSql = "INSERT INTO attend (interview_id,coder_id,company_id, start_time,end_time,interview_result,invitation_code)" +
@@ -114,13 +116,14 @@ public class InterviewRepository {
             insertAttendStmt.setString(6,"Not determined");
             insertAttendStmt.setString(7,attend.getInvitationCode());
             insertAttendStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
 
     }
 
-    public void changeAttendResult(int interviewId, String result , int userId){
+    public MessageResponse changeAttendResult(int interviewId, String result , int userId){
         try {
             String updateAttend = "UPDATE attend SET interview_result = ? where interview_id = ? and coder_id = ?";
             PreparedStatement updateAttendStmt = ConnectionSingle.getConnection().prepareStatement(updateAttend);
@@ -136,9 +139,9 @@ public class InterviewRepository {
            int n_id =  insertNotification(notification);
 
            insertNotify(userId,n_id);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Update is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
     }
 
@@ -268,7 +271,7 @@ public class InterviewRepository {
     }
 
 
-    public void addCodingQuestionToInterview(int interview_id,int challenge_id, int company_id, int time_limit)  {
+    public MessageResponse addCodingQuestionToInterview(int interview_id,int challenge_id, int company_id, int time_limit)  {
         try {
             String query = "INSERT INTO includes(challenge_id, interview_id,company_id,time_limit) VALUES (?,?,?,?) ";
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
@@ -279,15 +282,14 @@ public class InterviewRepository {
                  preparedStatement.setInt(4, time_limit);
 
                  preparedStatement.executeUpdate();
-            }
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "Adding is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
 
     }
 
-    public void addNonCodingQuestionToInterview(int interview_id,int non_challenge_id, int company_id)  {
+    public MessageResponse addNonCodingQuestionToInterview(int interview_id,int non_challenge_id, int company_id)  {
         try {
             String query = "INSERT INTO made_of(non_challenge_id, user_id,company_id) VALUES (?,?,?) ";
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
@@ -297,10 +299,9 @@ public class InterviewRepository {
             preparedStatement.setInt(3, company_id);
 
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.SUCCESS, "remove is successful");
+        } catch (SQLException throwables) {
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
 
     }

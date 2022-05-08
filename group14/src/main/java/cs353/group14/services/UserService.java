@@ -41,34 +41,32 @@ public class UserService {
 
         if(userId == -1){
             System.out.println("error");
-        return new MessageResponse(MessageType.ERROR, "-1 olması ne anlma geliyorsa o");
+        return new MessageResponse(MessageType.ERROR, "Username or mail already used");
         }
 
         return userRepository.insertCoder(userId, coder);
 
     }
 
-    public void registerEditor(Editor editor) {
+    public MessageResponse registerEditor(Editor editor) {
         int userId = register(editor);
 
         if(userId == -1){
             System.out.println("error");
-            return;
+            return new MessageResponse(MessageType.ERROR, "Username or mail already used");
         }
-
-        userRepository.insertEditor(userId, editor);
+        return userRepository.insertEditor(userId, editor);
 
     }
 
-    public void registerCompany(Company company) {
+    public MessageResponse registerCompany(Company company) {
         int userId = register(company);
 
         if(userId == -1){
             System.out.println("error");
-            return;
+            return new MessageResponse(MessageType.ERROR, "Username or mail already used");
         }
-
-        userRepository.insertCompany(userId,company);
+        return userRepository.insertCompany(userId,company);
 
     }
 
@@ -93,28 +91,28 @@ public class UserService {
         return userRepository.loginWithBasicResponse(username,password);
     }
 
-    public void giveReferCoder(int userId, int referredId, String referReason) {
-        userRepository.giveReferCoder(userId, referredId, referReason);
+    public MessageResponse giveReferCoder(int userId, int referredId, String referReason) {
+        return userRepository.giveReferCoder(userId, referredId, referReason);
     }
 
-    public void askReferCoder(int userId, int referredId) {
-        userRepository.askReferCoder(userId, referredId);
+    public MessageResponse askReferCoder(int userId, int referredId) {
+        return userRepository.askReferCoder(userId, referredId);
     }
 
-    public void answerReferCoder(int userId, int referredId, int answer,String referReason ){
-        userRepository.answerReferCoder(userId, referredId,answer, referReason );
+    public MessageResponse answerReferCoder(int userId, int referredId, int answer,String referReason ){
+        return userRepository.answerReferCoder(userId, referredId,answer, referReason );
     }
 
-    public void giveReferEditor(int userId, int coderId, String suggestReason) {
-        userRepository.giveReferEditor(userId, coderId, suggestReason);
+    public MessageResponse giveReferEditor(int userId, int coderId, String suggestReason) {
+        return userRepository.giveReferEditor(userId, coderId, suggestReason);
     }
 
-    public void askReferEditor(int userId, int coderId) {
-        userRepository.askReferEditor(userId, coderId);
+    public MessageResponse askReferEditor(int userId, int coderId) {
+        return userRepository.askReferEditor(userId, coderId);
     }
 
-    public void answerReferEditor(int userId, int coderId, int answer,String suggestReason ){
-        userRepository.answerReferEditor(userId, coderId, answer, suggestReason);
+    public MessageResponse answerReferEditor(int userId, int coderId, int answer,String suggestReason ){
+        return userRepository.answerReferEditor(userId, coderId, answer, suggestReason);
     }
 
     public List<Integer> listReferCoder(int userId){

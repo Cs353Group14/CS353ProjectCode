@@ -3,6 +3,7 @@ package cs353.group14.services;
 import cs353.group14.CodingChallenge;
 import cs353.group14.Contest;
 import cs353.group14.NonCodingChallenge;
+import cs353.group14.common.MessageResponse;
 import cs353.group14.repositories.ContestRepository;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.responses.ContestDeadlineResponse;
@@ -28,22 +29,22 @@ public class ContestService {
                 contest.getTitle(), contest.getDifficulty(), contest.getDuration(), contest.getDeadline());
     }
 
-    public void addQuestionsToContest(int contest_id, List<Integer> questions)
+    public MessageResponse addQuestionsToContest(int contest_id, List<Integer> questions)
     {
-        contestRepository.addQuestionToContest(contest_id,questions);
+        return contestRepository.addQuestionToContest(contest_id,questions);
     }
     public Contest getContest( int contest_id)
     {
         return contestRepository.getContest(contest_id);
     }
 
-    public void addCoderToContest( int user_id, int contest_id)
+    public MessageResponse addCoderToContest( int user_id, int contest_id)
     {
-        contestRepository.addCoderToContest(user_id,contest_id);
+        return contestRepository.addCoderToContest(user_id,contest_id);
     }
 
-    public void cancelContestParticipation(int userId, int contestId) {
-        contestRepository.cancelContestParticipation(userId,contestId);
+    public MessageResponse cancelContestParticipation(int userId, int contestId) {
+        return contestRepository.cancelContestParticipation(userId,contestId);
     }
 
     public List<UserNameAndPointResponse> getOrder(int contestId)

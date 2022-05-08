@@ -5,6 +5,7 @@ import cs353.group14.CodingChallenge;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.OtherAnswerResponse;
 import cs353.group14.Reply;
+import cs353.group14.common.MessageResponse;
 import cs353.group14.responses.NonCodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import cs353.group14.services.NonCodingChallengeService;
@@ -51,8 +52,8 @@ public class NonCodingChallengeController {
 
 
     @PutMapping("/replyQuestion")
-    public void replyQuestion(@RequestBody Reply reply){
-        nonCodingChallengeService.replyQuestion(reply);
+    public MessageResponse replyQuestion(@RequestBody Reply reply){
+        return nonCodingChallengeService.replyQuestion(reply);
     }
 
     @GetMapping("/seeReply/{userId}/{nonChallengeId}")
@@ -62,20 +63,20 @@ public class NonCodingChallengeController {
 
 
     @PutMapping("/updateDifficultyNonCodingChallenge/{challengeId}")
-    public void updateDifficultyCodingChallenge(@RequestBody String difficulty, @PathVariable int challengeId){
-        nonCodingChallengeService.updateDifficultyNonCodingChallenge(challengeId,difficulty);
+    public MessageResponse updateDifficultyCodingChallenge(@RequestBody String difficulty, @PathVariable int challengeId){
+        return nonCodingChallengeService.updateDifficultyNonCodingChallenge(challengeId,difficulty);
     }
 
 
     @PutMapping("/addCategoryNonCodingChallenge/{challengeId}")
-    public void addCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
-        nonCodingChallengeService.addCategoryNonCodingChallenge(challengeId,category);
+    public MessageResponse addCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
+        return nonCodingChallengeService.addCategoryNonCodingChallenge(challengeId,category);
     }
 
 
     @PutMapping("/removeCategoryNonCodingChallenge/{challengeId}")
-    public void removeCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
-        nonCodingChallengeService.removeCategoryNonCodingChallenge(challengeId,category);
+    public MessageResponse removeCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
+        return nonCodingChallengeService.removeCategoryNonCodingChallenge(challengeId,category);
     }
 
     @GetMapping("/seeOtherCodersAnswers/{userId}/{nonChallengeId}")

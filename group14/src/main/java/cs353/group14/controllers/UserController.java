@@ -30,15 +30,15 @@ public class UserController {
     }
 
     @PutMapping("/register-editor")
-    public void registerCompany(@RequestBody Editor editor){
+    public MessageResponse registerCompany(@RequestBody Editor editor){
         editor.setUserType( UserType.Editor);
-        userService.registerEditor(editor);
+        return userService.registerEditor(editor);
     }
 
     @PutMapping("/register-company")
-    public void registerCompany(@RequestBody Company company){
+    public MessageResponse registerCompany(@RequestBody Company company){
         company.setUserType(UserType.Company);
-        userService.registerCompany(company);
+        return userService.registerCompany(company);
     }
 
     @PostMapping("/login")
@@ -47,33 +47,33 @@ public class UserController {
     }
 
      @PutMapping("/giveReferCoder/{userId}/{referredId}")
-     public void giveReferCoder(@PathVariable int userId, @PathVariable int referredId, @RequestBody ReferRequest referRequest){
-         userService.giveReferCoder(userId,referredId,referRequest.getReason());
+     public MessageResponse giveReferCoder(@PathVariable int userId, @PathVariable int referredId, @RequestBody ReferRequest referRequest){
+         return userService.giveReferCoder(userId,referredId,referRequest.getReason());
      }
 
     @PutMapping("/giveReferEditor/{userId}/{coderId}")
-    public void giveReferEditor(@PathVariable int userId, @PathVariable int coderId,@RequestBody ReferRequest referRequest ){
-        userService.giveReferEditor(userId,coderId,referRequest.getReason());
+    public MessageResponse giveReferEditor(@PathVariable int userId, @PathVariable int coderId,@RequestBody ReferRequest referRequest ){
+        return userService.giveReferEditor(userId,coderId,referRequest.getReason());
     }
 
     @PutMapping("/askReferCoder/{userId}/{referredId}")
-    public void askReferCoder(@PathVariable int userId, @PathVariable int referredId){
-        userService.askReferCoder(userId,referredId);
+    public MessageResponse askReferCoder(@PathVariable int userId, @PathVariable int referredId){
+        return userService.askReferCoder(userId,referredId);
     }
 
     @PutMapping("/askReferEditor/{userId}/{coderId}")
-    public void askReferEditor(@PathVariable int userId, @PathVariable int coderId ){
-        userService.askReferEditor(userId,coderId);
+    public MessageResponse askReferEditor(@PathVariable int userId, @PathVariable int coderId ){
+        return userService.askReferEditor(userId,coderId);
     }
 
     @PutMapping("/answerReferCoder/{userId}/{referredId}/{answer}")
-    public void answerReferCoder(@PathVariable int userId, @PathVariable int referredId,@PathVariable int answer,@RequestBody ReferRequest referRequest ){
-        userService.answerReferCoder(userId,referredId,answer,referRequest.getReason());
+    public MessageResponse answerReferCoder(@PathVariable int userId, @PathVariable int referredId,@PathVariable int answer,@RequestBody ReferRequest referRequest ){
+        return userService.answerReferCoder(userId,referredId,answer,referRequest.getReason());
     }
 
     @PutMapping("/answerReferEditor/{userId}/{coderId}/{answer}")
-    public void answerReferEditor(@PathVariable int userId, @PathVariable int coderId,@PathVariable int answer,@RequestBody ReferRequest referRequest ){
-        userService.answerReferEditor(userId,coderId, answer,referRequest.getReason());
+    public MessageResponse answerReferEditor(@PathVariable int userId, @PathVariable int coderId,@PathVariable int answer,@RequestBody ReferRequest referRequest ){
+        return userService.answerReferEditor(userId,coderId, answer,referRequest.getReason());
     }
 
     @GetMapping("/listReferCoder/{userId}")

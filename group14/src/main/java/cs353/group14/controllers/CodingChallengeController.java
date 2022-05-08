@@ -1,6 +1,7 @@
 package cs353.group14.controllers;
 
 import cs353.group14.CodingChallenge;
+import cs353.group14.common.MessageResponse;
 import cs353.group14.requests.LoginRequest;
 import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
@@ -58,26 +59,26 @@ public class CodingChallengeController {
 
 
     @PutMapping("/updateDifficultyCodingChallenge/{challengeId}")
-    public void updateDifficultyCodingChallenge(@RequestBody String difficulty, @PathVariable int challengeId){
-        codingChallengeService.updateDifficultyCodingChallenge(challengeId,difficulty);
+    public MessageResponse updateDifficultyCodingChallenge(@RequestBody String difficulty, @PathVariable int challengeId){
+        return codingChallengeService.updateDifficultyCodingChallenge(challengeId,difficulty);
     }
 
 
     @PutMapping("/addCategoryCodingChallenge/{challengeId}")
-    public void addCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
-        codingChallengeService.addCategoryCodingChallenge(challengeId,category);
+    public MessageResponse addCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
+        return codingChallengeService.addCategoryCodingChallenge(challengeId,category);
     }
 
 
     @PutMapping("/removeCategoryCodingChallenge/{challengeId}")
-    public void removeCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
-        codingChallengeService.removeCategoryCodingChallenge(challengeId,category);
+    public MessageResponse removeCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
+        return codingChallengeService.removeCategoryCodingChallenge(challengeId,category);
     }
 
 
     @PutMapping("/addTestCaseForCodingChallenge/{challengeId}")
-    public void addTestCaseForCodingChallenge(@RequestBody List<String> inputsoutputs,  @PathVariable int challengeId){
-        codingChallengeService.addTestCaseForCodingChallenge(challengeId,inputsoutputs.get(0),inputsoutputs.get(1));
+    public MessageResponse addTestCaseForCodingChallenge(@RequestBody List<String> inputsoutputs,  @PathVariable int challengeId){
+        return codingChallengeService.addTestCaseForCodingChallenge(challengeId,inputsoutputs.get(0),inputsoutputs.get(1));
     }
 
 
@@ -93,8 +94,8 @@ public class CodingChallengeController {
     }
 
     @PutMapping("/makeCompanySponsorToContest/{contestId}")
-    public void makeCompanySponsorToContest(@RequestBody int companyId,  @PathVariable int contestId){
-        codingChallengeService.makeCompanySponsorToContest(contestId,companyId);
+    public MessageResponse makeCompanySponsorToContest(@RequestBody int companyId,  @PathVariable int contestId){
+        return codingChallengeService.makeCompanySponsorToContest(contestId,companyId);
     }
 
 

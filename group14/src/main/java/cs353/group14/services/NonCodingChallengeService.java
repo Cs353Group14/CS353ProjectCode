@@ -3,6 +3,7 @@ package cs353.group14.services;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.OtherAnswerResponse;
 import cs353.group14.Reply;
+import cs353.group14.common.MessageResponse;
 import cs353.group14.repositories.NonCodingChallengeRepository;
 import cs353.group14.responses.NonCodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
@@ -33,19 +34,19 @@ public class NonCodingChallengeService {
         return noncodingChallengeRepository.getAllNonCodingChallenges();
     }
 
-    public void updateDifficultyNonCodingChallenge( int challenge_id, String difficulty)
+    public MessageResponse updateDifficultyNonCodingChallenge( int challenge_id, String difficulty)
     {
-        noncodingChallengeRepository.updateDifficultyNonCodingChallenge(challenge_id,difficulty);
+        return noncodingChallengeRepository.updateDifficultyNonCodingChallenge(challenge_id,difficulty);
     }
 
-    public void addCategoryNonCodingChallenge( int challenge_id, String category)
+    public MessageResponse addCategoryNonCodingChallenge( int challenge_id, String category)
     {
-        noncodingChallengeRepository.addCategoryNonCodingChallenge(challenge_id,category);
+       return noncodingChallengeRepository.addCategoryNonCodingChallenge(challenge_id,category);
     }
 
-    public void removeCategoryNonCodingChallenge( int challenge_id, String category)
+    public MessageResponse removeCategoryNonCodingChallenge(int challenge_id, String category)
     {
-        noncodingChallengeRepository.removeCategoryNonCodingChallenge(challenge_id,category);
+        return noncodingChallengeRepository.removeCategoryNonCodingChallenge(challenge_id,category);
     }
 
 
@@ -54,9 +55,9 @@ public class NonCodingChallengeService {
         return noncodingChallengeRepository.getNonCodingChallenge(noncodingChallengeId);
     }
 
-    public void replyQuestion(Reply reply){
+    public MessageResponse replyQuestion(Reply reply){
         reply.setReplyTime(new Timestamp(System.currentTimeMillis()));
-        noncodingChallengeRepository.replyQuestion(reply);
+        return noncodingChallengeRepository.replyQuestion(reply);
     }
 
     public Reply seeReply(int userId, int nonChallengeId) {

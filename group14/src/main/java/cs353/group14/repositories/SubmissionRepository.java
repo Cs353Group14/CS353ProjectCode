@@ -2,6 +2,8 @@ package cs353.group14.repositories;
 
 import cs353.group14.Submission;
 import cs353.group14.User;
+import cs353.group14.common.MessageResponse;
+import cs353.group14.common.MessageType;
 import cs353.group14.db.ConnectionSingle;
 import org.springframework.stereotype.Repository;
 
@@ -81,19 +83,16 @@ public class SubmissionRepository {
 
 
 
-    public void submitQuestion(int userId,int challengeId,Submission submission){
+    public MessageResponse submitQuestion(int userId, int challengeId, Submission submission){
 
         try {
             int submissionId = insertSubmission(submission);
             submission.setSubmission_id(submissionId);
             insertSubmit(userId,challengeId,submissionId);
             updateCodingChallenge( challengeId, submissionId,userId);
-
-            System.out.println(submission);
-
-
+            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
 
     }
@@ -137,7 +136,7 @@ public class SubmissionRepository {
 
     }
 
-    public void submitQuestionToContest(int userId,int challengeId,int contestId,Submission submission){
+    public MessageResponse submitQuestionToContest(int userId,int challengeId,int contestId,Submission submission){
 
         try {
             int submissionId = insertSubmission(submission);
@@ -145,11 +144,9 @@ public class SubmissionRepository {
             insertSubmit(userId,challengeId,submissionId);
             updateCodingChallengeContest( challengeId, submissionId,userId,contestId);
 
-            System.out.println(submission);
-
-
+            return new MessageResponse(MessageType.SUCCESS, "Submit is successful");
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
 
     }

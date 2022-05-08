@@ -1,6 +1,7 @@
 package cs353.group14.controllers;
 
 import cs353.group14.*;
+import cs353.group14.common.MessageResponse;
 import cs353.group14.requests.UpdateAttendRequest;
 import cs353.group14.responses.InterviewResponse;
 import cs353.group14.responses.UserNameAndInterviewResultResponse;
@@ -26,25 +27,25 @@ public class InterviewController {
     }
 
     @PutMapping("/createAttend")
-    public void createAttend(@RequestBody Attend attend){
-        interviewService.createAttend(attend);
+    public MessageResponse createAttend(@RequestBody Attend attend){
+        return interviewService.createAttend(attend);
     }
 
     @PutMapping("/updateAttend")
-    public void changeAttendResult(@RequestBody UpdateAttendRequest updateAttendRequest){
-        interviewService.changeAttendResult(updateAttendRequest.getInterviewId(),updateAttendRequest.getInterviewResult(), updateAttendRequest.getUserId());
+    public MessageResponse changeAttendResult(@RequestBody UpdateAttendRequest updateAttendRequest){
+        return interviewService.changeAttendResult(updateAttendRequest.getInterviewId(),updateAttendRequest.getInterviewResult(), updateAttendRequest.getUserId());
     }
 
     @PutMapping("/addCodingQuestionToInterview/{interview_id}/{challenge_id}/{company_id}/{time_limit}")
-    public void addCodingQuestionToInterview(@PathVariable int interview_id, @PathVariable int challenge_id, @PathVariable int company_id, @PathVariable int time_limit)
+    public MessageResponse addCodingQuestionToInterview(@PathVariable int interview_id, @PathVariable int challenge_id, @PathVariable int company_id, @PathVariable int time_limit)
     {
-        interviewService.addCodingQuestionToInterview(interview_id,challenge_id,company_id,time_limit);
+        return interviewService.addCodingQuestionToInterview(interview_id,challenge_id,company_id,time_limit);
     }
 
     @PutMapping("/addNonCodingQuestionToInterview/{interview_id}/{non_challenge_id}/{company_id}")
-    public void addNonCodingQuestionToInterview(@PathVariable int interview_id, @PathVariable int non_challenge_id, @PathVariable int company_id)
+    public MessageResponse addNonCodingQuestionToInterview(@PathVariable int interview_id, @PathVariable int non_challenge_id, @PathVariable int company_id)
     {
-        interviewService.addNonCodingQuestionToInterview(interview_id,non_challenge_id,company_id);
+        return interviewService.addNonCodingQuestionToInterview(interview_id,non_challenge_id,company_id);
     }
 
     @GetMapping("/seeNotifications/{userId}")

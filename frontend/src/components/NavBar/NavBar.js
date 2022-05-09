@@ -40,7 +40,7 @@ export default function NavBar(props) {
                     <Typography variant="h6" className={classes.title}>
                         Welcome
                     </Typography>
-                    <Button  color="inherit" startIcon={<NotificationsNoneIcon />}></Button>
+                    <Button  color="inherit" href = "/notifications" startIcon={<NotificationsNoneIcon />}></Button>
                     <Button color="inherit" href="/" onClick={handleLogout}>Logout</Button>
                 
                 </Toolbar>

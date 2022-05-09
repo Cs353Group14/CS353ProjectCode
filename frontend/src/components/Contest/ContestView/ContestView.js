@@ -60,6 +60,10 @@ export default function ContestView() {
         fetchContestResults();
     },[]);
 
+    function handleSponsor() {
+      contestApi.makeCompanySponsorToContest(contest.contest_id);
+    }
+
     return (
         <div>
             <NavBar/>
@@ -84,6 +88,10 @@ export default function ContestView() {
                 <br/>
                 <br/>
                 <br/>
+            </div>
+
+            <div hidden = {localStorage.getItem('usertype') != 2}>
+              <Button variant="contained" color = "primary" onClick={handleSponsor}>Sponsor</Button>  
             </div>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">

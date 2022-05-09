@@ -28,6 +28,7 @@ import InterviewListForCompany from './components/Interview/InterviewListForComp
 import PastInterviewListForCoder from './components/Interview/PastInterviewListForCoder';
 import NewInterviewListForCoder from './components/Interview/NewInterviewListForCoder';
 import ContestView from './components/Contest/ContestView/ContestView';
+import SeeNotifications from './components/Profile/Notification/SeeNotifications';
 function App() {
   return (
     <BrowserRouter>
@@ -59,6 +60,8 @@ function App() {
       <Route path = {"/InterviewListForCompany"} element = {<InterviewListForCompany/>}/>
       <Route path = {"/PastInterviewListForCoder"} element = {<PastInterviewListForCoder/>}/>
       <Route path = {"/NewInterviewListForCoder"} element = {<NewInterviewListForCoder/>}/>
+
+      <Route path = {"/notifications"} element = {<SeeNotifications/>}/>
 
 
     </Routes>

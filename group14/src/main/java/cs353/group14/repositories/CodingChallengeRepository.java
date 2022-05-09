@@ -434,9 +434,10 @@ public class CodingChallengeRepository {
             preparedStatement.setInt(1,contestId);
             preparedStatement.setInt(2,companyId);
             preparedStatement.executeUpdate();
-            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+            return new MessageResponse(MessageType.SUCCESS, "Your company is now sponsor to the contest");
         } catch (SQLException throwables) {
-            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
+
+            return new MessageResponse(MessageType.ERROR, "The company already sponsor to contest\n" );
         }
     }
 

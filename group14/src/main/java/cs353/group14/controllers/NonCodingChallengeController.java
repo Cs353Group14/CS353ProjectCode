@@ -6,6 +6,7 @@ import cs353.group14.NonCodingChallenge;
 import cs353.group14.OtherAnswerResponse;
 import cs353.group14.Reply;
 import cs353.group14.common.MessageResponse;
+import cs353.group14.common.MessageType;
 import cs353.group14.responses.NonCodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import cs353.group14.services.NonCodingChallengeService;
@@ -34,7 +35,7 @@ public class NonCodingChallengeController {
     }
 
 
-    @GetMapping("/NonCodingChallengesFiltered")
+    @PostMapping("/NonCodingChallengesFiltered")
     public List<NonCodingChallengeQueryResponse> getPublicNonCodingChallengesFiltered(@RequestBody List<String> filters){
         return nonCodingChallengeService.getAllPublicNonCodingChallengesFiltered(filters);
     }
@@ -69,8 +70,17 @@ public class NonCodingChallengeController {
 
 
     @PutMapping("/addCategoryNonCodingChallenge/{challengeId}")
-    public MessageResponse addCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
-        return nonCodingChallengeService.addCategoryNonCodingChallenge(challengeId,category);
+    public MessageResponse addCategoryCodingChallenge(@RequestBody List<String> categories, @PathVariable int challengeId){
+        List<MessageResponse> responses = categories.stream()
+                .map(c -> nonCodingChallengeService.addCategoryNonCodingChallenge(challengeId, c))
+                .filter(mr-> mr.getMessageType().equals(MessageType.ERROR))
+                .toList();
+
+        if(responses.size() > 0) {
+            return responses.get(0);
+        } else
+            return new MessageResponse(MessageType.SUCCESS, "All categories are added successfully");
+
     }
 
 

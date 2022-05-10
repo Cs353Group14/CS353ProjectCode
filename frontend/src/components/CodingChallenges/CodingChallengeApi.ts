@@ -44,6 +44,11 @@ export class CodingChallengeApi {
         return response.data;
     }
 
+    async getFilteredCodingChallenges(categories: string[]): Promise<CodingChallengeQueryResponse[]> {
+        const response = await axios.post("/publicCodingChallengesFiltered", categories);
+        return response.data;
+    }
+
     async getCodingChallenge(): Promise<CodingChallengeModel> {
         const response = await axios.get(`/getCodingChallenge/${localStorage.getItem('codingId')}`);
         return response.data;

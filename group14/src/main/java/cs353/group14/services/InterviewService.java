@@ -98,4 +98,9 @@ public class InterviewService {
     {
         return interviewRepository.getInterviewsForCoderWithRange(coder_id, rangeEarly, rangeLate);
     }
+    public List<InterviewResponse> getInterviewsForCoderWithPosition(int coder_id, String positionLike)
+    {
+        return interviewRepository.getInterviewsForCoderWithPosition( coder_id,  positionLike);
+    }
+
 }

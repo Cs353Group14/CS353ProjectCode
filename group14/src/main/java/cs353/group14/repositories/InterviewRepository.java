@@ -589,4 +589,45 @@ public class InterviewRepository {
         }
         return result;
     }
+
+
+    public List<InterviewResponse> getInterviewsForCoderWithPosition(int coder_id, String positionLike)
+    {
+        List<InterviewResponse> result = new ArrayList<>();
+
+
+        try{
+            String query = "Select * from attend A, interview I,company C, users U where I.interview_id = A.interview_id " +
+                    "and C.user_id = I.user_id and A.coder_id = ? and I.position LIKE  ? " +
+                    "and C.user_id = U.user_id ";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,coder_id);
+            preparedStatement.setString(2,"%"+positionLike+"%");
+
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                int duration = rs.getInt("duration");
+                int interviewId = rs.getInt("interview_id");
+                String companyName = rs.getString("username");
+                Timestamp startTime = rs.getTimestamp("start_time");
+                Timestamp endTime = rs.getTimestamp("end_time");
+                String position = rs.getString("position");
+                String interviewResult = rs.getString("interview_result");
+                String invitationCode = rs.getString("invitation_code");
+
+                InterviewResponse interviewResponse = new InterviewResponse(companyName,duration,position,interviewId,startTime,endTime,interviewResult,invitationCode);
+                result.add(interviewResponse);
+            }
+
+        }
+        catch(SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
+
 }

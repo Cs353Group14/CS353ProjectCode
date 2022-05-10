@@ -121,4 +121,13 @@ public class InterviewController {
         return interviewService.getInterviewsForCoderWithRange(user_id,  timestampearly,  timestamplate);
     }
 
+
+    @GetMapping("/getInterviewsForCoderWithPosition/{user_id}/{positionLike}")
+    public List<InterviewResponse> getInterviewsForCoderWithPosition(@PathVariable int user_id,@PathVariable String positionLike){
+
+        // example request localhost:8080/getInterviewsForCoderWithPosition/6/inte
+
+        return interviewService.getInterviewsForCoderWithPosition(user_id,  positionLike);
+    }
+
 }

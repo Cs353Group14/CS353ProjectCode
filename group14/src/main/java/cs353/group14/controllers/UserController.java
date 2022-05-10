@@ -116,4 +116,12 @@ public class UserController {
         return userService.getCodersWithFilter(filter);
     }
 
+    @GetMapping("/getCoderProfile/{user_id}")
+    public UserCoderResponse  getCoderProfile(@PathVariable int user_id){
+        return userService.getCoderProfile(user_id);
+    }
+
+
+
+
 }

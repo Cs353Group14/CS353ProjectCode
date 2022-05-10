@@ -97,6 +97,11 @@ public class UserService {
         return userRepository.getCodersWithFilter(filter);
     }
 
+    public UserCoderResponse getCoderProfile( int user_id)
+    {
+        return userRepository.getCoderProfile(user_id);
+    }
+
     public LoginResponse loginWithBasicResponse ( String username, String password) {
         return userRepository.loginWithBasicResponse(username,password);
     }

@@ -3,10 +3,7 @@ package cs353.group14.controllers;
 import cs353.group14.CodingChallenge;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.common.MessageResponse;
-import cs353.group14.responses.CodingChallengeQueryResponse;
-import cs353.group14.responses.ContestDeadlineResponse;
-import cs353.group14.responses.ContestResponse;
-import cs353.group14.responses.UserNameAndPointResponse;
+import cs353.group14.responses.*;
 import cs353.group14.services.ContestService;
 import org.springframework.web.bind.annotation.*;
 import cs353.group14.Contest;
@@ -106,6 +103,10 @@ public class ContestController {
         return contestService.getContestsForEditor(editorId);
     }
 
+    @GetMapping("/getContestStatistic/{contest_id}")
+    public ContestStatisticResponse getContestStatistic(@PathVariable int contest_id){
+        return contestService.getContestStatistic(contest_id);
+    }
 
 
 }

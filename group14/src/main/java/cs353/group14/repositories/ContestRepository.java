@@ -576,4 +576,39 @@ public class ContestRepository {
 
         return result;
     }
+
+    public ContestStatisticResponse getContestStatistic( int contest_id)
+    {
+
+        int max = -1;
+        int min = -1;
+        int avg = -1;
+        int userNumber = -1;
+
+
+        try {
+            String query = "SELECT * FROM conteststatistics where contest_id = ?";
+            PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,contest_id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+
+                max = ( rs.getInt("maxpoint"));
+                min = ( rs.getInt("minpoint"));
+                avg = ( rs.getInt("avgpoint"));
+                userNumber = ( rs.getInt("usernumber"));
+
+            }
+        }
+
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+        return new ContestStatisticResponse(max,min,avg,userNumber);
+
+    }
 }

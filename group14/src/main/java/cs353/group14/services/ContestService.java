@@ -5,10 +5,7 @@ import cs353.group14.Contest;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.common.MessageResponse;
 import cs353.group14.repositories.ContestRepository;
-import cs353.group14.responses.CodingChallengeQueryResponse;
-import cs353.group14.responses.ContestDeadlineResponse;
-import cs353.group14.responses.ContestResponse;
-import cs353.group14.responses.UserNameAndPointResponse;
+import cs353.group14.responses.*;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -93,5 +90,10 @@ public class ContestService {
 
     public List<ContestDeadlineResponse> getContestsForEditor(int editorId){
         return contestRepository.getContestsForEditor(editorId);
+    }
+
+    public ContestStatisticResponse getContestStatistic(int contest_id)
+    {
+        return contestRepository.getContestStatistic(  contest_id);
     }
 }

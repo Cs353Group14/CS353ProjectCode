@@ -4,10 +4,7 @@ import cs353.group14.*;
 import cs353.group14.common.MessageResponse;
 import cs353.group14.common.MessageType;
 import cs353.group14.db.ConnectionSingle;
-import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
-import cs353.group14.responses.CodingChallengeQueryResponse;
-import cs353.group14.responses.NonCodingChallengeAuthorCategoryResponse;
-import cs353.group14.responses.NonCodingChallengeQueryResponse;
+import cs353.group14.responses.*;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -392,6 +389,32 @@ public class NonCodingChallengeRepository {
             throwables.printStackTrace();
         }
 
+    }
+
+
+    public List<CategoryandNumberResponse> getCategoriesAndNumbers()
+    {
+        List<CategoryandNumberResponse> result = new ArrayList<>();
+        String category ="";
+        int number = -1;
+        try {
+            String getChallengeSql = "Select * From catnumbersnoncoding ";
+            PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
+
+            ResultSet rs = insertCodingPrepared.executeQuery();
+
+            while (rs.next()) {
+                category = rs.getString("category");
+                number = rs.getInt("cat_number");
+                CategoryandNumberResponse cr = new CategoryandNumberResponse(category,number);
+                result.add(cr);
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
     }
 
 

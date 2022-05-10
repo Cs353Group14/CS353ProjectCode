@@ -5,6 +5,7 @@ import cs353.group14.OtherAnswerResponse;
 import cs353.group14.Reply;
 import cs353.group14.common.MessageResponse;
 import cs353.group14.repositories.NonCodingChallengeRepository;
+import cs353.group14.responses.CategoryandNumberResponse;
 import cs353.group14.responses.NonCodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import org.springframework.stereotype.Service;
@@ -75,5 +76,10 @@ public class NonCodingChallengeService {
 
     public int createAndAddNonQuestionToInterview(int interviewId, int companyId, NonCodingChallenge noncodingChallenge){
         return noncodingChallengeRepository.createAndAddNonQuestionToInterview(interviewId,companyId, noncodingChallenge);
+    }
+
+    public List<CategoryandNumberResponse> getCategoriesAndNumbers()
+    {
+        return noncodingChallengeRepository.getCategoriesAndNumbers();
     }
 }

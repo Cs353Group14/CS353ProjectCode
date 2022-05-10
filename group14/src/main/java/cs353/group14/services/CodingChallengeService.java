@@ -3,6 +3,7 @@ package cs353.group14.services;
 import cs353.group14.CodingChallenge;
 import cs353.group14.common.MessageResponse;
 import cs353.group14.repositories.CodingChallengeRepository;
+import cs353.group14.responses.CategoryandNumberResponse;
 import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import org.springframework.stereotype.Service;
@@ -85,6 +86,11 @@ public class CodingChallengeService {
     public MessageResponse makeCompanySponsorToContest( int contestId, int companyId)
     {
         return codingChallengeRepository.makeCompanySponsorToContest(contestId,companyId);
+    }
+
+    public List<CategoryandNumberResponse> getCategoriesAndNumbers()
+    {
+        return codingChallengeRepository.getCategoriesAndNumbers();
     }
 
 }

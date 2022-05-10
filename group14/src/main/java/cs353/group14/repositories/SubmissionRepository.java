@@ -142,6 +142,27 @@ public class SubmissionRepository {
         preparedStatement.setInt(6,contestId);
         preparedStatement.executeUpdate();
 
+        String query2 = "UPDATE coder SET rating = case WHEN EXISTS " +
+               "( SELECT * FROM  submission where submission_id = ? and fail_result = 0) AND NOT EXISTS" +
+        "( SELECT ST.challenge_id FROM submission S, submit ST where S.submission_id = ST.submission_id AND " +
+                " ST.challenge_id = ? and ST.user_id = ? and S.fail_result = 0 group by ST.challenge_id having count(*) >= 2 )"+
+                "THEN ( rating * ( SELECT count(contest_id) from participate where user_id = ? ) " +
+                "+ (SELECT difficulty from contest where contest_id = ? )" +
+                "* (SELECT points from coding_challenge where challenge_id = ?) ) " +
+                "/ (1 + (SELECT count(contest_id) from participate where user_id = ?) )" +
+                " else rating END"+
+                " where user_id = ?";
+
+        PreparedStatement pS = ConnectionSingle.getConnection().prepareStatement(query2);
+        pS.setInt(1,submissionId);
+        pS.setInt(2,challengeId);
+        pS.setInt(3,userId);
+        pS.setInt(4,userId);
+        pS.setInt(5,contestId);
+        pS.setInt(6,challengeId);
+        pS.setInt(7,userId);
+        pS.setInt(8,userId);
+        pS.executeUpdate();
     }
 
     public MessageResponse submitQuestionToContest(int userId,int challengeId,int contestId,Submission submission){

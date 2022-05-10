@@ -23,9 +23,6 @@ export class CreateCodingChallengeAPI {
     }
 
     async addCategory(challengeId: number, categories: string[]) {
-        categories.forEach(category => {
-            const config = { headers: {'Content-Type': 'application/json'} };
-            axios.put(`/addCategoryCodingChallenge/${challengeId}`, category, config);
-        })
+        const response = await axios.put(`/addCategoryCodingChallenge/${challengeId}`, categories);
     }
 }

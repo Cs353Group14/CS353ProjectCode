@@ -2,6 +2,7 @@ package cs353.group14.controllers;
 
 import cs353.group14.CodingChallenge;
 import cs353.group14.common.MessageResponse;
+import cs353.group14.common.MessageType;
 import cs353.group14.requests.LoginRequest;
 import cs353.group14.responses.CategoryandNumberResponse;
 import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
@@ -32,7 +33,7 @@ public class CodingChallengeController {
         return codingChallengeService.getChallengesOfEditor(editorId);
     }
 
-    @GetMapping("/publicCodingChallengesFiltered")
+    @PostMapping("/publicCodingChallengesFiltered")
     public List<CodingChallengeQueryResponse> getPublicCodingChallengesFiltered( @RequestBody List<String> filters){
         return codingChallengeService.getAllPublicCodingChallengesFiltered(filters);
     }
@@ -66,8 +67,17 @@ public class CodingChallengeController {
 
 
     @PutMapping("/addCategoryCodingChallenge/{challengeId}")
-    public MessageResponse addCategoryCodingChallenge(@RequestBody String category, @PathVariable int challengeId){
-        return codingChallengeService.addCategoryCodingChallenge(challengeId,category);
+    public MessageResponse addCategoryCodingChallenge(@RequestBody List<String> categories, @PathVariable int challengeId){
+        List<MessageResponse> responses = categories.stream()
+                .map(c -> codingChallengeService.addCategoryCodingChallenge(challengeId, c))
+                .filter(mr-> mr.getMessageType().equals(MessageType.ERROR))
+                .toList();
+
+        if(responses.size() > 0) {
+            return responses.get(0);
+        } else
+            return new MessageResponse(MessageType.SUCCESS, "All categories are added successfully");
+
     }
 
 

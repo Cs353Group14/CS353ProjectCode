@@ -40,6 +40,11 @@ export class NonCodingChallengeApi {
         return response.data;
     }
 
+    async getFilteredNonCodingChallenges(categories: string[]): Promise<NonCodingChallengeQueryResponse[]> {
+        const response = await axios.post("/NonCodingChallengesFiltered", categories);
+        return response.data;
+    }
+
     async getNonCodingChallenge(): Promise<NonCodingChallengeModel> {
         const response = await axios.get(`/getNonCodingChallenge/${localStorage.getItem('nonCodingId')}`);
         return response.data;

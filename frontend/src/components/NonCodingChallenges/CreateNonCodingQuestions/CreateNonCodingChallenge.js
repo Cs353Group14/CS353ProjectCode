@@ -67,7 +67,7 @@ function CreateNonCodingQuestion(props) {
       publicity: 1
     }
 
-    const challengeId = await createNonCodingQuestionAPI.addNonCodingQuestionToInterview(newQuestion);
+    const challengeId = await createNonCodingQuestionAPI.createNonCoding(newQuestion);
 
     let categoryArray =[];
 

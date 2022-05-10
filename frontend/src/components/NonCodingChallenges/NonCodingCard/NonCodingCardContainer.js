@@ -1,10 +1,11 @@
-import { Card, IconButton, InputBase, Paper, TextField } from "@material-ui/core";
+import { Button, Card, IconButton, InputBase, Paper, TextField } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import React, {useEffect, useState} from "react";
 import NavBar from "../../NavBar/NavBar";
 import NonCodingCard from "./NonCodingCard";
 import './NonCodingCard.css'
 import {NonCodingChallengeApi} from '../NonCodingChallengeApi'
+import { Autocomplete, Stack } from "@mui/material";
 
 
 const nonCodingQuestions = [
@@ -82,6 +83,16 @@ const nonCodingQuestions = [
     },
 ]
 
+const categories =
+[
+  {value: "DP"},
+  {value: "Array"},
+  {value: "Linked list"},
+  {value: "Stack"},
+  {value: "Graph"},
+  {value: "DFS"},
+  {value: "BFS"}
+]
 
 function NonCodingCardContainer(props) {
 
@@ -102,8 +113,19 @@ function NonCodingCardContainer(props) {
         fetchNonCodingQuestions();
     },[]);
 
-    function handleNewCategory(event){
+    let listOfCategories = [];
 
+
+    function handleCategories() {
+        let categoryArray =[];
+
+        listOfCategories.forEach(category => {
+            categoryArray.push(category.value);
+        });
+        nonCodingChallengeApi.getFilteredNonCodingChallenges(categoryArray)
+                .then(data=> {
+                    setNonCodingQuestions(data)
+                });
     }
 
     nonCodingQuestions.forEach( (question) => {
@@ -118,21 +140,35 @@ function NonCodingCardContainer(props) {
         <div>
             <h3>Filter for Non-Coding Challenges:</h3>
 
-            <Paper
-            component="form"
-            sx={{ p: '2px 4px', p: '10px', display: 'flex', alignItems: 'center', width: 200 }}
-            > 
-
-            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+            <div className="coding-card-container">
+            <IconButton sx={{ p: '10px' }} aria-label="search" onClick={handleCategories}>
                 <SearchIcon />
             </IconButton>
             
-            <InputBase fullwidth='true'
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Category"
-                inputProps={{ 'aria-label': 'search google maps'}}
-            />
-            </Paper>
+            <Stack spacing={3} sx={{ width: 500 }}>
+                <Autocomplete
+                    multiple
+                    id="tags-outlined"
+                    options={categories}
+                    getOptionLabel={(option) => option.value}
+                    filterSelectedOptions
+                    margin="normal"
+                    onChange={(event, options) => {
+                      listOfCategories = options;
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Catogories"
+                      />
+                    )}
+                  />
+                </Stack>
+                <div className="clear-btn">
+                    <Button variant="outlined" href="/home">Clear</Button>
+                </div>
+            </div>
+            
                 
             <div className ="coding-card-container" >
 

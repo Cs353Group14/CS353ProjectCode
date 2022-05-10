@@ -3,6 +3,7 @@ package cs353.group14.controllers;
 import cs353.group14.CodingChallenge;
 import cs353.group14.common.MessageResponse;
 import cs353.group14.requests.LoginRequest;
+import cs353.group14.responses.CategoryandNumberResponse;
 import cs353.group14.responses.CodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.CodingChallengeQueryResponse;
 import cs353.group14.services.CodingChallengeService;
@@ -98,5 +99,10 @@ public class CodingChallengeController {
         return codingChallengeService.makeCompanySponsorToContest(contestId,companyId);
     }
 
+
+    @GetMapping("/getCategoriesAndNumbersCodingChallenge")
+    public List<CategoryandNumberResponse> getCategoriesAndNumbers(){
+        return codingChallengeService.getCategoriesAndNumbers();
+    }
 
 }

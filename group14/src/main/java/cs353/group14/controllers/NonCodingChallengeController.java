@@ -6,6 +6,7 @@ import cs353.group14.NonCodingChallenge;
 import cs353.group14.OtherAnswerResponse;
 import cs353.group14.Reply;
 import cs353.group14.common.MessageResponse;
+import cs353.group14.responses.CategoryandNumberResponse;
 import cs353.group14.responses.NonCodingChallengeAuthorCategoryResponse;
 import cs353.group14.responses.NonCodingChallengeQueryResponse;
 import cs353.group14.services.NonCodingChallengeService;
@@ -95,5 +96,10 @@ public class NonCodingChallengeController {
         return nonCodingChallengeService.createAndAddNonQuestionToInterview(interviewId, companyId, noncodingChallenge);
     }
 
+
+    @GetMapping("/getCategoriesAndNumbersNonCodingChallenge")
+    public List<CategoryandNumberResponse> getCategoriesAndNumbers(){
+        return nonCodingChallengeService.getCategoriesAndNumbers();
+    }
 
 }

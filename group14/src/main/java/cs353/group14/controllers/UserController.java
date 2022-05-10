@@ -6,6 +6,7 @@ import cs353.group14.requests.LoginRequest;
 import cs353.group14.requests.ReferRequest;
 import cs353.group14.responses.IdUserNameandNameResponse;
 import cs353.group14.responses.LoginResponse;
+import cs353.group14.responses.UserCoderResponse;
 import cs353.group14.responses.UserNameandNameResponse;
 import cs353.group14.services.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -104,5 +105,15 @@ public class UserController {
     }
 
 
+    @GetMapping("/getCoders")
+    public List<UserCoderResponse>  getCoders(){
+        return userService.getCoders();
+    }
+
+
+    @GetMapping("/getCoders/{filter}")
+    public List<UserCoderResponse>  getCodersWithFilter(@PathVariable String filter){
+        return userService.getCodersWithFilter(filter);
+    }
 
 }

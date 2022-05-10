@@ -8,6 +8,7 @@ import cs353.group14.db.ConnectionSingle;
 import cs353.group14.requests.LoginRequest;
 import cs353.group14.responses.IdUserNameandNameResponse;
 import cs353.group14.responses.LoginResponse;
+import cs353.group14.responses.UserCoderResponse;
 import cs353.group14.responses.UserNameandNameResponse;
 import org.springframework.stereotype.Repository;
 
@@ -55,6 +56,93 @@ public class UserRepository {
         }
 
     }
+
+    public List<UserCoderResponse> getCoders() {
+        List<UserCoderResponse> result= new ArrayList<>();
+        String getUserId = "SELECT * from usercoders order by rating DESC";
+        int size =0;
+        int userId = -1;
+        String username = "";
+        String mail = "";
+        String name = "";
+        String profile_photo = "";
+        String information = "";
+        int rating = -1;
+        String position = "";
+        int points = -1;
+        String place = "";
+        int birth_year = -1;
+        try{
+            PreparedStatement getUserIdPrepared= ConnectionSingle.getConnection().prepareStatement(getUserId);
+            ResultSet rs = getUserIdPrepared.executeQuery();
+            while ( rs.next()) {
+                userId = rs.getInt("user_id");
+                username = rs.getString("username");
+                mail = rs.getString("mail");
+                name = rs.getString("name");
+                profile_photo = rs.getString("profile_photo");
+                information = rs.getString("information");
+                rating = rs.getInt("rating");
+                position = rs.getString("position");
+                points = rs.getInt("points");
+                place = rs.getString("place");
+                birth_year = rs.getInt("birth_year");
+
+                UserCoderResponse ucr = new UserCoderResponse(rating, points, position, place, birth_year, userId
+                        , username, mail, name, information, profile_photo);
+                result.add(ucr);
+            }
+        } catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
+        return result;
+    }
+
+
+    public List<UserCoderResponse> getCodersWithFilter( String filter) {
+        List<UserCoderResponse> result= new ArrayList<>();
+        String getUserId = "SELECT * from usercoders  WHERE username LIKE ? order by rating DESC";
+        int size =0;
+        int userId = -1;
+        String username = "";
+        String mail = "";
+        String name = "";
+        String profile_photo = "";
+        String information = "";
+        int rating = -1;
+        String position = "";
+        int points = -1;
+        String place = "";
+        int birth_year = -1;
+        try{
+            PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(getUserId);
+            preparedStatement.setString( 1,"%"+filter+"%");
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while ( rs.next()) {
+                userId = rs.getInt("user_id");
+                username = rs.getString("username");
+                mail = rs.getString("mail");
+                name = rs.getString("name");
+                profile_photo = rs.getString("profile_photo");
+                information = rs.getString("information");
+                rating = rs.getInt("rating");
+                position = rs.getString("position");
+                points = rs.getInt("points");
+                place = rs.getString("place");
+                birth_year = rs.getInt("birth_year");
+
+                UserCoderResponse ucr = new UserCoderResponse(rating, points, position, place, birth_year, userId
+                        , username, mail, name, information, profile_photo);
+                result.add(ucr);
+            }
+        } catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
+        return result;
+    }
+
+
 
     public int getUserId(String username) {
         String getUserId = "SELECT user_id from users WHERE username = ?";

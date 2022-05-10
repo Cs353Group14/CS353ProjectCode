@@ -7,6 +7,7 @@ import cs353.group14.db.ConnectionSingle;
 import cs353.group14.repositories.UserRepository;
 import cs353.group14.responses.IdUserNameandNameResponse;
 import cs353.group14.responses.LoginResponse;
+import cs353.group14.responses.UserCoderResponse;
 import cs353.group14.responses.UserNameandNameResponse;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +86,15 @@ public class UserService {
 
     public User login( String username, String password) {
         return userRepository.login(username,password);
+    }
+
+    public List<UserCoderResponse> getCoders() {
+        return userRepository.getCoders();
+    }
+
+    public List<UserCoderResponse> getCodersWithFilter( String filter)
+    {
+        return userRepository.getCodersWithFilter(filter);
     }
 
     public LoginResponse loginWithBasicResponse ( String username, String password) {

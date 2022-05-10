@@ -8,6 +8,7 @@ import cs353.group14.responses.UserNameAndInterviewResultResponse;
 import cs353.group14.responses.UserNameandNameResponse;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -91,5 +92,10 @@ public class InterviewService {
 
     public List<Interview> getInterviewsOfCompanyNew(int user_id){
         return interviewRepository.getInterviewsOfCompanyNew(user_id);
+    }
+
+    public List<InterviewResponse> getInterviewsForCoderWithRange(int coder_id, Timestamp rangeEarly, Timestamp rangeLate)
+    {
+        return interviewRepository.getInterviewsForCoderWithRange(coder_id, rangeEarly, rangeLate);
     }
 }

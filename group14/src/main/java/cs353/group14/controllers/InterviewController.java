@@ -10,6 +10,7 @@ import cs353.group14.services.InterviewService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -109,5 +110,15 @@ public class InterviewController {
         return interviewService.getInterviewsOfCompanyNew(user_id);
     }
 
+
+    @GetMapping("/getInterviewsForCoderWithRange/{user_id}/{rangeEarly}/{rangeLate}")
+    public List<InterviewResponse> getInterviewsForCoderWithRange(@PathVariable int user_id,@PathVariable String rangeEarly,@PathVariable String rangeLate){
+        // Format of strings should be like 2018-09-01 09:01:15
+
+        // example request localhost:8080/getInterviewsForCoderWithRange/6/2018-09-01 09:01:15/2028-09-01 09:01:15
+        Timestamp timestampearly= Timestamp.valueOf(rangeEarly);
+        Timestamp timestamplate= Timestamp.valueOf(rangeLate);
+        return interviewService.getInterviewsForCoderWithRange(user_id,  timestampearly,  timestamplate);
+    }
 
 }

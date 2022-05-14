@@ -1,6 +1,7 @@
 package cs353.group14.controllers;
 
 import cs353.group14.CodingChallenge;
+import cs353.group14.ContestAuthor;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.common.MessageResponse;
 import cs353.group14.responses.*;
@@ -34,6 +35,12 @@ public class ContestController {
     @GetMapping("/getContest/{contestId}")
     public Contest getContest ( @PathVariable int contestId){
         return contestService.getContest(contestId);
+    }
+
+    @GetMapping("/getContestWithAuthor/{contest_id}")
+    public ContestAuthor getContestWithAuthor(@PathVariable int contest_id)
+    {
+        return contestService.getContestWithAuthor(contest_id);
     }
 
     @GetMapping("/getFutureContestsRegistered/{userId}")

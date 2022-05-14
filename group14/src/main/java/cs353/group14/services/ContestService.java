@@ -2,6 +2,7 @@ package cs353.group14.services;
 
 import cs353.group14.CodingChallenge;
 import cs353.group14.Contest;
+import cs353.group14.ContestAuthor;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.common.MessageResponse;
 import cs353.group14.repositories.ContestRepository;
@@ -33,6 +34,11 @@ public class ContestService {
     public Contest getContest( int contest_id)
     {
         return contestRepository.getContest(contest_id);
+    }
+
+    public ContestAuthor getContestWithAuthor(int contest_id)
+    {
+        return contestRepository.getContestWithAuthor(contest_id);
     }
 
     public MessageResponse addCoderToContest( int user_id, int contest_id)

@@ -2,6 +2,7 @@ package cs353.group14.repositories;
 
 import cs353.group14.CodingChallenge;
 import cs353.group14.Contest;
+import cs353.group14.ContestAuthor;
 import cs353.group14.NonCodingChallenge;
 import cs353.group14.common.MessageResponse;
 import cs353.group14.common.MessageType;
@@ -174,6 +175,45 @@ public class ContestRepository {
         }
 
         return new Contest(contest_id,start_time,description,title,difficulty,duration,deadline);
+    }
+
+    public ContestAuthor getContestWithAuthor(int contest_id){
+
+        Timestamp start_time = null;
+        String description = "";
+        String title = "";
+        int difficulty = 0;
+        int duration = 0;
+        Timestamp deadline = null;
+        String author = "";
+
+        try {
+            String query = "SELECT * FROM contest, prepare, users where contest.contest_id = ? and prepare.contest_id = contest.contest_id and prepare.user_id = users.user_id";
+            PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,contest_id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()){
+                start_time = ( rs.getTimestamp("start_time"));
+                description = ( rs.getString("description"));
+                title = ( rs.getString("title"));
+                difficulty = ( rs.getInt("difficulty"));
+                duration = ( rs.getInt("duration"));
+                deadline = ( rs.getTimestamp("deadline"));
+                author = ( rs.getString("username"));
+            }
+
+
+        }
+
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+        return new ContestAuthor(contest_id,start_time,description,title,difficulty,duration,deadline,author);
     }
 
     public List<Contest> getFutureContestsRegistered( int userId)

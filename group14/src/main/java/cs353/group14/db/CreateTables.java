@@ -23,15 +23,49 @@ public class CreateTables {
         this.codingChallengeService = codingChallengeService;
     }
 
-    //@Bean
+   // @Bean
     public void createUserTables() {
 
         System.out.println("create table");
 
         int sqlCount = 28;
-
+        int viewCount = 4;
+        int indexCount = 3;
         String[] createSqls = new String[sqlCount];
         String[] dropSqls = new String[sqlCount];
+
+        String[] dropViews = new String[viewCount ];
+        String[] dropIndex = new String[indexCount];
+
+        String[] createViews = new String[viewCount];
+        String[] createIndex = new String[indexCount];
+
+        createIndex[0] = "CREATE INDEX coderPointIndex ON coder(points)";
+        createIndex[1] = "CREATE INDEX coderRatingIndex ON coder(rating)";
+        createIndex[2] = "CREATE INDEX usersUsernameIndex ON users(username)";
+
+        dropIndex[0] = " DROP INDEX IF EXISTS coderPointIndex";
+        dropIndex[1] = " DROP INDEX IF EXISTS coderRatingIndex";
+        dropIndex[2] = " DROP INDEX IF EXISTS usersUsernameIndex";
+
+        createViews[0] = " CREATE VIEW userCodersView AS SELECT U.user_id, U.username, U.mail, U.name,U.profile_photo,U.information,\n" +
+                "C.rating, C.position, C.points, C.place, C.birth_year FROM coder C, users U where U.user_id = C.user_id;";
+
+        createViews[1] = " CREATE VIEW catNumbersView AS SELECT Count(*) as cat_number, category FROM coding_challenge_categories \n" +
+                "group by category order by cat_number desc;";
+
+        createViews[2] = " CREATE VIEW catNumbersNonCodingView AS SELECT Count(*) as cat_number, category FROM non_coding_challenge_categories \n" +
+                "group by category order by cat_number desc;";
+
+        createViews[3] = " CREATE VIEW contestStatisticsView AS SELECT contest_id, count(*) as userNumber, max(points) as maxPoint, avg(points) as avgPoint, min(points) as minPoint\n" +
+                "FROM participate  group by contest_id;";
+
+
+        dropViews[0] = " DROP VIEW IF EXISTS userCodersView" ;
+        dropViews[1] = " DROP VIEW IF EXISTS catNumbersView" ;
+        dropViews[2] = " DROP VIEW IF EXISTS catNumbersNonCodingView" ;
+        dropViews[3] = " DROP VIEW IF EXISTS contestStatisticsView" ;
+
 
         dropSqls[0] = "users";
         dropSqls[1] = "admin";
@@ -293,6 +327,16 @@ public class CreateTables {
         try {
 
             Statement statement = ConnectionSingle.getConnection().createStatement();
+
+            for ( int i = 0; i < indexCount; i++)
+            {
+                statement.executeUpdate( dropIndex[i]);
+            }
+
+            for ( int i = 0; i < viewCount; i++)
+            {
+                statement.executeUpdate( dropViews[i]);
+            }
             for (int i = sqlCount - 1; i > -1; i--) {
                 statement.executeUpdate("DROP TABLE IF EXISTS " + dropSqls[i]);
             }
@@ -301,10 +345,23 @@ public class CreateTables {
                 statement.executeUpdate(createSqls[i]);
             }
 
+            for ( int i = 0; i < indexCount; i++)
+            {
+                statement.executeUpdate( createIndex[i]);
+            }
+
+            for ( int i = 0; i < viewCount; i++)
+            {
+                statement.executeUpdate( createViews[i]);
+            }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         //createTestUsers();
+
 
     }
 

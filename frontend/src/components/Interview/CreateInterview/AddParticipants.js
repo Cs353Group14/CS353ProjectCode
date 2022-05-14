@@ -51,12 +51,12 @@ function AddParticipants(props) {
 
     async function addParticipanttt() {
     
-        alert('hii');
+       // alert('hii');
         let coderId =0;
         await createInterviewAPI.getUserToAdd(username).then(data => {
             coderId = data});
 
-        alert(new Date(startTime));
+        //alert(new Date(startTime));
         const newParticipant = {
             interviewId: localStorage.getItem('interviewID'),
             coderId: coderId,

@@ -113,7 +113,6 @@ public class UserController {
 
     @GetMapping("/getCoders/{filter}")
     public List<UserCoderResponse>  getCodersWithFilter(@PathVariable String filter){
-        System.out.println(filter);
         return userService.getCodersWithFilter(filter);
     }
 

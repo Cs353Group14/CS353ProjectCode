@@ -324,7 +324,6 @@ async function handleCreate() {
                     <TableCell>Type</TableCell>
                     <TableCell align="right">Title</TableCell>
                     <TableCell align="right">See details</TableCell>
-                    <TableCell align="right">Remove</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -344,13 +343,6 @@ async function handleCreate() {
                         > See Details
                     </Button>
                     </TableCell>
-                    <TableCell align="right">
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        > Remove
-                    </Button>
-                    </TableCell>
                     </TableRow>
                 ))}
                 {coding.map((row) => (
@@ -367,13 +359,6 @@ async function handleCreate() {
                         variant="contained"
                         color="default"
                         > See Details
-                    </Button>
-                    </TableCell>
-                    <TableCell align="right">
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        > Remove
                     </Button>
                     </TableCell>
                     </TableRow>

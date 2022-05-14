@@ -162,14 +162,18 @@ function CreateInterview(props) {
     }
     isSet = 1;
 
-    localStorage.setItem('interviewID', interviewId);
+    if(localStorage.getItem('interviewID')<  0)
+    {
+        localStorage.setItem('interviewID', interviewId);
+
+    }
     console.log(interviewId);
-    window.location.href = "http://localhost:3000/home";
+    window.location.href = "http://localhost:3000/AddParticipants";
 
 }
 async function handleCreate() {
 
-    alert("ii");
+    //alert("ii");
     const newInterview = {
         user_id: localStorage.getItem('userId'),
         interview_id: -1,

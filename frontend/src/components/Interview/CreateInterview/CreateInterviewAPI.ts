@@ -35,6 +35,7 @@ export interface Participant {
 
 
 
+
 export class CreateNewInterviewAPI {
 
     async createInterview(newQuestion: newInterview): Promise<InterviewQueryResponse> {
@@ -65,6 +66,11 @@ export class CreateNewInterviewAPI {
 
     async getUserToAdd(username: string){
         const response = await axios.get("/getUserNameandName/" + username);
+        return response.data;
+    }
+
+    async getParticipants(interviewID: string){
+        const response = await axios.get("/getUsersAttendingToInterview/" + interviewID);
         return response.data;
     }
 

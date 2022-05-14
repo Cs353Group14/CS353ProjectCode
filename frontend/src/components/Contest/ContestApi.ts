@@ -23,6 +23,13 @@ export interface ContestDeadlineResponse{
     editorName:string;
 }
 
+export interface ContestStatistic{
+    maxPoint:number,
+      minPoint:number,
+      avgPoint:number,
+      userNumber:number,
+}
+
 export class ContestApi {
     async createContest(contest: ContestModel): Promise<number> {
         const response = await axios.put(`/createContest/${localStorage.getItem('userId')}`, contest);
@@ -84,6 +91,11 @@ export class ContestApi {
 
     async getContesOrder() : Promise<ContestResult[]> {
         const response = await axios.get(`/getContestOrder/${localStorage.getItem('contestId')}`);
+        return response.data;
+    }
+
+    async getContestStatistic() : Promise<ContestStatistic> {
+        const response = await axios.get(`/getContestStatistic/${localStorage.getItem('contestId')}`);
         return response.data;
     }
 

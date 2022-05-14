@@ -76,9 +76,10 @@ export default function CodersTable() {
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCellHead align="right">Rating</StyledTableCellHead>
+                <StyledTableCellHead align="right">Placement</StyledTableCellHead>
                 <StyledTableCellHead align="right">Username</StyledTableCellHead>
                 <StyledTableCellHead align="right">Name</StyledTableCellHead>
+                <StyledTableCellHead align="right">Place</StyledTableCellHead>
                 <StyledTableCellHead align="right">Position</StyledTableCellHead>
                 <StyledTableCellHead align="right">Points</StyledTableCellHead>
                 <StyledTableCellHead align="right">Profile</StyledTableCellHead>
@@ -88,10 +89,11 @@ export default function CodersTable() {
               {rows.map((row,i) => (
                 <StyledTableRow key={row.userId}>
                   <StyledTableCell align="right">
-                    {row.rating}
+                    {i+1}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.username}</StyledTableCell>
                   <StyledTableCell align="right">{row.name}</StyledTableCell>
+                  <StyledTableCell align="right">{row.place}</StyledTableCell>
                   <StyledTableCell align="right">{row.position}</StyledTableCell>
                   <StyledTableCell align="right">{row.points}</StyledTableCell>
                   <StyledTableCell align="right">

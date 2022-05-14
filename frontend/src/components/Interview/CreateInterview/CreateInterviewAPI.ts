@@ -65,7 +65,7 @@ export class CreateNewInterviewAPI {
     }
 
     async getUserToAdd(username: string){
-        const response = await axios.get("/getUserNameandName/" + username);
+        const response = await axios.get("/getIdUserNameandName/" + username);
         return response.data;
     }
 

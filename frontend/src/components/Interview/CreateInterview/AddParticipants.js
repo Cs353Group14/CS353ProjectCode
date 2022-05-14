@@ -57,7 +57,7 @@ function AddParticipants(props) {
        // alert('hii');
         let coderId =0;
         await createInterviewAPI.getUserToAdd(username).then(data => {
-            coderId = data});
+            coderId = data.id});
 
         alert(startDate +"T03:"+startTime);
         alert(endDate +"T03:"+endTime);
@@ -67,12 +67,13 @@ function AddParticipants(props) {
             companyId: localStorage.getItem('userId'),
             startTime: startDate +"T03:"+startTime,
             endTime: endDate +"T03:"+endTime,
-            interviewResult: "not yet out",
+            interviewResult: "not determined",
             invitationCode: "code"
           }
 
           let attendId = await createInterviewAPI.addParticipant(newParticipant);
           console.log(attendId);
+          fetchParticipants();
  
     }
 

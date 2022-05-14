@@ -47,6 +47,7 @@ const categories =
 
 function CreateCodingChallenge(props) {
 
+  const parseLines = (value) => value.replace(/(\\n)/g, "\n");
   const [difficulty, setdifficulty] = React.useState('Easy');
   const [title, setTitle] = useState("");
   const [points, setPoints] = useState("");
@@ -87,15 +88,33 @@ function CreateCodingChallenge(props) {
      publicity: publicity 
     }
 
-    const challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
+    let challengeId;
+    if(publicity == 1)
+    {
+      challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
 
+    }
+    else
+    {
+      alert("here");
+      let interviewID = localStorage.getItem('interviewID');
+      let companyId = localStorage.getItem('userId');
+      challengeId = await createCodingChallengeAPI.createCodingChallengesForInteriew(interviewID, companyId, duration, newQuestion);
+
+    }
+
+    localStorage.setItem('challengeId', challengeId);
     let categoryArray =[];
 
     listOfCategories.forEach(category => {
       categoryArray.push(category.value);
     });
 
+    let inputsOutputs = [];
+    inputsOutputs[0] = input;
+    inputsOutputs[1] = output;
     await createCodingChallengeAPI.addCategory(challengeId, categoryArray);
+    await createCodingChallengeAPI.addTestCase(challengeId, inputsOutputs);
 
     if(publicity === 0) //Then need to add this question to interview also
     {
@@ -275,7 +294,7 @@ function CreateCodingChallenge(props) {
                   margin="normal"
                   variant="outlined"
                   onChange={(e) => setInput(e.target.value)}
-                  value= {input}
+                  value={parseLines(input)}
                 />
                </div>
                <div>
@@ -288,7 +307,7 @@ function CreateCodingChallenge(props) {
                   margin="normal"
                   variant="outlined"
                   onChange={(e) => setOutput(e.target.value)}
-                  value= {output}
+                  value={parseLines(output)}
                 />
                </div>
               <Grid container spacing={12} style= {{marginTop: "1rem"}} >

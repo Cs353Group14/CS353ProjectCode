@@ -22,5 +22,10 @@ export class CreateNonCodingQuestionAPI {
         const response = await axios.put(`/addCategoryNonCodingChallenge/${challengeId}`, categories);
     }
 
+    //createAndAddNonQuestionToInterview
+    async createNonCodingQuestionForInterview(interviewID: number, companyID: number,newQuestion: newNonCodingQuestionModel) {
+        const response = await axios.put(`/createAndAddNonQuestionToInterview/${interviewID}/${companyID}`, newQuestion);
+        return response.data;
+    }
     
 }

@@ -41,13 +41,59 @@ function createData(type, title) {
 
 function CreateInterview(props) {
 
-  const [position, setPosition] = React.useState(' ');
-  const [timeUnit, setTimeUnit] = useState(timeUnits[0].value);
-  const [duration, setDuration] = useState(0);
+  
+  let stateButton = false;
+  if(localStorage.getItem('interviewID') !== null)
+  {
+    stateButton = true;
+  }
+  else
+  {
+    stateButton = false;
+  }
+  let statePos = false;
+  const [disable, setDisable] = useState(stateButton);
+
+  if(localStorage.getItem('position') !== null)
+  {
+    statePos = localStorage.getItem('position');
+  }
+  else
+  {
+    statePos = "";
+  }
+  const [position, setPosition] = React.useState(statePos);
+
+  let durationState = false;
+  if(localStorage.getItem('duration') !== null)
+  {
+    durationState = localStorage.getItem('duration');
+  }
+  else
+  {
+    durationState = 0;
+  }
+  const [duration, setDuration] = useState(durationState);
+
+  let timeState = false;
+  if(localStorage.getItem('duration') !== null)
+  {
+    timeState = localStorage.getItem('timeUnit');
+  }
+  else
+  {
+    timeState = timeUnits[0].value;
+  }
+  const [timeUnit, setTimeUnit] = useState(timeState);
+  
+
   const createNewInterview = new CreateNewInterviewAPI();
   let durationInMin = 0;
   let interviewId;
   let isSet = localStorage.getItem('interviewID');
+  //alert(isSet);
+
+
 
   let interviewID = localStorage.getItem('interviewID');
     const attendInterviewAPI = new AttendInterviewAPI();
@@ -72,45 +118,27 @@ function CreateInterview(props) {
 
  async function addCodingQuestions()
   {
-    localStorage.setItem('interviewID', interviewId);
+      if(localStorage.getItem('interviewID')<  0)
+      {
+        localStorage.setItem('interviewID', interviewId);
+
+      }
     localStorage.setItem('addingToInterview', true);
     
-    if(isSet === null)
-    {
-        const newInterview = {
-            user_id: localStorage.getItem('userId'),
-            interview_id: -1,
-            duration: durationInMin,
-            position: position
-          }
-          interviewId = await createNewInterview.createInterview(newInterview);
-          alert(interviewId);
-          await localStorage.setItem('interviewID', interviewId);
-          console.log(interviewId);
-          isSet = interviewId
-    }
 
     window.location.href = "http://localhost:3000/CreateCodingChallenge";
-
 
   }
 
   async function addNonCodingQuestions()
   {
-    localStorage.setItem('interviewID', interviewId);
+    if(localStorage.getItem('interviewID')<  0)
+      {
+        localStorage.setItem('interviewID', interviewId);
+
+      }
     localStorage.setItem('addingToInterview', true);
-    if(!isSet)
-    {
-        const newInterview = {
-            user_id: localStorage.getItem('userId'),
-            interview_id: -1,
-            duration: durationInMin,
-            position: position
-          }
-          interviewId = await createNewInterview.createInterview(newInterview);
-          localStorage.setItem('interviewID', interviewId);
-          console.log(interviewId);
-    }
+    
 
     window.location.href = "http://localhost:3000/CreateNonCodingQuestion";
 
@@ -139,9 +167,30 @@ function CreateInterview(props) {
     window.location.href = "http://localhost:3000/home";
 
 }
+async function handleCreate() {
+
+    alert("ii");
+    const newInterview = {
+        user_id: localStorage.getItem('userId'),
+        interview_id: -1,
+        duration: durationInMin,
+        position: position
+      }
+      interviewId = await createNewInterview.createInterview(newInterview);
+      localStorage.setItem('interviewID', interviewId);
+      localStorage.setItem('position', position);
+      localStorage.setItem('duration', duration);
+      localStorage.setItem('timeUnit', timeUnit);
+      console.log(interviewId);
+      setDisable(true);
+
+
+
+}
 
     return(
         <div>
+           
             <div id="create_interview_container">
             <div id="creat_interview" >
             <Grid
@@ -176,6 +225,7 @@ function CreateInterview(props) {
                 >
                 <div>
                 <TextField
+                    disabled={disable}
                     id="outlined-multiline-flexible"
                     label="Position"
                     onChange={(e) => setPosition(e.target.value)}
@@ -189,6 +239,7 @@ function CreateInterview(props) {
                 <Grid item xs={6}>
                     <div>
                         <TextField
+                        disabled={disable}
                         id="outlined-multiline-flexible"
                         label="Duration"
                         onChange={(e) => setDuration(e.target.value)}
@@ -202,6 +253,7 @@ function CreateInterview(props) {
                 <Grid item xs={6}>
                 <div>
                     <TextField
+                       disabled={disable}
                         id="outlined-select-currency"
                         select
                         margin="normal"
@@ -220,6 +272,11 @@ function CreateInterview(props) {
                 <div>
                 </div>
                 </Box>
+                 <Button 
+                 disabled={disable}
+                 variant="contained"
+                        color="primary"
+                        onClick={handleCreate}>Create</Button>
                 </FormControl>
             </Grid>
           </div>

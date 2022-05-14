@@ -25,4 +25,16 @@ export class CreateCodingChallengeAPI {
     async addCategory(challengeId: number, categories: string[]) {
         const response = await axios.put(`/addCategoryCodingChallenge/${challengeId}`, categories);
     }
+
+    async addTestCase(challengeId: number, inputsOutputs: string[]){
+        const response = await axios.put(`/addTestCaseForCodingChallenge/${challengeId}`, inputsOutputs);
+        return response.data;
+
+    }
+    async createCodingChallengesForInteriew(interviewId: number, companyId: number, timelimit: number, newQuestion: newCodingQuestionModel)
+    {
+        //createAndAddQuestionToInterview
+        const response = await axios.put(`/createAndAddQuestionToInterview/${interviewId}/${companyId}/${timelimit}`, newQuestion);
+        return response.data;
+    }
 }

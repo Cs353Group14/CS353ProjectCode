@@ -67,7 +67,17 @@ function CreateNonCodingQuestion(props) {
       publicity: 1
     }
 
-    const challengeId = await createNonCodingQuestionAPI.createNonCoding(newQuestion);
+    let challengeId;
+    if(publicity == 0)
+    {
+      let interviewID = localStorage.getItem('interviewID');
+      let companyId = localStorage.getItem('userId');
+      challengeId = await createNonCodingQuestionAPI.createNonCodingQuestionForInterview(interviewID,companyId, newQuestion);
+    }
+    else
+    {
+      challengeId = await createNonCodingQuestionAPI.createNonCoding(newQuestion);
+    }
 
     let categoryArray =[];
 
@@ -90,6 +100,7 @@ function CreateNonCodingQuestion(props) {
 
     return(
         <div>
+          <NavBar></NavBar>
           <Grid
             container
             direction="row"

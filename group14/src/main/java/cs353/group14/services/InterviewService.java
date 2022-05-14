@@ -110,4 +110,8 @@ public class InterviewService {
     public int getNumberOfContestAttended(int coder_id){
         return interviewRepository.getNumberOfContestAttended(coder_id);
     }
+
+    public int getSumSolvedNumberOfQuestion(int coder_id) {
+        return interviewRepository.getSumSolvedNumberOfQuestion(coder_id);
+    }
 }

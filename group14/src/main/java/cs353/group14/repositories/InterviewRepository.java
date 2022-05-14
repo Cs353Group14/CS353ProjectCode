@@ -693,4 +693,39 @@ public class InterviewRepository {
 
 
     }
+
+    public int getSumSolvedNumberOfQuestion(int coder_id) {
+
+        int non_coding_number = 0;
+
+        int coding_number = 0;
+
+        try {
+            String query = "SELECT count(*) as number from reply WHERE user_id = ? ";
+            PreparedStatement stmt = ConnectionSingle.getConnection().prepareStatement(query);
+            stmt.setInt(1,coder_id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                non_coding_number = rs.getInt("number");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String query = "SELECT count(distinct challenge_id ) as number from submit, submission WHERE submit.user_id = ? and submission.submission_id = submit.submission_id and fail_result = 0 ";
+            PreparedStatement stmt = ConnectionSingle.getConnection().prepareStatement(query);
+            stmt.setInt(1,coder_id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                coding_number = rs.getInt("number");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return non_coding_number+coding_number;
+    }
 }

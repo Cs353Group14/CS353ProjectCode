@@ -140,7 +140,10 @@ public class InterviewController {
         return interviewService.getNumberOfContestAttended(coder_id);
     }
 
-
+    @GetMapping("/getSumSolvedNumberOfQuestion/{coder_id}")
+    public int getSumSolvedNumberOfQuestion(@PathVariable int coder_id){
+        return interviewService.getSumSolvedNumberOfQuestion(coder_id);
+    }
 
 
 }

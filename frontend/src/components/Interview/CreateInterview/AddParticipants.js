@@ -29,6 +29,8 @@ function AddParticipants(props) {
   const [username, setUsername] = React.useState('');
   const [startTime, setStartTime] = React.useState(null);
  const [endTime, setEndTime] = React.useState(null);
+ const [startDate, setStartDate] = React.useState(null);
+ const [endDate, setEndDate] = React.useState(null);
 
 
   const[rows, setRows] = useState([]);
@@ -57,14 +59,14 @@ function AddParticipants(props) {
         await createInterviewAPI.getUserToAdd(username).then(data => {
             coderId = data});
 
-        alert(new Date(endTime).toJSON());
-        alert(new Date(startTime).toJSON());
+        alert(startDate +"T03:"+startTime);
+        alert(endDate +"T03:"+endTime);
         const newParticipant = {
             interviewId: localStorage.getItem('interviewID'),
             coderId: coderId,
             companyId: localStorage.getItem('userId'),
-            startTime: new Date(startTime).toJSON(),
-            endTime: new Date(endTime).toJSON(),
+            startTime: startDate +"T03:"+startTime,
+            endTime: endDate +"T03:"+endTime,
             interviewResult: "not yet out",
             invitationCode: "code"
           }
@@ -129,17 +131,23 @@ function AddParticipants(props) {
                 alignItems="center"
                 sx={{m:3}}
                 >
-                     <Grid item >
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DateTimePicker
-                                renderInput={(props) => <TextField {...props} />}
-                                label="Start time"
-                                value={startTime}
-                                onChange={(newValue) => {
-                                setStartTime(newValue);
-                                }}
-                            />
-                        </LocalizationProvider>
+                     <Grid item xs={6}>
+                     <TextField
+                            label="Start Date"
+                            type="date"
+                            value={startDate}
+                            onChange={(e)=> setStartDate(e.target.value)}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                     <TextField
+                            label="Start Time"
+                            type="time"
+                            value={startTime}
+                            onChange={(e)=> setStartTime(e.target.value)}
+                            InputLabelProps={{ shrink: true }}
+                        />
                     </Grid>
                 </Grid>
                 <Grid
@@ -149,17 +157,23 @@ function AddParticipants(props) {
                 alignItems="center"
                 sx={{m:3}}
                 >
-                     <Grid item >
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DateTimePicker
-                                renderInput={(props) => <TextField {...props} />}
-                                label="End time"
-                                value={endTime}
-                                onChange={(newValue) => {
-                                setEndTime(newValue);
-                                }}
-                            />
-                        </LocalizationProvider>
+                     <Grid item xs={6}>
+                     <TextField
+                            label="End Date"
+                            type="date"
+                            value={endDate}
+                            onChange={(e)=> setEndDate(e.target.value)}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                     <TextField
+                            label="End Time"
+                            type="time"
+                            value={endTime}
+                            onChange={(e)=> setEndTime(e.target.value)}
+                            InputLabelProps={{ shrink: true }}
+                        />
                     </Grid>
                 </Grid>
                 <Grid container  direction="row" justifyContent="center" alignItems="center">

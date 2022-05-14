@@ -36,6 +36,11 @@ export interface CodingChallegeInformation {
     categories: [];
 }
 
+export interface CategoryNumberResponse {
+    category:string;
+    number: number;
+}
+
 
 export class CodingChallengeApi {
     
@@ -75,6 +80,11 @@ export class CodingChallengeApi {
 
     async getContestCodingQuestions(): Promise<CodingChallengeQueryResponse[]> {
         const response = await axios.get(`/getContestCodingQuestions/${localStorage.getItem('contestId')}`);
+        return response.data;
+    }
+
+    async getCategoriesAndNumbersCodingChallenge(): Promise <CategoryNumberResponse[]> {
+        const response = await axios.get(`/getCategoriesAndNumbersCodingChallenge`);
         return response.data;
     }
 

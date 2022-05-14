@@ -33,6 +33,11 @@ export interface OthersAnswer{
     answer: string;
 }
 
+export interface CategoryNumberResponse {
+    category:string;
+    number: number;
+}
+
 export class NonCodingChallengeApi {
     
     async getNonCodingChallenges(): Promise<NonCodingChallengeQueryResponse[]> {
@@ -70,5 +75,8 @@ export class NonCodingChallengeApi {
         return response.data;
 
     }
-
+    async getCategoriesAndNumbersNonCodingChallenge(): Promise <CategoryNumberResponse[]> {
+        const response = await axios.get(`/getCategoriesAndNumbersNonCodingChallenge`);
+        return response.data;
+    }
 }

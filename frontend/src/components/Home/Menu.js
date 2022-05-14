@@ -128,6 +128,11 @@ export default function Menu(props) {
                 <br/>
                 <Divider />
             </div>
+            <div  >
+                <Button color="inherit" onClick={openCoders}>Coders</Button>
+                <br/>
+                <Divider />
+            </div>
             
 
         </div>
@@ -212,6 +217,11 @@ export default function Menu(props) {
 
     const openContests = () => {
         localStorage.setItem('menuId', 15);
+        window.location.href = "http://localhost:3000/home";
+    }
+
+    const openCoders = () => {
+        localStorage.setItem('menuId', 16);
         window.location.href = "http://localhost:3000/home";
     }
 

@@ -15,3 +15,10 @@
 .clear-btn{
     margin: 20px;
 }
+
+.category-paper{
+    width: auto;
+    height: auto;
+    margin: 3px;
+    padding: 3px;
+}

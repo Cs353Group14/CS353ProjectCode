@@ -98,6 +98,7 @@ function NonCodingCardContainer(props) {
 
     const[category, setCategory] = useState("");
     const[nonCodingQuestions, setNonCodingQuestions] = useState([]);
+    const[categoryNumbers, setCategoryNumbers] = useState([]);
 
     let nonCodingCards=  [];
 
@@ -106,6 +107,8 @@ function NonCodingCardContainer(props) {
 
     function fetchNonCodingQuestions() {
         nonCodingChallengeApi.getNonCodingChallenges().then(data => setNonCodingQuestions(data));
+        nonCodingChallengeApi.getCategoriesAndNumbersNonCodingChallenge()
+            .then(data => setCategoryNumbers(data));
 
     }
 
@@ -114,6 +117,7 @@ function NonCodingCardContainer(props) {
     },[]);
 
     let listOfCategories = [];
+    let categoryNumberArray = [];
 
 
     function handleCategories() {
@@ -135,6 +139,14 @@ function NonCodingCardContainer(props) {
                                          difficulty = {question.difficulty}
 />);
     } )
+
+    categoryNumbers.forEach((cat) => {
+        categoryNumberArray.push(<Paper key={cat.category}><div className="category-paper">
+            {cat.category} : {cat.number} &nbsp;
+        </div>
+        </Paper>);
+
+    })
 
     return(
         <div>
@@ -169,6 +181,9 @@ function NonCodingCardContainer(props) {
                 </div>
             </div>
             
+            <div className="coding-card-container">
+                    {categoryNumberArray}
+                </div>
                 
             <div className ="coding-card-container" >
 

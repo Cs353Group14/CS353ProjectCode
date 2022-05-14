@@ -49,6 +49,7 @@ function AddParticipants(props) {
 
 }
 
+
     async function addParticipanttt() {
     
        // alert('hii');
@@ -56,15 +57,16 @@ function AddParticipants(props) {
         await createInterviewAPI.getUserToAdd(username).then(data => {
             coderId = data});
 
-        //alert(new Date(startTime));
+        alert(new Date(endTime).toJSON());
+        alert(new Date(startTime).toJSON());
         const newParticipant = {
             interviewId: localStorage.getItem('interviewID'),
             coderId: coderId,
             companyId: localStorage.getItem('userId'),
-            startTime: new Date(startTime),
-            endTime: new Date(endTime),
-            interviewResult: "",
-            invitationCode: ""
+            startTime: new Date(startTime).toJSON(),
+            endTime: new Date(endTime).toJSON(),
+            interviewResult: "not yet out",
+            invitationCode: "code"
           }
 
           let attendId = await createInterviewAPI.addParticipant(newParticipant);
@@ -186,7 +188,6 @@ function AddParticipants(props) {
                 <TableRow>
                     <TableCell>Username</TableCell>
                     <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">Remove</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -198,14 +199,7 @@ function AddParticipants(props) {
                     <TableCell component="th" scope="row">
                         {row.userName}
                     </TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        > Remove
-                    </Button>
-                    </TableCell>
+                    <TableCell align="right">{row.name}</TableCell> 
                     </TableRow>
                 ))}
                 </TableBody>

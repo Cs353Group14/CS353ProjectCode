@@ -17,7 +17,15 @@ public class Attend {
     private String interviewResult;
     private String invitationCode;
 
-
+    public Attend(int interviewId, int coderId, int companyId, Timestamp startTime, Timestamp endTime, String interviewResult, String invitationCode) {
+        this.interviewId = interviewId;
+        this.coderId = coderId;
+        this.companyId = companyId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.interviewResult = interviewResult;
+        this.invitationCode = invitationCode;
+    }
 }
 
 

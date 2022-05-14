@@ -130,4 +130,9 @@ public class InterviewController {
         return interviewService.getInterviewsForCoderWithPosition(user_id,  positionLike);
     }
 
+    @GetMapping("/getAttend/{user_id}/{interview_id}")
+    public Attend getAttend(@PathVariable int user_id,@PathVariable int interview_id){
+        return interviewService.getAttend(user_id,interview_id);
+    }
+
 }

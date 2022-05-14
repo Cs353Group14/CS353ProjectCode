@@ -23,7 +23,7 @@ public class CreateTables {
         this.codingChallengeService = codingChallengeService;
     }
 
-   // @Bean
+    //@Bean
     public void createUserTables() {
 
         System.out.println("create table");
@@ -231,12 +231,14 @@ public class CreateTables {
 
         createSqls[17] = "CREATE TABLE contest(" +
                 "contest_id SERIAL PRIMARY KEY," +
-                "start_time TIMESTAMP NOT NULL," +
+                "start_time TIMESTAMP NOT NULL ," +
                 "description VARCHAR(255) NOT NULL," +
                 "title VARCHAR(63) NOT NULL," +
                 "difficulty INTEGER NOT NULL," +
                 "duration INTEGER NOT NULL," +
-                "deadline TIMESTAMP NOT NULL)";
+                "deadline TIMESTAMP NOT NULL," +
+                "CHECK ( start_time > CURRENT_TIMESTAMP)," +
+                " CHECK ( deadline > start_time))";
 
         createSqls[18] = "CREATE TABLE participate(" +
                 "contest_id INTEGER REFERENCES contest(contest_id)," +
@@ -298,7 +300,9 @@ public class CreateTables {
                 "  invitation_code VARCHAR(127) NOT NULL," +
                 "   PRIMARY KEY (interview_id,coder_id,company_id)," +
                 " FOREIGN KEY (coder_id) REFERENCES coder(user_id)," +
-                "  FOREIGN KEY (interview_id,company_id) REFERENCES interview(interview_id,user_id))";
+                "  FOREIGN KEY (interview_id,company_id) REFERENCES interview(interview_id,user_id)," +
+                "CHECK ( start_time > CURRENT_TIMESTAMP)," +
+                "CHECK ( end_time > start_time))";
 
         createSqls[26] = "CREATE TABLE coding_challenge_categories(" +
                 "challenge_id INTEGER NOT NULL," +

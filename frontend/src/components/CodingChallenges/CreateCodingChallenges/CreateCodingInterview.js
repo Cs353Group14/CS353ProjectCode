@@ -55,6 +55,8 @@ function CreateCodingChallenge(props) {
   const [category, setCatefories] = useState("");
   const [timeUnit, setTimeUnit] = useState('min');
   const [duration, setDuration] = useState(timeUnit[0].value);
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
   const createCodingChallengeAPI = new CreateCodingChallengeAPI();
   const createNewInterviewQuestion = new CreateNewInterviewAPI()
   let publicity = 0
@@ -263,6 +265,32 @@ function CreateCodingChallenge(props) {
                     </div>
                 </Grid>
                 </Grid> }
+                <div>
+                <TextField
+                  id="outlined-textarea"
+                  label="Input testcase"
+                  fullWidth
+                  placeholder="Placeholder"
+                  multiline
+                  margin="normal"
+                  variant="outlined"
+                  onChange={(e) => setInput(e.target.value)}
+                  value= {input}
+                />
+               </div>
+               <div>
+               <TextField
+                  id="outlined-textarea"
+                  label="Output testcase"
+                  fullWidth
+                  placeholder="Placeholder"
+                  multiline
+                  margin="normal"
+                  variant="outlined"
+                  onChange={(e) => setOutput(e.target.value)}
+                  value= {output}
+                />
+               </div>
               <Grid container spacing={12} style= {{marginTop: "1rem"}} >
               <Grid item  justify="flex-end">
                   <Button
@@ -282,6 +310,7 @@ function CreateCodingChallenge(props) {
                     > Save</Button>
               </Grid>
             </Grid>
+            
             </FormControl>
           </Grid>
         </div>

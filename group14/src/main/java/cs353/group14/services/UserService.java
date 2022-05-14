@@ -5,10 +5,7 @@ import cs353.group14.common.MessageResponse;
 import cs353.group14.common.MessageType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.repositories.UserRepository;
-import cs353.group14.responses.IdUserNameandNameResponse;
-import cs353.group14.responses.LoginResponse;
-import cs353.group14.responses.UserCoderResponse;
-import cs353.group14.responses.UserNameandNameResponse;
+import cs353.group14.responses.*;
 import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
@@ -151,5 +148,11 @@ public class UserService {
     public IdUserNameandNameResponse getIdUserNameandName(String username)
     {
         return userRepository.getIdUserNameandName(username);
+    }
+
+
+    public List<ContestAndOrderPoint> getContestsAndOrdersOfUser(int userId)
+    {
+        return userRepository.getContestsAndOrdersOfUser( userId);
     }
 }

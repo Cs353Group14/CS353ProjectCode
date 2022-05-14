@@ -115,5 +115,9 @@ public class ContestController {
         return contestService.getContestStatistic(contest_id);
     }
 
+    @GetMapping("/getContestSponsors/{contest_id}")
+    public List<String>  getContestSponsors(@PathVariable int contest_id){
+        return contestService.getContestSponsors(contest_id);
+    }
 
 }

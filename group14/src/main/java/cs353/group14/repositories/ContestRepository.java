@@ -651,4 +651,40 @@ public class ContestRepository {
         return new ContestStatisticResponse(max,min,avg,userNumber);
 
     }
+
+
+
+
+    public List<String> getContestSponsors( int contest_id)
+    {
+
+        List<String> result = new ArrayList<>();
+
+
+        String element ="";
+        try {
+            String query = "SELECT * FROM sponsor S,users U where S.user_id = U.user_id " +
+                    "and S.contest_id = ?";
+            PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,contest_id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+
+                element = ( rs.getString("name"));
+
+                result.add(element);
+            }
+        }
+
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+        return result;
+
+    }
+
 }

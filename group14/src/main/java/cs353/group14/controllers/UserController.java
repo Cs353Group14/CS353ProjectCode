@@ -4,10 +4,7 @@ import cs353.group14.*;
 import cs353.group14.common.MessageResponse;
 import cs353.group14.requests.LoginRequest;
 import cs353.group14.requests.ReferRequest;
-import cs353.group14.responses.IdUserNameandNameResponse;
-import cs353.group14.responses.LoginResponse;
-import cs353.group14.responses.UserCoderResponse;
-import cs353.group14.responses.UserNameandNameResponse;
+import cs353.group14.responses.*;
 import cs353.group14.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -121,6 +118,11 @@ public class UserController {
         return userService.getCoderProfile(user_id);
     }
 
+
+    @GetMapping("/getContestsAndOrdersOfUser/{user_id}")
+    public List<ContestAndOrderPoint>  getContestsAndOrdersOfUser(@PathVariable int user_id){
+        return userService.getContestsAndOrdersOfUser(user_id);
+    }
 
 
 

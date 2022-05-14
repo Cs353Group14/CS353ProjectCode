@@ -102,4 +102,10 @@ public class ContestService {
     {
         return contestRepository.getContestStatistic(  contest_id);
     }
+
+
+    public List<String> getContestSponsors( int contest_id){
+
+        return contestRepository.getContestSponsors(  contest_id);
+    }
 }

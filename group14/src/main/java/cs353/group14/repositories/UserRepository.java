@@ -6,10 +6,7 @@ import cs353.group14.common.MessageResponse;
 import cs353.group14.common.MessageType;
 import cs353.group14.db.ConnectionSingle;
 import cs353.group14.requests.LoginRequest;
-import cs353.group14.responses.IdUserNameandNameResponse;
-import cs353.group14.responses.LoginResponse;
-import cs353.group14.responses.UserCoderResponse;
-import cs353.group14.responses.UserNameandNameResponse;
+import cs353.group14.responses.*;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -638,5 +635,59 @@ public class UserRepository {
 
     }
 
+
+    public List<ContestAndOrderPoint> getContestsAndOrdersOfUser(int userId){
+
+        List<ContestAndOrderPoint> result = new ArrayList<>();
+
+        try {
+            String forContestAndPoint = "SELECT * FROM " +
+                    "( SELECT CT.contest_id, CT.start_time, CT.description,CT.title,CT.difficulty,CT.duration,CT.deadline, P.points" +
+                    " from participate P,coder C,contest CT" +
+                    " where  CT.contest_id = P.contest_id and P.user_id = C.user_id and C.user_id = ? ) s1 " +
+                    "JOIN" +
+                    "( SELECT P2.contest_id, 1+count(*) as orders from participate P2 where P2.points > " +
+                    "( SELECT points from participate P3 where P3.user_id = ? ) group by P2.contest_id ) s2 " +
+                    "ON s1.contest_id = s2.contest_id";
+
+            PreparedStatement listAttemptsStmt = ConnectionSingle.getConnection().prepareStatement(forContestAndPoint);
+            listAttemptsStmt.setInt(1,userId);
+            listAttemptsStmt.setInt(2,userId);
+
+            Timestamp start_time = null;
+            String description = "";
+            String title = "";
+            int difficulty = 0;
+            int duration = 0;
+            Timestamp deadline = null;
+            int order = -1;
+            int points = -1;
+            int contestid = -1;
+
+            ResultSet rs = listAttemptsStmt.executeQuery();
+            while (rs.next()){
+
+                start_time = ( rs.getTimestamp("start_time"));
+                description = ( rs.getString("description"));
+                title = ( rs.getString("title"));
+                difficulty = ( rs.getInt("difficulty"));
+                duration = ( rs.getInt("duration"));
+                deadline = ( rs.getTimestamp("deadline"));
+                points = ( rs.getInt("points"));
+                order = ( rs.getInt("orders"));
+                contestid = ( rs.getInt("contest_id"));
+
+                Contest c = new Contest(contestid,start_time,description,title,difficulty,duration,deadline);
+                ContestAndOrderPoint  contestAndOrderPoint = new ContestAndOrderPoint( c,order,points);
+                result.add(contestAndOrderPoint);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
 
 }

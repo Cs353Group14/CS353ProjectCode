@@ -125,6 +125,23 @@ public class SubmissionRepository {
         updateSolvedStmt.executeUpdate();
 
 
+        String queryPoint ="UPDATE coder SET points = case WHEN EXISTS" +
+                "( SELECT * FROM  submission where submission_id = ? and fail_result = 0) AND  NOT EXISTS" +
+                "( SELECT ST.challenge_id FROM submission S, submit ST where S.submission_id = ST.submission_id AND " +
+                "ST.challenge_id = ? and ST.user_id = ? and S.fail_result = 0 group by ST.challenge_id having count(*) >= 2 )" +
+                "THEN points + ( SELECT points from coding_challenge where challenge_id = ?) " +
+                "else points END " +
+                "where user_id = ?" ;
+
+        PreparedStatement preparedStatementPoint = ConnectionSingle.getConnection().prepareStatement(queryPoint);
+        preparedStatementPoint.setInt(1,submissionId);
+        preparedStatementPoint.setInt(2,challengeId);
+        preparedStatementPoint.setInt(3,userId);
+        preparedStatementPoint.setInt(4,challengeId);
+        preparedStatementPoint.setInt(5,userId);
+        preparedStatementPoint.executeUpdate();
+
+
         String query ="UPDATE participate SET points = case WHEN EXISTS" +
                 "( SELECT * FROM  submission where submission_id = ? and fail_result = 0) AND NOT EXISTS" +
                 "( SELECT ST.challenge_id FROM submission S, submit ST where S.submission_id = ST.submission_id AND " +

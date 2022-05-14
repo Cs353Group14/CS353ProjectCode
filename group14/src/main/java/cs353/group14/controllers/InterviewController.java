@@ -135,4 +135,12 @@ public class InterviewController {
         return interviewService.getAttend(user_id,interview_id);
     }
 
+    @GetMapping("/getNumberOfContestAttended/{coder_id}")
+    public int getNumberOfContestAttended(@PathVariable int coder_id){
+        return interviewService.getNumberOfContestAttended(coder_id);
+    }
+
+
+
+
 }

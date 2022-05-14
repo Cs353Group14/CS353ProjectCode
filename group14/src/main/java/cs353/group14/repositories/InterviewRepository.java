@@ -671,4 +671,26 @@ public class InterviewRepository {
 
         return attend;
     }
+
+
+    public int getNumberOfContestAttended(int coder_id){
+
+        int result = 0;
+        try {
+            String query = "SELECT count(*) as number from attend WHERE coder_id = ? ";
+            PreparedStatement stmt = ConnectionSingle.getConnection().prepareStatement(query);
+            stmt.setInt(1,coder_id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                result = rs.getInt("number");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+
+    }
 }

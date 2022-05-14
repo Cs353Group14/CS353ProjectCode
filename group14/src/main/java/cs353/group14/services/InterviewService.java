@@ -106,4 +106,8 @@ public class InterviewService {
     public Attend getAttend(int user_id, int interview_id) {
         return interviewRepository.getAttend( user_id,  interview_id);
     }
+
+    public int getNumberOfContestAttended(int coder_id){
+        return interviewRepository.getNumberOfContestAttended(coder_id);
+    }
 }

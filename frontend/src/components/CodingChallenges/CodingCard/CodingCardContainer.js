@@ -22,6 +22,7 @@ function CodingCardContainer(props) {
 
     const[category, setCategory] = useState("");
     const[codingQuestions, setCodingQuestions] = useState([]);
+    const[categoryNumbers, setCategoryNumbers] = useState([]);
 
     function handleNewCategory(event){
 
@@ -30,6 +31,7 @@ function CodingCardContainer(props) {
     const codingChallengeApi = new CodingChallengeApi();
 
     let codingCards=  [];
+    let categoryNumberArray = [];
 
     function fetchCodingQuestions() {
 
@@ -39,6 +41,8 @@ function CodingCardContainer(props) {
         } else {
             codingChallengeApi.getCodingChallenges()
                 .then(data => setCodingQuestions(data));
+            codingChallengeApi.getCategoriesAndNumbersCodingChallenge()
+            .then(data => setCategoryNumbers(data));
         }
 
     }
@@ -59,6 +63,13 @@ function CodingCardContainer(props) {
                                          inContest = {props.inContest}/>);
     } )
 
+    categoryNumbers.forEach((cat) => {
+        categoryNumberArray.push(<Paper key={cat.category}><div className="category-paper">
+            {cat.category} : {cat.number} &nbsp;
+        </div>
+        </Paper>);
+
+    })
     let listOfCategories = [];
 
 
@@ -112,6 +123,12 @@ function CodingCardContainer(props) {
                     <Button variant="outlined" href="/home" >Clear</Button>
                 </div>
             </div>
+
+         
+                <div className="coding-card-container">
+                    {categoryNumberArray}
+                </div>
+           
 
 
             </div>

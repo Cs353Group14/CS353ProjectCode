@@ -103,4 +103,7 @@ public class InterviewService {
         return interviewRepository.getInterviewsForCoderWithPosition( coder_id,  positionLike);
     }
 
+    public Attend getAttend(int user_id, int interview_id) {
+        return interviewRepository.getAttend( user_id,  interview_id);
+    }
 }

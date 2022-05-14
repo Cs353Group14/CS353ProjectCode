@@ -34,6 +34,12 @@ export default function ContestView() {
         duration: 0,
         deadline: "",
     });
+    const[statistic,setStatistic] = useState({
+      maxPoint:0,
+      minPoint:0,
+      avgPoint:0,
+      userNumber:0
+    })
     const[rows, setRows] = useState([]);
     const[currentSubIndex, setCurrentSubIndex] = useState(null);
     //const[startHidden, setStartHidden] = useState(true);
@@ -55,9 +61,15 @@ export default function ContestView() {
 
     }
 
+    function fetchContestStatistic() {
+      contestApi.getContestStatistic().then(data => {setStatistic(data)});
+
+  }
+
     useEffect(() => {
         fetchContestDetails();
         fetchContestResults();
+        fetchContestStatistic();
     },[]);
 
     function handleSponsor() {
@@ -68,10 +80,12 @@ export default function ContestView() {
         <div>
             <NavBar/>
 
-            <div>
-                <h1>{contest.title}</h1>
+            <div className="coding-challenge-view-body">
+            
+              <div className="coding-challenge-view-left">
+              <h1>{contest.title}</h1>
 
-                <h2>Description</h2>
+              <h3>Description</h3>
                 {contest.description}
 
                 <h3>Difficulity</h3> {contest.difficulty}
@@ -88,6 +102,29 @@ export default function ContestView() {
                 <br/>
                 <br/>
                 <br/>
+              </div>
+               
+              <div className="coding-challenge-view-right">
+              <br/>
+                <br/>
+                <br/>
+                <br/>
+              <h3>Number of Participants</h3> {statistic.userNumber}
+                <br/>
+                <br/>
+                <h3>Average Point</h3>{statistic.avgPoint}
+                <br/>
+                <br/>
+                <h3>Max Point</h3> {statistic.maxPoint}
+                <br/>
+                <br/>
+                <h3>Min Point</h3> {statistic.minPoint} 
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+              </div>
+                
             </div>
 
             <div hidden = {localStorage.getItem('usertype') != 2}>

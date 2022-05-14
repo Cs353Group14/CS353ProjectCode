@@ -304,7 +304,7 @@ public class CreateTables {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        createTestUsers();
+        //createTestUsers();
 
     }
 

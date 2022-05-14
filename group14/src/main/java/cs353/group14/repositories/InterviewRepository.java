@@ -630,4 +630,45 @@ public class InterviewRepository {
         return result;
     }
 
+    public Attend getAttend(int user_id, int interview_id) {
+
+        Attend attend = null;
+
+        try {
+            String loginQuery = "SELECT * from attend WHERE coder_id = ? and interview_id = ?";
+            PreparedStatement loginStmt = ConnectionSingle.getConnection().prepareStatement(loginQuery);
+            loginStmt.setInt(1,user_id);
+            loginStmt.setInt(2,interview_id);
+            ResultSet rs = loginStmt.executeQuery();
+            int companyId;
+            Timestamp startTime;
+            Timestamp endTime;
+            String interviewResult;
+            String invitationCode;
+            int size = 0;
+
+            while (rs.next()){
+                companyId = rs.getInt("company_id");
+                startTime = rs.getTimestamp("start_time");
+                endTime = rs.getTimestamp("end_time");
+                interviewResult = rs.getString("interview_result");
+                invitationCode = rs.getString("invitation_code");
+                attend = new Attend(interview_id,user_id, companyId, startTime,endTime, interviewResult,invitationCode);
+                size++;
+            }
+
+
+            if(size!=1){
+                return null;
+            }
+
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return attend;
+    }
 }

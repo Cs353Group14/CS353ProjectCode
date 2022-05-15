@@ -677,7 +677,7 @@ public class InterviewRepository {
 
         int result = 0;
         try {
-            String query = "SELECT count(*) as number from attend WHERE coder_id = ? ";
+            String query = "SELECT count(*) as number from participate WHERE user_id = ? ";
             PreparedStatement stmt = ConnectionSingle.getConnection().prepareStatement(query);
             stmt.setInt(1,coder_id);
             ResultSet rs = stmt.executeQuery();

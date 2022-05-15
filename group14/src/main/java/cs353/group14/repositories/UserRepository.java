@@ -56,7 +56,7 @@ public class UserRepository {
 
     public List<UserCoderResponse> getCoders() {
         List<UserCoderResponse> result= new ArrayList<>();
-        String getUserId = "SELECT * from usercoders order by rating DESC";
+        String getUserId = "SELECT * from usercodersview order by rating DESC";
         int size =0;
         int userId = -1;
         String username = "";
@@ -97,7 +97,7 @@ public class UserRepository {
 
     public UserCoderResponse getCoderProfile( int user_id) {
 
-        String getUserId = "SELECT * from usercoders where user_id = ?";
+        String getUserId = "SELECT * from usercodersview where user_id = ?";
         int size =0;
         int userId = -1;
         String username = "";
@@ -140,7 +140,7 @@ public class UserRepository {
 
     public List<UserCoderResponse> getCodersWithFilter( String filter) {
         List<UserCoderResponse> result= new ArrayList<>();
-        String getUserId = "SELECT * from usercoders  WHERE username LIKE ? order by rating DESC";
+        String getUserId = "SELECT * from usercodersview  WHERE username LIKE ? order by rating DESC";
         int size =0;
         int userId = -1;
         String username = "";
@@ -641,7 +641,7 @@ public class UserRepository {
         List<ContestAndOrderPoint> result = new ArrayList<>();
 
         try {
-            String forContestAndPoint = "SELECT * FROM " +
+           String forContestAndPoint1 = "SELECT * FROM " +
                     "( SELECT CT.contest_id, CT.start_time, CT.description,CT.title,CT.difficulty,CT.duration,CT.deadline, P.points" +
                     " from participate P,coder C,contest CT" +
                     " where  CT.contest_id = P.contest_id and P.user_id = C.user_id and C.user_id = ? ) s1 " +
@@ -649,6 +649,16 @@ public class UserRepository {
                     "( SELECT P2.contest_id, 1+count(*) as orders from participate P2 where P2.points > " +
                     "( SELECT points from participate P3 where P3.user_id = ? ) group by P2.contest_id ) s2 " +
                     "ON s1.contest_id = s2.contest_id";
+
+
+           String forContestAndPoint = "SELECT * FROM " +
+                   "( SELECT CT.contest_id, CT.start_time, CT.description, CT.title, CT.difficulty, CT.duration, CT.deadline, P.points" +
+                   " from participate P,coder C,contest CT" +
+                   " where  CT.contest_id = P.contest_id and P.user_id = C.user_id and C.user_id = ? ) s1" +
+                   " JOIN" +
+                   " ( SELECT P2.contest_id, 1+( select count(*) from participate where contest_id = P2.contest_id) - count(*) as orders " +
+                   " from participate P2 where P2.points  <= ( SELECT points from participate P3 where P3.user_id = ? ) group by P2.contest_id ) " +
+                   " s2 ON s1.contest_id = s2.contest_id";
 
             PreparedStatement listAttemptsStmt = ConnectionSingle.getConnection().prepareStatement(forContestAndPoint);
             listAttemptsStmt.setInt(1,userId);

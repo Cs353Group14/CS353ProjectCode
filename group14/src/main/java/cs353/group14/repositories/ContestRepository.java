@@ -627,7 +627,7 @@ public class ContestRepository {
 
 
         try {
-            String query = "SELECT * FROM conteststatistics where contest_id = ?";
+            String query = "SELECT * FROM conteststatisticsView where contest_id = ?";
             PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,contest_id);
 

@@ -398,7 +398,7 @@ public class NonCodingChallengeRepository {
         String category ="";
         int number = -1;
         try {
-            String getChallengeSql = "Select * From catnumbersnoncoding ";
+            String getChallengeSql = "Select * From catnumbersnoncodingView ";
             PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
 
             ResultSet rs = insertCodingPrepared.executeQuery();

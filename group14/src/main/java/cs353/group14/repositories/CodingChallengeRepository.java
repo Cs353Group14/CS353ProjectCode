@@ -465,7 +465,7 @@ public class CodingChallengeRepository {
         String category ="";
         int number = -1;
         try {
-            String getChallengeSql = "Select * From catnumbers ";
+            String getChallengeSql = "Select * From catnumbersView ";
             PreparedStatement insertCodingPrepared = ConnectionSingle.getConnection().prepareStatement(getChallengeSql);
 
             ResultSet rs = insertCodingPrepared.executeQuery();

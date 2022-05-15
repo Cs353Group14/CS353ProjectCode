@@ -133,6 +133,12 @@ export default function Menu(props) {
                 <br/>
                 <Divider />
             </div>
+            <div hidden= {!isUser(1)}>
+                <Button color="inherit" onClick={openProfileForCoders}>Profile</Button>
+                <br/>
+                <Divider />
+            </div>
+            
             
 
         </div>
@@ -222,6 +228,11 @@ export default function Menu(props) {
 
     const openCoders = () => {
         localStorage.setItem('menuId', 16);
+        window.location.href = "http://localhost:3000/home";
+    }
+    const openProfileForCoders = () => {
+        localStorage.setItem('menuId', 17);
+        localStorage.setItem('viewer', false);
         window.location.href = "http://localhost:3000/home";
     }
 

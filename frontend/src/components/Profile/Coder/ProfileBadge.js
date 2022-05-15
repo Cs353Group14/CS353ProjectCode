@@ -6,7 +6,7 @@ function ProfileBadge(props)
 {
     return (<Card  style={{minWidth:'100%'}}>
         <CardHeader
-          title={props.title}
+          title={props.contest.title}
           titleTypographyProps={{variant:'h5' }}
           subheader={props.place}
         />

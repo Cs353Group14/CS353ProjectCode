@@ -2,18 +2,26 @@ import React from "react";
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog'; 
 import {Button, DialogActions, DialogContent, DialogContentText, TextField, Box} from "@material-ui/core";
-
+import {ProfileAPI} from './ProfileAPI';
 
 
 function GiveReferralDialog({ open, handleClose }) {
   const [description, setDescription] = React.useState();
+   
+  const profileAPI = new ProfileAPI();
 
-  const handleCreate = (e) => {
-    e.preventDefault();
+  async function handleCreate(){
+    const refer = {
+      reason: description
+    }
     console.log(description);
+     await profileAPI.referCoder(localStorage.getItem('userId'), localStorage.getItem('referredId'), refer);
+
     handleClose();
   
   };
+
+
 
   return (
     <Dialog

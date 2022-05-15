@@ -16,6 +16,7 @@ import NewInterviewListForCoder from "../Interview/NewInterviewListForCoder";
 import AllContests from "../Contest/ContestTables/AllContests";
 import SponsoredContests from "../Contest/ContestTables/SponsoredContests";
 import CodersTable from "../Users/Coders/CodersTable";
+import Profile from "../Profile/Coder/Profile";
 
 export default function HomePage() {
 
@@ -35,6 +36,7 @@ export default function HomePage() {
     const [allContests, setAllContests] = useState(true);
     const [contests, setContests] = useState(true);
     const[coders,setCoders] = useState(true);
+    const[profileForCoder,setProfileForCode] = useState(true);
 
 
 
@@ -56,6 +58,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }
         else if(componentNumber == 2){
             setCodingChallengesHidded(true);
@@ -74,6 +77,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         } else if(componentNumber == 3){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -91,6 +95,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         } else if(componentNumber == 4){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -108,6 +113,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         } else if(componentNumber == 5){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -125,6 +131,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }else if(componentNumber == 6){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -142,6 +149,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }else if(componentNumber == 7){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -159,6 +167,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }else if(componentNumber == 8){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -176,6 +185,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }else if(componentNumber == 9){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -193,6 +203,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }else if(componentNumber == 10){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -210,6 +221,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }
         else if(componentNumber == 11){
             setCodingChallengesHidded(true);
@@ -228,6 +240,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }
         else if(componentNumber == 12){
             setCodingChallengesHidded(true);
@@ -246,6 +259,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }
         else if(componentNumber == 13){
             setCodingChallengesHidded(true);
@@ -264,6 +278,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }
         else if(componentNumber == 14){
             setCodingChallengesHidded(true);
@@ -282,6 +297,7 @@ export default function HomePage() {
             setAllContests(false);
             setContests(true);
             setCoders(true);
+            setProfileForCode(true);
         }
         else if(componentNumber == 15){
             setCodingChallengesHidded(true);
@@ -300,6 +316,7 @@ export default function HomePage() {
             setAllContests(true);
             setContests(false);
             setCoders(true);
+            setProfileForCode(true);
         } else if(componentNumber == 16){
             setCodingChallengesHidded(true);
             setNoncodingChallengesHidded(true);
@@ -317,6 +334,26 @@ export default function HomePage() {
             setAllContests(true);
             setContests(true);
             setCoders(false);
+            setProfileForCode(true);
+        }
+        else if(componentNumber == 17){
+            setCodingChallengesHidded(true);
+            setNoncodingChallengesHidded(true);
+            setCreateCodingChallengeHidded(true);
+            setNonCreateCodingChallengeHidded(true);
+            setCreateInterview(true);
+            setCreateContest(true);
+            setNonRegisteredContests(true);
+            setRegisteredContests(true);
+            setContinuesContests(true);
+            setFinishedContests(true);
+            setPastInterviews(true);
+            setNewInterviews(true);
+            setListOfInterviews(true);
+            setAllContests(true);
+            setContests(true);
+            setCoders(true);
+            setProfileForCode(false);
         }
     }
 
@@ -374,6 +411,9 @@ export default function HomePage() {
             </div>
             <div hidden = {coders} >
                 <CodersTable />
+            </div>
+            <div hidden = {profileForCoder} >
+                <Profile />
             </div>
             
         </div>

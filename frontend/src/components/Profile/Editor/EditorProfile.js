@@ -115,11 +115,6 @@ function EditorProfile() {
                             <Typography  align='center' gutterBottom variant="subtitle1" component="div">
                                 {profileInfoBasic.position} 
                             </Typography>
-                            <Box sx={{m: 2}} >
-                            <Grid container justifyContent="center">
-                                <Button sx={{mt: 6}} align='center' variant="contained" color="primary">Ask for referral</Button>
-                            </Grid>
-                            </Box>
                         </CardContent>
                     </Card>
                 </Grid>

@@ -554,19 +554,23 @@ public class UserRepository {
         }
     }
 
-    public List<Integer> listReferCoder(int userId){
+    public List<ReferCoder> listReferCoder(int userId){
 
-        List<Integer> result = new ArrayList<>();
+        List<ReferCoder> result = new ArrayList<>();
 
         try {
-        String listRefer = "select referred_id from refer where accepted = 0 and user_id = ?";
+        String listRefer = "select * from refer,users,coder where accepted = 1 and refer.user_id = ? and refer.referred_id=users.user_id and coder.user_id = refer.referred_id ";
         PreparedStatement insertReferStmt = ConnectionSingle.getConnection().prepareStatement(listRefer);
         insertReferStmt.setInt(1,userId);
 
         ResultSet rs = insertReferStmt.executeQuery();
             while (rs.next()){
                 int referred_id= rs.getInt("referred_id");
-                result.add(referred_id);
+                String username = rs.getString("username");
+                String position = rs.getString("position");
+                String refer_reason= rs.getString("refer_reason");
+                ReferCoder referCoder = new ReferCoder(referred_id,username,position,refer_reason );
+                result.add(referCoder);
             }
 
         } catch (SQLException e) {

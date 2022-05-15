@@ -118,6 +118,10 @@ public class UserController {
         return userService.getCoderProfile(user_id);
     }
 
+    @GetMapping("/getCompanyProfile/{user_id}")
+    public UserCompanyResponse  getCompanyProfile(@PathVariable int user_id){
+        return userService.getCompanyProfile(user_id);
+    }
 
     @GetMapping("/getContestsAndOrdersOfUser/{user_id}")
     public List<ContestAndOrderPoint>  getContestsAndOrdersOfUser(@PathVariable int user_id){

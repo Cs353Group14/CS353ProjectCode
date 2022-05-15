@@ -704,4 +704,44 @@ public class UserRepository {
 
     }
 
+    public UserCompanyResponse getCompanyProfile(int user_id) {
+        String getUserId = "SELECT * from usercompanyview where user_id = ?";
+        int size =0;
+        int userId = -1;
+        String username = "";
+        String mail = "";
+        String name = "";
+        String profile_photo = "";
+        String information = "";
+        int rating = -1;
+        String position = "";
+        int points = -1;
+        String place = "";
+        int birth_year = -1;
+         String location = "";
+         String webpagelink = "";
+        try{
+
+            PreparedStatement preparedStatement= ConnectionSingle.getConnection().prepareStatement(getUserId);
+            preparedStatement.setInt(1,user_id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while ( rs.next()) {
+                userId = rs.getInt("user_id");
+                username = rs.getString("username");
+                mail = rs.getString("mail");
+                name = rs.getString("name");
+                profile_photo = rs.getString("profile_photo");
+                information = rs.getString("information");
+                location = rs.getString("location");
+                webpagelink = rs.getString("web_page_link");
+
+                UserCompanyResponse ucr = new UserCompanyResponse(userId
+                        , username, mail, name, information, profile_photo,location,webpagelink);
+                return ucr;
+            }
+        } catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
+        return null;
+    }
 }

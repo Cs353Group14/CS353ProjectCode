@@ -155,4 +155,8 @@ public class UserService {
     {
         return userRepository.getContestsAndOrdersOfUser( userId);
     }
+
+    public UserCompanyResponse getCompanyProfile(int user_id) {
+        return userRepository.getCompanyProfile( user_id);
+    }
 }

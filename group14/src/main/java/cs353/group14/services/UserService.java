@@ -127,7 +127,7 @@ public class UserService {
         return userRepository.answerReferEditor(userId, coderId, answer, suggestReason);
     }
 
-    public List<Integer> listReferCoder(int userId){
+    public List<ReferCoder> listReferCoder(int userId){
         return userRepository.listReferCoder(userId);
     }
 

@@ -75,7 +75,7 @@ public class UserController {
     }
 
     @GetMapping("/listReferCoder/{userId}")
-    public List<Integer> listReferCoder(@PathVariable int userId){
+    public List<ReferCoder> listReferCoder(@PathVariable int userId){
         return userService.listReferCoder(userId);
     }
 

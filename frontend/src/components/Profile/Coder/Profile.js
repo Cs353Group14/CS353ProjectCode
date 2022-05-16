@@ -149,7 +149,7 @@ function Profile() {
         fetchNumberOfQuestions();
         fetchReferrals();
         fetchContests();
-    }, []);
+    }, [contest]);
 
     async function submitReferral(description) {
         const refer = {

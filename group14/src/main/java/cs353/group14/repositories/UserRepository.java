@@ -661,7 +661,7 @@ public class UserRepository {
                    " where  CT.contest_id = P.contest_id and P.user_id = C.user_id and C.user_id = ? ) s1" +
                    " JOIN" +
                    " ( SELECT P2.contest_id, 1+( select count(*) from participate where contest_id = P2.contest_id) - count(*) as orders " +
-                   " from participate P2 where P2.points  <= ( SELECT points from participate P3 where P3.user_id = ? ) group by P2.contest_id ) " +
+                   " from participate P2 where P2.points  <= ( SELECT points from participate P3 where P3.user_id = ? and P3.contest_id = P2.contest_id ) group by P2.contest_id ) " +
                    " s2 ON s1.contest_id = s2.contest_id";
 
             PreparedStatement listAttemptsStmt = ConnectionSingle.getConnection().prepareStatement(forContestAndPoint);

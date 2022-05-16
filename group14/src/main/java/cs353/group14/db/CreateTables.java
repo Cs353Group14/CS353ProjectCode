@@ -237,7 +237,7 @@ public class CreateTables {
                 "difficulty INTEGER NOT NULL," +
                 "duration INTEGER NOT NULL," +
                 "deadline TIMESTAMP NOT NULL," +
-                "CHECK ( start_time > CURRENT_TIMESTAMP)," +
+                "CHECK ( start_time > CURRENT_TIMESTAMP + INTERVAL '03:00' HOUR TO MINUTE )," +
                 " CHECK ( deadline > start_time))";
 
         createSqls[18] = "CREATE TABLE participate(" +
@@ -301,7 +301,7 @@ public class CreateTables {
                 "   PRIMARY KEY (interview_id,coder_id,company_id)," +
                 " FOREIGN KEY (coder_id) REFERENCES coder(user_id)," +
                 "  FOREIGN KEY (interview_id,company_id) REFERENCES interview(interview_id,user_id)," +
-                "CHECK ( start_time > CURRENT_TIMESTAMP)," +
+                "CHECK ( start_time > CURRENT_TIMESTAMP + INTERVAL '03:00' HOUR TO MINUTE )," +
                 "CHECK ( end_time > start_time))";
 
         createSqls[26] = "CREATE TABLE coding_challenge_categories(" +

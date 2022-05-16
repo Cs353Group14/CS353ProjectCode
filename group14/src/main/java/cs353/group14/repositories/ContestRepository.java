@@ -257,7 +257,7 @@ public class ContestRepository {
         int duration = -1; Timestamp deadline = null; int contest_id = -1;
         List<Contest> result = new ArrayList<>();
         try {
-            String query = "SELECT * from  contest where start_time > CURRENT_TIMESTAMP  EXCEPT " +
+            String query = "SELECT * from  contest where start_time > CURRENT_TIMESTAMP + INTERVAL '03:00' HOUR TO MINUTE  EXCEPT " +
                     "Select C.contest_id,C.start_time,C.description,C.title,C.difficulty,C.duration,C.deadline" +
                     " From participate P,  contest C where C.contest_id = P.contest_id and P.user_id = ? ";
 
@@ -429,7 +429,7 @@ public class ContestRepository {
         int contest_id = -1;
 
         try {
-            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and C.start_time < CURRENT_TIMESTAMP and C.deadline > CURRENT_TIMESTAMP";
+            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and C.start_time < CURRENT_TIMESTAMP + INTERVAL '03:00' HOUR TO MINUTE and C.deadline > CURRENT_TIMESTAMP + INTERVAL '03:00' HOUR TO MINUTE ";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,userId);
@@ -470,7 +470,7 @@ public class ContestRepository {
         int points = -1;
 
         try {
-            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and C.deadline < CURRENT_TIMESTAMP";
+            String query = "SELECT * From participate P, contest C where C.contest_id = P.contest_id and P.user_id = ? and C.deadline < CURRENT_TIMESTAMP + INTERVAL '03:00' HOUR TO MINUTE ";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,userId);

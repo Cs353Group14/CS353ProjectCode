@@ -37,12 +37,15 @@ function ResultOfCandidate(props) {
 
     const[nonCoding, setNonCoding] = useState([]);
     const[coding, setCoding] = useState([]);
+    const[finished, setFinished] = useState(0);
 
     function fetchInterviewQuestions() {
         attendInterviewAPI.getNonCodingQuestionsOfInterview(interviewID).then(data => {
             setNonCoding(data)});;
         attendInterviewAPI.getCodingQuestionsOfInterview(interviewID).then(data => {
             setCoding(data)});;
+        interviewResultAPI.checkIfFinished(localStorage.getItem('Candidates_Of_Interview'), localStorage.getItem('Candidate')).then(data => {
+            setFinished(data)});;
 
     }
     useEffect(() => {
@@ -74,7 +77,7 @@ function ResultOfCandidate(props) {
         userId: localStorage.getItem('Candidate')
       }
     interviewResultAPI.evaluateCandidate(newResult);
-    window.location.href = "http://localhost:3000/home";
+   // window.location.href = "http://localhost:3000/home";
   }
 
 
@@ -106,9 +109,14 @@ const closeDialog = () => {
                 <Grid item xs={6}>
                         <Grid container justifyContent="flex-end">
                         <Box  m={2}>
+                            {finished > 0 &&
                         <Button  variant="contained"
                                 color="primary" onClick={openDialog}>Evaluate
                                 </Button>
+}
+{ finished == 0 &&
+    <div>Interview has not finished yet</div>
+}
                             </Box>
                             </Grid>
                 </Grid>

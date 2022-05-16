@@ -74,6 +74,13 @@ export default function ContestView() {
         fetchContestStatistic();
     },[]);
 
+    function handleSeeProfile(i) {
+      localStorage.setItem('referredId', rows[i].id);
+      localStorage.setItem('menuId', 17);
+        localStorage.setItem('viewer', true);
+        window.location.href = "http://localhost:3000/home";
+    }
+
     async function handleSponsor() {
       const response = await contestApi.makeCompanySponsorToContest(contest.contest_id);
       if (response.messageType === MessageType.ERROR) {
@@ -155,6 +162,7 @@ export default function ContestView() {
                   <StyledTableCell align="right">{row.point}</StyledTableCell>
                   <StyledTableCell align="right">
                       <Button onClick={() => {
+                        handleSeeProfile(i);
                       setCurrentSubIndex(i);
                       }}>See Profile</Button>
                   </StyledTableCell>

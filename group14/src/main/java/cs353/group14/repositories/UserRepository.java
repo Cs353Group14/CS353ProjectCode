@@ -458,7 +458,7 @@ public class UserRepository {
             insertReferStmt.setString(3,referReason);
             insertReferStmt.setInt(4,1);
             insertReferStmt.executeUpdate();
-            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+            return new MessageResponse(MessageType.SUCCESS, "Your referral is saved");
 
         } catch (SQLException exception) {
             return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + exception.getMessage());

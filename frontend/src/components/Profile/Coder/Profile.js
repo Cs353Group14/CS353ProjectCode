@@ -8,6 +8,8 @@ import ViewBadge from "../../../View/ViewBadge";
 import NavBar from "../../NavBar/NavBar";
 import GiveReferralDialog from "./GiveReferralDialog";
 import { ProfileAPI } from "./ProfileAPI";
+import { MessageType } from "../../Common/Message";
+import { ToastContainer,toast } from 'react-toastify';
 
 
 
@@ -102,7 +104,14 @@ function Profile() {
     const [referrals, setReferrals] = useState([]);
     const profileAPI = new ProfileAPI();
 
-    const coderId = localStorage.getItem('userId');
+    let coderId;
+
+    if(localStorage.getItem('viewer') == 'false') {
+        coderId = localStorage.getItem('userId');
+    } else {
+        coderId = localStorage.getItem('referredId');
+    }
+    
     function fetchProfileInfo() {
         profileAPI.getProfileInfo(coderId).then(data => {
             setInfo(data)
@@ -142,6 +151,28 @@ function Profile() {
         fetchContests();
     }, []);
 
+    async function submitReferral(description) {
+        const refer = {
+            reason: description
+          }
+      
+          if(refer.reason.trim() == "") {
+            toast.error("You should wrtie your reasoning to be able ti give referral");
+                return;
+          }
+          console.log(description);
+           const response = await profileAPI.referCoder(localStorage.getItem('userId'), localStorage.getItem('referredId'), refer);
+      
+           if (response.messageType === MessageType.ERROR) {
+            toast.error(response.message);
+                setOpenDialog(false);
+          } else {
+              toast.success(response.message);
+              setOpenDialog(false);
+
+          }
+    }
+
     return (
         <div>
             <Grid container spacing={1}>
@@ -165,7 +196,7 @@ function Profile() {
                             <Typography align='center' gutterBottom variant="subtitle1" component="div">
                                 {info.position}
                             </Typography>
-                            { localStorage.getItem('viewer') &&
+                            { localStorage.getItem('viewer') == 'true' &&
                             <Box sx={{ m: 2 }} >
                                 <Grid container justifyContent="center">
                                     <Button sx={{ mt: 6 }} align='center' variant="contained" color="primary" onClick={openReferDialog}>Give referral</Button>
@@ -197,7 +228,8 @@ function Profile() {
                     <ViewReferral content={referrals} ></ViewReferral>
                 </Grid>
             </Grid>
-            <GiveReferralDialog open={openDialogName === true} handleClose={closeDialog}></GiveReferralDialog>
+            <GiveReferralDialog open={openDialogName === true} handleClose={closeDialog} submitReferral= {submitReferral}></GiveReferralDialog>
+            <ToastContainer />
         </div>
     );
 

@@ -128,8 +128,9 @@ public class ContestRepository {
                 String username = rs.getString("username");
 
                 int points = rs.getInt("points");
+                int id = rs.getInt("user_id");
 
-                UserNameAndPointResponse userNameAndPointResponse = new UserNameAndPointResponse(points,username );
+                UserNameAndPointResponse userNameAndPointResponse = new UserNameAndPointResponse(id,points,username );
 
                 result.add(userNameAndPointResponse);
             }

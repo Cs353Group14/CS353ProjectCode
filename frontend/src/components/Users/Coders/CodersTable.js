@@ -54,6 +54,13 @@ export default function CodersTable() {
 
     }
 
+    function handleSeeProfile(i) {
+      localStorage.setItem('referredId', rows[i].userId);
+      localStorage.setItem('menuId', 17);
+        localStorage.setItem('viewer', true);
+        window.location.href = "http://localhost:3000/home";
+    }
+
     return (
         <div>
             <br/>

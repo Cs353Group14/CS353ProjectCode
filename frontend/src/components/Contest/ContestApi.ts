@@ -13,6 +13,7 @@ export interface ContestModel {
 }
 
 export interface ContestResult{
+    id: number
     userName: string,
     point: number
 }

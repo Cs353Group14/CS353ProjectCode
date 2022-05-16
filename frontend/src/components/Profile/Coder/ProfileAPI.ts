@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MessageResponse } from "../../Common/Message";
 //import {MessageResponse, MessageType} from "../common/dto/MessageResponse";
 
 export interface newNonCodingQuestionModel {
@@ -41,7 +42,7 @@ export class ProfileAPI {
         return response.data;
     } 
 
-    async referCoder(userId: number,coderId: number, referral: referral) {
+    async referCoder(userId: number,coderId: number, referral: referral) :Promise<MessageResponse>{
         const response = await axios.put("/giveReferCoder/"+userId+"/"+coderId, referral );
         return response.data;
     } 

@@ -129,5 +129,10 @@ public class UserController {
     }
 
 
+    @GetMapping("/getContestsOfCompany/{user_id}")
+    public List<Contest>  getContestsOfCompany(@PathVariable int user_id){
+        return userService.getContestsOfCompany(user_id);
+    }
+
 
 }

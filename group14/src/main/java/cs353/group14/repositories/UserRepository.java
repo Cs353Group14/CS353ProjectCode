@@ -744,4 +744,36 @@ public class UserRepository {
         }
         return null;
     }
+
+    public List<Contest> getContestsOfCompany(int user_id) {
+
+        Timestamp start_time = null; String description = ""; String title = ""; int difficulty = -1;
+        int duration = -1; Timestamp deadline = null; int contest_id = -1;
+        List<Contest> result = new ArrayList<>();
+        try {
+            String query = "Select * From sponsor S,  contest C where C.contest_id = S.contest_id and S.user_id = ?  ";
+
+            PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,user_id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                contest_id =( rs.getInt("contest_id"));
+                start_time = ( rs.getTimestamp("start_time"));
+                description = ( rs.getString("description"));
+                title = ( rs.getString("title"));
+                difficulty = ( rs.getInt("difficulty"));
+                duration = ( rs.getInt("duration"));
+                deadline = ( rs.getTimestamp("deadline"));
+
+                Contest contest = new Contest(contest_id,start_time,description,title,difficulty,duration,deadline);
+
+                result.add(contest);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        return result;
+    }
 }

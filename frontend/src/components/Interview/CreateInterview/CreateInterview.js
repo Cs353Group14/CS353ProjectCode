@@ -172,8 +172,20 @@ function CreateInterview(props) {
 
 }
 async function handleCreate() {
+  if(timeUnit === 'min')
+    {
+        durationInMin = duration;
+    }
+    else if (timeUnit === 'hour(s)')
+    {
+        durationInMin = duration * 60;
+    }
+    else if( timeUnit === 'day(s)')
+    {
+        durationInMin = duration * 60*24;
+    }
 
-    //alert("ii");
+    alert(durationInMin);
     const newInterview = {
         user_id: localStorage.getItem('userId'),
         interview_id: -1,

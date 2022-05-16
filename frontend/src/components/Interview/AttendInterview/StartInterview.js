@@ -15,22 +15,34 @@ function StartInterview(props) {
 let interviewID = localStorage.getItem('startInterview');
 const attendInterviewAPI = new AttendInterviewAPI();
 
+
 const[comp, setComp] = useState([]);
 const[inter, setInter] = useState([]);
+const[duration, setDuration] = useState([]);
+const[hours, setHours] = useState(0);
 
 
-    function fetchInterview() {
+    async function fetchInterview() {
+        attendInterviewAPI.getDurationLeft(localStorage.getItem("userId") ,localStorage.getItem('startInterview')).then(data => {   
+            setDuration(data);
+            });
         attendInterviewAPI.getCompany(interviewID).then(data => {
             setComp(data)});;
-        attendInterviewAPI.getInterview(interviewID).then(data => {
+         attendInterviewAPI.getInterview(interviewID).then(data => {
             setInter(data)});;
+        
+        let start = new Date(duration.startTime );
+        let end = new Date(duration.endTime );
+        let left = Math.abs(end-start);
+        setHours(left / 3600000);
 
     }
     
     useEffect(() => {
         fetchInterview();
-    },[]);
+    },[duration]);
 
+    //console.log(duration.startTime );
     function startInterview()
     {
         localStorage.setItem('interviewDuration', inter.duration)
@@ -90,7 +102,7 @@ const[inter, setInter] = useState([]);
                 <Grid item xs={6}>
                     <Grid container  direction="row" justifyContent="center" alignItems="center">
                         <Typography variant="h5" component="h5">
-                            {inter.duration} min
+                            {hours} hours left
                         </Typography>
                     </Grid>
                 </Grid>

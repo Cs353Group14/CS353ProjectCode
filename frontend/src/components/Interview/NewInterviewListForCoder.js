@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Typography, Button, Select} from "@material-ui/core";
+import { Typography, Button, Select, TextField} from "@material-ui/core";
 import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -21,6 +21,10 @@ function startInterview(invivtaionCode, id)
 function NewInterviewListForCoder(props) {
     const[rows, setRows] = useState([]);
     const interviewAPI = new InterviewAPI();
+    const [startTime, setStartTime] = React.useState(null);
+    const [endTime, setEndTime] = React.useState(null);
+    const [startDate, setStartDate] = React.useState(null);
+    const [endDate, setEndDate] = React.useState(null);
 
     function fetchNewInterviews() {
         interviewAPI.getNewInterviewList().then(data => {
@@ -31,6 +35,18 @@ function NewInterviewListForCoder(props) {
     useEffect(() => {
         fetchNewInterviews();
     },[]);
+
+    function search()
+    {
+        let start = startDate + " " + startTime+ ":00";
+        let end = endDate + " " + endTime + ":00";
+        alert(start);
+        console.log(start);
+        interviewAPI.getInterviewsInRange(localStorage.getItem('userId'), start,end).then(data => {
+            setRows(data)});
+    }
+
+
 
     
 
@@ -50,11 +66,83 @@ function NewInterviewListForCoder(props) {
                 </Grid>
             </Grid>
             
+            
             <Grid container
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
                 sx={{ mt: 8 , mb: 8, ml: 3, mr:3}}>
+                <Grid item xs={8} >
+                <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{m:3}}
+                >
+                     <Grid item xs={4}>
+                     <TextField
+                            label="Start Date"
+                            type="date"
+                            value={startDate}
+                            onChange={(e)=> setStartDate(e.target.value)}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                    </Grid>
+                    <Grid item xs={4}>
+                     <TextField
+                            label="End Date"
+                            type="date"
+                            value={endDate}
+                            onChange={(e)=> setEndDate(e.target.value)}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                    </Grid>
+                    <Grid item xs={4}>
+                    <Button
+                                variant="contained"
+                                color="primary"
+                               onClick={search}
+                                > Search
+                            </Button>
+                    </Grid>
+                    </Grid>
+                <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{m:3}}
+                >
+                    <Grid item xs={4}>
+                     <TextField
+                            label="Start Time"
+                            type="time"
+                            value={startTime}
+                            onChange={(e)=> setStartTime(e.target.value)}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                    </Grid>
+                    
+                    <Grid item xs={4}>
+                     <TextField
+                            label="End Time"
+                            type="time"
+                            value={endTime}
+                            onChange={(e)=> setEndTime(e.target.value)}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                    </Grid>
+                    <Grid item xs={4}>
+                    <Button
+                                variant="contained"
+                                color="primary"
+                                href="/home"
+                                > Clear
+                            </Button>
+                    </Grid>
+                </Grid>
+                </Grid>
                     <Grid item xs={8} >
                     <TableContainer component={Paper}>
                     <Table  aria-label="simple table">

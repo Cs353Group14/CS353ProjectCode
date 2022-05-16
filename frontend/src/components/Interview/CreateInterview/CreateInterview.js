@@ -296,6 +296,7 @@ async function handleCreate() {
                 <Grid item xs={6} >
                     <Grid container  direction="row" justifyContent="center" alignItems="center">
                     <Button
+                       disabled={!disable}
                         variant="contained"
                         color="primary"
                         onClick={addCodingQuestions}
@@ -308,6 +309,7 @@ async function handleCreate() {
                     <Button
                         variant="contained"
                         color="primary"
+                        disabled={!disable}
                         onClick={addNonCodingQuestions}
                         > Add Non Coding Question
                     </Button>
@@ -394,6 +396,7 @@ async function handleCreate() {
                     <Button
                         variant="contained"
                         color="primary"
+                        disabled={!disable}
                         onClick={handleSubmit}
                         > Submit
                     </Button>

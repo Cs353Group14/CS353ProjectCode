@@ -155,7 +155,7 @@ function CreateCodingChallenge(props) {
                   window.location.href = "http://localhost:3000/CreateInterview";
               }, 1000)
         }
-          //window.location.href = "http://localhost:3000/CreateInterview";
+          window.location.href = "http://localhost:3000/CreateInterview";
       }
 
       toast.success("Coding Challenge is created");

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
 import { ContestApi } from "../ContestApi";
+import { MessageType } from "../../Common/Message";
+import { ToastContainer,toast } from 'react-toastify';
 
 const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
     backgroundColor: theme.palette.common.black,
@@ -40,9 +42,16 @@ export default function RegisteredContests() {
     },[]);
 
     async function handleCancelRegisteration() {
-        //await contestApi.addCoderToContest(rows[currentSubIndex].contest_id);
-        setOpen(false);
-        fetchRegisteredFuruteContests();
+      const response = await contestApi.cancelParticipation(rows[currentSubIndex].contest_id);
+      setOpen(false);
+      if (response.messageType === MessageType.ERROR) {
+        toast.error(response.message);
+      } else {
+          toast.success(response.message);
+          setTimeout(function() {
+              window.location.href = "http://localhost:3000/home";
+          }, 1000)
+      }
     }
 
     const [open, setOpen] = React.useState(false);
@@ -118,6 +127,7 @@ export default function RegisteredContests() {
     </Button>
 </DialogActions>
 </Dialog>
+<ToastContainer />
 </div>
       );
 }

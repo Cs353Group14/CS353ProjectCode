@@ -124,6 +124,7 @@ function Profile() {
     function fetchContests() {
         profileAPI.getContestOfCoder(coderId).then(data => {
             setContests(data)
+            console.log(data);
         });;
     }
 

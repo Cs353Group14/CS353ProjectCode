@@ -3,6 +3,8 @@ import {Button, TextField} from "@material-ui/core";
 import RegisterBar from "./RegisterBar";
 import './Register.css'
 import { RegisterApi } from "./RegisterApi";
+import { MessageType } from "../Common/Message";
+import { ToastContainer,toast } from 'react-toastify';
 
 
 
@@ -36,6 +38,7 @@ function RegisterCoder() {
 
     function handleNewBirthYear(event) {
         setBirthYear(event.target.value);
+        console.log(birthYear);
     }
 
     function handleNewPosition(event) {
@@ -61,11 +64,16 @@ function RegisterCoder() {
             "place": place
         }
 
-        await registerApi.registerCoder(coder);
+        const response = await registerApi.registerCoder(coder);
 
-        setTimeout(function() {
-            window.location.href = "http://localhost:3000";
-        }, 1000)
+        if (response.messageType === MessageType.ERROR) {
+            toast.error(response.message);
+        } else {
+            toast.success(response.message);
+            setTimeout(function() {
+                window.location.href = "http://localhost:3000";
+            }, 1000)
+        }
 
     }
 
@@ -117,6 +125,7 @@ function RegisterCoder() {
                     </Button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
 
     );

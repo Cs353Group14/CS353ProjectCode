@@ -3,6 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import NavBar from "../../NavBar/NavBar";
 import { ContestApi } from "../ContestApi";
+import { ToastContainer,toast } from 'react-toastify';
+import { MessageType } from "../../Common/Message";
 
 const columns = [
     { field: 'challenge_id', headerName: 'ID', width: 70 },
@@ -41,9 +43,18 @@ export default function CodingChallengeTable() {
       console.log(localStorage.getItem('contestId'));
       console.log(selecetedRows);
 
-      await contestApi.addQuestionsToContest(selecetedRows);
+      const response = await contestApi.addQuestionsToContest(selecetedRows);
 
-      window.location.href = "http://localhost:3000/home";
+      if (response.messageType === MessageType.ERROR) {
+        toast.error(response.message);
+    } else {
+        toast.success(response.message);
+        setTimeout(function() {
+            window.location.href = "http://localhost:3000/home";
+        }, 1000)
+    }
+
+      //window.location.href = "http://localhost:3000/home";
     }
 
     return (
@@ -65,6 +76,7 @@ export default function CodingChallengeTable() {
           <div text-align = "right" >
           <Button variant="contained" color="primary" onClick={handleClick}>Save</Button>
           </div>
+          <ToastContainer />
         </div>
       );
 }

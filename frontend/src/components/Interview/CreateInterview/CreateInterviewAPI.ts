@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MessageResponse } from "../../Common/Message";
 //import {MessageResponse, MessageType} from "../common/dto/MessageResponse";
 
 export interface newInterview {
@@ -43,7 +44,7 @@ export class CreateNewInterviewAPI {
         return response.data;
     }
 
-    async addCodingQuestionToInterview(){
+    async addCodingQuestionToInterview() :Promise<MessageResponse>{
         const response = await axios.put("/addCodingQuestionToInterview/"+localStorage.getItem('interviewID')+"/"+localStorage.getItem('challengeId')+"/"+localStorage.getItem('userId')+"/"+localStorage.getItem('duration'));
         return response.data;
     }
@@ -54,7 +55,7 @@ export class CreateNewInterviewAPI {
         return response.data;
     }
 
-    async addNonCodingQuestionToInterview(){
+    async addNonCodingQuestionToInterview() :Promise<MessageResponse> {
         const response = await axios.put("/addNonCodingQuestionToInterview/"+localStorage.getItem('interviewID')+"/"+localStorage.getItem('challengeId')+"/"+localStorage.getItem('userId'));
         return response.data;
     }

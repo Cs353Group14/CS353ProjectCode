@@ -21,8 +21,9 @@ public class ContestService {
         this.contestRepository = contestRepository;
     }
 
-    public int createContest(int editorId, Contest contest)
+    public MessageResponse createContest(int editorId, Contest contest)
     {
+        System.out.println(contest.getStart_time());
         return contestRepository.createContest(editorId,contest.getStart_time(), contest.getDescription(),
                 contest.getTitle(), contest.getDifficulty(), contest.getDuration(), contest.getDeadline());
     }
@@ -71,7 +72,7 @@ public class ContestService {
         return contestRepository.getCodingChallengesOfContest(  contestId);
     }
 
-    public int startContest(int userId, int contestId) {
+    public MessageResponse startContest(int userId, int contestId) {
         return contestRepository.startContest(userId,contestId);
     }
     public int getContestStatus(int userId, int contestId) {

@@ -68,6 +68,7 @@ public class CodingChallengeController {
 
     @PutMapping("/addCategoryCodingChallenge/{challengeId}")
     public MessageResponse addCategoryCodingChallenge(@RequestBody List<String> categories, @PathVariable int challengeId){
+        System.out.println(categories.get(0));
         List<MessageResponse> responses = categories.stream()
                 .map(c -> codingChallengeService.addCategoryCodingChallenge(challengeId, c))
                 .filter(mr-> mr.getMessageType().equals(MessageType.ERROR))

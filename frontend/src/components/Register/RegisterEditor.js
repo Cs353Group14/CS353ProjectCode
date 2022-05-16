@@ -2,6 +2,8 @@ import React, {ChangeEvent, useState} from "react";
 import {Button, TextField} from "@material-ui/core";
 import RegisterBar from "./RegisterBar";
 import { RegisterApi } from "./RegisterApi";
+import { ToastContainer,toast } from 'react-toastify';
+import { MessageType } from "../Common/Message";
 
 
 
@@ -54,11 +56,16 @@ function RegisterEditor() {
             "place": place
         }
 
-        await registerApi.registerEditor(editor);
+        const response = await registerApi.registerEditor(editor);
 
-        setTimeout(function() {
-            window.location.href = "http://localhost:3000";
-        }, 1000)
+        if (response.messageType === MessageType.ERROR) {
+            toast.error(response.message);
+        } else {
+            toast.success(response.message);
+            setTimeout(function() {
+                window.location.href = "http://localhost:3000";
+            }, 1000)
+        }
 
 
     }
@@ -108,6 +115,7 @@ function RegisterEditor() {
                     </Button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
 
     );

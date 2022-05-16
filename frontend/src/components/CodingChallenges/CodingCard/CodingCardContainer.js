@@ -6,6 +6,9 @@ import CodingCard from "./CodingCard";
 import './CodingCard.css'
 import { CodingChallengeApi } from "../CodingChallengeApi";
 import { Autocomplete, Stack } from "@mui/material";
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const categories =
 [

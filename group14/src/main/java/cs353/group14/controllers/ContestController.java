@@ -21,7 +21,7 @@ public class ContestController {
     }
 
     @PutMapping("/createContest/{editorId}")
-    public int  createContest (@RequestBody Contest contest, @PathVariable int editorId){
+    public MessageResponse  createContest (@RequestBody Contest contest, @PathVariable int editorId){
         return contestService.createContest(editorId,contest);
     }
 
@@ -76,7 +76,7 @@ public class ContestController {
     }
 
     @PutMapping("/participateContest/{userId}/{contestId}")
-    public int startContest (@PathVariable int userId, @PathVariable int contestId){
+    public MessageResponse startContest (@PathVariable int userId, @PathVariable int contestId){
         return contestService.startContest(userId,contestId);
     }
 

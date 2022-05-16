@@ -2,6 +2,8 @@ import React, {ChangeEvent, useState} from "react";
 import {Button, TextField} from "@material-ui/core";
 import RegisterBar from "./RegisterBar";
 import { RegisterApi } from "./RegisterApi";
+import { ToastContainer,toast } from 'react-toastify';
+import { MessageType } from "../Common/Message";
 
 
 
@@ -54,11 +56,16 @@ function RegisterCompany() {
             "webPageLink": link
         }
 
-        await registerApi.registerCompany(coder);
+        const response = await registerApi.registerCompany(coder);
 
-        setTimeout(function() {
-            window.location.href = "http://localhost:3000";
-        }, 1000)
+        if (response.messageType === MessageType.ERROR) {
+            toast.error(response.message);
+        } else {
+            toast.success(response.message);
+            setTimeout(function() {
+                window.location.href = "http://localhost:3000";
+            }, 1000)
+        }
 
 
     }
@@ -107,6 +114,7 @@ function RegisterCompany() {
                     </Button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
 
     );

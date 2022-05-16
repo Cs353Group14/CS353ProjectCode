@@ -133,7 +133,7 @@ function Profile() {
     function fetchContests() {
         profileAPI.getContestOfCoder(coderId).then(data => {
             setContests(data)
-            console.log(data);
+          //  console.log(data);
         });;
     }
 
@@ -160,7 +160,7 @@ function Profile() {
             toast.error("You should wrtie your reasoning to be able ti give referral");
                 return;
           }
-          console.log(description);
+          //console.log(description);
            const response = await profileAPI.referCoder(localStorage.getItem('userId'), localStorage.getItem('referredId'), refer);
       
            if (response.messageType === MessageType.ERROR) {

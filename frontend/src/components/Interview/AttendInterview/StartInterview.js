@@ -102,7 +102,7 @@ const[hours, setHours] = useState(0);
                 <Grid item xs={6}>
                     <Grid container  direction="row" justifyContent="center" alignItems="center">
                         <Typography variant="h5" component="h5">
-                            {hours} hours left
+                            {inter.duration} min left
                         </Typography>
                     </Grid>
                 </Grid>

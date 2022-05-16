@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
 import { ContestApi } from "../ContestApi";
+import { MessageType } from "../../Common/Message";
+import { ToastContainer,toast } from 'react-toastify';
 
 const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
     backgroundColor: theme.palette.common.black,
@@ -43,12 +45,26 @@ export default function ContinuesContests() {
     },[]);
 
     async function handleStart() {
-        await contestApi.participateContest(rows[currentSubIndex].contest_id);
+        const response = await contestApi.participateContest(rows[currentSubIndex].contest_id);
+        setOpen(false);
+        localStorage.setItem('contestId', rows[currentSubIndex].contest_id);
+
+        if (response.messageType === MessageType.ERROR) {
+          toast.error(response.message);
+        } else {
+            toast.success(response.message);
+            setTimeout(function() {
+                window.location.href = "http://localhost:3000/SolveContest";
+            }, 3000)
+        }
+        
+        //fetchContinuesContests();
+    }
+    
+    function handleContinue() {
         setOpen(false);
         localStorage.setItem('contestId', rows[currentSubIndex].contest_id);
         window.location.href = "http://localhost:3000/SolveContest";
-        
-        //fetchContinuesContests();
     }
 
     function handleLeaderBoard(){
@@ -101,7 +117,7 @@ export default function ContinuesContests() {
                 <StyledTableCellHead align="right">Start Time</StyledTableCellHead>
                 <StyledTableCellHead align="right">Deadline</StyledTableCellHead>
                 <StyledTableCellHead align="right">Duration</StyledTableCellHead>
-                <StyledTableCellHead align="right">Details</StyledTableCellHead>
+                <StyledTableCellHead align="right">See Details and Start</StyledTableCellHead>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -146,12 +162,13 @@ export default function ContinuesContests() {
     </Button>
     </div>
     <div hidden = {continueHidden}>
-    <Button onClick={handleStart} color="primary">
+    <Button onClick={handleContinue} color="primary">
         Continue
     </Button>
     </div>
 </DialogActions>
 </Dialog>
+<ToastContainer />
 </div>
       );
 }

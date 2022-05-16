@@ -2,6 +2,9 @@ import { Button, Paper, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { ContestApi } from '../../Contest/ContestApi';
 import {CodingChallengeApi} from '../CodingChallengeApi'
+import { MessageType } from "../../Common/Message";
+import { ToastContainer,toast } from 'react-toastify';
+
 
 function CodingChallengeSolve(props) {
 
@@ -70,7 +73,12 @@ function CodingChallengeSolve(props) {
                     fail_result: 0,
                     submission_time: "2022-01-01"
                 }
-                codingChallengeApi.submitSolutionToContest(solution);
+                const response = await codingChallengeApi.submitSolutionToContest(solution);
+                if (response.messageType === MessageType.ERROR) {
+                    toast.error(response.message);
+                  } else {
+                      toast.success(response.message);
+                  }
 
             }
         } else {
@@ -82,7 +90,12 @@ function CodingChallengeSolve(props) {
                 fail_result: 0,
                 submission_time: "2022-01-01"
             }
-            codingChallengeApi.submitSolution(solution);
+            const response = await codingChallengeApi.submitSolution(solution);
+            if (response.messageType === MessageType.ERROR) {
+                toast.error(response.message);
+              } else {
+                  toast.success(response.message);
+              }
         }
 
     }
@@ -123,7 +136,7 @@ function CodingChallengeSolve(props) {
             <Button variant="contained"  color="primary" onClick = {handleSubmit} > Submit </Button>
          </div>
          </div>
-
+         <ToastContainer />
     </div>
 
     );

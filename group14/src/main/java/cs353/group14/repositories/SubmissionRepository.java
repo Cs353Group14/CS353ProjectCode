@@ -94,7 +94,7 @@ public class SubmissionRepository {
             submission.setSubmission_id(submissionId);
             insertSubmit(userId,challengeId,submissionId);
             updateCodingChallenge( challengeId, submissionId,userId);
-            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+            return new MessageResponse(MessageType.SUCCESS, "Your solution is submitted.        You can see results from Submissions");
         } catch (SQLException throwables) {
             return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
@@ -190,7 +190,7 @@ public class SubmissionRepository {
             insertSubmit(userId,challengeId,submissionId);
             updateCodingChallengeContest( challengeId, submissionId,userId,contestId);
 
-            return new MessageResponse(MessageType.SUCCESS, "Submit is successful");
+            return new MessageResponse(MessageType.SUCCESS, "Your solution is submitted.        You can see results from Submissions");
         } catch (SQLException throwables) {
             return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }

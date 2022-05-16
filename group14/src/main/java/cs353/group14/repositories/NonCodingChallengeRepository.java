@@ -237,7 +237,7 @@ public class NonCodingChallengeRepository {
             insertStmt.setTimestamp(4,reply.getReplyTime());
 
             insertStmt.executeUpdate();
-            return new MessageResponse(MessageType.SUCCESS, "Insertion is successful");
+            return new MessageResponse(MessageType.SUCCESS, "Your answer is submitted");
         } catch (SQLException throwables) {
             return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }

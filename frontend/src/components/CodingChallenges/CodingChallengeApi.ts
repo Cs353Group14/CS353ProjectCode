@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MessageResponse } from "../Common/Message";
 
 export interface CodingChallengeQueryResponse {
     challenge_id: number,
@@ -65,12 +66,14 @@ export class CodingChallengeApi {
         return response.data;
     }
 
-    async submitSolution(submission: Submission) {
-        const response = await axios.put(`/submitSolution/${localStorage.getItem('userId')}/${localStorage.getItem('codingId')}`, submission)
+    async submitSolution(submission: Submission) : Promise<MessageResponse> {
+        const response = await axios.put(`/submitSolution/${localStorage.getItem('userId')}/${localStorage.getItem('codingId')}`, submission);
+        return response.data;
     }
 
-    async submitSolutionToContest(submission: Submission) {
+    async submitSolutionToContest(submission: Submission)  : Promise<MessageResponse>  {
         const response = await axios.put(`/submitSolution/${localStorage.getItem('userId')}/${localStorage.getItem('codingId')}/${localStorage.getItem('contestId')}`, submission)
+        return response.data;
     }
 
     async getOldSubmissions(): Promise<Submission[]> {

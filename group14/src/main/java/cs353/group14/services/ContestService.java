@@ -23,7 +23,6 @@ public class ContestService {
 
     public MessageResponse createContest(int editorId, Contest contest)
     {
-        System.out.println(contest.getStart_time());
         return contestRepository.createContest(editorId,contest.getStart_time(), contest.getDescription(),
                 contest.getTitle(), contest.getDifficulty(), contest.getDuration(), contest.getDeadline());
     }

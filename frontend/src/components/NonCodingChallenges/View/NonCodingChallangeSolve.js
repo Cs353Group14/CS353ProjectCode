@@ -1,6 +1,8 @@
 import { Button, Divider, Paper, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { NonCodingChallengeApi } from '../NonCodingChallengeApi';
+import { MessageType } from "../../Common/Message";
+import { ToastContainer,toast } from 'react-toastify';
 
 function NonCodingChallengeSolve(props) {
 
@@ -37,7 +39,7 @@ function NonCodingChallengeSolve(props) {
         fetchSubmission();
     },[]);
 
-    function submitAnswer() {
+    async function submitAnswer() {
         const reply = {
             nonChallengeId: localStorage.getItem('nonCodingId'),
             userId: localStorage.getItem('userId'),
@@ -45,7 +47,15 @@ function NonCodingChallengeSolve(props) {
             theResult: "",
             replyTime: "2022-01-01"}
 
-            nonCodingChallengeApi.submitAnswer(reply);
+            const response = await nonCodingChallengeApi.submitAnswer(reply);
+            if (response.messageType === MessageType.ERROR) {
+                toast.error(response.message);
+              } else {
+                  toast.success(response.message);
+                  setTimeout(function() {
+                      window.location.href = `http://localhost:3000/non-coding-challenges/${localStorage.getItem('nonCodingId')}`;
+                  }, 1000)
+              }
     }
 
     return(
@@ -86,7 +96,7 @@ function NonCodingChallengeSolve(props) {
             <Button variant="contained"  color="primary" onClick={submitAnswer} > Submit </Button>
          </div>
          </div>
-
+         <ToastContainer />
     </div>
 
     );

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MessageResponse } from "../Common/Message";
 
 export interface NonCodingChallengeQueryResponse {
     non_challenge_id: number,
@@ -61,8 +62,9 @@ export class NonCodingChallengeApi {
         return response.data;
     }
 
-    async submitAnswer(reply: Reply) {
+    async submitAnswer(reply: Reply) :Promise<MessageResponse> {
         const response = await axios.put(`/replyQuestion`, reply);
+        return response.data;
     }
 
     async getSubmission() : Promise<Reply> {

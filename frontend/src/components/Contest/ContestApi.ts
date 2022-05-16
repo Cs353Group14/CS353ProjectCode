@@ -123,8 +123,9 @@ export class ContestApi {
         return response.data;
     }
 
-    async makeCompanySponsorToContest(contestId: number) {
+    async makeCompanySponsorToContest(contestId: number) : Promise<MessageResponse>{
         const response = await axios.put(`/makeCompanySponsorToContest/${localStorage.getItem('userId')}/${contestId}`);
+        return response.data;
     }
 
 }

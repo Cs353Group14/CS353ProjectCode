@@ -534,7 +534,7 @@ public class ContestRepository {
                 title = ( rs.getString("title"));
                 deadline = ( rs.getTimestamp("deadline"));
                 name = ( rs.getString("name"));
-                ContestDeadlineResponse contest = new ContestDeadlineResponse(contest_id,title,timestamp.after(deadline),name);
+                ContestDeadlineResponse contest = new ContestDeadlineResponse(contest_id,title,timestamp.before(deadline),name);
 
                 result.add(contest);
             }

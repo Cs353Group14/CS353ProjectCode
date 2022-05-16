@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
 import { ContestApi } from "../ContestApi";
 import NavBar from "../../NavBar/NavBar";
+import { MessageType } from "../../Common/Message";
+import { ToastContainer,toast } from 'react-toastify';
 
 const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
     backgroundColor: theme.palette.common.black,
@@ -72,8 +74,13 @@ export default function ContestView() {
         fetchContestStatistic();
     },[]);
 
-    function handleSponsor() {
-      contestApi.makeCompanySponsorToContest(contest.contest_id);
+    async function handleSponsor() {
+      const response = await contestApi.makeCompanySponsorToContest(contest.contest_id);
+      if (response.messageType === MessageType.ERROR) {
+        toast.error(response.message);
+      } else {
+          toast.success(response.message);
+      }
     }
 
     return (
@@ -128,7 +135,7 @@ export default function ContestView() {
             </div>
 
             <div hidden = {localStorage.getItem('usertype') != 2}>
-              <Button variant="contained" color = "primary" onClick={handleSponsor}>Sponsor</Button>  
+              <Button variant="contained" color = "primary" onClick={handleSponsor}>Be Sponsor</Button>  
             </div>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -156,6 +163,8 @@ export default function ContestView() {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <ToastContainer />
 
 </div>
       );

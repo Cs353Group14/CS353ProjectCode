@@ -728,4 +728,51 @@ public class InterviewRepository {
 
         return non_coding_number+coding_number;
     }
+
+    public int getInterviewStatus(int interview_id,int coder_id){
+        int status = -1;
+        Timestamp endTime = null;
+
+        try {
+            String loginQuery = "SELECT end_time from attend WHERE coder_id = ? and interview_id = ?";
+            PreparedStatement loginStmt = ConnectionSingle.getConnection().prepareStatement(loginQuery);
+            loginStmt.setInt(1,coder_id);
+            loginStmt.setInt(2,interview_id);
+            ResultSet rs = loginStmt.executeQuery();
+
+            int size = 0;
+
+            while (rs.next()){
+
+                endTime = rs.getTimestamp("end_time");
+
+                size++;
+            }
+
+
+            if(size!=1){
+                return -1;
+            }else{
+                Timestamp current = new Timestamp(System.currentTimeMillis());
+
+                if(endTime.before(current)){
+                    return 1; //2
+                }else{
+                    return 0; //1
+                }
+
+            }
+
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        return status;
+    }
 }

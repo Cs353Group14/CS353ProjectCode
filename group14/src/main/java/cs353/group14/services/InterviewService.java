@@ -114,4 +114,8 @@ public class InterviewService {
     public int getSumSolvedNumberOfQuestion(int coder_id) {
         return interviewRepository.getSumSolvedNumberOfQuestion(coder_id);
     }
+
+    public int getInterviewStatus(int interview_id,int coder_id){
+        return interviewRepository.getInterviewStatus(interview_id,coder_id);
+    }
 }

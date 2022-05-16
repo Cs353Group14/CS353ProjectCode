@@ -291,7 +291,7 @@ public class InterviewRepository {
 
     public MessageResponse addNonCodingQuestionToInterview(int interview_id,int non_challenge_id, int company_id)  {
         try {
-            String query = "INSERT INTO made_of(non_challenge_id, interview_id,company_id) VALUES (?,?,?) ";
+            String query = "INSERT INTO made_of(non_challenge_id, interview_id,user_id) VALUES (?,?,?) ";
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
 
             preparedStatement.setInt(1, non_challenge_id);

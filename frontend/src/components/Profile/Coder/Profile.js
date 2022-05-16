@@ -160,8 +160,8 @@ function Profile() {
             toast.error("You should wrtie your reasoning to be able ti give referral");
                 return;
           }
-          //console.log(description);
-           const response = await profileAPI.referCoder(localStorage.getItem('userId'), localStorage.getItem('referredId'), refer);
+          //console.log(description);userId
+           const response = await profileAPI.referCoder(localStorage.getItem('referredId'), localStorage.getItem('userId'), refer);
       
            if (response.messageType === MessageType.ERROR) {
             toast.error(response.message);

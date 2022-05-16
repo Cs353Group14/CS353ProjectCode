@@ -1,5 +1,6 @@
 import axios from "axios";
 import { CodingChallengeQueryResponse } from "../CodingChallenges/CodingChallengeApi";
+import { MessageResponse } from "../Common/Message";
 
 export interface ContestModel {
     contest_id: number,
@@ -31,7 +32,7 @@ export interface ContestStatistic{
 }
 
 export class ContestApi {
-    async createContest(contest: ContestModel): Promise<number> {
+    async createContest(contest: ContestModel): Promise<MessageResponse> {
         const response = await axios.put(`/createContest/${localStorage.getItem('userId')}`, contest);
         return response.data;
     }
@@ -41,8 +42,9 @@ export class ContestApi {
         return response.data;
     }
 
-    async addQuestionsToContest(contestIds: number[]) {
+    async addQuestionsToContest(contestIds: number[]) : Promise<MessageResponse> {
         const response = await axios.put(`/addQuestionsToContest/${localStorage.getItem('contestId')}`,contestIds);
+        return response.data;
     }
 
     async getFutureContestsNotRegistered() : Promise<ContestModel[]> {
@@ -70,12 +72,19 @@ export class ContestApi {
     }
 
 
-    async addCoderToContest(contestId: number) {
+    async addCoderToContest(contestId: number) : Promise<MessageResponse>  {
         const response = await axios.put(`/addCoderToContest/${localStorage.getItem('userId')}/${contestId}`);
+        return response.data;
     }
 
-    async participateContest(contestId: number) {
+    async participateContest(contestId: number) : Promise<MessageResponse> {
         const response = await axios.put(`/participateContest/${localStorage.getItem('userId')}/${contestId}`);
+        return response.data;
+    }
+
+    async cancelParticipation(contestId: number) : Promise<MessageResponse> {
+        const response = await axios.put(`/cancelContestParticipation/${localStorage.getItem('userId')}/${contestId}`);
+        return response.data;
     }
 
 

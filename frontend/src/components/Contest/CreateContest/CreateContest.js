@@ -3,6 +3,8 @@ import { Box, FormControl, TextField, MenuItem, Typography, Button, Select, Form
 import Grid from '@mui/material/Grid';
 import {ContestApi} from '../ContestApi'
 import CodingChallengeTable from "./CodingChallengeTable";
+import { MessageType } from "../../Common/Message";
+import { ToastContainer,toast } from 'react-toastify';
 
 
 const timeUnits = [
@@ -35,7 +37,6 @@ export default function CreateContest(props) {
 
   async function handleSubmit() {
 
-    console.log(timeUnit)
     if(timeUnit === 'min')
     {
         durationInMin = duration;
@@ -47,22 +48,36 @@ export default function CreateContest(props) {
     else if( timeUnit === 'day(s)')
     {
         durationInMin = duration * 60*24;
-    }
+    } 
 
-    console.log(durationInMin);
-    console.log(startDate + startTime);
     const contest = {
         contest_id: -1,
         title: title,
         description: description,
-        start_time: startDate + "T03:" + startTime,
-        deadline: deadline + "T03:" + endTime,
+        start_time: startDate + "T" + startTime,
+        deadline: deadline + "T" + endTime,
         duration: durationInMin,
         difficulty: difficulty
       }
-      const contestId = await contestApi.createContest(contest);
 
-      localStorage.setItem('contestId',contestId);
+      if(contest.description == "" || contest.title == "" || contest.start_time == "" || contest.deadline == ""
+       || contest.duration == "" || contest.input == "" || contest.difficulty == "") {
+
+        toast.error("Please fill the blank areas");
+        return;
+      }
+
+      console.log(contest.start_time);
+      const response = await contestApi.createContest(contest);
+
+      console.log(response);
+
+      if(response.messageType == MessageType.ERROR) {
+        toast.error(response.message);
+        return;
+      }
+
+      localStorage.setItem('contestId',response.message);
 
       window.location.href = "http://localhost:3000/AddContestChallenges";
 
@@ -236,6 +251,7 @@ export default function CreateContest(props) {
           </Grid>
 
            </div>
+           <ToastContainer />
         </div>
     );
     

@@ -39,7 +39,7 @@ function App() {
       <Route path = {"/register-editor"} element = {<RegisterEditor/>}/>
       <Route path = {"/register-company"} element = {<RegisterCompany/>}/>
       <Route path = {"/coding-challenges"} element = {<CodingCardContainer/>}/>
-      <Route path = {"/non-coding-challenges"} element = {<NonCodingCardContainer/>}/>
+   
 
       <Route path = {`/coding-challenges/${localStorage.getItem('codingId')}`} element = {<CodingChallengeView/>}/>
       <Route path = {`/non-coding-challenges/${localStorage.getItem('nonCodingId')}`} element = {<NonCodingChallengeView/>}/>

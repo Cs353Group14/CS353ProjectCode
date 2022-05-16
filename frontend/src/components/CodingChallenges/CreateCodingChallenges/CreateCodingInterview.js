@@ -9,6 +9,8 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import {CreateCodingChallengeAPI} from './CreateCodingChallengeAPI'
 import {CreateNewInterviewAPI} from '../../Interview/CreateInterview/CreateInterviewAPI'
+import { ToastContainer,toast } from 'react-toastify';
+import { MessageType } from "../../Common/Message";
 
 
 
@@ -67,6 +69,8 @@ function CreateCodingChallenge(props) {
 
   async function handleSubmit() {
 
+    console.log(listOfCategories);
+    console.log("here");
 
     if(localStorage.getItem('interviewID'))
     {
@@ -77,52 +81,87 @@ function CreateCodingChallenge(props) {
       publicity = 1;
     }
 
-    const newQuestion = {
-      difficulty: difficulty,
-      title: title,
-      points: points,
-     solution: solution,
-     question: question,
-     solvedNumber: 0,
-     attempt_number: 0,
-     publicity: publicity 
-    }
+    if(difficulty == "" || title == "" || points == "" || solution == "" || question == "" || input == "" || output == "") {
 
-    let challengeId;
-    if(publicity == 1)
-    {
-      challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
+      toast.error("Please fill the blank areas");
+    } else  {
 
-    }
-    else
-    {
-      alert("here");
-      let interviewID = localStorage.getItem('interviewID');
-      let companyId = localStorage.getItem('userId');
-      challengeId = await createCodingChallengeAPI.createCodingChallengesForInteriew(interviewID, companyId, duration, newQuestion);
-
-    }
-
-    localStorage.setItem('challengeId', challengeId);
-    let categoryArray =[];
-
-    listOfCategories.forEach(category => {
-      categoryArray.push(category.value);
-    });
-
-    let inputsOutputs = [];
-    inputsOutputs[0] = input;
-    inputsOutputs[1] = output;
-    await createCodingChallengeAPI.addCategory(challengeId, categoryArray);
-    await createCodingChallengeAPI.addTestCase(challengeId, inputsOutputs);
-
-    if(publicity === 0) //Then need to add this question to interview also
-    {
+      const newQuestion = {
+        difficulty: difficulty,
+        title: title,
+        points: points,
+       solution: solution,
+       question: question,
+       solvedNumber: 0,
+       attempt_number: 0,
+       publicity: publicity 
+      }
+  
+      let challengeId;
+      if(publicity == 1)
+      {
+        challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
+  
+      }
+      else
+      {
+        alert("here");
+        let interviewID = localStorage.getItem('interviewID');
+        let companyId = localStorage.getItem('userId');
+        challengeId = await createCodingChallengeAPI.createCodingChallengesForInteriew(interviewID, companyId, duration, newQuestion);
+  
+      }
+  
       localStorage.setItem('challengeId', challengeId);
-      localStorage.setItem('duration', duration);
-      await createNewInterviewQuestion.addCodingQuestionToInterview();
-      window.location.href = "http://localhost:3000/CreateInterview";
+      let categoryArray =[];
+  
+      listOfCategories.forEach(category => {
+        categoryArray.push(category.value);
+      });
+  
+      if(challengeId == -1) {
+        toast.error("Something went wrong. Please try again");
+        return;
+      }
+
+      let inputsOutputs = [];
+      inputsOutputs[0] = input;
+      inputsOutputs[1] = output;
+      console.log(listOfCategories);
+      console.log(categoryArray);
+      const response1 = await createCodingChallengeAPI.addCategory(challengeId, categoryArray);
+      if (response1.messageType === MessageType.ERROR) {
+        toast.error(response1.message);
+        return;
     }
+      const response2 = await createCodingChallengeAPI.addTestCase(challengeId, inputsOutputs);
+
+      if (response2.messageType === MessageType.ERROR) {
+        toast.error(response2.message);
+        return;
+    }
+  
+      if(publicity === 0) //Then need to add this question to interview also
+      {
+        localStorage.setItem('challengeId', challengeId);
+        localStorage.setItem('duration', duration);
+        const response3 = await createNewInterviewQuestion.addCodingQuestionToInterview();
+        if (response3.messageType === MessageType.ERROR) {
+          toast.error(response3.message);
+        } else {
+          toast.success("Coding Challege is created and added to interview");
+              setTimeout(function() {
+                  window.location.href = "http://localhost:3000/CreateInterview";
+              }, 1000)
+        }
+          //window.location.href = "http://localhost:3000/CreateInterview";
+      }
+
+      toast.success("Coding Challenge is created");
+ 
+    }
+
+    
 
 }
 
@@ -240,6 +279,7 @@ function CreateCodingChallenge(props) {
                     margin="normal"
                     onChange={(event, options) => {
                       listOfCategories = options;
+                      console.log(listOfCategories);
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -332,6 +372,8 @@ function CreateCodingChallenge(props) {
             
             </FormControl>
           </Grid>
+
+          <ToastContainer />
         </div>
     );
     

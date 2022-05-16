@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MessageResponse } from "../../Common/Message";
 //import {MessageResponse, MessageType} from "../common/dto/MessageResponse";
 
 export interface newCodingQuestionModel {
@@ -22,16 +23,18 @@ export class CreateCodingChallengeAPI {
         return response.data;
     }
 
-    async addCategory(challengeId: number, categories: string[]) {
+    async addCategory(challengeId: number, categories: string[]) :Promise<MessageResponse>{
+        console.log(categories);
         const response = await axios.put(`/addCategoryCodingChallenge/${challengeId}`, categories);
+        return response.data;
     }
 
-    async addTestCase(challengeId: number, inputsOutputs: string[]){
+    async addTestCase(challengeId: number, inputsOutputs: string[]) :Promise<MessageResponse>{
         const response = await axios.put(`/addTestCaseForCodingChallenge/${challengeId}`, inputsOutputs);
         return response.data;
 
     }
-    async createCodingChallengesForInteriew(interviewId: number, companyId: number, timelimit: number, newQuestion: newCodingQuestionModel)
+    async createCodingChallengesForInteriew(interviewId: number, companyId: number, timelimit: number, newQuestion: newCodingQuestionModel) :Promise<number>
     {
         //createAndAddQuestionToInterview
         const response = await axios.put(`/createAndAddQuestionToInterview/${interviewId}/${companyId}/${timelimit}`, newQuestion);

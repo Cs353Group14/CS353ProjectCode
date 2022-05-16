@@ -9,6 +9,8 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import {CreateNonCodingQuestionAPI} from './CreateNonCodingQuestionAPI'
 import {CreateNewInterviewAPI} from '../../Interview/CreateInterview/CreateInterviewAPI';
+import { toast, ToastContainer } from "react-toastify";
+import { MessageType } from "../../Common/Message";
 
 
 const difficulties = [
@@ -49,6 +51,7 @@ function CreateNonCodingQuestion(props) {
   let listOfCategories = [];
 
   async function handleSubmit() {
+    console.log(listOfCategories);
 
     if(localStorage.getItem('interviewID'))
     {
@@ -58,6 +61,12 @@ function CreateNonCodingQuestion(props) {
     {
       publicity = 1;
     }
+
+    if(difficulty == "" || title == "" || points == ""  || question == "") {
+
+      toast.error("Please fill the blank areas");
+      return;
+    } 
 
     const newQuestion = {
       non_challenge_id: -1,
@@ -85,15 +94,33 @@ function CreateNonCodingQuestion(props) {
       categoryArray.push(category.value);
     });
 
-    await createNonCodingQuestionAPI.addCategory(challengeId, categoryArray);
+    if(challengeId == -1) {
+      toast.error("Something went wrong. Please try again");
+      return;
+    }
 
+    const response = await createNonCodingQuestionAPI.addCategory(challengeId, categoryArray);
+    if (response.messageType === MessageType.ERROR) {
+      toast.error(response.message);
+      return;
+    } 
 
     if(publicity === 0) //Then need to add this question to interview also
     {
       localStorage.setItem('challengeId', challengeId);
-      await createNewInterviewQuestion.addNonCodingQuestionToInterview();
-      window.location.href = "http://localhost:3000/CreateInterview";
+      const response2 = await createNewInterviewQuestion.addNonCodingQuestionToInterview();
+      if (response2.messageType === MessageType.ERROR) {
+        toast.error(response2.message);
+      } else {
+        toast.success("Non Coding Quesiton is created and added to interview");
+            setTimeout(function() {
+                window.location.href = "http://localhost:3000/CreateInterview";
+            }, 1000)
+      }
+      //window.location.href = "http://localhost:3000/CreateInterview";
     }
+
+    toast.success("Non Coding Quiestion is created");
 
 
 }
@@ -233,6 +260,8 @@ function CreateNonCodingQuestion(props) {
             </Grid>
             </FormControl>
           </Grid>
+
+          <ToastContainer />
         </div>
     );
     

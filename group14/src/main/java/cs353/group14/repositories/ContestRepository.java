@@ -20,17 +20,15 @@ public class ContestRepository {
 
 
 
-    public int createContest(int editor_id, Timestamp start_time, String description, String title, int difficulty,
+    public MessageResponse createContest(int editor_id, Timestamp start_time, String description, String title, int difficulty,
                               int duration, Timestamp deadline) {
         try {
             int contestId = insertContestTable(start_time, description, title, difficulty, duration, deadline);
             insertPrepareTable(editor_id, contestId);
-            return contestId;
+            return new MessageResponse(MessageType.SUCCESS, "" + contestId);
         } catch (SQLException e) {
-            e.printStackTrace();
+            return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + e.getMessage());
         }
-
-        return -1;
     }
 
     public int insertContestTable( Timestamp start_time, String description, String title, int difficulty,
@@ -90,7 +88,7 @@ public class ContestRepository {
                 preparedStatement.setInt(2 * i+2, contest_id);
             }
             preparedStatement.executeUpdate();
-            return new MessageResponse(MessageType.SUCCESS, "Add is successful");
+            return new MessageResponse(MessageType.SUCCESS, "Questions are added to the contest");
         } catch (SQLException throwables) {
             return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
@@ -106,7 +104,7 @@ public class ContestRepository {
             preparedStatement.setInt(1,contest_id);
             preparedStatement.setInt(2,user_id);
             preparedStatement.executeUpdate();
-            return new MessageResponse(MessageType.SUCCESS, "Add is successful");
+            return new MessageResponse(MessageType.SUCCESS, "Registration is successful. You can see contest in Registered Contests");
         } catch (SQLException throwables) {
             return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }
@@ -388,7 +386,7 @@ public class ContestRepository {
 
     }
 
-    public int startContest(int user_id, int contest_id ){
+    public MessageResponse startContest(int user_id, int contest_id ){
 
         int status = getContestStatus(user_id,contest_id);
 
@@ -406,14 +404,20 @@ public class ContestRepository {
 
                 updateAttemptStmt.executeUpdate();
 
+                return new MessageResponse(MessageType.SUCCESS, "Your time has started. After duration time of contest is up you will not be able to make submissions.");
 
 
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + e.getMessage());
             }
 
+        } else if (status == 1){
+            return new MessageResponse(MessageType.ERROR, "You have already started to this contest");
+        } else if(status == 2) {
+            return new MessageResponse(MessageType.ERROR, "Deadline of contest has passed");
+        } else {
+            return new MessageResponse(MessageType.ERROR,"Something went wrong. Please try again");
         }
-        return status;
 
     }
 
@@ -504,7 +508,7 @@ public class ContestRepository {
             preparedStatement.setInt(1,userId);
             preparedStatement.setInt(2,contestId);
             preparedStatement.executeUpdate();
-            return new MessageResponse(MessageType.SUCCESS, "Cancel is successful");
+            return new MessageResponse(MessageType.SUCCESS, "Your registration is canceled");
         } catch (SQLException throwables) {
             return new MessageResponse(MessageType.ERROR, "Error occurred in SQL\n" + throwables.getMessage());
         }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MessageResponse } from "../../Common/Message";
 //import {MessageResponse, MessageType} from "../common/dto/MessageResponse";
 
 export interface newNonCodingQuestionModel {
@@ -18,8 +19,9 @@ export class CreateNonCodingQuestionAPI {
         return response.data;
     }
 
-    async addCategory(challengeId: number, categories: string[]) {
+    async addCategory(challengeId: number, categories: string[]) :Promise<MessageResponse> {
         const response = await axios.put(`/addCategoryNonCodingChallenge/${challengeId}`, categories);
+        return response.data;
     }
 
     //createAndAddNonQuestionToInterview

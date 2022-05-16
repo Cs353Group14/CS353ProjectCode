@@ -220,7 +220,7 @@ public class ContestRepository {
         int duration = -1; Timestamp deadline = null; int contest_id = -1;
         List<Contest> result = new ArrayList<>();
         try {
-            String query = "Select * From participate P,  contest C where C.contest_id = P.contest_id and P.user_id = ? and C.start_time > CURRENT_TIMESTAMP ";
+            String query = "Select * From participate P,  contest C where C.contest_id = P.contest_id and P.user_id = ? and C.start_time > CURRENT_TIMESTAMP + INTERVAL '03:00' HOUR TO MINUTE ";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,userId);

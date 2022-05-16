@@ -159,4 +159,8 @@ public class UserService {
     public UserCompanyResponse getCompanyProfile(int user_id) {
         return userRepository.getCompanyProfile( user_id);
     }
+
+    public List<Contest> getContestsOfCompany(int user_id) {
+        return userRepository.getContestsOfCompany( user_id);
+    }
 }

@@ -555,11 +555,17 @@ public class InterviewRepository {
     {
         List<InterviewResponse> result = new ArrayList<>();
 
+        // old version
+        /*
+        String query = "Select * from attend A, interview I,company C, users U where I.interview_id = A.interview_id " +
+                "and C.user_id = I.user_id and A.coder_id = ? and A.start_time > ? and A.start_time < ?" +
+                "and C.user_id = U.user_id";
+         */
 
         try{
             String query = "Select * from attend A, interview I,company C, users U where I.interview_id = A.interview_id " +
                     "and C.user_id = I.user_id and A.coder_id = ? and A.start_time > ? and A.start_time < ?" +
-                    "and C.user_id = U.user_id ";
+                    "and C.user_id = U.user_id and A.end_time > CURRENT_TIMESTAMP ";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,coder_id);

@@ -28,6 +28,7 @@ function NonCodingChallengeSolve(props) {
         nonCodingChallengeApi.getSubmission().then(data=> {
             console.log(data);
             if(data != [] ){
+                props.setSolved(true);
                 setDisabled(true);
                 setAnswer(data.answer);
                 setDate(data.replyTime);

@@ -35,6 +35,7 @@ export default function ContestView() {
         difficulty: 0,
         duration: 0,
         deadline: "",
+        author: "",
     });
     const[statistic,setStatistic] = useState({
       maxPoint:0,
@@ -43,6 +44,7 @@ export default function ContestView() {
       userNumber:0
     })
     const[rows, setRows] = useState([]);
+    const[sponsors, setSponsors] = useState([]);
     const[currentSubIndex, setCurrentSubIndex] = useState(null);
     //const[startHidden, setStartHidden] = useState(true);
     //const[continueHidden, setContinueHidden] = useState(true);
@@ -55,6 +57,8 @@ export default function ContestView() {
             console.log(data);
             console.log(contest);
         });
+
+        contestApi.getContestSponsors().then(data => setSponsors(data) );
 
     }
 
@@ -99,7 +103,10 @@ export default function ContestView() {
               <div className="coding-challenge-view-left">
               <h1>{contest.title}</h1>
 
-              <h3>Description</h3>
+              <h3>Author</h3>
+                {contest.author}
+
+                <h3>Description</h3>
                 {contest.description}
 
                 <h3>Difficulity</h3> {contest.difficulty}
@@ -137,6 +144,10 @@ export default function ContestView() {
                 <br/>
                 <br/>
                 <br/>
+                <h3>Sponsors</h3> {sponsors.map(s => <div> {s} &nbsp; </div>)} 
+                <br/>
+                <br/>
+
               </div>
                 
             </div>

@@ -88,7 +88,7 @@ export default function CodersTable() {
                 <StyledTableCellHead align="right">Name</StyledTableCellHead>
                 <StyledTableCellHead align="right">Place</StyledTableCellHead>
                 <StyledTableCellHead align="right">Position</StyledTableCellHead>
-                <StyledTableCellHead align="right">Points</StyledTableCellHead>
+                <StyledTableCellHead align="right">Rating Point</StyledTableCellHead>
                 <StyledTableCellHead align="right">Profile</StyledTableCellHead>
               </TableRow>
             </TableHead>
@@ -102,7 +102,7 @@ export default function CodersTable() {
                   <StyledTableCell align="right">{row.name}</StyledTableCell>
                   <StyledTableCell align="right">{row.place}</StyledTableCell>
                   <StyledTableCell align="right">{row.position}</StyledTableCell>
-                  <StyledTableCell align="right">{row.points}</StyledTableCell>
+                  <StyledTableCell align="right">{row.rating}</StyledTableCell>
                   <StyledTableCell align="right">
                       <Button onClick={() => {
                           console.log(row.userId);

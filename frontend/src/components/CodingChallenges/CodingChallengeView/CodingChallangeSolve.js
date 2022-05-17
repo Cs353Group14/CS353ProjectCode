@@ -57,6 +57,11 @@ function CodingChallengeSolve(props) {
 
     async function handleSubmit() {
 
+        if(code.trim() == "" || language == "Choose Programming Language" ) {
+            toast.error("Please choose the language and enter the code");
+            return;
+        }
+
         if(localStorage.getItem('inContest') == 'true') {
             console.log("here");
             const data = await contestApi.getContestStatus(localStorage.getItem('contestId'));

@@ -29,6 +29,8 @@ import PastInterviewListForCoder from './components/Interview/PastInterviewListF
 import NewInterviewListForCoder from './components/Interview/NewInterviewListForCoder';
 import ContestView from './components/Contest/ContestView/ContestView';
 import SeeNotifications from './components/Profile/Notification/SeeNotifications';
+import CodingChallengeViewNonCoder from './components/CodingChallenges/CodingChallengeView/CodingChallengeViewNonCoder';
+import NonCodingChallengeViewNonCoder from './components/NonCodingChallenges/View/NonCodingChallengeViewNonCoder';
 function App() {
   return (
     <BrowserRouter>
@@ -43,6 +45,9 @@ function App() {
 
       <Route path = {`/coding-challenges/${localStorage.getItem('codingId')}`} element = {<CodingChallengeView/>}/>
       <Route path = {`/non-coding-challenges/${localStorage.getItem('nonCodingId')}`} element = {<NonCodingChallengeView/>}/>
+
+      <Route path = {`/coding-challenges-noncoder/${localStorage.getItem('codingId')}`} element = {<CodingChallengeViewNonCoder/>}/>
+      <Route path = {`/non-coding-challenges-noncoder/${localStorage.getItem('nonCodingId')}`} element = {<NonCodingChallengeViewNonCoder/>}/>
 
       <Route path = {"/profile"} element = {<Profile/>}/>
       <Route path = {"/profileEditor"} element = {<EditorProfile/>}/>

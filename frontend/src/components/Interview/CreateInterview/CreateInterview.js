@@ -14,6 +14,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {CreateNewInterviewAPI} from './CreateInterviewAPI'
 import { AttendInterviewAPI } from "../AttendInterview/AttendInterviewAPI";
+import { MessageType } from "../../Common/Message";
+import { ToastContainer,toast } from 'react-toastify';
 
 const timeUnits = [
   {
@@ -179,6 +181,10 @@ async function handleCreate() {
         interview_id: -1,
         duration: durationInMin,
         position: position
+      }
+
+      if(newInterview.duration == "" || position== "" ) {
+        toast.error("Fill the blank areas");
       }
       interviewId = await createNewInterview.createInterview(newInterview);
       localStorage.setItem('interviewID', interviewId);
@@ -401,6 +407,7 @@ async function handleCreate() {
                 </Grid>
             </Grid>
             </div>
+            <ToastContainer />
         </div>
     );
     

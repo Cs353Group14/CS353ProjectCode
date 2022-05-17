@@ -55,7 +55,7 @@ export default function ContinuesContests() {
             toast.success(response.message);
             setTimeout(function() {
                 window.location.href = "http://localhost:3000/SolveContest";
-            }, 3000)
+            }, 5000)
         }
         
         //fetchContinuesContests();

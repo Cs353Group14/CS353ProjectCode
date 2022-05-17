@@ -1,6 +1,7 @@
 import { Button, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
 import { tableCellClasses } from "@material-ui/core";
 import React from "react";
+import { DateConverter } from "../../Common/Message";
 
 const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
       backgroundColor: theme.palette.common.black,
@@ -28,13 +29,14 @@ const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
     function handleNewSub(){
   
     }
+
+    const converter = new DateConverter();
     
     return (
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCellHead align="right">Date</StyledTableCellHead>
               <StyledTableCellHead align="right">Time</StyledTableCellHead>
               <StyledTableCellHead align="right">Number of Passed Cases</StyledTableCellHead>
               <StyledTableCellHead align="right">Number of Failed Cases</StyledTableCellHead>
@@ -44,10 +46,7 @@ const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
           <TableBody>
             {props.submissions.map((row,i) => (
               <StyledTableRow key={row.submission_id}>
-                <StyledTableCell align="right">
-                  {row.submission_date}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.submission_time}</StyledTableCell>
+                <StyledTableCell align="right">{converter.convert(row.submission_time)}</StyledTableCell>
                 <StyledTableCell align="right">{row.pass_result}</StyledTableCell>
                 <StyledTableCell align="right">{row.fail_result}</StyledTableCell>
                 <StyledTableCell align="right">

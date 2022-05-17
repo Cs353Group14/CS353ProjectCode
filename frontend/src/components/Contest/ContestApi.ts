@@ -10,6 +10,7 @@ export interface ContestModel {
     difficulty: number,
     duration: number,
     deadline: string,
+    author: string
 }
 
 export interface ContestResult{
@@ -95,7 +96,12 @@ export class ContestApi {
     }
 
     async getContestDetails() : Promise<ContestModel> {
-        const response = await axios.get(`/getContest/${localStorage.getItem('contestId')}`);
+        const response = await axios.get(`/getContestWithAuthor/${localStorage.getItem('contestId')}`);
+        return response.data;
+    }
+
+    async getContestSponsors() : Promise<string[]> {
+        const response = await axios.get(`/getContestSponsors/${localStorage.getItem('contestId')}`);
         return response.data;
     }
 

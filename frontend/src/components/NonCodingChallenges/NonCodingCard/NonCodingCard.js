@@ -11,6 +11,12 @@ export default function NonCodingCard(props) {
     function setNonCodingId() {
         localStorage.setItem('nonCodingId', props.id);
         console.log(localStorage.getItem('nonCodingId'));
+
+        if(localStorage.getItem('usertype') == 1) {
+            window.location.href = "http://localhost:3000/non-coding-challenges/" + props.id;
+        } else {
+            window.location.href = "http://localhost:3000/non-coding-challenges-noncoder/" + props.id;
+        }
     }
 
     return (
@@ -30,7 +36,7 @@ export default function NonCodingCard(props) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick = {setNonCodingId} href={("/non-coding-challenges/" + props.id )} variant= "outlined">See Challenge</Button>
+                <Button size="small" onClick = {setNonCodingId} variant= "outlined">See Challenge</Button>
             </CardActions>
         </Card>
     );

@@ -70,6 +70,7 @@ function CodingChallengeView() {
   const nonCodingChallengeApi = new NonCodingChallengeApi();
 
   const[otherAnswers, setOtherAnswers] = useState([]);
+  const[solved,setSolved] = useState(false);
 
   const[nonCodingChallenge, setNonCodingChallenge] = useState({
     non_challenge_id: -1,
@@ -126,7 +127,7 @@ function CodingChallengeView() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <NonCodingChallengeSolve  title = {nonCodingChallenge.title} description = {nonCodingChallenge.question}/>
+        <NonCodingChallengeSolve  title = {nonCodingChallenge.title} description = {nonCodingChallenge.question} setSolved = {setSolved}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <NonCodindChallengeSubmissions/>
@@ -137,7 +138,7 @@ function CodingChallengeView() {
                                     info = {info}/>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <OtherAnswerList content={otherAnswers}></OtherAnswerList>
+        <OtherAnswerList content={otherAnswers} solved = {solved}></OtherAnswerList>
       </TabPanel>
     </Box>
 

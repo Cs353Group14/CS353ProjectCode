@@ -526,7 +526,7 @@ public class ContestRepository {
         String name = "";
 
         try{
-            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users ORDER BY deadline ASC";
+            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users ORDER BY deadline DESC ";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
@@ -561,7 +561,7 @@ public class ContestRepository {
         try{
             String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users" +
                     " where exists (select * from sponsor where sponsor.user_id = ? and " +
-                    "sponsor.contest_id = contest.contest_id)";
+                    "sponsor.contest_id = contest.contest_id) ORDER BY deadline DESC";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,companyId);
@@ -573,7 +573,7 @@ public class ContestRepository {
                 title = ( rs.getString("title"));
                 deadline = ( rs.getTimestamp("deadline"));
                 name = ( rs.getString("name"));
-                ContestDeadlineResponse contest = new ContestDeadlineResponse(contest_id,title,timestamp.after(deadline),name);
+                ContestDeadlineResponse contest = new ContestDeadlineResponse(contest_id,title,timestamp.before(deadline),name);
 
                 result.add(contest);
             }
@@ -599,7 +599,7 @@ public class ContestRepository {
         String name = "";
 
         try{
-            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users where user_id = ? ORDER BY deadline ASC";
+            String query = "SELECT contest_id,title,deadline, name From contest natural join prepare natural join users where user_id = ? ORDER BY deadline DESC ";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,editorId);
@@ -609,7 +609,7 @@ public class ContestRepository {
                 title = ( rs.getString("title"));
                 deadline = ( rs.getTimestamp("deadline"));
                 name = ( rs.getString("name"));
-                ContestDeadlineResponse contest = new ContestDeadlineResponse(contest_id,title,timestamp.after(deadline),name);
+                ContestDeadlineResponse contest = new ContestDeadlineResponse(contest_id,title,timestamp.before(deadline),name);
 
                 result.add(contest);
             }

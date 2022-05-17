@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
 import { ContestApi } from "../ContestApi";
 import NavBar from "../../NavBar/NavBar";
-import { MessageType } from "../../Common/Message";
+import { DateConverter, MessageType } from "../../Common/Message";
 import { ToastContainer,toast } from 'react-toastify';
 
 const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
@@ -27,6 +27,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ContestView() {
 
+  const[sdate, setSdate] = useState("");
+  const[edate, setEdate] = useState("");
     const[contest, setContest] = useState({
         contest_id: -1,
         start_time: "",
@@ -35,6 +37,7 @@ export default function ContestView() {
         difficulty: 0,
         duration: 0,
         deadline: "",
+        author: "",
     });
     const[statistic,setStatistic] = useState({
       maxPoint:0,
@@ -43,18 +46,24 @@ export default function ContestView() {
       userNumber:0
     })
     const[rows, setRows] = useState([]);
+    const[sponsors, setSponsors] = useState([]);
     const[currentSubIndex, setCurrentSubIndex] = useState(null);
     //const[startHidden, setStartHidden] = useState(true);
     //const[continueHidden, setContinueHidden] = useState(true);
 
     const contestApi = new ContestApi();
+    const converter = new DateConverter();
 
     function fetchContestDetails() {
         contestApi.getContestDetails().then(data => {
-            setContest(data)
-            console.log(data);
+            setContest(data);
+            setSdate(converter.convert( data.start_time));
+            setEdate(converter.convert(data.deadline));
+            console.log(converter.convert( data.start_time));
             console.log(contest);
         });
+
+        contestApi.getContestSponsors().then(data => setSponsors(data) );
 
     }
 
@@ -99,16 +108,19 @@ export default function ContestView() {
               <div className="coding-challenge-view-left">
               <h1>{contest.title}</h1>
 
-              <h3>Description</h3>
+              <h3>Author</h3>
+                {contest.author}
+
+                <h3>Description</h3>
                 {contest.description}
 
                 <h3>Difficulity</h3> {contest.difficulty}
                 <br/>
                 <br/>
-                <h3>Start Time</h3>{contest.start_time}
+                <h3>Start Time</h3>{sdate}
                 <br/>
                 <br/>
-                <h3>Deadline</h3> {contest.deadline}
+                <h3>Deadline</h3> {edate}
                 <br/>
                 <br/>
                 <h3>Duration</h3> {contest.duration} 
@@ -137,6 +149,10 @@ export default function ContestView() {
                 <br/>
                 <br/>
                 <br/>
+                <h3>Sponsors</h3> {sponsors.map(s => <div> {s} &nbsp; </div>)} 
+                <br/>
+                <br/>
+
               </div>
                 
             </div>

@@ -12,7 +12,14 @@ export default function CodingCard(props) {
         localStorage.setItem('codingId', props.id);
         localStorage.setItem('inContest', props.inContest);
         console.log(localStorage.getItem('codingId'));
+
+        if(localStorage.getItem('usertype') == 1) {
+            window.location.href = "http://localhost:3000/coding-challenges/" + props.id;
+        } else {
+            window.location.href = "http://localhost:3000/coding-challenges-noncoder/" + props.id;
+        }
     }
+    
 
     return (
         
@@ -35,7 +42,7 @@ export default function CodingCard(props) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick = {setActivityId} href={("/coding-challenges/" + props.id )} variant="outlined" >See Challenge</Button>
+                <Button size="small" onClick = {setActivityId}  variant="outlined" >See Challenge</Button>
             </CardActions>
         </Card>
     );

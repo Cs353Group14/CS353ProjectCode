@@ -48,7 +48,7 @@ function CodingChallengeView() {
     challenge_id: -1,
     question: "",
     title: "",
-    difficulity: -1,
+    difficulty: -1,
     points: -1,
     attempt_number:  -1,
     solved_number: -1,

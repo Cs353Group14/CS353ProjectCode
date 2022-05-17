@@ -129,10 +129,10 @@ function CreateNonCodingQuestion(props) {
     if (challengeId.messageType === MessageType.ERROR) {
       toast.error(challengeId.message);
     } else {
-      toast.success("Non Coding Quesiton is created and added to interview");
+      toast.success("Non Coding Quesiton is created");
           setTimeout(function() {
               window.location.href = "http://localhost:3000/home";
-          }, 1000)
+          }, 1500)
     }
     }
 

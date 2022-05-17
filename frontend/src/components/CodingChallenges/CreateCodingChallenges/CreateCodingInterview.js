@@ -133,10 +133,10 @@ function CreateCodingChallenge(props) {
         if (challengeId.messageType === MessageType.ERROR) {
           toast.error(challengeId.message);
         } else {
-          toast.success("Coding Challege is created and added to interview");
+          toast.success("Coding Challege is created");
               setTimeout(function() {
                   window.location.href = "http://localhost:3000/home";
-              }, 1000)
+              }, 1500)
         }
           //window.location.href = "http://localhost:3000/CreateInterview";
       }

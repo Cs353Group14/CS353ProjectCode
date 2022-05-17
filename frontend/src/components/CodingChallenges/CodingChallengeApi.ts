@@ -91,4 +91,14 @@ export class CodingChallengeApi {
         return response.data;
     }
 
+    async getInputs(): Promise <string[]> {
+        const response = await axios.get(`/getInputsForCodingChallenge/${localStorage.getItem('codingId')}`);
+        return response.data;
+    }
+
+    async getOutputs(): Promise <string[]> {
+        const response = await axios.get(`/getOutputsForCodingChallenge/${localStorage.getItem('codingId')}`);
+        return response.data;
+    }
+
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ContestApi } from '../../Contest/ContestApi';
 import {CodingChallengeApi} from '../CodingChallengeApi'
 import { MessageType } from "../../Common/Message";
-import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer,toast, useToastContainer } from 'react-toastify';
 import NavBar from '../../NavBar/NavBar';
 
 
@@ -32,6 +32,9 @@ function CodingChallengeViewNonCoder(props) {
         authorName: "",
         categories: []
       })
+
+      const[inputs, setInputs] = useState([]);
+      const[outputs, setOutputs] = useState([]);
     
       function fetchCodingQuestion(){
           codingChallengeApi.getCodingChallenge().then(data => setCodingChallenge(data));
@@ -41,9 +44,16 @@ function CodingChallengeViewNonCoder(props) {
           codingChallengeApi.getCodingChallengeInformation()
                             .then(data => {setInfo(data);});
     }
+
+    function fetchTestCases() {
+        codingChallengeApi.getInputs().then(data => setInputs(data));
+        codingChallengeApi.getOutputs().then(data => setOutputs(data));
+    }
+
       useEffect(() => {
         fetchCodingQuestion();
         fetchCodingChallengeInformation();
+        fetchTestCases();
     },[]);
 
 
@@ -64,6 +74,14 @@ function CodingChallengeViewNonCoder(props) {
                     <h2>Solution:</h2>
         
                     {codingChallenge.solution}
+
+                    <h3>Test Case Inputs:</h3>
+        
+                    {inputs.map(s => <div> {s} &nbsp; </div>)} 
+
+                    <h3>Test Case Outputs:</h3>
+        
+                    {outputs.map(s => <div> {s} &nbsp; </div>)} 
         
                 </div>
         

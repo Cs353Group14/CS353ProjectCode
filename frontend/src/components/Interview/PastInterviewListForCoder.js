@@ -13,6 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {InterviewAPI} from './InterviewAPI'
+import { DateConverter } from "../Common/Message";
 
 function createData(company, location, position, date, result) {
     return { company, location, position, date, result };
@@ -31,7 +32,7 @@ function createData(company, location, position, date, result) {
 function PastInterviewListForCoder(props) {
     const[rows, setRows] = useState([]);
     const interviewAPI = new InterviewAPI();
-
+    const converter = new DateConverter();
     function fetchPastInterviews() {
         interviewAPI.getPastInterviewList().then(data => {
             setRows(data)});;
@@ -84,8 +85,8 @@ function PastInterviewListForCoder(props) {
                     <TableCell align="left">{row.companyName}</TableCell>
                     <TableCell align="center">{row.duration}</TableCell>
                     <TableCell align="center">{row.position}</TableCell>
-                    <TableCell align="center">{row.startTime}</TableCell>
-                    <TableCell align="center">{row.endTime}</TableCell>
+                    <TableCell align="center">{converter.convert(row.startTime)}</TableCell>
+                    <TableCell align="center">{converter.convert(row.endTime)}</TableCell>
                     <TableCell align="center">{row.interviewResult && row.interviewResult}{!row.interviewResult && 'Not out yet'}</TableCell>
                     </TableRow>
                 ))}

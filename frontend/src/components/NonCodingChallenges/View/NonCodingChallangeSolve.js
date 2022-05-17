@@ -1,7 +1,7 @@
 import { Button, Divider, Paper, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { NonCodingChallengeApi } from '../NonCodingChallengeApi';
-import { MessageType } from "../../Common/Message";
+import { DateConverter, MessageType } from "../../Common/Message";
 import { ToastContainer,toast } from 'react-toastify';
 
 function NonCodingChallengeSolve(props) {
@@ -14,6 +14,7 @@ function NonCodingChallengeSolve(props) {
     const[disabled, setDisabled] = useState(false);
 
     const nonCodingChallengeApi = new NonCodingChallengeApi();
+    const converter = new DateConverter();
 
     function SplitParagraph() {
         return props.description.split('\n')
@@ -31,7 +32,7 @@ function NonCodingChallengeSolve(props) {
                 props.setSolved(true);
                 setDisabled(true);
                 setAnswer(data.answer);
-                setDate(data.replyTime);
+                setDate(converter.convert(data.replyTime));
             }            
         });
     }

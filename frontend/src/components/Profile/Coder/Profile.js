@@ -144,11 +144,13 @@ function Profile() {
     }
 
     useEffect(() => {
+        if(localStorage.getItem('menuId') == 17) {
         fetchProfileInfo();
         fetchNumberOfContests();
         fetchNumberOfQuestions();
         fetchReferrals();
         fetchContests();
+        }
     }, [contest]);
 
     async function submitReferral(description) {
@@ -196,7 +198,7 @@ function Profile() {
                             <Typography align='center' gutterBottom variant="subtitle1" component="div">
                                 {info.position}
                             </Typography>
-                            { localStorage.getItem('viewer') == 'true' &&
+                            { localStorage.getItem('viewer') == 'true' && localStorage.getItem('usertype') != 2 &&
                             <Box sx={{ m: 2 }} >
                                 <Grid container justifyContent="center">
                                     <Button sx={{ mt: 6 }} align='center' variant="contained" color="primary" onClick={openReferDialog}>Give referral</Button>

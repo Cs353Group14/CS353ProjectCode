@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {InterviewAPI} from './InterviewAPI'
+import { DateConverter } from "../Common/Message";
 
 
 function startInterview(invivtaionCode, id)
@@ -21,6 +22,8 @@ function startInterview(invivtaionCode, id)
 function NewInterviewListForCoder(props) {
     const[rows, setRows] = useState([]);
     const interviewAPI = new InterviewAPI();
+    const converter = new DateConverter();
+
     const [startTime, setStartTime] = React.useState(null);
     const [endTime, setEndTime] = React.useState(null);
     const [startDate, setStartDate] = React.useState(null);
@@ -40,9 +43,11 @@ function NewInterviewListForCoder(props) {
     {
         let start = startDate + " " + startTime+ ":00";
         let end = endDate + " " + endTime + ":00";
-        alert(start);
+        //alert(start);
         console.log(start);
         interviewAPI.getInterviewsInRange(localStorage.getItem('userId'), start,end).then(data => {
+            console.log("here")
+            console.log(data);
             setRows(data)});
     }
 
@@ -167,8 +172,8 @@ function NewInterviewListForCoder(props) {
                             <TableCell align="left">{row.companyName}</TableCell>
                             <TableCell align="center">{row.duration}</TableCell>
                             <TableCell align="center">{row.position}</TableCell>
-                            <TableCell align="center">{row.startTime}</TableCell>
-                            <TableCell align="center">{row.endTime}</TableCell>
+                            <TableCell align="center">{converter.convert(row.startTime)}</TableCell>
+                            <TableCell align="center">{converter.convert(row.endTime)}</TableCell>
                             <TableCell align="right">
                                 { (new Date()) >= (new Date(row.startTime) ) &&
                                     <Button

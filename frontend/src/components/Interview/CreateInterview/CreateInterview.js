@@ -341,7 +341,6 @@ async function handleCreate() {
                 <TableRow>
                     <TableCell>Type</TableCell>
                     <TableCell align="right">Title</TableCell>
-                    <TableCell align="right">See details</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -354,13 +353,7 @@ async function handleCreate() {
                         Non Coding Question
                     </TableCell>
                     <TableCell align="right">{row.title}</TableCell>
-                    <TableCell align="right">
-                    <Button
-                        variant="contained"
-                        color="default"
-                        > See Details
-                    </Button>
-                    </TableCell>
+  
                     </TableRow>
                 ))}
                 {coding.map((row) => (
@@ -372,13 +365,7 @@ async function handleCreate() {
                         Coding question
                     </TableCell>
                     <TableCell align="right">{row.title}</TableCell>
-                    <TableCell align="right">
-                    <Button
-                        variant="contained"
-                        color="default"
-                        > See Details
-                    </Button>
-                    </TableCell>
+
                     </TableRow>
                 ))}
                 </TableBody>

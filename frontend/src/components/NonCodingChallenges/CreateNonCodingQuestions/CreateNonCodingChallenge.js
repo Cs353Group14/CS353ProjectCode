@@ -82,13 +82,7 @@ function CreateNonCodingQuestion(props) {
       let interviewID = localStorage.getItem('interviewID');
       let companyId = localStorage.getItem('userId');
       challengeId = await createNonCodingQuestionAPI.createNonCodingQuestionForInterview(interviewID,companyId, newQuestion);
-    }
-    else
-    {
-      challengeId = await createNonCodingQuestionAPI.createNonCoding(newQuestion);
-    }
-
-    let categoryArray =[];
+      let categoryArray =[];
 
     listOfCategories.forEach(category => {
       categoryArray.push(category.value);
@@ -104,7 +98,46 @@ function CreateNonCodingQuestion(props) {
       toast.error(response.message);
       return;
     } 
+      if (challengeId.messageType === MessageType.ERROR) {
+        toast.error(challengeId.message);
+      } else {
+        toast.success("Non Coding Quesiton is created and added to interview");
+            setTimeout(function() {
+                window.location.href = "http://localhost:3000/CreateInterview";
+            }, 1000)
+      }
+    }
+    else
+    {
+      challengeId = await createNonCodingQuestionAPI.createNonCoding(newQuestion);
+      let categoryArray =[];
 
+    listOfCategories.forEach(category => {
+      categoryArray.push(category.value);
+    });
+
+    if(challengeId == -1) {
+      toast.error("Something went wrong. Please try again");
+      return;
+    }
+
+    const response = await createNonCodingQuestionAPI.addCategory(challengeId, categoryArray);
+    if (response.messageType === MessageType.ERROR) {
+      toast.error(response.message);
+      return;
+    } 
+    if (challengeId.messageType === MessageType.ERROR) {
+      toast.error(challengeId.message);
+    } else {
+      toast.success("Non Coding Quesiton is created and added to interview");
+          setTimeout(function() {
+              window.location.href = "http://localhost:3000/CreateInterview";
+          }, 1000)
+    }
+    }
+
+    
+/*
     if(publicity === 0) //Then need to add this question to interview also
     {
       localStorage.setItem('challengeId', challengeId);
@@ -121,6 +154,7 @@ function CreateNonCodingQuestion(props) {
     }
 
     toast.success("Non Coding Quiestion is created");
+    */
 
 
 }

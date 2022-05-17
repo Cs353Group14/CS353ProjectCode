@@ -101,19 +101,52 @@ function CreateCodingChallenge(props) {
       let challengeId;
       if(publicity == 1)
       {
-        challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
-  
+          challengeId = await createCodingChallengeAPI.createCoding(newQuestion);
+          localStorage.setItem('challengeId', challengeId);
+        let categoryArray =[];
+    
+        category.forEach(category => {
+          categoryArray.push(category.value);
+        });
+    
+        if(challengeId == -1) {
+          toast.error("Something went wrong. Please try again");
+          return;
+        }
+
+          let inputsOutputs = [];
+          inputsOutputs[0] = input;
+          inputsOutputs[1] = output;
+          //console.log(listOfCategories);
+          //console.log(categoryArray);
+          const response1 = await createCodingChallengeAPI.addCategory(challengeId, categoryArray);
+          if (response1.messageType === MessageType.ERROR) {
+            toast.error(response1.message);
+            return;
+        }
+      const response2 = await createCodingChallengeAPI.addTestCase(challengeId, inputsOutputs);
+
+          if (response2.messageType === MessageType.ERROR) {
+            toast.error(response2.message);
+            return;
+        }
+        if (challengeId.messageType === MessageType.ERROR) {
+          toast.error(challengeId.message);
+        } else {
+          toast.success("Coding Challege is created and added to interview");
+              setTimeout(function() {
+                  window.location.href = "http://localhost:3000/CreateInterview";
+              }, 1000)
+        }
+          window.location.href = "http://localhost:3000/CreateInterview";
       }
       else
       {
-        alert("here");
+       // alert("here");
         let interviewID = localStorage.getItem('interviewID');
         let companyId = localStorage.getItem('userId');
         challengeId = await createCodingChallengeAPI.createCodingChallengesForInteriew(interviewID, companyId, duration, newQuestion);
-  
-      }
-  
-      localStorage.setItem('challengeId', challengeId);
+        localStorage.setItem('challengeId', challengeId);
       let categoryArray =[];
   
       category.forEach(category => {
@@ -141,6 +174,21 @@ function CreateCodingChallenge(props) {
         toast.error(response2.message);
         return;
     }
+
+    if (challengeId.messageType === MessageType.ERROR) {
+      toast.error(challengeId.message);
+    } else {
+      toast.success("Coding Challege is created and added to interview");
+          setTimeout(function() {
+              window.location.href = "http://localhost:3000/CreateInterview";
+          }, 1000)
+    }
+      //window.location.href = "http://localhost:3000/CreateInterview";
+  }
+  
+      }
+  
+      /*
   
       if(publicity === 0) //Then need to add this question to interview also
       {
@@ -161,6 +209,7 @@ function CreateCodingChallenge(props) {
       toast.success("Coding Challenge is created");
  
     }
+    */
 
     
 

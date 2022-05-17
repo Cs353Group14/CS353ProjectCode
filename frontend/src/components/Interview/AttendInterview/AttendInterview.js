@@ -81,9 +81,7 @@ function AttendInterview(props) {
                 sx={{ mt: 8 }}
             >
                 <Grid item xs={6} >
-                    <Grid container  direction="row" justifyContent="fle" alignItems="center">
-                    <Countdown date={Date.now() + 1000* 60* localStorage.getItem('interviewDuration')} />
-                    </Grid>
+                    
                 </Grid>
                 <Grid item xs={6}>
                         <Grid container justifyContent="flex-end">

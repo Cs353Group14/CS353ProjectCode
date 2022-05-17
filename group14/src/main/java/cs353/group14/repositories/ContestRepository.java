@@ -625,10 +625,10 @@ public class ContestRepository {
     public ContestStatisticResponse getContestStatistic( int contest_id)
     {
 
-        int max = -1;
-        int min = -1;
-        int avg = -1;
-        int userNumber = -1;
+        int max = 0;
+        int min = 0;
+        int avg = 0;
+        int userNumber = 0;
 
 
         try {

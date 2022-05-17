@@ -62,4 +62,9 @@ export class AttendInterviewAPI {
         const response = await axios.get("/getInterviewCodingQuestions/" +  interviewID);
         return response.data;
     } 
+
+    async getDurationLeft(userId: number, interviewID: number): Promise<CodingQuestionsOfInterviewModel[]> {
+        const response = await axios.get("/getAttend/"+userId+"/"+interviewID+"/");
+        return response.data;
+    } 
 }

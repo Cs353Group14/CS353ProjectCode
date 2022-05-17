@@ -291,7 +291,7 @@ public class InterviewRepository {
 
     public MessageResponse addNonCodingQuestionToInterview(int interview_id,int non_challenge_id, int company_id)  {
         try {
-            String query = "INSERT INTO made_of(non_challenge_id, user_id,company_id) VALUES (?,?,?) ";
+            String query = "INSERT INTO made_of(non_challenge_id, interview_id,user_id) VALUES (?,?,?) ";
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
 
             preparedStatement.setInt(1, non_challenge_id);
@@ -555,11 +555,17 @@ public class InterviewRepository {
     {
         List<InterviewResponse> result = new ArrayList<>();
 
+        // old version
+        /*
+        String query = "Select * from attend A, interview I,company C, users U where I.interview_id = A.interview_id " +
+                "and C.user_id = I.user_id and A.coder_id = ? and A.start_time > ? and A.start_time < ?" +
+                "and C.user_id = U.user_id";
+         */
 
         try{
             String query = "Select * from attend A, interview I,company C, users U where I.interview_id = A.interview_id " +
                     "and C.user_id = I.user_id and A.coder_id = ? and A.start_time > ? and A.start_time < ?" +
-                    "and C.user_id = U.user_id ";
+                    "and C.user_id = U.user_id and A.end_time > CURRENT_TIMESTAMP + INTERVAL '03:00' HOUR TO MINUTE";
 
             PreparedStatement preparedStatement = ConnectionSingle.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,coder_id);
@@ -727,5 +733,52 @@ public class InterviewRepository {
         }
 
         return non_coding_number+coding_number;
+    }
+
+    public int getInterviewStatus(int interview_id,int coder_id){
+        int status = -1;
+        Timestamp endTime = null;
+
+        try {
+            String loginQuery = "SELECT end_time from attend WHERE coder_id = ? and interview_id = ?";
+            PreparedStatement loginStmt = ConnectionSingle.getConnection().prepareStatement(loginQuery);
+            loginStmt.setInt(1,coder_id);
+            loginStmt.setInt(2,interview_id);
+            ResultSet rs = loginStmt.executeQuery();
+
+            int size = 0;
+
+            while (rs.next()){
+
+                endTime = rs.getTimestamp("end_time");
+
+                size++;
+            }
+
+
+            if(size!=1){
+                return -1;
+            }else{
+                Timestamp current = new Timestamp(System.currentTimeMillis());
+
+                if(endTime.before(current)){
+                    return 1; //2
+                }else{
+                    return 0; //1
+                }
+
+            }
+
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        return status;
     }
 }

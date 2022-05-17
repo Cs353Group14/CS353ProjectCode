@@ -38,6 +38,11 @@ export class InterviewAPI {
         return response.data;
     }
 
+    async getInterviewsInRange(userId: number, rangeEarly: string, rangeLate: string): Promise<interviewModelForCoder[]> {
+        const response = await axios.get("/getInterviewsForCoderWithRange/"+userId+"/"+rangeEarly+"/"+rangeLate);
+        return response.data;
+    }
+
     //Start interview
     
 

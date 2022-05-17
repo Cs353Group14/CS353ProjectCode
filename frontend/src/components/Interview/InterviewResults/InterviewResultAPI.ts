@@ -60,5 +60,11 @@ export class InterviewResultAPI {
         return response.data;
     }
 
+    async checkIfFinished(interview_id: number, coder_id: number): Promise<number>
+    {
+        const response = await axios.get("/getInterviewStatus/"+interview_id+"/"+coder_id);
+        return response.data;
+    }
+
  
 }

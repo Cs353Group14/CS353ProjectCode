@@ -1,101 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, Card, CardMedia, CardContent, Typography, Grid, Button, Box } from "@material-ui/core";
 import './Profile.css'
-import ProfileCard from "./ProfileCard";
-import ViewReferral from "../../../View/ViewReferral";
+import ProfileCard from "../Coder/ProfileCard";
 import ViewBadge from "../../../View/ViewBadge";
 
 import NavBar from "../../NavBar/NavBar";
-import GiveReferralDialog from "./GiveReferralDialog";
-import { ProfileAPI } from "./ProfileAPI";
-import { MessageType } from "../../Common/Message";
-import { ToastContainer,toast } from 'react-toastify';
-
-
-
-//Dummy data for now
-
-var profileInfoBasic = {
-    name: "Name",
-    surname: "Surname",
-    position: "POSITION"
-}
-
-var profileInfo =
-{
-    ranking: "2",
-    contestAttended: "10",
-    solvedQuestions: "346"
-}
-
-var awards = [
-    {
-        contestName: "Contest1",
-        place: "1st"
-    },
-    {
-        contestName: "Contest2",
-        place: "1st"
-    },
-    {
-        contestName: "Contest3",
-        place: "2nd"
-    },
-    {
-        contestName: "Contest4",
-        place: "2nd"
-    }
-]
-
-var referrals =
-    [
-        {
-            img: 'img.png',
-            name: "A coder",
-            position: "Google engineer",
-            email: "x@com",
-            description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
-        },
-        {
-            img: 'img.png',
-            name: "Y editor",
-            position: "Google engineer",
-            email: "x@com",
-            description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
-
-        },
-        {
-            img: 'img.png',
-            name: "Z coder",
-            position: "Facebook engineer",
-            email: "x@com",
-            description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
-
-        },
-        {
-            img: 'img.png',
-            name: "M editor",
-            position: "Facebook engineer",
-            email: "x@com",
-            description: "X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder! X is an amazing coder!"
-        }
-    ]
-
+import { ProfileAPI } from "../Coder/ProfileAPI";
 
 //The componenet
-function Profile() {
-
-    //Handle dialogs
-    const [openDialogName, setOpenDialog] = React.useState(null);
-    
-
-    const openReferDialog = () => {
-        setOpenDialog(true);
-    };
-
-    const closeDialog = () => {
-        setOpenDialog(false);
-    };
+function CompanyProfile() {
 
     const [info, setInfo] = useState([]);
     const [numberOfContest, setNumberOfContests] = useState(0);
@@ -104,14 +17,7 @@ function Profile() {
     const [referrals, setReferrals] = useState([]);
     const profileAPI = new ProfileAPI();
 
-    let coderId;
-
-    if(localStorage.getItem('viewer') == 'false') {
-        coderId = localStorage.getItem('userId');
-    } else {
-        coderId = localStorage.getItem('referredId');
-    }
-    
+    const coderId = localStorage.getItem('userId');
     function fetchProfileInfo() {
         profileAPI.getProfileInfo(coderId).then(data => {
             setInfo(data)
@@ -133,7 +39,6 @@ function Profile() {
     function fetchContests() {
         profileAPI.getContestOfCoder(coderId).then(data => {
             setContests(data)
-          //  console.log(data);
         });;
     }
 
@@ -149,29 +54,7 @@ function Profile() {
         fetchNumberOfQuestions();
         fetchReferrals();
         fetchContests();
-    }, [contest]);
-
-    async function submitReferral(description) {
-        const refer = {
-            reason: description
-          }
-      
-          if(refer.reason.trim() == "") {
-            toast.error("You should wrtie your reasoning to be able ti give referral");
-                return;
-          }
-          //console.log(description);userId
-           const response = await profileAPI.referCoder(localStorage.getItem('referredId'), localStorage.getItem('userId'), refer);
-      
-           if (response.messageType === MessageType.ERROR) {
-            toast.error(response.message);
-                setOpenDialog(false);
-          } else {
-              toast.success(response.message);
-              setOpenDialog(false);
-
-          }
-    }
+    }, []);
 
     return (
         <div>
@@ -196,7 +79,7 @@ function Profile() {
                             <Typography align='center' gutterBottom variant="subtitle1" component="div">
                                 {info.position}
                             </Typography>
-                            { localStorage.getItem('viewer') == 'true' &&
+                            { localStorage.getItem('viewer') &&
                             <Box sx={{ m: 2 }} >
                                 <Grid container justifyContent="center">
                                     <Button sx={{ mt: 6 }} align='center' variant="contained" color="primary" onClick={openReferDialog}>Give referral</Button>
@@ -228,11 +111,10 @@ function Profile() {
                     <ViewReferral content={referrals} ></ViewReferral>
                 </Grid>
             </Grid>
-            <GiveReferralDialog open={openDialogName === true} handleClose={closeDialog} submitReferral= {submitReferral}></GiveReferralDialog>
-            <ToastContainer />
+            <GiveReferralDialog open={openDialogName === true} handleClose={closeDialog}></GiveReferralDialog>
         </div>
     );
 
 }
 
-export default Profile;
+export default CompanyProfile;

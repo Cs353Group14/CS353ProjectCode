@@ -4,8 +4,13 @@ import ProfileBadge from "../components/Profile/Coder/ProfileBadge"
 
 function ViewBadge(props)
 {
-    const listItems = props.content.map((d) => <ListItem key={d.contest_id}> <ProfileBadge  title={d.title} date={d.start_time}> </ProfileBadge> </ListItem> );
+    let listItems;
+    if(props.content[0] !== undefined)
+    {
+        listItems = props.content.map((d) => <ListItem key={d.contest.contest_id}> <ProfileBadge  title={d.contest.title} rank={d.order}> </ProfileBadge> </ListItem> );
 
+    }
+    
     return (
         <Grid item xs={12} direction="column" container justifyContent = "center" >
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>

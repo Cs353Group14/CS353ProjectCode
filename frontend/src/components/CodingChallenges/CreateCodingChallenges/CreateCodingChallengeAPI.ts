@@ -24,7 +24,7 @@ export class CreateCodingChallengeAPI {
     }
 
     async addCategory(challengeId: number, categories: string[]) :Promise<MessageResponse>{
-        console.log(categories);
+        ///console.log(categories);
         const response = await axios.put(`/addCategoryCodingChallenge/${challengeId}`, categories);
         return response.data;
     }

@@ -8,7 +8,7 @@ function ProfileBadge(props)
         <CardHeader
           title={props.title}
           titleTypographyProps={{variant:'h5' }}
-          subheader={props.date}
+          subheader={props.rank}
         />
       </Card>);
 }

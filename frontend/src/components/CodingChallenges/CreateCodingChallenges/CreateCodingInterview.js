@@ -69,7 +69,8 @@ function CreateCodingChallenge(props) {
 
   async function handleSubmit() {
 
-    console.log(listOfCategories);
+   // console.log(listOfCategories);
+    console.log(category);
     console.log("here");
 
     if(localStorage.getItem('interviewID'))
@@ -115,7 +116,7 @@ function CreateCodingChallenge(props) {
       localStorage.setItem('challengeId', challengeId);
       let categoryArray =[];
   
-      listOfCategories.forEach(category => {
+      category.forEach(category => {
         categoryArray.push(category.value);
       });
   
@@ -127,8 +128,8 @@ function CreateCodingChallenge(props) {
       let inputsOutputs = [];
       inputsOutputs[0] = input;
       inputsOutputs[1] = output;
-      console.log(listOfCategories);
-      console.log(categoryArray);
+      //console.log(listOfCategories);
+      //console.log(categoryArray);
       const response1 = await createCodingChallengeAPI.addCategory(challengeId, categoryArray);
       if (response1.messageType === MessageType.ERROR) {
         toast.error(response1.message);
@@ -154,7 +155,7 @@ function CreateCodingChallenge(props) {
                   window.location.href = "http://localhost:3000/CreateInterview";
               }, 1000)
         }
-          //window.location.href = "http://localhost:3000/CreateInterview";
+          window.location.href = "http://localhost:3000/CreateInterview";
       }
 
       toast.success("Coding Challenge is created");
@@ -278,8 +279,9 @@ function CreateCodingChallenge(props) {
                     filterSelectedOptions
                     margin="normal"
                     onChange={(event, options) => {
+                      setCatefories(options);
                       listOfCategories = options;
-                      console.log(listOfCategories);
+                      //console.log(listOfCategories);
                     }}
                     renderInput={(params) => (
                       <TextField

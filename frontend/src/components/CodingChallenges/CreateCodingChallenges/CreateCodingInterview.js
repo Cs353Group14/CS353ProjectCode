@@ -135,10 +135,10 @@ function CreateCodingChallenge(props) {
         } else {
           toast.success("Coding Challege is created and added to interview");
               setTimeout(function() {
-                  window.location.href = "http://localhost:3000/CreateInterview";
+                  window.location.href = "http://localhost:3000/home";
               }, 1000)
         }
-          window.location.href = "http://localhost:3000/CreateInterview";
+          //window.location.href = "http://localhost:3000/CreateInterview";
       }
       else
       {
@@ -180,7 +180,7 @@ function CreateCodingChallenge(props) {
     } else {
       toast.success("Coding Challege is created and added to interview");
           setTimeout(function() {
-              window.location.href = "http://localhost:3000/CreateInterview";
+              window.location.href = "http://localhost:3000/home";
           }, 1000)
     }
       //window.location.href = "http://localhost:3000/CreateInterview";

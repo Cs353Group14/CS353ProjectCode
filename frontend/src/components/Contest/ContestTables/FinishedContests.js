@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
 import { ContestApi } from "../ContestApi";
+import { DateConverter } from "../../Common/Message";
 
 const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
     backgroundColor: theme.palette.common.black,
@@ -28,6 +29,7 @@ export default function FinishedContests() {
     const[currentSubIndex, setCurrentSubIndex] = useState(null);
 
     const contestApi = new ContestApi();
+    const converter = new DateConverter();
 
     function fetchFinishedContests() {
         contestApi.getOldRegisteredContests().then(data => {
@@ -68,8 +70,8 @@ export default function FinishedContests() {
                     {row.title}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.difficulty}</StyledTableCell>
-                  <StyledTableCell align="right">{row.start_time}</StyledTableCell>
-                  <StyledTableCell align="right">{row.deadline}</StyledTableCell>
+                  <StyledTableCell align="right">{converter.convert(row.start_time)}</StyledTableCell>
+                  <StyledTableCell align="right">{converter.convert(row.deadline)}</StyledTableCell>
                   <StyledTableCell align="right">{row.duration}</StyledTableCell>
                   <StyledTableCell align="right">
                       <Button onClick={() => {

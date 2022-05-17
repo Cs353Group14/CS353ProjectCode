@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent, DialogActions } from "@material-ui/core";
 import { ContestApi } from "../ContestApi";
-import { MessageType } from "../../Common/Message";
+import { DateConverter, MessageType } from "../../Common/Message";
 import { ToastContainer,toast } from 'react-toastify';
 
 const StyledTableCellHead = styled(TableCell)(({ theme }) => ({
@@ -30,6 +30,7 @@ export default function RegisteredContests() {
     const[currentSubIndex, setCurrentSubIndex] = useState(null);
 
     const contestApi = new ContestApi();
+    const converter = new DateConverter();
 
     function fetchRegisteredFuruteContests() {
         contestApi.getFutureContestsRegistered().then(data => setRows(data));
@@ -97,8 +98,8 @@ export default function RegisteredContests() {
                     {row.title}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.difficulty}</StyledTableCell>
-                  <StyledTableCell align="right">{row.start_time}</StyledTableCell>
-                  <StyledTableCell align="right">{row.deadline}</StyledTableCell>
+                  <StyledTableCell align="right">{converter.convert(row.start_time)}</StyledTableCell>
+                  <StyledTableCell align="right">{converter.convert(row.deadline)}</StyledTableCell>
                   <StyledTableCell align="right">{row.duration}</StyledTableCell>
                   <StyledTableCell align="right">
                       <Button onClick={() => {

@@ -56,8 +56,8 @@ function AddParticipants(props) {
         await createInterviewAPI.getUserToAdd(username).then(data => {
             coderId = data.id});
 
-        alert(startDate +"T03:"+startTime);
-        alert(endDate +"T03:"+endTime);
+      //  alert(startDate +"T03:"+startTime);
+        //alert(endDate +"T03:"+endTime);
         const newParticipant = {
             interviewId: localStorage.getItem('interviewID'),
             coderId: coderId,

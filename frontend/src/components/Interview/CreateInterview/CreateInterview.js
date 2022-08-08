@@ -187,7 +187,7 @@ async function handleCreate() {
         durationInMin = duration * 60*24;
     }
 
-    alert(durationInMin);
+    //alert(durationInMin);
     const newInterview = {
         user_id: localStorage.getItem('userId'),
         interview_id: -1,

@@ -16,7 +16,7 @@ candidates and give deadlines for each. Editor user types can view and create co
 non-coding questions. They can also create contests consisting of their created coding and
 non-coding questions.
 
-[Detailed Report and User Manuel]
+[Detailed Report and User Manual](https://github.com/Cs353Group14/CS353ProjectCode/blob/main/Project_Report_And_User_Manual.pdf)
 
 # Languages and frameworks 
 [Maven](https://mvnrepository.com/artifact/org.springframework/spring-core), [Java Spring](https://spring.io/), [PostgreSQL](https://www.postgresql.org/), [React.js](https://reactjs.org/)
